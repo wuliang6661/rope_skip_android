@@ -1,0 +1,3 @@
+# Referenced at /Users/wuliang/Downloads/tiaosheng/rope_skip_android/app/build/intermediates/manifests/full/debug/AndroidManifest.xml:31
+-keep class com.habit.star.app.App { <init>(...); }
+

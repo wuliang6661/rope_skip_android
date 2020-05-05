@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <declare-styleable name="CircleProgressBar">
+        <attr name="mlpb_inner_radius" format="dimension" />
+        <attr name="mlpb_background_color" format="color" />
+        <attr name="mlpb_progress_color" format="color" />
+        <attr name="mlpb_progress_stoke_width" format="dimension" />
+        <attr name="mlpb_show_arrow" format="boolean" />
+        <attr name="mlpb_enable_circle_background" format="boolean" />
+        <attr name="mlpb_arrow_width" format="dimension" />
+        <attr name="mlpb_arrow_height" format="dimension" />
+
+        <attr name="mlpb_progress" format="integer" />
+        <attr name="mlpb_max" format="integer" />
+
+
+        <attr name="mlpb_progress_text_size" format="dimension" />
+        <attr name="mlpb_progress_text_color" format="color" />
+
+        <!--<attr name="mlpb_progress_text_offset" format="dimension"/>-->
+
+        <attr name="mlpb_progress_text_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="PullToRefresh">
+
+        <!-- A drawable to use as the background of the Refreshable View -->
+        <attr name="ptrRefreshableViewBackground" format="reference|color" />
+
+        <!-- A drawable to use as the background of the Header and Footer Loading Views -->
+        <attr name="ptrHeaderBackground" format="reference|color" />
+
+        <!-- Text Color of the Header and Footer Loading Views -->
+        <attr name="ptrHeaderTextColor" format="reference|color" />
+
+        <!-- Text Color of the Header and Footer Loading Views Sub Header -->
+        <attr name="ptrHeaderSubTextColor" format="reference|color" />
+
+        <!-- Mode of Pull-to-Refresh that should be used -->
+        <attr name="ptrMode">
+            <flag name="disabled" value="0x0" />
+            <flag name="pullFromStart" value="0x1" />
+            <flag name="pullFromEnd" value="0x2" />
+            <flag name="both" value="0x3" />
+            <flag name="manualOnly" value="0x4" />
+
+            <!-- These last two are depreacted -->
+            <flag name="pullDownFromTop" value="0x1" />
+            <flag name="pullUpFromBottom" value="0x2" />
+        </attr>
+
+        <!-- Whether the Indicator overlay(s) should be used -->
+        <attr name="ptrShowIndicator" format="reference|boolean" />
+
+        <!-- Drawable to use as Loading Indicator. Changes both Header and Footer. -->
+        <attr name="ptrDrawable" format="reference" />
+
+        <!-- Drawable to use as Loading Indicator in the Header View. Overrides value set in ptrDrawable. -->
+        <attr name="ptrDrawableStart" format="reference" />
+
+        <!-- Drawable to use as Loading Indicator in the Footer View. Overrides value set in ptrDrawable. -->
+        <attr name="ptrDrawableEnd" format="reference" />
+
+        <!-- Whether Android's built-in Over Scroll should be utilised for Pull-to-Refresh. -->
+        <attr name="ptrOverScroll" format="reference|boolean" />
+
+        <!-- Base text color, typeface, size, and style for Header and Footer Loading Views -->
+        <attr name="ptrHeaderTextAppearance" format="reference" />
+
+        <!-- Base text color, typeface, size, and style for Header and Footer Loading Views Sub Header -->
+        <attr name="ptrSubHeaderTextAppearance" format="reference" />
+
+        <!-- Style of Animation should be used displayed when pulling. -->
+        <attr name="ptrAnimationStyle">
+            <flag name="rotate" value="0x0" />
+            <flag name="flip" value="0x1" />
+        </attr>
+
+        <!-- Whether the user can scroll while the View is Refreshing -->
+        <attr name="ptrScrollingWhileRefreshingEnabled" format="reference|boolean" />
+
+        <!--
+        	Whether PullToRefreshListView has it's extras enabled. This allows the user to be 
+        	able to scroll while refreshing, and behaves better. It acheives this by adding
+        	Header and/or Footer Views to the ListView.
+        -->
+        <attr name="ptrListViewExtrasEnabled" format="reference|boolean" />
+
+        <!--
+        	Whether the Drawable should be continually rotated as you pull. This only
+        	takes effect when using the 'Rotate' Animation Style.
+        -->
+        <attr name="ptrRotateDrawableWhilePulling" format="reference|boolean" />
+
+        <!-- BELOW HERE ARE DEPRECEATED. DO NOT USE. -->
+        <attr name="ptrAdapterViewBackground" format="reference|color" />
+        <attr name="ptrDrawableTop" format="reference" />
+        <attr name="ptrDrawableBottom" format="reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="RippleView">
+        <attr name="rv_alpha" format="integer" />
+        <attr name="rv_framerate" format="integer" />
+        <attr name="rv_rippleDuration" format="integer" />
+        <attr name="rv_zoomDuration" format="integer" />
+        <attr name="rv_color" format="color" />
+        <attr name="rv_centered" format="boolean" />
+        <attr name="rv_type" format="enum">
+            <enum name="simpleRipple" value="0" />
+            <enum name="doubleRipple" value="1" />
+            <enum name="rectangle" value="2" />
+        </attr>
+        <attr name="rv_ripplePadding" format="dimension" />
+        <attr name="rv_zoom" format="boolean" />
+        <attr name="rv_zoomScale" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="ConvenientBanner">
+        <attr name="canLoop" format="boolean" />
+    </declare-styleable>
+
+    <!-- BaseBanner -->
+
+    <!-- Banner高宽比,范围0-1,默认0.5(for LoopViewPager)-->
+    <attr name="bb_scale" format="float" />
+
+    <!--for LoopViewPager start-->
+    <!-- 是否支持循环,默认true-->
+    <attr name="bb_isLoopEnable" format="boolean" />
+    <!-- 滚动延时,默认5秒-->
+    <attr name="bb_delay" format="integer" />
+    <!-- 滚动间隔,默认5秒-->
+    <attr name="bb_period" format="integer" />
+    <!-- 是否支持自动滚动,默认true-->
+    <attr name="bb_isAutoScrollEnable" format="boolean" />
+    <!--for LoopViewPager end-->
+
+    <!-- 设置底部背景条颜色,默认透明 -->
+    <attr name="bb_barColor" format="color" />
+    <!-- 设置当滚动到最后一个item时是否显示底部背景条 -->
+    <attr name="bb_isBarShowWhenLast" format="boolean" />
+    <!-- 设置底部背景条padding,单位dp -->
+    <attr name="bb_barPaddingLeft" format="dimension" />
+    <attr name="bb_barPaddingTop" format="dimension" />
+    <attr name="bb_barPaddingRight" format="dimension" />
+    <attr name="bb_barPaddingBottom" format="dimension" />
+    <!-- 设置标题文字颜色,默认"#ffffff" -->
+    <attr name="bb_textColor" format="color" />
+    <!-- 设置标题文字大小,单位sp,默认14sp -->
+    <attr name="bb_textSize" format="dimension" />
+    <!-- 设置是否显示标题,默认true  -->
+    <attr name="bb_isTitleShow" format="boolean" />
+    <!-- 设置是否显示显示器,默认true  -->
+    <attr name="bb_isIndicatorShow" format="boolean" />
+    <!-- 设置显示器位置.默认Gravity.CENTER.Gravity.CENTER时文字不显示-->
+    <attr name="bb_indicatorGravity">
+        <enum name="CENTER" value="17" />
+        <enum name="LEFT" value="3" />
+        <enum name="RIGHT" value="5" />
+    </attr>
+
+    <!-- BaseIndicatorBanner -->
+    <!-- 设置显示器样式 -->
+    <attr name="bb_indicatorStyle">
+        <enum name="DRAWABLE_RESOURCE" value="0" />
+        <enum name="CORNER_RECTANGLE" value="1" />
+    </attr>
+    <!-- 设置显示器宽度,单位dp,默认6dp -->
+    <attr name="bb_indicatorWidth" format="dimension" />
+    <!-- 设置显示器高度,单位dp,默认6dp -->
+    <attr name="bb_indicatorHeight" format="dimension" />
+    <!-- 设置显示器间距,单位dp,默认6dp -->
+    <attr name="bb_indicatorGap" format="dimension" />
+
+    <!-- 设置显示器选中颜色,默认"#ffffff" -->
+    <attr name="bb_indicatorSelectColor" format="color" />
+    <!-- 设置显示器未选中颜色,默认"#88ffffff"  -->
+    <attr name="bb_indicatorUnselectColor" format="color" />
+    <!-- 设置显示器圆角弧度,单位dp,默认3dp -->
+    <attr name="bb_indicatorCornerRadius" format="dimension" />
+
+    <!-- 设置显示器选中drawable资源 -->
+    <attr name="bb_indicatorSelectRes" format="reference" />
+    <!-- 设置显示器未选中drawable资源 -->
+    <attr name="bb_indicatorUnselectRes" format="reference" />
+
+    <declare-styleable name="BaseBanner">
+        <attr name="bb_scale" />
+        <attr name="bb_isLoopEnable" />
+        <attr name="bb_delay" />
+        <attr name="bb_period" />
+        <attr name="bb_isAutoScrollEnable" />
+        <attr name="bb_barColor" />
+        <attr name="bb_isBarShowWhenLast" />
+        <attr name="bb_barPaddingLeft" />
+        <attr name="bb_barPaddingTop" />
+        <attr name="bb_barPaddingRight" />
+        <attr name="bb_barPaddingBottom" />
+        <attr name="bb_textColor" />
+        <attr name="bb_textSize" />
+        <attr name="bb_isTitleShow" />
+        <attr name="bb_isIndicatorShow" />
+        <attr name="bb_indicatorGravity" />
+    </declare-styleable>
+
+    <declare-styleable name="BaseIndicatorBanner">
+        <attr name="bb_indicatorStyle" />
+        <attr name="bb_indicatorWidth" />
+        <attr name="bb_indicatorHeight" />
+        <attr name="bb_indicatorGap" />
+        <attr name="bb_indicatorSelectColor" />
+        <attr name="bb_indicatorUnselectColor" />
+        <attr name="bb_indicatorCornerRadius" />
+        <attr name="bb_indicatorSelectRes" />
+        <attr name="bb_indicatorUnselectRes" />
+    </declare-styleable>
+
+
+    <!-- These top three attributes are not accessible to library users -->
+    <attr name="md_divider" format="color" />
+
+    <!-- Accessible global theming attributes -->
+    <attr name="md_dark_theme" format="boolean" />
+    <attr name="md_background_color" format="color" />
+
+    <attr name="md_icon" format="reference" />
+    <attr name="md_icon_max_size" format="dimension" />
+    <attr name="md_icon_limit_icon_to_default_size" format="boolean" />
+
+    <attr name="md_title_color" format="color" />
+    <attr name="md_content_color" format="color" />
+    <attr name="md_link_color" format="color" />
+
+    <attr name="md_positive_color" format="color" />
+    <attr name="md_neutral_color" format="color" />
+    <attr name="md_negative_color" format="color" />
+    <attr name="md_widget_color" format="color" />
+
+    <attr name="md_item_color" format="color" />
+    <attr name="md_divider_color" format="color" />
+    <attr name="md_list_selector" format="reference" />
+
+    <attr name="md_btn_stacked_selector" format="reference" />
+    <attr name="md_btn_positive_selector" format="reference" />
+    <attr name="md_btn_neutral_selector" format="reference" />
+    <attr name="md_btn_negative_selector" format="reference" />
+
+    <attr name="md_btn_ripple_color" format="color" />
+
+    <attr name="md_title_gravity" format="enum">
+        <enum name="start" value="0" />
+        <enum name="center" value="1" />
+        <enum name="end" value="2" />
+    </attr>
+
+    <attr name="md_content_gravity" format="enum">
+        <enum name="start" value="0" />
+        <enum name="center" value="1" />
+        <enum name="end" value="2" />
+    </attr>
+
+    <attr name="md_btnstacked_gravity" format="enum">
+        <enum name="start" value="0" />
+        <enum name="center" value="1" />
+        <enum name="end" value="2" />
+    </attr>
+
+    <attr name="md_items_gravity" format="enum">
+        <enum name="start" value="0" />
+        <enum name="center" value="1" />
+        <enum name="end" value="2" />
+    </attr>
+
+    <attr name="md_buttons_gravity" format="enum">
+        <enum name="start" value="0" />
+        <enum name="center" value="1" />
+        <enum name="end" value="2" />
+    </attr>
+
+    <declare-styleable name="MDRootLayout">
+        <attr name="md_reduce_padding_no_title_no_buttons" format="boolean" />
+    </declare-styleable>
+
+    <attr name="md_medium_font" format="string" />
+    <attr name="md_regular_font" format="string" />
+
+
+    <declare-styleable name="Preference">
+        <attr name="useStockLayout" format="boolean" />
+    </declare-styleable>
+
+
+    <declare-styleable name="MaterialProgressBar">
+        <!-- Style of progress drawable: horizontal or circular. Defaults to circular. -->
+        <attr name="mpb_progressStyle" format="enum">
+            <enum name="circular" value="0" />
+            <enum name="horizontal" value="1" />
+        </attr>
+        <!--
+          ~ Whether both determinate and indeterminate drawables should be set on this progress bar.
+          ~ Determinate ring progress drawable is not supported yet. Defaults to false.
+          -->
+        <attr name="mpb_setBothDrawables" format="boolean" />
+        <!-- Whether progress drawable should use its intrinsic padding. Defaults to true. -->
+        <attr name="mpb_useIntrinsicPadding" format="boolean" />
+        <!--
+          ~ Whether progress drawable should show a track. Defaults to true for horizontal progress
+          ~ drawable, false otherwise.
+          -->
+        <attr name="mpb_showTrack" format="boolean" />
+        <attr name="android:tint" />
+        <attr name="mpb_tintMode" format="enum">
+            <enum name="src_over" value="3" />
+            <enum name="src_in" value="5" />
+            <enum name="src_atop" value="9" />
+            <enum name="multiply" value="14" />
+            <enum name="screen" value="15" />
+            <enum name="add" value="16" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="twowayview_TwoWayView">
+        <attr name="twowayview_layoutManager" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="twowayview_GridLayoutManager">
+        <attr name="twowayview_numColumns" format="integer" />
+        <attr name="twowayview_numRows" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="twowayview_SpacingItemDecoration">
+        <attr name="android:verticalSpacing" tools:ignore="ResourceName" />
+        <attr name="android:horizontalSpacing" tools:ignore="ResourceName" />
+    </declare-styleable>
+
+    <declare-styleable name="twowayview_DividerItemDecoration">
+        <attr name="android:divider" tools:ignore="ResourceName" />
+        <attr name="twowayview_verticalDivider" format="reference" />
+        <attr name="twowayview_horizontalDivider" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="twowayview_StaggeredGridViewChild">
+        <attr name="twowayview_span" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="twowayview_SpannableGridViewChild">
+        <attr name="twowayview_colSpan" format="integer" />
+        <attr name="twowayview_rowSpan" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="twowayview_TwoWayLayoutManager">
+        <attr name="android:orientation" tools:ignore="ResourceName" />
+    </declare-styleable>
+
+    <declare-styleable name="NumberProgressBar">
+        <attr name="progress_current" format="integer" />
+        <attr name="progress_max" format="integer" />
+
+        <attr name="progress_unreached_color" format="color" />
+        <attr name="progress_reached_color" format="color" />
+
+        <attr name="progress_reached_bar_height" format="dimension" />
+        <attr name="progress_unreached_bar_height" format="dimension" />
+
+        <attr name="progress_text_size" format="dimension" />
+        <attr name="progress_text_color" format="color" />
+
+        <attr name="progress_text_offset" format="dimension" />
+
+        <attr name="progress_text_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="Themes">
+        <attr name="numberProgressBarStyle" format="reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="UltimateRecyclerview">
+        <attr name="recyclerviewClipToPadding" format="boolean" />
+        <attr name="recyclerviewPadding" format="dimension" />
+        <attr name="recyclerviewPaddingTop" format="dimension" />
+        <attr name="recyclerviewPaddingBottom" format="dimension" />
+        <attr name="recyclerviewPaddingLeft" format="dimension" />
+        <attr name="recyclerviewPaddingRight" format="dimension" />
+        <attr name="recyclerviewEmptyView" format="reference" />
+        <attr name="recyclerviewFloatingActionView" format="reference" />
+        <attr name="recyclerviewScrollbars" format="enum">
+            <enum name="none" value="0" />
+            <enum name="vertical" value="1" />
+            <enum name="horizontal" value="2" />
+        </attr>
+        <attr name="recyclerviewDefaultSwipeColor" format="reference"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="AddFloatingActionButton">
+        <attr name="plusIconColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="FloatingActionsMenu">
+        <attr name="addButtonColorPressed" format="color" />
+        <attr name="addButtonColorNormal" format="color" />
+        <attr name="addButtonPlusIconColor" format="color" />
+        <attr name="addButtonIsHorizontal" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="FloatActionButton">
+        <attr name="urv_fab_colorPressed" format="color" />
+        <attr name="urv_fab_colorNormal" format="color" />
+        <attr name="urv_fab_alphaPressed" format="float" />
+        <attr name="urv_fab_alphaNormal" format="float" />
+        <attr name="icon" />
+        <attr name="urv_fab_size" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="mini" value="1" />
+            <enum name="noshadow" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SwipeListView">
+        <attr name="swipeOpenOnLongPress" format="boolean" />
+        <attr name="onlyOneOpenedWhenSwipe" format="boolean" />
+        <attr name="swipeAnimationTime" format="integer" />
+        <attr name="swipeOffsetLeft" format="dimension" />
+        <attr name="swipeOffsetRight" format="dimension" />
+        <attr name="swipeCloseAllItemsWhenMoveList" format="boolean" />
+        <attr name="swipeFrontView" format="reference" />
+        <attr name="swipeBackView" format="reference" />
+        <attr name="swipeMode" format="enum">
+            <enum name="none" value="0" />
+            <enum name="both" value="1" />
+            <enum name="right" value="2" />
+            <enum name="left" value="3" />
+        </attr>
+        <attr name="swipeActionLeft" format="enum">
+            <enum name="reveal" value="0" />
+            <enum name="dismiss" value="1" />
+            <enum name="choice" value="2" />
+        </attr>
+        <attr name="swipeActionRight" format="enum">
+            <enum name="reveal" value="0" />
+            <enum name="dismiss" value="1" />
+            <enum name="choice" value="2" />
+        </attr>
+        <attr name="swipeDrawableChecked" format="reference" />
+        <attr name="swipeDrawableUnchecked" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SwipeLayout">
+        <attr name="drag_edge">
+            <flag name="left" value="1" />
+            <flag name="right" value="2" />
+            <flag name="top" value="4" />
+            <flag name="bottom" value="8" />
+        </attr>
+        <attr name="leftEdgeSwipeOffset" format="dimension" />
+        <attr name="rightEdgeSwipeOffset" format="dimension" />
+        <attr name="topEdgeSwipeOffset" format="dimension" />
+        <attr name="bottomEdgeSwipeOffset" format="dimension" />
+        <attr name="show_mode" format="enum">
+            <enum name="lay_down" value="0" />
+            <enum name="pull_out" value="1" />
+        </attr>
+        <attr name="clickToClose" format="boolean" />
+    </declare-styleable>
+
+
+    <!-- 基础自定义控件的自定义属性-->
+    <declare-styleable name="LilayItemCheckBoxHeader">
+        <attr name="ls_ischeck" format="boolean" />
+        <attr name="ls_head_image" format="reference|color" />
+        <attr name="ls_name" format="reference|string" />
+        <attr name="ls_h_name_distance" format="dimension" />
+        <attr name="ls_divider_visibility" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="LilayItemWithImage">
+        <attr name="lwi_head_image" format="reference|color" />
+        <attr name="lwi_name" format="reference|string" />
+        <attr name="lwi_h_name_distance" format="dimension" />
+        <attr name="lwi_divider_visibility" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="Lilay_Clickable">
+        <attr name="lc_head_image" format="reference|color" />
+        <attr name="lc_name" format="string" />
+        <attr name="lc_content" format="string" />
+        <attr name="lc_name_distance" format="dimension" />
+        <attr name="lc_divider_visibility" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="LilayItemUnclickable">
+        <attr name="lud_name" format="string" />
+        <attr name="lud_content" format="string" />
+        <attr name="lud_divider_visibility" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="LilayItemClickableWithHeadImageTopDivider">
+        <attr name="lichtd_title" format="string" />
+        <attr name="lichtd_child_title" format="string" />
+        <attr name="lichtd_content" format="string" />
+        <attr name="lichtd_status_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="lichtd_content_left_padding" format="dimension" />
+        <attr name="lichtd_content_right_padding" format="dimension" />
+        <attr name="lichtd_top_divider_left_padding" format="dimension" />
+        <attr name="lichtd_top_divider_right_padding" format="dimension" />
+        <attr name="lichtd_bottom_divider_left_padding" format="dimension" />
+        <attr name="lichtd_bottom_divider_right_padding" format="dimension" />
+        <attr name="lichtd_content_circle_image_width" format="dimension" />
+        <attr name="lichtd_content_circle_image_height" format="dimension" />
+        <attr name="lichtd_status_text" format="string" />
+        <attr name="lichtd_title_text_color" format="color" />
+        <attr name="lichtd_content_text_color" format="color" />
+        <attr name="lichtd_title_text_size" format="dimension" />
+        <attr name="lichtd_content_text_size" format="dimension" />
+        <attr name="lichtd_is_single_line" format="boolean" />
+        <attr name="lichtd_divider_color" format="color" />
+        <attr name="lichtd_src" format="integer" />
+        <attr name="lichtd_head_icon" format="integer" />
+        <attr name="lichtd_background" format="integer" />
+        <attr name="lichtd_content_type" format="enum">
+            <enum name="text" value="1" />
+            <enum name="image" value="2" />
+            <enum name="rounded_image" value="3" />
+            <enum name="circle_image" value="4" />
+        </attr>
+        <attr name="lichtd_iv_detail_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="lichtd_top_divider_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="lichtd_head_image_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="lichtd_bottom_divider_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="lichtd_divider_margins" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="LilayItemEditTopDivider">
+        <attr name="lichtd_edit_title" format="string" />
+        <attr name="lichtd_edit_content" format="string" />
+        <attr name="lichtd_edit_content_left_padding" format="dimension" />
+        <attr name="lichtd_edit_content_right_padding" format="dimension" />
+        <attr name="lichtd_edit_top_divider_left_padding" format="dimension" />
+        <attr name="lichtd_edit_top_divider_right_padding" format="dimension" />
+        <attr name="lichtd_edit_bottom_divider_left_padding" format="dimension" />
+        <attr name="lichtd_edit_bottom_divider_right_padding" format="dimension" />
+        <attr name="lichtd_edit_title_text_color" format="color" />
+        <attr name="lichtd_edit_content_text_color" format="color" />
+        <attr name="lichtd_edit_title_text_size" format="dimension" />
+        <attr name="lichtd_edit_content_text_size" format="dimension" />
+        <attr name="lichtd_edit_divider_color" format="color" />
+        <attr name="lichtd_edit_background" format="integer" />
+        <attr name="lichtd_edit_input_type" format="integer" />
+        <attr name="lichtd_edit_top_divider_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="lichtd_edit_bottom_divider_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="Lilay_EditText">
+        <attr name="le_head_image" format="reference|color" />
+        <attr name="le_name" format="string" />
+        <attr name="le_h_name_distance" format="dimension" />
+        <attr name="le_divider_visibility" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="LilayItemEditTextWithDivider">
+        <attr name="led_name" format="string" />
+        <attr name="led_background_color" format="color" />
+        <attr name="led_text_color" format="color" />
+        <attr name="led_divider_color" format="color" />
+        <attr name="led_et_input_type" format="enum">
+            <enum name="text" value="1" />
+            <enum name="number" value="2" />
+            <enum name="phone" value="3" />
+            <enum name="password" value="4" />
+            <enum name="text_multiline" value="5" />
+        </attr>
+        <attr name="led_maxlength" format="integer" />
+        <attr name="led_hint" format="string" />
+        <attr name="led_divider_visibility" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="ProgressbarLayout">
+        <attr name="pwt_text" format="string" />
+        <attr name="pwt_background" format="integer" />
+        <attr name="pwt_text_size" format="dimension" />
+        <attr name="pwt_text_color" format="color" />
+        <attr name="pwt_text_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="pwt_progressbar_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="LilayItemEditTextBtnWithDivider">
+        <attr name="lebd_name" format="string" />
+        <attr name="lebd_background_color" format="color" />
+        <attr name="lebd_text_color" format="color" />
+        <attr name="lebd_divider_color" format="color" />
+        <attr name="lebd_et_input_type" format="enum">
+            <enum name="text" value="1" />
+            <enum name="number" value="2" />
+            <enum name="phone" value="3" />
+            <enum name="password" value="4" />
+            <enum name="text_multiline" value="5" />
+        </attr>
+        <attr name="lebd_maxlength" format="integer" />
+        <attr name="lebd_src" format="integer" />
+        <attr name="lebd_hint" format="string" />
+        <attr name="lebd_divider_visibility" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="LilayItemSpinnerWithDivider">
+        <attr name="lpd_name" format="string" />
+        <attr name="lpd_spin_enabled" format="boolean" />
+        <attr name="lpd_divider_visibility" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="ToolbarWithBackRightProgress">
+        <attr name="tl_brp_title" format="string" />
+        <attr name="tl_brp_title_text_color" format="color" />
+        <attr name="tl_brp_bottom_divider_color" format="color" />
+        <attr name="tl_brp_title_text_size" format="dimension" />
+        <attr name="tl_brp_title_background" format="integer" />
+        <attr name="tl_brp_progress_color" format="integer" />
+        <attr name="tl_brp_back_ib_drawable" format="integer" />
+        <attr name="tl_brp_left_ib_drawable" format="integer" />
+        <attr name="tl_brp_right_ib_drawable" format="integer" />
+        <attr name="tl_brp_right_ib_padding" format="dimension" />
+        <attr name="tl_brp_right_ib_margin_right" format="dimension" />
+        <attr name="tl_brp_back_btn_text" format="string" />
+        <attr name="tl_brp_back_btn_text_size" format="dimension" />
+        <attr name="tl_brp_left_text" format="string" />
+        <attr name="tl_brp_left_text_color" format="color" />
+        <attr name="tl_brp_left_text_size" format="dimension" />
+        <attr name="tl_brp_right_btn_text" format="string" />
+        <attr name="tl_brp_right_btn_text_size" format="dimension" />
+        <attr name="tl_brp_right_text_color" format="color" />
+        <attr name="tl_brp_progress_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="tl_brp_bottom_divider_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="tl_brp_right_frame_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="tl_brp_left_tv_visibility" format="enum">
+            <enum name="visible" value="1" />
+            <enum name="invisible" value="2" />
+            <enum name="gone" value="3" />
+        </attr>
+        <attr name="tl_brp_background" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="ShowOrSeePasswordEditText">
+        <attr name="spe_left_image" format="reference|color" />
+        <attr name="spe_see_image" format="reference|string" />
+        <attr name="spe_hide_image" format="reference|string" />
+        <attr name="spe_rightDrawableWidth" format="dimension" />
+        <attr name="spe_rightDrawableHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ProgressButton">
+        <attr name="isShowProgress" format="boolean" />
+        <attr name="minProgress" format="integer" />
+        <attr name="maxProgress" format="integer" />
+        <attr name="progress" format="integer" />
+        <attr name="progressDrawable" format="integer" />
+        <attr name="progressBackgroundDrawable" format="integer" />
+        <attr name="progressBackgroundColor" format="integer" />
+        <attr name="progressLowColor" format="integer" />
+        <attr name="progressNormalColor" format="integer" />
+        <attr name="progressNormalStartColor" format="integer" />
+        <attr name="lowProgress" format="integer" />
+        <attr name="progressCornerRadius" format="dimension" />
+        <attr name="stateListDrawable" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="searchview">
+        <attr name="sv_imagewidth" format="dimension" />
+        <attr name="sv_textSize" format="dimension" />
+        <attr name="sv_textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="ImageTextButtonAttr">
+        <attr name="itb_image" format="integer" />
+        <attr name="itb_textSize" format="dimension" />
+        <attr name="itb_textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableTextView">
+        <attr name="maxCollapsedLines" format="integer" />
+        <attr name="animDuration" format="integer" />
+        <attr name="animAlphaStart" format="float" />
+        <attr name="expandDrawable" format="reference" />
+        <attr name="collapseDrawable" format="reference" />
+    </declare-styleable>
+
+    <!--下拉筛选框设置属性-->
+    <declare-styleable name="DropDownMenu">
+        <attr name="ddunderlineColor" format="color" />
+        <attr name="dddividerColor" format="color" />
+        <attr name="ddtextSelectedColor" format="color" />
+        <attr name="ddtextUnselectedColor" format="color" />
+        <attr name="ddmenuBackgroundColor" format="color" />
+        <attr name="ddmaskColor" format="color" />
+        <attr name="ddmenuTextSize" format="dimension" />
+        <attr name="ddmenuSelectedIcon" format="reference" />
+        <attr name="ddmenuUnselectedIcon" format="reference" />
+        <attr name="ddmenuMenuHeightPercent" format="float" />
+        <attr name="ddtextPaddingLeft" format="dimension" />
+        <attr name="ddtextPaddingRight" format="dimension" />
+        <attr name="ddtextPaddingTop" format="dimension" />
+        <attr name="ddtextPaddingBottom" format="dimension" />
+        <attr name="ddcompoundDrawablePadding" format="dimension" />
+        <attr name="ddcomenuTabHeight" format="dimension" />
+        <attr name="dddividerHeight" format="dimension" />
+
+    </declare-styleable>
+
+    <declare-styleable name="ToggleButton">
+        <attr name="onColor" format="color|reference" />
+        <attr name="offColor" format="color|reference" />
+        <attr name="padding" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomAppCompatEditText">
+        <attr name="leftDrawable" format="reference" />
+        <attr name="rightDrawable" format="reference" />
+        <attr name="leftFixText" format="string" />
+        <attr name="leftFixTextColor" format="color" />
+        <attr name="leftFixTextSize" format="dimension" />
+        <attr name="leftDrawableWidth" format="dimension" />
+        <attr name="leftDrawableHeight" format="dimension" />
+        <attr name="rightDrawableWidth" format="dimension" />
+        <attr name="rightDrawableHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ImageTextButton">
+        <attr name="contentText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleNumberProgress">
+        <attr name="paintProgressWidth" format="dimension" />
+        <attr name="paintDoneProgressWidth" format="dimension" />
+        <attr name="paintUndoneColor" format="color" />
+        <attr name="paintDoneColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="Horizontal_Progress_View">
+        <attr name="progressWidth" format="dimension" />
+        <attr name="paintProgressColor" format="color" />
+        <attr name="now_progress" format="integer" />
+        <attr name="max_progress" format="integer" />
+        <attr name="textTableSize" format="dimension" />
+        <attr name="textTableColor" format="color" />
+        <attr name="processDrawable" format="reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="CountDownProgressBar">
+        <attr name="countDown_circleWidth" format="dimension" />
+        <attr name="countDown_centerTextSize" format="dimension" />
+        <attr name="countDown_betaAngle" format="integer" />
+        <attr name="countDown_firstColor" format="color" />
+        <attr name="countDown_secondColor" format="color" />
+        <attr name="countDown_centerTextColor" format="color" />
+        <attr name="countDown_isShowGradient" format="boolean" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/wuliang/Downloads/tiaosheng/rope_skip_android/commonlibrary/src/main/assets"/><source path="/Users/wuliang/Downloads/tiaosheng/rope_skip_android/commonlibrary/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/wuliang/Downloads/tiaosheng/rope_skip_android/commonlibrary/src/debug/assets"/></dataSet></merger>

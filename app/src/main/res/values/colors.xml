@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4379FC</color>
+    <color name="colorPrimaryDark">#4379FC</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="color_w">#FFFFFF</color>
+    <color name="color_99000000">#99000000</color>
+    <color name="colorTextWhite">#FFFFFF</color>
+    <color name="white">#ffffffff</color>
+    <color name="gray_text">#adadad</color>
+    <color name="gray_9a9a9a">#9a9a9a</color>
+    <color name="colorDivider">#EEEEEE</color>
+    <color name="colorTextLighter">#C1C0C2</color>
+    <color name="color_4379FC">#4379FC</color>
+    <color name="color_0057F2">#0057F2</color>
+    <color name="color_0088cc">#0088cc</color>
+    <color name="colorBackgroundGray">#f8f8f8</color>
+    <color name="colorText">#FF333333</color>
+    <color name="colorBlack">#000000</color>
+    <color name="black_666666">#666666</color>
+    <color name="black_131313">#131313</color>
+    <color name="black_1e1e1e">#1e1e1e</color>
+    <color name="colorBtnDisabled">#a7a7a7</color>
+    <color name="colorBtnStartColor">#EBEBEB</color>
+    <color name="colorToolbarBg">#FFFFFF</color>
+
+    <color name="colorEditTextControlActivated">#242424</color>
+    <color name="colorEditTextControlNormal">#CCCCCC</color>
+    <color name="color_111111">#111111</color>
+    <color name="color_232323">#232323</color>
+    <color name="color_424242">#424242</color>
+    <color name="color_717171">#717171</color>
+    <color name="color_eeeeee">#eeeeee</color>
+    <color name="color_f8f8f8">#f8f8f8</color>
+    <color name="color_F2001C">#F2001C</color>
+    <color name="color_FFF7E7">#FFF7E7</color>
+    <color name="color_F94F49">#F94F49</color>
+    <color name="color_C3C4CA">#C3C4CA</color>
+    <color name="colorTextLight">#FF666666</color>
+    <color name="color_F5F5F9">#F5F5F9</color>
+    <color name="color_8C8B8C">#8C8B8C</color>
+    <color name="color_878787">#878787</color>
+    <color name="color_1D273C">#1D273C</color>
+    <color name="color_0D0D0D">#0D0D0D</color>
+    <color name="color_83909F">#83909F</color>
+    <color name="color_181818">#181818</color>
+    <color name="color_535353">#535353</color>
+    <color name="colorTextElectricalPositionRemind">#929292</color>
+    <color name="backGroundYellow">#FFF7E7</color>
+    <color name="backGroundCommon">#f1f1f1</color>
+    <color name="color_00adfc">#00adfc</color>
+
+
+    <color name="color_79B7FF">#79B7FF</color>
+    <color name="color_4481FF">#4481FF</color>
+    <color name="color_C3C3C3">#C3C3C3</color>
+    <color name="color_7EC7F5">#7EC7F5</color>
+    <color name="color_B1DBF8">#B1DBF8</color>
+    <color name="color_DEF3FF">#DEF3FF</color>
+    <color name="color_888888">#888888</color>
+    <color name="color_F6F6F9">#F6F6F9</color>
+    <color name="color_B9CAE0">#B9CAE0</color>
+    <color name="color_FBBB65">#FBBB65</color>
+    <color name="color_B8ABE1">#B8ABE1</color>
+    <color name="color_E1F2FD">#E1F2FD</color>
+    <color name="color_DCF5FF">#DCF5FF</color>
+    <color name="color_F8F8F8">#F8F8F8</color>
+    <color name="color_AFAFAF">#AFAFAF</color>
+    <color name="color_FFB317">#FFB317</color>
+    <color name="color_FD6B4D">#FD6B4D</color>
+    <color name="color_D1EDFF">#D1EDFF</color>
+    <color name="color_F5B68F">#F5B68F</color>
+    <color name="color_AAAAAA">#AAAAAA</color>
+    <color name="color_F97B61">#F97B61</color>
+    <color name="color_064A6C">#064A6C</color>
+    <color name="color_EEEEEE">#EEEEEE</color>
+    <color name="color_BBBBBB">#BBBBBB</color>
+    <color name="color_F4F4F4">#F4F4F4</color>
+
+
+
+</resources>

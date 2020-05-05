@@ -1,0 +1,103 @@
+<resources>
+    <string name="app_name">习惯星</string>
+    <string name="need_location_please_open_gps">需要您的位置信息，请打开GPS</string>
+    <string name="open">打开</string>
+    <string name="cancel">取消</string>
+    <string name="take_photo">拍摄</string>
+    <string name="from_gallery">从相册中选择</string>
+    <string name="look">查看</string>
+    <string name="get_no_data_remind">无更多数据</string>
+    <string name="get_data_finish_remind">您的数据已经加载完成了</string>
+
+
+    <string name="no_data">没有数据</string>
+    <string name="no_data_network">请检查网络～</string>
+    <string name="need_permission_to_use_this_function">该功能需要权限</string>
+    <string name="lack_of_permission_function_cannot_run_click_to_go_setting">
+        缺少权限，功能无法正常使用，请点击确定去设置中允许权限
+    </string>
+    <string name="remind">提示</string>
+    <string name="confirm">确定</string>
+    <string name="processing_failed">处理失败</string>
+    <string name="back">返回</string>
+    <string name="submit">提交</string>
+    <string name="next">下一步</string>
+    <string name="save">保存</string>
+    <string name="save_error">保存失败</string>
+    <string name="publish_error">发布失败</string>
+    <string name="error_upload_file">上传文件失败</string>
+    <string name="upload_success">上传成功</string>
+    <string name="error_upload">上传失败</string>
+    <string name="refresh">刷新</string>
+    <string name="home">首页</string>
+    <string name="mine">我的</string>
+    <string name="message">消息</string>
+    <string name="order">订单</string>
+    <string name="work">工作</string>
+    <string name="consultation">资讯</string>
+    <string name="error_init_failed">初始化失败</string>
+    <string name="login_failed">登录失败</string>
+    <string name="register_failed">注册失败</string>
+    <string name="getUserInfoError">获取用户信息失败</string>
+    <string name="get_data_error">获取数据错误</string>
+    <string name="applay_failure">申请失败</string>
+    <string name="edit_error">修改失败</string>
+    <string name="setting">设置</string>
+    <string name="tool_setting_title">功能开关</string>
+    <string name="my_msg">我的信息</string>
+    <string name="modify_password">修改登录密码</string>
+    <string name="clear_cache">缓存管理</string>
+    <string name="check_version">检测更新</string>
+    <string name="yh_hz">用户须知</string>
+    <string name="exit_login">退出登录</string>
+    <string name="head">头像</string>
+    <string name="nick">昵称</string>
+    <string name="sex">性别</string>
+    <string name="gcxx">工厂信息</string>
+    <string name="error_cant_get_file_path">无法获取到文件路径</string>
+    <string name="name">名称</string>
+    <string name="fr_msg">法人信息</string>
+    <string name="please_input_name">名称</string>
+    <string name="phone_number">手机号</string>
+    <string name="please_input_phone_number">请输入手机号</string>
+    <string name="sfzh">身份证号</string>
+    <string name="please_input_sfzh">请输入身份证号</string>
+    <string name="please_upload_card_zm">请上传身份证正面</string>
+    <string name="please_upload_card_fm">请上传身份证反面</string>
+    <string name="please_upload_card_sc">请上传身份证手持</string>
+    <string name="gc_type">工厂类型</string>
+
+    <string name="select">选择</string>
+    <string name="zfb">支付宝</string>
+    <string name="name_tixian">姓名</string>
+    <string name="add_data">资料填写</string>
+    <string name="add">添加</string>
+    <string name="delete">删除</string>
+    <string name="please_input">请输入</string>
+    <string name="lxr">联系人</string>
+    <!--EditContentFragment-->
+    <string name="edit_content">编辑内容</string>
+    <string name="clear_edit_text_content">清空输入框</string>
+    <string name="input_content">输入内容</string>
+    <!--LoginFragment-->
+    <string name="forget_password">忘记密码</string>
+    <string name="regist_new_user">注册新用户</string>
+    <string name="login">登录</string>
+    <string name="please_input_phone">请输入手机号码</string>
+    <string name="please_input_password">请输入账号密码</string>
+    <!--RegisterFragment-->
+    <string name="regist_new_title">新用户注册</string>
+    <string name="please_input_msg_code">请输入短信验证码</string>
+    <string name="send_msg_code">发送验证码</string>
+    <string name="is_equipment_purchased">是否已购买设备</string>
+    <string name="agree">同意</string>
+    <string name="user_service_agreement">《用户服务协议》</string>
+    <string name="register">注册</string>
+    <!--RetrievePasswordFragment-->
+    <string name="retrieve_password">找回密码</string>
+    <!--MainActivity-->
+    <string name="train">训练</string>
+    <string name="young_general">小将</string>
+    <string name="find">发现</string>
+    <!--MineFragment-->
+</resources>

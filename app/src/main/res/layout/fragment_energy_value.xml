@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingBottom="27dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="320dp"
+                    android:background="@mipmap/ic_energy_header" />
+
+                <LinearLayout
+                    android:id="@+id/toolbar_layout_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="10dp">
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_back_fragment_train_plan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/fanhui_white"
+                            android:scaleType="centerInside" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="能量值"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/fanhui_white"
+                            android:scaleType="centerInside" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_setting_fragment_train_plan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"></LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="94dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_user_header_fragment_mine"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@color/no_image" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="可爱的小兔兔"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/v_center_tag"
+                    android:layout_width="37dp"
+                    android:layout_height="1dp"
+                    android:layout_centerHorizontal="true" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_line1_center_fragment_energy_value"
+                    android:layout_width="48dp"
+                    android:layout_height="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="234dp"
+                    android:background="@mipmap/ic_edit_line1" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_line2_center_fragment_energy_value"
+                    android:layout_width="48dp"
+                    android:layout_height="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="39dp"
+                    android:layout_marginTop="234dp"
+                    android:layout_toRightOf="@id/iv_line1_center_fragment_energy_value"
+                    android:background="@mipmap/ic_edit_line1" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_line3_center_fragment_energy_value"
+                    android:layout_width="46dp"
+                    android:layout_height="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="234dp"
+                    android:layout_marginRight="34dp"
+                    android:layout_toLeftOf="@id/iv_line1_center_fragment_energy_value"
+                    android:background="@mipmap/ic_edit_line1" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_circle1_fragment_energy_value"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="215dp"
+                    android:layout_toRightOf="@id/v_center_tag"
+                    android:background="@mipmap/ic_grade_tag3" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_circle2_fragment_energy_value"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="37dp"
+                    android:layout_marginTop="219dp"
+                    android:layout_toRightOf="@id/iv_circle1_fragment_energy_value"
+                    android:background="@mipmap/ic_grade_tag4" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_circle3_fragment_energy_value"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="37dp"
+                    android:layout_marginTop="219dp"
+                    android:layout_toLeftOf="@id/v_center_tag"
+                    android:background="@mipmap/ic_grade_tag2" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_circle4_fragment_energy_value"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="37dp"
+                    android:layout_marginTop="219dp"
+                    android:layout_toLeftOf="@id/iv_circle3_fragment_energy_value"
+                    android:background="@mipmap/ic_grade_tag1" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_circle4_fragment_energy_value"
+                    android:layout_alignLeft="@id/iv_circle4_fragment_energy_value"
+                    android:layout_marginTop="10dp"
+                    android:text="青铜战士"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_circle3_fragment_energy_value"
+                    android:layout_alignLeft="@id/iv_circle3_fragment_energy_value"
+                    android:layout_marginTop="10dp"
+                    android:text="白银斗士"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_circle1_fragment_energy_value"
+                    android:layout_alignLeft="@id/iv_circle1_fragment_energy_value"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="6dp"
+                    android:text="黄金斗神"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_circle2_fragment_energy_value"
+                    android:layout_alignLeft="@id/iv_circle2_fragment_energy_value"
+                    android:layout_marginTop="10dp"
+                    android:text="至尊圣佛"
+                    android:textColor="#ffffffff"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="296dp"
+                    android:background="@mipmap/ic_energy_rec"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:id="@+id/ll_count_fragment_energy_value"
+                    android:paddingLeft="19dp"
+                    android:paddingRight="18dp">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="能量值"
+                        android:textColor="#ffffffff"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:text="1000"
+                        android:id="@+id/tv_count_fragment_energy_value"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="8dp"
+                        android:layout_height="14dp"
+                        android:layout_marginLeft="4dp"
+                        android:background="@mipmap/fanhui_right_w" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="26dp"
+                android:text="我的特权"
+                android:textColor="#ffb9cae0"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_border">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="45dp"
+                            android:layout_height="38dp"
+                            android:background="@mipmap/ic_denglumima" />
+
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="登录赠送"
+                            android:textColor="#ffb9cae0"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="+30"
+                        android:textColor="#ffb9cae0"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_border">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="40dp"
+                            android:layout_height="38dp"
+                            android:background="@mipmap/ic_tequan" />
+
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:text="兑换特权"
+                            android:textColor="#ffc3c3c3"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@mipmap/ic_lock" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_item_border">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:background="@mipmap/ic_xianhuadangao" />
+
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:text="生日礼包"
+                            android:textColor="#ffc3c3c3"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@mipmap/ic_lock" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:gravity="center"
+                android:text="更多特权  敬请期待"
+                android:textColor="#ff888888"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#FAF7FA" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="80dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1.能量等级划分及介绍"
+                        android:textColor="#AAAAAA"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:lineSpacingExtra="2dp"
+                        android:lineSpacingMultiplier="1.3"
+                        android:text="能量级别共分为4个级别，分别为能量称号一、能量称号二、白能量称号三、能量称号四。会员级别能量值决定，能量值越高能量等级越高，享受的会员权益越大。能量级别由系统自动处理，无需申请。"
+                        android:textColor="#888888"
+                        android:textSize="12sp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="2.会员等级所对应的成长值"
+                        android:textColor="#AAAAAA"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:background="@mipmap/ic_mk_grade1"/>
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="青铜战士"
+                                android:textColor="#ff888888"
+                                android:textSize="12sp" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="0-999"
+                                android:textColor="#ff888888"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:background="@mipmap/ic_mk_grade2"/>
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="白银斗士"
+                                android:textColor="#ff888888"
+                                android:textSize="12sp" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="1000-4999"
+                                android:textColor="#ff888888"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:background="@mipmap/ic_mk_grade3"/>
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="黄金斗神"
+                                android:textColor="#ff888888"
+                                android:textSize="12sp" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="5000-14999"
+                                android:textColor="#ff888888"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:background="@mipmap/ic_mk_grade4"/>
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="至尊圣佛"
+                                android:textColor="#ff888888"
+                                android:textSize="12sp" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="15000以上"
+                                android:textColor="#ff888888"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="3.APP中获取能量值的方式有哪些？"
+                        android:textColor="#AAAAAA"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:lineSpacingExtra="2dp"
+                        android:lineSpacingMultiplier="1.3"
+                        android:text="能量级别共分为4个级别，分别为普通会员、黄金会员、白金会员、钻石会员。会员级别能量值决定，能量值越高能量等级越高，享受的会员权益越大。能量级别由系统自动处理，无需申请。"
+                        android:textColor="#888888"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@mipmap/ic_remind_left"
+                    android:gravity="center"
+                    android:paddingHorizontal="15dp"
+                    android:text="能量值介绍"
+                    android:textColor="#ffffffff"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.habit.commonlibrary.widget.ProgressbarLayout
+        android:id="@+id/progress_fragment_common_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

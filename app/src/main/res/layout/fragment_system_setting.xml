@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F6F6F9"
+    android:fitsSystemWindows="true">
+
+    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+        android:id="@+id/toolbar_layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar_default"
+        android:background="@color/colorToolbarBg"
+        app:tl_brp_back_ib_drawable="@mipmap/ic_backarrow"
+        app:tl_brp_bottom_divider_visibility="gone"
+        app:tl_brp_left_text_color="@color/colorText"
+        app:tl_brp_right_text_color="@color/colorText"
+        app:tl_brp_title="系统设置"
+        app:tl_brp_title_text_color="@color/colorText" />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_toolbar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+                android:id="@+id/item_question_fragment_system_setting"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                app:lichtd_bottom_divider_visibility="gone"
+                app:lichtd_content_text_color="@color/color_888888"
+                app:lichtd_head_icon="@mipmap/ic_question"
+                app:lichtd_iv_detail_visibility="visible"
+                app:lichtd_title="常见问题"
+                app:lichtd_top_divider_visibility="gone" />
+
+            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+                android:id="@+id/item_check_version_fragment_system_setting"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:lichtd_bottom_divider_visibility="gone"
+                app:lichtd_content_text_color="@color/color_888888"
+                app:lichtd_head_icon="@mipmap/ic_check_version"
+                app:lichtd_iv_detail_visibility="visible"
+                app:lichtd_title="版本更新"
+                app:lichtd_top_divider_visibility="gone" />
+
+            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+                android:id="@+id/item_about_us_fragment_system_setting"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:lichtd_bottom_divider_visibility="gone"
+                app:lichtd_content_text_color="@color/color_888888"
+                app:lichtd_head_icon="@mipmap/ic_about"
+                app:lichtd_iv_detail_visibility="visible"
+                app:lichtd_title="关于我们"
+                app:lichtd_top_divider_visibility="gone" />
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.habit.commonlibrary.widget.ProgressbarLayout
+        android:id="@+id/progress_fragment_system_setting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_toolbar"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

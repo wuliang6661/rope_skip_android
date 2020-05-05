@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundGray"
+    android:fitsSystemWindows="true">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlv_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+   <!-- <RelativeLayout
+        android:id="@+id/rl_search_title"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <ImageView
+            android:id="@+id/iv_location_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/ic_location"
+            />
+        <TextView
+            android:id="@+id/tv_location_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_location_icon"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"
+            android:textColor="#1e1e1e"
+            android:text="杭州"
+            />
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:text="发布"
+            android:layout_marginRight="15dp"
+            android:textSize="15sp"
+            android:textColor="#0057F2" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/tv_submit"
+            android:layout_toRightOf="@+id/tv_location_city_name"
+            android:background="@drawable/shape_text_gray">
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="13dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_search" />
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/iv_search"
+                android:background="@null"
+                android:hint="在这里搜索你要寻找的信息"
+                android:maxLength="15"
+                android:singleLine="true"
+                android:textColor="#999999"
+                android:textColorHint="#9a9a9a"
+                android:textSize="13sp"
+                android:imeOptions="actionSearch"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+    <cn.bingoogolapple.bgabanner.BGABanner
+        android:id="@+id/banner_news_top"
+        style="@style/BannerDefaultStyle"
+        android:layout_height="190dp"
+        app:banner_indicatorGravity="bottom|center_horizontal"
+        app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+        app:banner_isNumberIndicator="false"
+        app:banner_pointAutoPlayAble="true"
+        app:banner_pointContainerBackground="@android:color/transparent"
+        app:banner_transitionEffect="defaultEffect"
+        android:layout_below="@+id/rl_search_title"
+        app:banner_pointTopBottomMargin="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        />
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/banner_news_top"
+        android:background="#060506"
+        />-->
+  <!--  <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/sliding_tablayout"
+        app:tl_indicator_color="@color/green_097167"
+        app:tl_indicator_style="NORMAL"
+        app:tl_indicator_width="19dp"
+        app:tl_textSelectColor="#333333"
+        app:tl_textUnselectColor="#999999"
+        app:tl_textsize="16sp"
+        app:tl_underline_color="@color/green_097167"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/view_line"
+
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/card_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sliding_tablayout"
+        />-->
+    <com.habit.commonlibrary.widget.ProgressbarLayout
+        android:id="@+id/progress_fragment_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

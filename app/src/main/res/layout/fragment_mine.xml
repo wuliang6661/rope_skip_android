@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="53dp"
+    android:background="@color/color_F6F6F9">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="216dp"
+            android:background="@mipmap/ic_mine_title_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+                android:id="@+id/toolbar_layout_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_toolbar_default"
+                android:background="@color/transparent"
+                app:tl_brp_bottom_divider_visibility="gone"
+                app:tl_brp_left_ib_drawable="@mipmap/ic_bianji"
+                app:tl_brp_left_text_color="@color/white"
+                app:tl_brp_right_ib_drawable="@mipmap/ic_tixing"
+                app:tl_brp_right_text_color="@color/white"
+                app:tl_brp_title="可爱的小白兔"
+                app:tl_brp_title_text_color="@color/white" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_user_header_fragment_mine"
+                android:layout_width="@dimen/width_iv_user_header_fragment_mine"
+                android:layout_height="@dimen/height_iv_user_header_fragment_mine"
+                android:layout_marginTop="15dp"
+                android:src="@color/no_image" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="23dp"
+                android:layout_marginTop="22dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@mipmap/ic_device_tab"
+                            android:scaleType="centerInside" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:text="设备总数"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@mipmap/ic_device_tab"
+                            android:scaleType="centerInside" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="设备在线"
+                            android:layout_marginLeft="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:background="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@mipmap/ic_device_tab"
+                            android:scaleType="centerInside" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="设备离线"
+                            android:layout_marginLeft="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="148dp"
+            android:layout_marginTop="27dp"
+            android:background="@mipmap/ic_device_bg"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="我的设备"
+                android:textColor="@color/colorText"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/color_DEF3FF" />
+
+            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+                android:id="@+id/item_device_fragment_mine"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:background="@color/transparent"
+                app:lichtd_bottom_divider_visibility="gone"
+                app:lichtd_content="已连接"
+                app:lichtd_content_text_color="@color/color_888888"
+                app:lichtd_head_icon="@mipmap/ic_ts1"
+                app:lichtd_iv_detail_visibility="visible"
+                app:lichtd_title="跳绳设备1"
+                app:lichtd_top_divider_visibility="gone" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="7dp"
+                android:background="@mipmap/ic_add" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="添加新设备"
+                android:textColor="@color/color_888888"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            android:id="@+id/item_jtcy_fragment_mine"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            app:lichtd_bottom_divider_visibility="gone"
+            app:lichtd_content_text_color="@color/color_888888"
+            app:lichtd_head_icon="@mipmap/ic_ts2"
+            app:lichtd_iv_detail_visibility="visible"
+            app:lichtd_title="家庭成员"
+            app:lichtd_top_divider_visibility="gone" />
+
+
+        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            android:id="@+id/item_shdd_fragment_mine"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            app:lichtd_bottom_divider_visibility="gone"
+            app:lichtd_content_text_color="@color/color_888888"
+            app:lichtd_head_icon="@mipmap/ic_ts10"
+            app:lichtd_iv_detail_visibility="visible"
+            app:lichtd_title="收货地址"
+            app:lichtd_top_divider_visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="5dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@mipmap/ic_ts3"
+                android:scaleType="centerInside" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="消息推送"
+                android:textColor="@color/colorText"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_msg_close_fragment_mine"
+                android:layout_width="60dp"
+                android:layout_height="28dp"
+                android:background="@mipmap/ic_rect"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@mipmap/ic_ps_open"
+                    android:scaleType="centerInside" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="YES"
+                    android:textColor="@color/cpb_red"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_msg_open_fragment_mine"
+                android:layout_width="60dp"
+                android:layout_height="28dp"
+                android:background="@mipmap/ic_rect"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:visibility="gone">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text="ON"
+                    android:textColor="@color/color_7EC7F5"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@mipmap/ic_ps_open"
+                    android:scaleType="centerInside" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            android:id="@+id/item_yqhy_fragment_mine"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            app:lichtd_bottom_divider_visibility="gone"
+            app:lichtd_content_text_color="@color/color_888888"
+            app:lichtd_head_icon="@mipmap/ic_ts4"
+            app:lichtd_iv_detail_visibility="visible"
+            app:lichtd_title="邀请好友"
+            app:lichtd_top_divider_visibility="gone" />
+
+        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            android:id="@+id/item_xtsz_fragment_mine"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            app:lichtd_bottom_divider_visibility="gone"
+            app:lichtd_content_text_color="@color/color_888888"
+            app:lichtd_head_icon="@mipmap/ic_ts12"
+            app:lichtd_iv_detail_visibility="visible"
+            app:lichtd_title="系统设置"
+            app:lichtd_top_divider_visibility="gone" />
+
+        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            android:id="@+id/item_bzzx_fragment_mine"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            app:lichtd_bottom_divider_visibility="gone"
+            app:lichtd_content_text_color="@color/color_888888"
+            app:lichtd_head_icon="@mipmap/ic_ts11"
+            app:lichtd_iv_detail_visibility="visible"
+            app:lichtd_title="帮助中心"
+            app:lichtd_top_divider_visibility="gone" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/btn_exit_login_fragment_mine"
+            android:layout_width="195dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="30dp"
+            android:adjustViewBounds="true"
+            android:background="@mipmap/ic_bg_org"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="@string/exit_login"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

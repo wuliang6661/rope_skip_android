@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+        android:id="@+id/toolbar_layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar_default"
+        android:background="@color/colorToolbarBg"
+        app:tl_brp_back_ib_drawable="@mipmap/ic_backarrow"
+        app:tl_brp_bottom_divider_visibility="visible"
+        app:tl_brp_left_text_color="@color/colorText"
+        app:tl_brp_right_text_color="@color/colorText"
+        app:tl_brp_title="图片详情"
+        app:tl_brp_title_text_color="@color/colorText" />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_toolbar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:id="@+id/img_detail_fragment_img_detail"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.habit.commonlibrary.widget.ProgressbarLayout
+        android:id="@+id/progress_fragment_img_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_toolbar"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

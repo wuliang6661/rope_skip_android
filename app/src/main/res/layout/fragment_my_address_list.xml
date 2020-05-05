@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F6F6F9"
+    android:fitsSystemWindows="true">
+
+    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+        android:id="@+id/toolbar_layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar_default"
+        android:background="@color/colorToolbarBg"
+        app:tl_brp_back_ib_drawable="@mipmap/ic_backarrow"
+        app:tl_brp_bottom_divider_visibility="gone"
+        app:tl_brp_left_text_color="@color/colorText"
+        app:tl_brp_right_text_color="@color/colorText"
+        app:tl_brp_title="收货地址"
+        app:tl_brp_title_text_color="@color/colorText" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_address_content_fragment_my_address_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_layout_toolbar"
+        android:layout_marginTop="15dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <!-- <android.support.v7.widget.AppCompatButton
+         android:id="@+id/btn_submit_fragment_feed_back"
+         style="?android:attr/borderlessButtonStyle"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/height_btn_bottom"
+         android:layout_below="@+id/rv_address_content_fragment_my_address_list"
+         android:layout_marginHorizontal="@dimen/marginright_btn_submit_fragment_login"
+         android:layout_marginTop="24dp"
+         android:layout_marginBottom="24dp"
+         android:adjustViewBounds="true"
+         android:background="@drawable/selector_common_btn"
+         android:text="@string/submit"
+         android:textColor="@color/white"
+         android:textSize="16sp" />-->
+
+
+    <LinearLayout
+        android:id="@+id/ll_btn_submit_fragment_feed_back"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_btn_bottom"
+        android:layout_below="@+id/rv_address_content_fragment_my_address_list"
+        android:layout_marginHorizontal="@dimen/marginright_btn_submit_fragment_login"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/shape_common_btn_unpress"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:background="@mipmap/ic_add_btn"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="新增地址"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+
+    <com.habit.commonlibrary.widget.ProgressbarLayout
+        android:id="@+id/progress_fragment_my_address_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_toolbar"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

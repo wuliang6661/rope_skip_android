@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundGray"
+    android:fitsSystemWindows="true">
+
+    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+        android:id="@+id/toolbar_layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar_default"
+        android:background="@color/colorToolbarBg"
+        app:tl_brp_bottom_divider_visibility="visible"
+        app:tl_brp_left_text_color="@color/colorText"
+        app:tl_brp_right_text_color="@color/colorText"
+        app:tl_brp_title="消息"
+        app:tl_brp_title_text_color="@color/colorText" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--<com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider-->
+                <!--android:id="@+id/item_my_gs_msg_fragment_message"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/height_item_common_message"-->
+                <!--app:lichtd_bottom_divider_visibility="visible"-->
+                <!--app:lichtd_child_title="我的公司消息"-->
+                <!--app:lichtd_iv_detail_visibility="visible"-->
+                <!--app:lichtd_title="公司消息"-->
+                <!--app:lichtd_content="0"-->
+                <!--app:lichtd_content_text_color="@color/cpb_red"-->
+                <!--app:lichtd_head_icon="@mipmap/ic_gongsixiaoxi"-->
+                <!--app:lichtd_top_divider_visibility="gone" />-->
+            <!--<com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider-->
+                <!--android:id="@+id/item_my_gc_msg_fragment_message"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/height_item_common_message"-->
+                <!--app:lichtd_bottom_divider_visibility="visible"-->
+                <!--app:lichtd_child_title="我的工厂消息"-->
+                <!--app:lichtd_iv_detail_visibility="visible"-->
+                <!--app:lichtd_title="工厂消息"-->
+                <!--app:lichtd_content="0"-->
+                <!--app:lichtd_head_icon="@mipmap/ic_gongchangxiaoxi"-->
+                <!--app:lichtd_content_text_color="@color/cpb_red"-->
+                <!--app:lichtd_top_divider_visibility="gone" />-->
+            <!--<com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider-->
+                <!--android:id="@+id/item_my_zp_msg_fragment_message"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/height_item_common_message"-->
+                <!--app:lichtd_bottom_divider_visibility="visible"-->
+                <!--app:lichtd_child_title="我的招聘消息"-->
+                <!--app:lichtd_iv_detail_visibility="visible"-->
+                <!--app:lichtd_title="招聘消息"-->
+                <!--app:lichtd_content="0"-->
+                <!--app:lichtd_content_text_color="@color/cpb_red"-->
+                <!--app:lichtd_head_icon="@mipmap/ic_zp_xiaoxi"-->
+                <!--app:lichtd_top_divider_visibility="gone" />-->
+            <!--<com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider-->
+                <!--android:id="@+id/item_pt_gg_fragment_message"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/height_item_common_message"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--app:lichtd_bottom_divider_visibility="visible"-->
+                <!--app:lichtd_child_title="平台的消息"-->
+                <!--app:lichtd_iv_detail_visibility="visible"-->
+                <!--app:lichtd_title="平台公告"-->
+                <!--app:lichtd_content="0"-->
+                <!--app:lichtd_content_text_color="@color/cpb_red"-->
+                <!--app:lichtd_head_icon="@mipmap/ic_pingtai"-->
+                <!--app:lichtd_top_divider_visibility="gone" />-->
+            <!--<com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider-->
+                <!--android:id="@+id/item_my_nb_msg_fragment_message"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/height_item_common_message"-->
+                <!--app:lichtd_bottom_divider_visibility="visible"-->
+                <!--app:lichtd_child_title="我的各种消息"-->
+                <!--app:lichtd_iv_detail_visibility="visible"-->
+                <!--app:lichtd_title="内部消息"-->
+                <!--app:lichtd_content="0"-->
+                <!--app:lichtd_content_text_color="@color/cpb_red"-->
+                <!--app:lichtd_head_icon="@mipmap/ic_neibuxiaoxi"-->
+                <!--app:lichtd_top_divider_visibility="gone" />-->
+            <!--<com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider-->
+                <!--android:id="@+id/item_xt_msg_fragment_message"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/height_item_common_message"-->
+                <!--app:lichtd_bottom_divider_visibility="visible"-->
+                <!--app:lichtd_child_title="我的系统消息"-->
+                <!--app:lichtd_iv_detail_visibility="visible"-->
+                <!--app:lichtd_title="系统消息"-->
+                <!--app:lichtd_content="0"-->
+                <!--app:lichtd_content_text_color="@color/cpb_red"-->
+                <!--app:lichtd_head_icon="@mipmap/ic_xitongxiaoxi"-->
+                <!--app:lichtd_top_divider_visibility="gone" />-->
+
+            <!--<com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider-->
+                <!--android:id="@+id/item_my_z_msg_fragment_message"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/height_item_common_message"-->
+                <!--app:lichtd_bottom_divider_visibility="visible"-->
+                <!--app:lichtd_child_title="我的准消息"-->
+                <!--app:lichtd_content="0"-->
+                <!--app:lichtd_content_text_color="@color/cpb_red"-->
+                <!--app:lichtd_head_icon="@mipmap/ic_zhun_xiaoxi"-->
+                <!--app:lichtd_iv_detail_visibility="visible"-->
+                <!--app:lichtd_title="准消息"-->
+                <!--app:lichtd_top_divider_visibility="gone" />-->
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <com.habit.commonlibrary.widget.ProgressbarLayout
+        android:id="@+id/progress_fragment_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

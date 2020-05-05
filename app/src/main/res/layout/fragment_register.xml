@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+        android:id="@+id/toolbar_layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar_default"
+        app:tl_brp_back_ib_drawable="@mipmap/ic_backarrow"
+        app:tl_brp_bottom_divider_visibility="visible"
+        app:tl_brp_left_text_color="@color/colorTextLight"
+        app:tl_brp_left_text_size="@dimen/tv_text_size_common_left_toolbar"
+        app:tl_brp_right_text_color="@color/colorTextLight"
+        app:tl_brp_title="@string/regist_new_title"
+        app:tl_brp_title_text_color="@color/colorText"
+        app:tl_brp_title_text_size="@dimen/tv_text_size_common_title_toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_layout_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="87dp"
+                    android:layout_height="87dp"
+                    android:layout_marginTop="44dp"
+                    android:background="@mipmap/ic_launcher_logo"
+                    android:scaleType="centerInside" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:layout_marginTop="48dp"
+                    android:background="@drawable/input_bottom_line"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@mipmap/ic_shoujihaoma"
+                        android:scaleType="centerInside" />
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/et_tel_fragment_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:background="@null"
+                        android:hint="@string/please_input_phone"
+                        android:inputType="number"
+                        android:textColorHint="@color/color_C3C3C3"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:background="@drawable/input_bottom_line"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="18dp"
+                        android:background="@mipmap/ic_message_normal"
+                        android:scaleType="centerInside" />
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/et_please_input_msg_code_fragment_register"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:digits="@string/accepted_char"
+                        android:hint="@string/please_input_msg_code"
+                        android:inputType="textPassword"
+                        android:textColorHint="@color/color_C3C3C3"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/btn_send_code_fragment_register"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_ellipse"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingHorizontal="9dp"
+                        android:paddingVertical="4dp"
+                        android:text="@string/send_msg_code"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/color_C3C3C3"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:background="@drawable/input_bottom_line"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@mipmap/ic_suo"
+                        android:scaleType="centerInside" />
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/et_password_fragment_register"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:digits="@string/accepted_char"
+                        android:hint="@string/please_input_password"
+                        android:inputType="textPassword"
+                        android:textColorHint="@color/color_C3C3C3"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:background="@drawable/input_bottom_line"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@mipmap/ic_tiaosheng"
+                        android:scaleType="centerInside" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_weight="1"
+                        android:text="@string/is_equipment_purchased"
+                        android:textColor="@color/color_C3C3C3"
+                        android:textSize="16sp" />
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_taggle_close_fragment_register"
+                        android:layout_width="60dp"
+                        android:layout_height="28dp"
+                        android:background="@mipmap/ic_rect"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@mipmap/ic_ps_open"
+                            android:scaleType="centerInside" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="YES"
+                            android:textColor="@color/cpb_red"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_taggle_open_fragment_register"
+                        android:layout_width="60dp"
+                        android:layout_height="28dp"
+                        android:background="@mipmap/ic_rect"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp"
+                        android:visibility="gone">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="6dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:text="ON"
+                            android:textColor="@color/color_7EC7F5"
+                            android:textSize="14sp" />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@mipmap/ic_ps_open"
+                            android:scaleType="centerInside" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp">
+
+                    <CheckBox
+                        android:id="@+id/cb_read_fragment_register"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/selector_checkbox"
+                        android:paddingLeft="14dp"
+                        android:text="@string/agree"
+                        android:textColor="@color/color_C3C3C3"
+                        android:textSize="14sp"
+                        />
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_read_remind_fragment_register"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_service_agreement"
+                        android:textColor="@color/color_7EC7F5"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_next_fragment_register"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_btn_bottom"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/selector_common_btn"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_has_account_fragment_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:text="已有账户 立即登录"
+                android:textColor="@color/color_7EC7F5"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.habit.commonlibrary.widget.ProgressbarLayout
+        android:id="@+id/progress_fragment_register"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+</RelativeLayout>

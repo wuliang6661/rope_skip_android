@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <FrameLayout
+        android:id="@+id/frame_layout_image_grid_fragment_task_order_feedback"
+        android:layout_width="@dimen/width_item_fragment_image_manage_layout_list_item"
+        android:layout_height="@dimen/height_item_fragment_image_manage_layout_list_item"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:foreground="@drawable/selector_grid_view_item_foreground"
+        android:foregroundGravity="fill"
+        android:gravity="center">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_layout_image_grid_fragment_task_order_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:riv_border_color="#333333"
+            app:riv_border_width="0dp"
+            app:riv_corner_radius="2dp"
+            app:riv_mutate_background="true"
+            app:riv_oval="false"
+            app:riv_tile_mode="clamp" />
+
+    </FrameLayout>
+</FrameLayout>

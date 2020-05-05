@@ -1,0 +1,88 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">commonlibrary</string>
+
+    <!-- Label for button to confirm chosen date or time [CHAR LIMIT=30] -->
+    <string name="done_label">完成</string>
+    <!--
+         Content description for the hour selector in the time picker, which displays
+         selectable hours of the day along the inside edge of a circle, as in an analog clock.
+         [CHAR LIMIT=50]
+    -->
+    <string name="hour_picker_description">Hours circular slider</string>
+    <!--
+         Content description for the minute selector in the time picker, which displays
+         selectable five-minute intervals along the inside edge of a circle, as in an analog clock.
+         [CHAR LIMIT=50]
+    -->
+    <string name="minute_picker_description">Minutes circular slider</string>
+    <!-- Accessibility announcement for hour circular picker [CHAR LIMIT=NONE] -->
+    <string name="select_hours">Select hours</string>
+    <!-- Accessibility announcement for minute circular picker [CHAR LIMIT=NONE] -->
+    <string name="select_minutes">Select minutes</string>
+
+    <!--
+        Content description for the month and day selector in the date picker, which displays
+        a selectable grid of days laid out by month.
+        [CHAR LIMIT=50]
+     -->
+    <string name="day_picker_description">Month grid of days</string>
+    <!--
+        Content description for the year selector in the date picker, which displays
+        a scrolling, vertical list of years.
+        [CHAR LIMIT=50]
+     -->
+    <string name="year_picker_description">Year list</string>
+    <!-- Accessibility announcement for the day picker [CHAR LIMIT=NONE] -->
+    <string name="select_day">Select month and day</string>
+    <!-- Accessibility announcement for the year picker [CHAR LIMIT=NONE] -->
+    <string name="select_year">Select year</string>
+    <!-- Accessibility description for the item that is currently selected. -->
+    <string name="item_is_selected"><xliff:g example="2013" id="item">%1$s</xliff:g> selected</string>
+    <!-- Accessibility announcement when a number that had been typed in is deleted [CHAR_LIMIT=NONE] -->
+    <string name="deleted_key"><xliff:g example="4" id="key">%1$s</xliff:g> deleted</string>
+
+    <!-- DO NOT TRANSLATE -->
+    <string name="time_placeholder">--</string>
+    <!-- DO NOT TRANSLATE -->
+    <string name="time_separator">:</string>
+
+    <!-- DO NOT TRANSLATE -->
+    <string name="radial_numbers_typeface">sans-serif</string>
+    <!-- DO NOT TRANSLATE -->
+    <string name="sans_serif">sans-serif</string>
+
+    <!-- DO NOT TRANSLATE -->
+    <string name="day_of_week_label_typeface">sans-serif</string>
+
+
+    <string name="md_back_label">Back</string>
+    <string name="md_done_label">Done</string>
+    <string name="md_cancel_label">Cancel</string>
+    <string name="md_choose_label">Choose</string>
+    <string name="md_error_label">Error</string>
+    <string name="md_storage_perm_error">Your app has not been granted the READ_EXTERNAL_STORAGE permission.</string>
+    <string name="md_custom_label">Custom</string>
+    <string name="md_presets_label">Presets</string>
+
+    <!-- LilayItemPasswordEditTextWithHeadImage -->
+    <string name="accepted_char">,._-~!@#$^*()+;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
+    <string name="accepted_char_ip">.0123456789</string>
+    <string name="accepted_char_port">0123456789</string>
+    <string name="accepted_char_fraction">.0123456789</string>
+    <string name="select_annotation">请选择描述</string>
+    <string name="image_annotation">图片描述</string>
+
+    <string name="search">搜索</string>
+    <string name="loading">加载中</string>
+
+    <string name="clear_history">清空记录</string>
+    <string name="camera">相机</string>
+    <string name="pick_up_from_phone">从手机相册选择</string>
+    <string name="cancel">取消</string>
+
+    <string name="exit">退出</string>
+    <string name="is_exit_account">是否退出当前账户？</string>
+    <string name="exit_account">退出当前账号</string>
+    <string name="is_equipment_purchased">是否已购买设备</string>
+</resources>

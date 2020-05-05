@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!--MainActivity-->
+    <dimen name="height_bottom_bar_activity_main">55dp</dimen>
+    <dimen name="height_divider_activity_main">1dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="height_appbar_elevation">1dp</dimen>
+    <dimen name="height_tabs_common1">35dp</dimen>
+    <dimen name="height_username_et_fragment_login">55.5dp</dimen>
+    <dimen name="text_size_cet_common1_fragment_login">18sp</dimen>
+    <dimen name="paddingleft_fixtext_cet_common1">2dp</dimen>
+    <dimen name="margintop_cet_user_psw_fragment_login">20dp</dimen>
+    <dimen name="text_size_tablayout_custom">16sp</dimen>
+    <dimen name="height_btn_bottom">40dp</dimen>
+    <dimen name="marginleft_btn_submit_fragment_login">24dp</dimen>
+    <dimen name="marginright_btn_submit_fragment_login">24dp</dimen>
+
+    <!--common-->
+    <dimen name="magin_left_necessary_common">3dp</dimen>
+    <dimen name="height_item_common">44dp</dimen>
+    <dimen name="padding_left_item_common">15dp</dimen>
+    <dimen name="padding_right_item_common">15dp</dimen>
+    <dimen name="et_text_size_item_common">16sp</dimen>
+    <dimen name="et_magin_left_item_common">15dp</dimen>
+    <dimen name="size_list_item_divider">1sp</dimen>
+    <dimen name="size_list_item_divider_v">3sp</dimen>
+    <dimen name="size_list_item_divider_member">5sp</dimen>
+    <dimen name="size_list_item_divider_address">10sp</dimen>
+    <dimen name="size_list_item_divider_test">4sp</dimen>
+    <color name="color_302C48">#302C48</color>
+    <!--MineFragment-->
+    <dimen name="width_iv_user_header_fragment_mine">70dp</dimen>
+    <dimen name="height_iv_user_header_fragment_mine">70dp</dimen>
+
+    <!--SettingsFragment-->
+    <dimen name="margintop_btn_exit_fragment_setting">9.5dp</dimen>
+    <dimen name="size_list_item_divider_image_manage_grid_item">0dp</dimen>
+    <dimen name="height_item_common_message">55dp</dimen>
+
+    <!--ToolSettingFragment-->
+    <dimen name="height_item_common_tool_setting">48dp</dimen>
+    <dimen name="title_title_item_common_tool_setting">18sp</dimen>
+    <dimen name="title_content_item_common_tool_setting">14sp</dimen>
+    <!--loginFragment-->
+
+</resources>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_layout_fragment_family_member_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_title_layout_fragment_address_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:text="可爱的小兔兔"
+                android:textColor="@color/colorText"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_tel_layout_fragment_address_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginLeft="14dp"
+                android:text="152****1849"
+                android:textColor="@color/colorText"
+                android:textSize="14sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_mr_layout_fragment_address_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginLeft="11dp"
+                android:background="@drawable/shape_text_blue"
+                android:gravity="center"
+                android:paddingHorizontal="6dp"
+                android:text="默认"
+                android:textColor="#ff7ec7f5"
+                android:textSize="10sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_address_name_layout_fragment_address_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="浙江省杭州市江干区六号大街"
+            android:textColor="#ff888888"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/sp_16"
+            android:background="#F8F8F8" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_select_layout_fragment_address_list_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_address_nor">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_select_layout_fragment_address_list_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_address_pre" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="设为默认"
+                android:textColor="#ff888888"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/ll_bianji_layout_fragment_address_list_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_bianji_layout_fragment_address_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_bianji_address" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="编辑"
+                android:textColor="#ff888888"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_delete_layout_fragment_address_list_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_bianji_address" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="删除"
+                android:textColor="#ff888888"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

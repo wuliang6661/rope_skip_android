@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_layout_dialog_toast_share_success"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/ic_bottom_share_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_user_header_layout_dialog_toast_share_success"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@color/no_image" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginLeft="6dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可爱的小兔兔"
+            android:id="@+id/tv_name_layout_dialog_toast_share_success"
+            android:textColor="#ffffffff"
+            android:textSize="12sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_time_layout_dialog_toast_share_success"
+            android:text="2019/06/23"
+            android:textColor="#ffffffff"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/iv_qr_code_layout_dialog_toast_share_success"/>
+</LinearLayout>

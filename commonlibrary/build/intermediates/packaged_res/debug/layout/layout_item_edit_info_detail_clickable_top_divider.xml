@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lilay_item_layout_item_edit_info_detail_clickable_top_divider"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:id="@+id/tv_item_title_layout_item_edit_info_detail_clickable_top_divider"
+        android:textSize="16sp" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/tv_item_edit_layout_item_edit_info_detail_clickable_top_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/EditTextStyle_WithoutStroke_multiline"
+        android:layout_marginLeft="15dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:ellipsize="end"
+        android:gravity="end"
+        android:hint="请输入"
+        android:singleLine="true"
+        android:textColor="#FF666666"
+        android:textSize="15sp" />
+
+</LinearLayout>

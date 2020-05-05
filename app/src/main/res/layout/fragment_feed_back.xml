@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F6F6F9"
+    android:fitsSystemWindows="true">
+
+    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+        android:id="@+id/toolbar_layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar_default"
+        android:background="@color/colorToolbarBg"
+        app:tl_brp_back_ib_drawable="@mipmap/ic_backarrow"
+        app:tl_brp_bottom_divider_visibility="visible"
+        app:tl_brp_left_text_color="@color/colorText"
+        app:tl_brp_right_text_color="@color/colorText"
+        app:tl_brp_title="意见反馈"
+        app:tl_brp_title_text_color="@color/colorText" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+                android:id="@+id/item_fklx_fragment_feed_back"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                app:lichtd_bottom_divider_visibility="gone"
+                app:lichtd_content_text_color="@color/color_888888"
+                app:lichtd_iv_detail_visibility="visible"
+                app:lichtd_title="请选择反馈类型"
+                android:paddingLeft="@dimen/dp_10"
+                app:lichtd_title_text_color="@color/color_888888"
+                app:lichtd_top_divider_visibility="gone" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_item_border"
+                android:gravity="top"
+                android:hint="请写下您对APP的感受,我们将认真听取您的意见,努力提供更优质的服务。"
+                android:maxLength="100"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:textColor="@color/color_888888"
+                android:textColorHint="@color/color_C3C3C3"
+                android:textSize="14sp" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_item_border"
+                android:gravity="center_vertical"
+                android:hint="手机/邮箱/QQ（选填）"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:textColor="@color/color_888888"
+                android:textColorHint="@color/color_C3C3C3"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上传图片"
+                    android:textColor="@color/color_888888"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（最多6张）"
+                    android:textColor="@color/color_888888"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_img_fragment_feed_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_submit_fragment_feed_back"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_btn_bottom"
+                android:layout_marginHorizontal="@dimen/marginright_btn_submit_fragment_login"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/selector_common_btn"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.habit.commonlibrary.widget.ProgressbarLayout
+        android:id="@+id/progress_fragment_feed_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_toolbar"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
