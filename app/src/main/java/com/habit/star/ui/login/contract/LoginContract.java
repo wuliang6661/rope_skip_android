@@ -3,6 +3,7 @@ package com.habit.star.ui.login.contract;
 
 import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
+import com.habit.star.pojo.po.UserBO;
 import com.habit.star.ui.login.bean.LoginBean;
 import com.habit.star.ui.mine.bean.UserInfoMode;
 
@@ -17,7 +18,7 @@ import com.habit.star.ui.mine.bean.UserInfoMode;
 public interface LoginContract {
     interface View extends BaseView {
 
-//        void loginSuccess(LoginBean loginBean);
+        void loginSuccess(UserBO loginBean);
 //
 //
 //        void getUserInfo(UserInfoMode userInfoMode);

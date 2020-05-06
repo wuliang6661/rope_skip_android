@@ -1,5 +1,7 @@
 package com.habit.star.ui.login.presenter;
 
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
 import com.habit.star.ui.login.contract.RegisterContract;
@@ -17,38 +19,53 @@ import javax.inject.Inject;
 public class RegisterPresenter extends RxPresenter<RegisterContract.View> implements RegisterContract.Presenter {
 
     RetrofitHelper mRetrofitHelper;
+
     @Inject
     public RegisterPresenter(RetrofitHelper retrofitHelper) {
-        mRetrofitHelper= retrofitHelper;
+        mRetrofitHelper = retrofitHelper;
     }
 
-//    @Override
-//    public void register(String userName, String password, String yzm) {
-//        addSubscrebe(mRetrofitHelper.register(userName,password,yzm).subscribe(new Action1<String>() {
-//            @Override
-//            public void call(String data) {
-//                mView.registerSuccess("");
-//            }
-//        }, new ActionError(App.getStringResource(R.string.register_failed)) {
-//            @Override
-//            public void onError(String msg, int code) {
-//                mView.showError(msg);
-//            }
-//        }));
-//    }
-//
-//    @Override
-//    public void getYZM(String phone) {
-//        addSubscrebe(mRetrofitHelper.getYZM(phone).subscribe(new Action1<String>() {
-//            @Override
-//            public void call(String data) {
-//                mView.getYZMSuccess("操作成功");
-//            }
-//        }, new ActionError(App.getStringResource(R.string.register_failed)) {
-//            @Override
-//            public void onError(String msg, int code) {
-//                mView.showError(msg);
-//            }
-//        }));
-//    }
+    /**
+     * 注册账号
+     */
+    public void register(String userName, String password, String yzm, int isBuy) {
+        HttpServerImpl.regiest(userName, password, yzm, isBuy + "").subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if(mView != null){
+                    mView.registerSuccess();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.showError(message);
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 发送验证码
+     */
+    public void sendCode(String phone) {
+        HttpServerImpl.sendCode(phone, 0).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.getYZMSuccess();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.showError(message);
+                }
+            }
+        });
+    }
+
 }

@@ -90,7 +90,7 @@ public class SearchActivty extends BaseActivity {
                     event.isConnect = true;
                     EventBus.getDefault().post(event);
                 } else {
-                    showToast("蓝牙连接失败！");
+                    showToast("蓝牙连接成功！");
                     BlueEvent event = new BlueEvent();
                     event.isConnect = false;
                     EventBus.getDefault().post(event);

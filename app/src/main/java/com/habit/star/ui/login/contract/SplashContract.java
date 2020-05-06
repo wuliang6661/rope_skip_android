@@ -4,12 +4,12 @@ import android.content.Context;
 
 import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
-import com.habit.star.ui.mine.bean.UserInfoMode;
+import com.habit.star.pojo.po.UserBO;
 
 public interface SplashContract {
     interface View extends BaseView {
 
-        void getUserInfo(UserInfoMode userInfoMode);
+        void getUserInfo(UserBO userInfoMode);
         void getUserInfoError();
         /**
          * 初始化组件成功

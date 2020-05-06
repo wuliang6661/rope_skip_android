@@ -6,26 +6,28 @@ import com.habit.star.base.BaseView;
 
 /**
  * 创建日期：2018/6/14 9:28
+ *
  * @author sundongdong
  * @version 1.0
- * @since
- * 文件名称： LoginContract.java
+ * @since 文件名称： LoginContract.java
  * 类说明：
  */
 public interface RegisterContract {
     interface View extends BaseView {
 
-//        /**
-//         * 注册成功
-//         * @param token
-//         */
-//        void registerSuccess(String token);
-//
-//        /**
-//         * 获取验证码成功
-//         * @param str
-//         */
-//        void getYZMSuccess(String str);
+        /**
+         * 注册成功
+         *
+         * @param token
+         */
+        void registerSuccess();
+
+        /**
+         * 获取验证码成功
+         *
+         * @param str
+         */
+        void getYZMSuccess();
 
     }
 

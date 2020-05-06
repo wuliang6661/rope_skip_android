@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shape_dialog_toast"
     android:gravity="center"
-    android:maxWidth="200dp"
+    android:maxWidth="500dp"
     android:paddingLeft="17dp"
     android:paddingRight="17dp"
     android:paddingTop="10dp"

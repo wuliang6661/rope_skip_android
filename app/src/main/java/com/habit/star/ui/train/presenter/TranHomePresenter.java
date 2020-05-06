@@ -101,7 +101,8 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
                 LogUtils.e(ByteUtils.byte2HexStr(value, value.length));
                 BleCmd.Builder builder = new BleCmd.Builder().setBuilder(value);
                 if (mView != null) {
-                    mView.getDeviceCishu(String.valueOf(builder.getDataBody()[builder.getDataBody().length - 1]));
+                    mView.getDeviceCishu(
+                            String.valueOf(Math.abs(builder.getDataBody()[builder.getDataBody().length - 1])));
                 }
             }
         });

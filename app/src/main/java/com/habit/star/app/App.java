@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.habit.star.di.component.AppComponent;
 import com.habit.star.di.component.DaggerAppComponent;
 import com.habit.star.di.module.AppModule;
+import com.habit.star.pojo.po.UserBO;
 import com.habit.star.ui.login.bean.LoginBean;
 import com.habit.star.ui.mine.bean.UserInfoMode;
 
@@ -29,6 +31,12 @@ public class App extends Application {
     public UserInfoMode userInfoMode;
     public Compressor imageCompressor = null;
     public Typeface tf;
+
+    public static String token = "";
+    public static SPUtils spUtils;
+
+    private static final String TAG = "habit_star";
+    public static UserBO userBO;
 
     public static synchronized App getInstance() {
         return instance;
@@ -58,6 +66,7 @@ public class App extends Application {
         context = getApplicationContext();
         AssetManager assetManager = context.getAssets();
         Utils.init(this);
+        spUtils = SPUtils.getInstance(TAG);
         tf = Typeface.createFromAsset(assetManager, "fonts/DS-DIGI-1.ttf");
 
     }

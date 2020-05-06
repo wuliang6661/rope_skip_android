@@ -1,6 +1,5 @@
 package com.habit.star.ui.login.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -13,12 +12,14 @@ import android.widget.LinearLayout;
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.star.R;
+import com.habit.star.app.App;
 import com.habit.star.app.Constants;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.pojo.po.UserBO;
 import com.habit.star.ui.activity.MainActivity;
-import com.habit.star.ui.login.presenter.LoginPresenter;
 import com.habit.star.ui.login.contract.LoginContract;
-import com.habit.star.utils.PrefUtils;
+import com.habit.star.ui.login.presenter.LoginPresenter;
+import com.habit.star.utils.MD5;
 import com.habit.star.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -82,24 +83,26 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
 
     @Override
     protected void initEventAndData() {
-        String userName = PrefUtils.getPrefString(mContext, Constants.PREF_KEY_USER, "");
-        String passWord = PrefUtils.getPrefString(mContext, Constants.PREF_KEY_PASSWORD, "");
+        String userName = App.spUtils.getString(Constants.PREF_KEY_USER, "");
+        String passWord = App.spUtils.getString(Constants.PREF_KEY_PASSWORD, "");
         mEtTel.setText(userName);
         mEtPassword.setText(passWord);
     }
 
-//    @Override
-//    public void loginSuccess(LoginBean loginBean) {
-//        if (loginBean == null) {
-//            return;
-//        }
-//        App.getInstance().loginBean = loginBean;
-//        ///保存token
-//        PrefUtils.setPrefString(mContext, Constants.PREF_KEY_TOKEN, loginBean.token);
-//        PrefUtils.setPrefInt(mContext, Constants.PREF_KEY_TYPE, loginBean.type);
-//        PrefUtils.setPrefInt(mContext, Constants.PREF_KEY_CATE, loginBean.cate);
-//        mPresenter.getUserInfo();
-//    }
+    @Override
+    public void loginSuccess(UserBO loginBean) {
+        stopProgress();
+        if (loginBean == null) {
+            return;
+        }
+        App.userBO = loginBean;
+        ///保存token
+        App.spUtils.put(Constants.PREF_KEY_TOKEN, loginBean.getToken());
+
+        App.spUtils.put(Constants.PREF_KEY_USER, mEtTel.getText().toString());
+        App.spUtils.put(Constants.PREF_KEY_PASSWORD, mEtPassword.getText().toString());
+        gotoActivity(MainActivity.class, true);
+    }
 
     @Override
     public void showProgress() {
@@ -114,6 +117,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
 
     @Override
     public void showError(String msg) {
+        stopProgress();
         ToastUtil.shortShow(msg);
     }
 
@@ -144,20 +148,18 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
                 start(RetrievePasswordFragment.newInstance(null));
                 break;
             case R.id.btn_submit_fragment_login:
-                if (TextUtils.isEmpty(mEtTel.getText().toString())) {
+                String phone = mEtTel.getText().toString();
+                String password = mEtPassword.getText().toString();
+                if (TextUtils.isEmpty(phone)) {
                     showError("请输入手机号码");
                     return;
                 }
-                if (TextUtils.isEmpty(mEtPassword.getText().toString())) {
+                if (TextUtils.isEmpty(password)) {
                     showError("请输入密码");
                     return;
                 }
-                PrefUtils.setPrefString(mContext, Constants.PREF_KEY_USER, mEtTel.getText().toString());
-                PrefUtils.setPrefString(mContext, Constants.PREF_KEY_PASSWORD, mEtPassword.getText().toString());
-                Intent intent = new Intent();
-                intent.setClass(_mActivity, MainActivity.class);
-                startActivity(intent);
-                _mActivity.finish();
+                showProgress("加载中...");
+                mPresenter.login(phone, MD5.strToMd5Low32(MD5.strToMd5Low32(password) + "bby"));
                 break;
             case R.id.tv_regist_new_user_fragment_login:
                 start(RegisterFragment.newInstance(null));
@@ -165,36 +167,5 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         }
     }
 
-//    @Override
-//    public void getUserInfo(UserInfoMode userInfoMode) {
-//        PrefUtils.setPrefString(mContext, Constants.PREF_KEY_USER, mEtTel.getText().toString());
-//        PrefUtils.setPrefString(mContext, Constants.PREF_KEY_PASSWORD, mEtPassword.getText().toString());
-//
-//        App.getInstance().userInfoMode = userInfoMode;
-//        Intent intent = new Intent();
-//        intent.setClass(_mActivity, MainActivity.class);
-//        startActivity(intent);
-//        _mActivity.finish();
-//    }
 
-//    @SingleClick
-//    @OnClick({R.id.tv_forget_password, R.id.btn_submit_fragment_login})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.tv_forget_password:
-//                break;
-//            case R.id.btn_submit_fragment_login:
-//                if (TextUtils.isEmpty(mEtTel.getText().toString())) {
-//                    showError("请输入手机号码");
-//                    return;
-//
-//                }
-//                if (TextUtils.isEmpty(mEtPassword.getText().toString())) {
-//                    showError("请输入密码");
-//                    return;
-//                }
-//                mPresenter.login(mEtTel.getText().toString(), mEtPassword.getText().toString());
-//                break;
-//        }
-//    }
 }

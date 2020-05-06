@@ -2,17 +2,16 @@ package com.habit.star.ui.login.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.habit.star.R;
 import com.habit.star.app.App;
 import com.habit.star.app.Constants;
 import com.habit.star.base.BaseFragment;
-import com.habit.star.ui.login.presenter.SplashPresenter;
+import com.habit.star.pojo.po.UserBO;
+import com.habit.star.ui.activity.MainActivity;
 import com.habit.star.ui.login.contract.SplashContract;
-import com.habit.star.ui.login.bean.LoginBean;
-import com.habit.star.ui.mine.bean.UserInfoMode;
-import com.habit.star.utils.PrefUtils;
+import com.habit.star.ui.login.presenter.SplashPresenter;
 import com.habit.star.utils.ToastUtil;
 
 import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
@@ -30,34 +29,24 @@ public final class SplashFragment extends BaseFragment<SplashPresenter> implemen
     public static final int splashTime = 1500;
     Handler mHandler;
 
-    private String token;
-    private int type;
-    private int cate;
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            startJump(true);
+            startJump();
         }
     };
 
-    /**
-     * 开始界面跳转(默认进入登录界面)
-     */
-    private void startJump() {
-        startJump(false);
-    }
 
     /**
      * 开始界面跳转
-     *
-     * @param isLogged true表示自动登录成功，false表示没有自动登录
      */
-    private void startJump(boolean isLogged) {
-//        if (TextUtils.isEmpty(token)){
+    private void startJump() {
+        App.token = App.spUtils.getString(Constants.PREF_KEY_TOKEN);
+        if (StringUtils.isEmpty(App.token)) {
             startWithPop(LoginFragment.newInstance(null));
-//            return;
-//        }
-//        mPresenter.getUserInfo();
+        } else {
+            mPresenter.getUserInfo();
+        }
     }
 
 
@@ -87,26 +76,16 @@ public final class SplashFragment extends BaseFragment<SplashPresenter> implemen
     protected void initEventAndData() {
         _mActivity.setFragmentAnimator(new DefaultNoAnimator());
         mHandler = new Handler();
-        token = PrefUtils.getPrefString(mContext,Constants.PREF_KEY_TOKEN,"");
-        type = PrefUtils.getPrefInt(mContext,Constants.PREF_KEY_TYPE,-10);
-        cate = PrefUtils.getPrefInt(mContext,Constants.PREF_KEY_CATE,-10);
-        log(token);
-        if (!TextUtils.isEmpty(token)){
-            LoginBean loginBean =new LoginBean();
-            loginBean.token = token;
-            App.getInstance().loginBean = loginBean;
-        }
         mHandler.postDelayed(runnable, splashTime);
     }
 
 
     @Override
-    public void getUserInfo(UserInfoMode userInfoMode) {
-//        App.getInstance().userInfoMode = userInfoMode;
-//        Intent intent = new Intent();
-//        intent.setClass(_mActivity, MainActivity.class);
-//        startActivity(intent);
-//        _mActivity.finish();
+    public void getUserInfo(UserBO userInfoMode) {
+        App.userBO = userInfoMode;
+        ///保存token
+        App.spUtils.put(Constants.PREF_KEY_TOKEN, userInfoMode.getToken());
+        gotoActivity(MainActivity.class, true);
     }
 
     @Override
@@ -142,16 +121,6 @@ public final class SplashFragment extends BaseFragment<SplashPresenter> implemen
     @Override
     public void showError(int errorCode) {
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     @Override

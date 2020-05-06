@@ -14,6 +14,22 @@ import com.habit.star.base.BaseView;
 public interface RetrievePasswordContract {
     interface View extends BaseView {
 
+        /**
+         * 获取验证码成功
+         *
+         * @param str
+         */
+        void getYZMSuccess();
+
+        /**
+         * 验证手机号正确
+         */
+        void verifyPhoneSuress();
+
+        /**
+         * 修改成功
+         */
+        void forwordPasswordSuress();
 
     }
 

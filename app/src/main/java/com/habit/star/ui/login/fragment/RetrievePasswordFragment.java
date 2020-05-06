@@ -1,6 +1,7 @@
 package com.habit.star.ui.login.fragment;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
@@ -12,11 +13,12 @@ import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
+import com.habit.star.app.App;
 import com.habit.star.app.Constants;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.ui.login.contract.RetrievePasswordContract;
 import com.habit.star.ui.login.presenter.RetrievePasswordPresenter;
-import com.habit.star.utils.PrefUtils;
+import com.habit.star.utils.MD5;
 import com.habit.star.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -59,6 +61,7 @@ public class RetrievePasswordFragment extends BaseFragment<RetrievePasswordPrese
     @BindView(R.id.tv_type1_lable_fragment_retrieve_password)
     AppCompatTextView tvType1Lable;
 
+    private String phone;
 
     public static RetrievePasswordFragment newInstance(Bundle bundle) {
         RetrievePasswordFragment fragment = new RetrievePasswordFragment();
@@ -93,7 +96,7 @@ public class RetrievePasswordFragment extends BaseFragment<RetrievePasswordPrese
                 _mActivity.onBackPressedSupport();
             }
         });
-        String userName = PrefUtils.getPrefString(mContext, Constants.PREF_KEY_USER, "");
+        String userName = App.spUtils.getString(Constants.PREF_KEY_USER, "");
         etTel.setText(userName);
     }
 
@@ -104,7 +107,6 @@ public class RetrievePasswordFragment extends BaseFragment<RetrievePasswordPrese
 
     @Override
     public void showProgress() {
-
         progress.setVisibility(View.VISIBLE);
     }
 
@@ -126,7 +128,8 @@ public class RetrievePasswordFragment extends BaseFragment<RetrievePasswordPrese
 
     @SingleClick
     @OnClick({R.id.btn_next_fragment_register,
-            R.id.btn_reset_confirm_fragment_register})
+            R.id.btn_reset_confirm_fragment_register,
+            R.id.btn_send_code_fragment_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_next_fragment_register:
@@ -138,29 +141,74 @@ public class RetrievePasswordFragment extends BaseFragment<RetrievePasswordPrese
                     showError("请输入短信验证");
                     return;
                 }
-                llType1.setVisibility(View.GONE);
-                llType2.setVisibility(View.VISIBLE);
-                tvType1Lable.setTextColor(getResources().getColor(R.color.color_C3C3C3));
-                tvType2Lable.setTextColor(getResources().getColor(R.color.color_7EC7F5));
-
+                mPresenter.verifyPhone(etTel.getText().toString(), etPleaseInputMsgCode.getText().toString());
                 break;
             case R.id.btn_reset_confirm_fragment_register:
                 if (TextUtils.isEmpty(etPassword.getText().toString())) {
                     showError("请输入新密码");
                     return;
                 }
-                if (TextUtils.isEmpty(etPleaseInputMsgCode.getText().toString())) {
+                if (TextUtils.isEmpty(etComfirmPassword.getText().toString())) {
                     showError("请输入确认密码");
                     return;
                 }
-                if (!etPleaseInputMsgCode.getText().toString().equals(etPassword.getText().toString())) {
+                if (!etComfirmPassword.getText().toString().equals(etPassword.getText().toString())) {
                     showError("确认密码错误，请重新输入");
                     return;
-
                 }
-                showError("修改成功");
-                _mActivity.onBackPressedSupport();
+                mPresenter.forgetPassword(phone, MD5.strToMd5Low32(MD5.strToMd5Low32(etPassword.getText().toString()) + "bby"));
+                break;
+            case R.id.btn_send_code_fragment_register:
+                if (TextUtils.isEmpty(etTel.getText().toString())) {
+                    showError("请输入手机号码");
+                    return;
+                }
+                mPresenter.sendCode(etTel.getText().toString());
                 break;
         }
     }
+
+    @Override
+    public void verifyPhoneSuress() {
+        llType1.setVisibility(View.GONE);
+        llType2.setVisibility(View.VISIBLE);
+        tvType1Lable.setTextColor(getResources().getColor(R.color.color_C3C3C3));
+        tvType2Lable.setTextColor(getResources().getColor(R.color.color_7EC7F5));
+        phone = etTel.getText().toString();
+    }
+
+    @Override
+    public void forwordPasswordSuress() {
+        showError("修改成功！");
+        _mActivity.onBackPressedSupport();
+    }
+
+    @Override
+    public void getYZMSuccess() {
+        timer.start();
+    }
+
+
+    CountDownTimer timer = new CountDownTimer(60000, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            btnSendCode.setEnabled(false);
+            btnSendCode.setText((millisUntilFinished / 1000) + "S");
+        }
+
+        @Override
+        public void onFinish() {
+            btnSendCode.setEnabled(true);
+            btnSendCode.setText("重新获取");
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (timer != null) {
+            timer.cancel();
+        }
+    }
+
 }

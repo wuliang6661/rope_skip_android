@@ -4,10 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.app.App;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
 import com.habit.star.model.http.exception.ActionError;
+import com.habit.star.pojo.po.UserBO;
 import com.habit.star.ui.login.contract.SplashContract;
 import com.habit.star.utils.AppDirUtil;
 import com.habit.star.utils.RxUtil;
@@ -31,9 +34,10 @@ import rx.functions.Action1;
 public class SplashPresenter extends RxPresenter<SplashContract.View> implements SplashContract.Presenter {
     private final String TAG = "SplashPresenter";
     RetrofitHelper mRetrofitHelper;
+
     @Inject
     public SplashPresenter(RetrofitHelper retrofitHelper) {
-        mRetrofitHelper= retrofitHelper;
+        mRetrofitHelper = retrofitHelper;
     }
 
     @Override
@@ -68,24 +72,22 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
     }
 
 
-
     @Override
     public void getUserInfo() {
-//        if (App.getInstance().loginBean ==null){
-//            mView.getUserInfoError();
-//            return;
-//        }
-//        addSubscrebe(mRetrofitHelper.getNowUserInfoOne().subscribe(new Action1<UserInfoMode>() {
-//            @Override
-//            public void call(UserInfoMode userInfoMode) {
-//                mView.getUserInfo(userInfoMode);
-//            }
-//        }, new ActionError(App.getStringResource(R.string.getUserInfoError)) {
-//            @Override
-//            public void onError(String msg, int code) {
-//                mView.getUserInfoError();
-//                mView.showError(msg);
-//            }
-//        }));
+        HttpServerImpl.tokenLogin().subscribe(new HttpResultSubscriber<UserBO>() {
+            @Override
+            public void onSuccess(UserBO s) {
+                if (mView != null) {
+                    mView.getUserInfo(s);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.showError(message);
+                }
+            }
+        });
     }
 }
