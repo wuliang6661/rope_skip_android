@@ -77,6 +77,14 @@
     <color name="color_BBBBBB">#BBBBBB</color>
     <color name="color_F4F4F4">#F4F4F4</color>
 
+    <color name="dialog_bg">#70100e0e</color>
 
+    <color name="pop_bg">#FFFFFF</color>
+
+    <color name="black">#000000</color>
+    <color name="line_default_color">#DDDDDD</color>
+
+    <!--主蓝色-->
+    <color name="blue_color">#FF5D2D</color>
 
 </resources>

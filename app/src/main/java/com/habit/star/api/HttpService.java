@@ -6,6 +6,7 @@ import com.habit.star.pojo.po.UserBO;
 import java.util.Map;
 
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -54,6 +55,25 @@ public interface HttpService {
      */
     @POST("app/user/tokenLogin")
     Observable<BaseResult<UserBO>> tokenLogin();
+
+
+    /**
+     * 查询我的设备列表
+     */
+    @GET("app/my/device/getDeviceList")
+    Observable<BaseResult<String>> getDeviceList();
+
+    /**
+     * 删除跳绳设备
+     */
+    @POST("app/my/device/delDevice")
+    Observable<BaseResult<String>> delDevice(@Body Map<String, Object> params);
+
+    /**
+     * 增加设备信息
+     */
+    @POST("app/my/device/saveDevice")
+    Observable<BaseResult<String>> saveDevices(@Body Map<String, Object> params);
 
 
     /**

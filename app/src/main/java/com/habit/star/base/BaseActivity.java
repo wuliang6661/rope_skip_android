@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.habit.commonlibrary.utils.CompatResourceUtils;
@@ -101,6 +103,31 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
         if (svProgressHUD.isShowing()) {
             svProgressHUD.dismiss();
         }
+    }
+
+
+    /**
+     * 设置返回
+     */
+    protected void goBack() {
+        LinearLayout imageView = findViewById(R.id.back);
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    /**
+     * 设置标题
+     *
+     * @param title
+     */
+    protected void setTitleText(String title) {
+        TextView titleTex = findViewById(R.id.title_text);
+        titleTex.setText(title);
     }
 
 

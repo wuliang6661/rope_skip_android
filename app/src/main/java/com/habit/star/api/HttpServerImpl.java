@@ -87,4 +87,32 @@ public class HttpServerImpl {
     }
 
 
+    /**
+     * 获取我的设备列表
+     */
+    public static Observable<String> getDeviceList() {
+        return getService().getDeviceList().compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 删除设备
+     */
+    public static Observable<String> delDevice(int id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        return getService().delDevice(params).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 保存设备
+     */
+    public static Observable<String> saveDevices(int id, String name, String macAddress) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("name", name);
+        params.put("macAddress", macAddress);
+        return getService().saveDevices(params).compose(RxResultHelper.httpRusult());
+    }
 }

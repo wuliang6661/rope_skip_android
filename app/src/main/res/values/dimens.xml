@@ -44,4 +44,8 @@
     <dimen name="title_content_item_common_tool_setting">14sp</dimen>
     <!--loginFragment-->
 
+    <dimen name="dialog_radius">6dp</dimen>
+
+    <dimen name="line_height">50dp</dimen>
+
 </resources>
