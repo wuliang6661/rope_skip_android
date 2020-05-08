@@ -6,6 +6,9 @@ import android.util.Log;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
+import com.habit.star.app.App;
+import com.habit.star.app.Constants;
+import com.habit.star.event.model.BlueEvent;
 import com.inuker.bluetooth.library.BluetoothClient;
 import com.inuker.bluetooth.library.beacon.Beacon;
 import com.inuker.bluetooth.library.connect.listener.BleConnectStatusListener;
@@ -43,9 +46,17 @@ public class BlueUtils {
     private String characterUUID1 = "6e401991-b5a3-f393-e0a9-e50e24dcca9a";
 
     private onBlueListener listener;
+
     private onBlueNotifiListener notifiListener;
 
     private String MAC;
+
+    /**
+     * 蓝牙是否连接
+     *
+     * @return
+     */
+    private boolean isConnect = false;
 
 
     public static BlueUtils getInstance() {
@@ -65,6 +76,9 @@ public class BlueUtils {
      * 连接指定蓝牙
      */
     public void connectMac(String MAC) {
+        if (!StringUtils.isEmpty(MAC)) {   //如果之前已经连接过该蓝牙
+            disConnectBlue();  //断开连接
+        }
         this.MAC = MAC;
         //判断蓝牙是否开启
         mClient.registerBluetoothStateListener(bluetoothStateListener);
@@ -80,7 +94,16 @@ public class BlueUtils {
 
                 @Override
                 public void onResponse(int code, BleGattProfile data) {
-
+                    if (code == REQUEST_SUCCESS) {
+                        if (listener != null) {
+                            listener.onConnect(true);
+                            BlueEvent event = new BlueEvent();
+                            event.isConnect = true;
+                            EventBus.getDefault().post(event);
+                            isConnect = true;
+                            App.spUtils.put(Constants.MAC, MAC);
+                        }
+                    }
                 }
             });
             mClient.registerConnectStatusListener(MAC, mBleConnectStatusListener);
@@ -94,10 +117,8 @@ public class BlueUtils {
      * 搜索蓝牙
      */
     public void searchMac() {
-
         SearchRequest request = new SearchRequest.Builder()
-                .searchBluetoothLeDevice(3000, 3)   // 先扫BLE设备3次，每次3s
-                .searchBluetoothClassicDevice(5000) // 再扫经典蓝牙5s,在实际工作中没用到经典蓝牙的扫描
+                .searchBluetoothLeDevice(3000, 2)   // 先扫BLE设备3次，每次3s
                 .searchBluetoothLeDevice(2000)      // 再扫BLE设备2s
                 .build();
         mClient.search(request, new SearchResponse() {
@@ -147,13 +168,6 @@ public class BlueUtils {
         if (StringUtils.isEmpty(MAC)) {
             return;
         }
-        mClient.unnotify(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1), new BleUnnotifyResponse() {
-            @Override
-            public void onResponse(int code) {
-
-            }
-        });
-        onBlueNotify(MAC);
         mClient.write(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1), bytes, new BleWriteResponse() {
 
             @Override
@@ -167,6 +181,23 @@ public class BlueUtils {
 
 
     /**
+     * 建立接收消息的状态
+     */
+    public void createNotifion(onBlueNotifiListener listener) {
+        if (StringUtils.isEmpty(MAC)) {
+            return;
+        }
+        mClient.unnotify(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1), new BleUnnotifyResponse() {
+            @Override
+            public void onResponse(int code) {
+
+            }
+        });
+        onBlueNotify(MAC, listener);
+    }
+
+
+    /**
      * 监听蓝牙的连接状态
      */
     private final BleConnectStatusListener mBleConnectStatusListener = new BleConnectStatusListener() {
@@ -174,13 +205,17 @@ public class BlueUtils {
         @Override
         public void onConnectStatusChanged(String mac, int status) {
             if (status == STATUS_CONNECTED) {
-                if (listener != null) {
-                    listener.onConnect(true);
-                }
+//                if (listener != null) {
+//                    listener.onConnect(true);
+//                }
             } else if (status == STATUS_DISCONNECTED) {
-                if (listener != null) {
-                    listener.onConnect(false);
-                }
+//                if (listener != null) {
+//                    listener.onConnect(false);
+//                }
+                BlueEvent event = new BlueEvent();
+                event.isConnect = false;
+                EventBus.getDefault().post(event);
+                isConnect = false;
             }
         }
     };
@@ -214,20 +249,27 @@ public class BlueUtils {
     /**
      * 监听蓝牙的返回
      */
-    private void onBlueNotify(String MAC) {
+    private void onBlueNotify(String MAC, onBlueNotifiListener listener) {
         mClient.notify(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1), new BleNotifyResponse() {
 
             @Override
             public void onNotify(UUID service, UUID character, byte[] value) {
-                if (notifiListener != null) {
-                    notifiListener.onNotifiBlue(value);
+                if (listener != null) {
+                    listener.onNotifiBlue(value);
                 }
             }
 
             @Override
             public void onResponse(int code) {
-                if (code == REQUEST_SUCCESS) {
-
+                if (code == REQUEST_SUCCESS) {   //监听建立之后再发送数据
+                    notifiListener = listener;
+                    if (listener != null) {
+                        listener.notifiConnectSourcess();
+                    }
+                } else {
+                    if (listener != null) {
+                        listener.notifiConnectError();
+                    }
                 }
             }
         });
@@ -246,7 +288,9 @@ public class BlueUtils {
             @Override
             public void onResponse(int code) {
                 if (code == REQUEST_SUCCESS) {
-
+                    if (listener != null) {
+                        listener.onConnect(false);
+                    }
                 }
             }
         });
@@ -260,9 +304,17 @@ public class BlueUtils {
         this.listener = listener;
     }
 
+    /**
+     * 如果监听接收的方法已开启
+     *
+     * @return
+     */
+    public boolean isNotifiOpen() {
+        return notifiListener != null;
+    }
 
-    public void setNotifiListener(onBlueNotifiListener listener) {
-        this.notifiListener = listener;
+    public boolean isConnect() {
+        return isConnect;
     }
 
     /**
@@ -301,6 +353,10 @@ public class BlueUtils {
          * 蓝牙返回的数据
          */
         void onNotifiBlue(byte[] value);
+
+        void notifiConnectSourcess();
+
+        void notifiConnectError();
     }
 
 }

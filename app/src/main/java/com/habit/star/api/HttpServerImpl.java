@@ -1,9 +1,11 @@
 package com.habit.star.api;
 
 import com.habit.star.api.rx.RxResultHelper;
+import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.UserBO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -90,7 +92,7 @@ public class HttpServerImpl {
     /**
      * 获取我的设备列表
      */
-    public static Observable<String> getDeviceList() {
+    public static Observable<List<DeviceBO>> getDeviceList() {
         return getService().getDeviceList().compose(RxResultHelper.httpRusult());
     }
 

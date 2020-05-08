@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.habit.commonlibrary.apt.SingleClick;
@@ -36,7 +35,6 @@ import com.habit.star.ui.train.presenter.TranHomePresenter;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.utils.Utils;
 import com.habit.star.utils.blue.BlueUtils;
-import com.inuker.bluetooth.library.search.SearchResult;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -161,6 +159,11 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                     }
                 }).build();
+        if (BlueUtils.getInstance().isConnect()) {
+            tvBlueConnectStatus.setText("已连接");
+        } else {
+            tvBlueConnectStatus.setText("已断开");
+        }
 //        exitDialog.show();
 //        initBlue();
     }
@@ -189,47 +192,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             }
         });
     }
-
-    BlueUtils blueUtils;
-
-    /**
-     * 蓝牙连接并获取数据
-     */
-    private void initBlue() {
-        blueUtils = BlueUtils.getInstance();
-        blueUtils.setListener(new BlueUtils.onBlueListener() {
-            @Override
-            public void onConnect(boolean isConnect) {
-                stopProgress();
-                if (isConnect) {
-                    showError("蓝牙连接成功！");
-                    tvBlueConnectStatus.setText("已连接");
-                } else {
-                    showError("蓝牙连接失败！");
-                    tvBlueConnectStatus.setText("已断开");
-                }
-            }
-
-            @Override
-            public void searchStart() {
-
-            }
-
-            @Override
-            public void searchStop() {
-
-            }
-
-            @Override
-            public void searchMacs(SearchResult devices) {
-                LogUtils.e(devices.getName());
-            }
-        });
-//        blueUtils.searchMac();
-//        blueUtils.connectMac("EA:2A:D8:72:FC:9F");
-//        showProgress("蓝牙连接中...");
-    }
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BlueEvent event) {

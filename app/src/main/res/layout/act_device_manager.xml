@@ -9,23 +9,40 @@
     <include layout="@layout/layout_title" />
 
 
-    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-        android:id="@+id/recycle_view"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+                android:id="@+id/recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" />
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/btn_shape"
-        android:gravity="center"
-        android:text="增加设备"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/add_devices"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btn_shape"
+                android:gravity="center"
+                android:text="增加设备"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
 
 
 </LinearLayout>

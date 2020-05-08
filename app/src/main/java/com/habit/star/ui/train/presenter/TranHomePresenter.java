@@ -1,12 +1,10 @@
 package com.habit.star.ui.train.presenter;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
 import com.habit.star.ui.train.bean.TranRecordModel;
 import com.habit.star.ui.train.contract.TranHomeContract;
 import com.habit.star.utils.blue.BlueUtils;
-import com.habit.star.utils.blue.ByteUtils;
 import com.habit.star.utils.blue.cmd.BleCmd;
 import com.habit.star.utils.blue.cmd.RequstBleCmd;
 
@@ -76,17 +74,26 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
      */
     public void getDeviceQC() {
         BlueUtils blueUtils = BlueUtils.getInstance();
-        blueUtils.setNotifiListener(new BlueUtils.onBlueNotifiListener() {
+        blueUtils.createNotifion(new BlueUtils.onBlueNotifiListener() {
             @Override
             public void onNotifiBlue(byte[] value) {
-                LogUtils.e(ByteUtils.byte2HexStr(value, value.length));
                 BleCmd.Builder builder = new BleCmd.Builder().setBuilder(value);
                 if (mView != null) {
                     mView.getDeviceQcAndType(String.valueOf(builder.getDataBody()[0]), String.valueOf(builder.getDataBody()[1]));
                 }
             }
+
+            @Override
+            public void notifiConnectSourcess() {   //监听创建成功之后发送
+                blueUtils.writeData(RequstBleCmd.createGetEQCmd().getCmdByte());
+            }
+
+            @Override
+            public void notifiConnectError() {
+
+            }
         });
-        blueUtils.writeData(RequstBleCmd.createGetEQCmd().getCmdByte());
+
     }
 
 
@@ -95,18 +102,26 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
      */
     public void getTiaoshenCishu() {
         BlueUtils blueUtils = BlueUtils.getInstance();
-        blueUtils.setNotifiListener(new BlueUtils.onBlueNotifiListener() {
+        blueUtils.createNotifion(new BlueUtils.onBlueNotifiListener() {
             @Override
             public void onNotifiBlue(byte[] value) {
-                LogUtils.e(ByteUtils.byte2HexStr(value, value.length));
                 BleCmd.Builder builder = new BleCmd.Builder().setBuilder(value);
                 if (mView != null) {
                     mView.getDeviceCishu(
                             String.valueOf(Math.abs(builder.getDataBody()[builder.getDataBody().length - 1])));
                 }
             }
+
+            @Override
+            public void notifiConnectSourcess() {   //监听创建成功之后发送
+                blueUtils.writeData(RequstBleCmd.createTodayFrequencyCmd().getCmdByte());
+            }
+
+            @Override
+            public void notifiConnectError() {
+
+            }
         });
-        blueUtils.writeData(RequstBleCmd.createTodayFrequencyCmd().getCmdByte());
     }
 
 }

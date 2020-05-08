@@ -1,7 +1,12 @@
 package com.habit.star.presenter;
 
+import com.habit.star.app.App;
+import com.habit.star.app.Constants;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.presenter.contract.MainContract;
+import com.habit.star.utils.StringUtils;
+import com.habit.star.utils.blue.BlueUtils;
+import com.inuker.bluetooth.library.search.SearchResult;
 
 import javax.inject.Inject;
 
@@ -18,4 +23,38 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
     @Inject
     public MainPresenter() {
     }
+
+    /**
+     * 打开蓝牙成功之后，默认连接上次连接过的蓝牙
+     */
+    public void connectBlue(){
+       String MAC = App.spUtils.getString(Constants.MAC);
+       if(StringUtils.isEmpty(MAC)){
+           return;
+       }
+       BlueUtils blueUtils = BlueUtils.getInstance();
+       blueUtils.setListener(new BlueUtils.onBlueListener() {
+           @Override
+           public void onConnect(boolean isConnect) {
+
+           }
+
+           @Override
+           public void searchStart() {
+
+           }
+
+           @Override
+           public void searchStop() {
+
+           }
+
+           @Override
+           public void searchMacs(SearchResult result) {
+
+           }
+       });
+       blueUtils.connectMac(MAC);
+    }
+
 }

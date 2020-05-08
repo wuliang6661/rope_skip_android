@@ -1,8 +1,10 @@
 package com.habit.star.api;
 
 import com.habit.star.pojo.BaseResult;
+import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.UserBO;
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.http.Body;
@@ -61,7 +63,7 @@ public interface HttpService {
      * 查询我的设备列表
      */
     @GET("app/my/device/getDeviceList")
-    Observable<BaseResult<String>> getDeviceList();
+    Observable<BaseResult<List<DeviceBO>>> getDeviceList();
 
     /**
      * 删除跳绳设备

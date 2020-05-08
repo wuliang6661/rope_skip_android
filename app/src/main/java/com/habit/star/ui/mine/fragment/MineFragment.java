@@ -21,10 +21,11 @@ import com.habit.star.app.Constants;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.ui.activity.MainActivity;
-import com.habit.star.ui.mine.presenter.MinePresenter;
-import com.habit.star.ui.mine.contract.MineContract;
+import com.habit.star.ui.devicemanager.DeviceManagerActivity;
 import com.habit.star.ui.login.activity.LoginActivity;
 import com.habit.star.ui.mine.activity.MineMainActivity;
+import com.habit.star.ui.mine.contract.MineContract;
+import com.habit.star.ui.mine.presenter.MinePresenter;
 import com.habit.star.utils.DensityUtil;
 import com.habit.star.utils.PrefUtils;
 import com.habit.star.utils.ToastUtil;
@@ -173,16 +174,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     }
 
 
-    private int getWindowDefineHeight() {
-        int height;
-//        int itemCount = menuItems.length;
-//        height = itemCount * mMenuHeight + (itemCount - 1) * 1 + mCancelHeight;
-//        if (mTitleView.getVisibility() != View.GONE) {
-//            height += mTitleHeight;
-//        }
-        return 160;
-    }
-
     void getUserInfo() {
     }
 
@@ -246,10 +237,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
 //                startActivity(intent);
 //                break;
             case R.id.item_device_fragment_mine:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_MY_PK);
-//                intent.setClass(_mActivity, MineMainActivity.class);
-//                startActivity(intent);
+                gotoActivity(DeviceManagerActivity.class, false);
                 break;
             case R.id.item_jtcy_fragment_mine:
                 intent = new Intent();
@@ -291,6 +279,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 break;
         }
     }
+
+
 
 //    @SingleClick
 //    @OnClick({

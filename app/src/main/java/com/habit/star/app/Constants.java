@@ -31,8 +31,6 @@ public class Constants {
     public static final String PREFERENCE_KEY_SERVER_ADDRESS = "preference_key_server_address";
 
 
-
-
     public static final String PREF_KEY_TOKEN = "pref_key_token";
     public static final String PREF_KEY_USER = "pref_key_user";
     public static final String PREF_KEY_PASSWORD = "pref_key_password";
@@ -40,12 +38,15 @@ public class Constants {
     public static final String PREF_KEY_CATE = "pref_key_cate";
 
 
-    //======================================URL常量==================================
-
-
     //======================================传递常量==================================
     public static final String STRING_MODE = "string_mode";
     public static final String BEAN_MODE = "bean_mode";
+
+
+    /**
+     * 上次连接过的蓝牙Mac地址
+     */
+    public static final String MAC = "blue_mac";
 
 
 }

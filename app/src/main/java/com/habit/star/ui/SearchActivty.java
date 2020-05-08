@@ -5,14 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.habit.star.R;
+import com.habit.star.app.App;
 import com.habit.star.base.BaseActivity;
-import com.habit.star.event.model.BlueEvent;
 import com.habit.star.utils.blue.BlueUtils;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
 import com.inuker.bluetooth.library.search.SearchResult;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,14 +84,8 @@ public class SearchActivty extends BaseActivity {
                 stopProgress();
                 if (isConnect) {
                     showToast("蓝牙连接成功！");
-                    BlueEvent event = new BlueEvent();
-                    event.isConnect = true;
-                    EventBus.getDefault().post(event);
                 } else {
                     showToast("蓝牙连接成功！");
-                    BlueEvent event = new BlueEvent();
-                    event.isConnect = false;
-                    EventBus.getDefault().post(event);
                 }
             }
 

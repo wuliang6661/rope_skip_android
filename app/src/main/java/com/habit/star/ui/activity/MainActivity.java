@@ -177,7 +177,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 intent.setClass(MainActivity.this, MineMainActivity.class);
                 startActivity(intent);
             }
-        }); buyDialogView.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+        });
+        buyDialogView.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 buyDialog.hide();
@@ -200,9 +201,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onClick(View v) {
                 if (turnOnBluetooth()) {
-//                    ToastUtil.shortShow("打开蓝牙成功");
+                    mPresenter.connectBlue();
                 } else {
-//                    ToastUtil.shortShow("打开蓝牙失败！！");
+                    showToast("关闭蓝牙可能会影响跳绳功能！");
                 }
                 openBlueDialog.hide();
                 buyDialog.show();
@@ -226,9 +227,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         Window window1 = buyDialog.getWindow();
         WindowManager.LayoutParams paramsWindow1 = window1.getAttributes();
         paramsWindow1.width = window1.getWindowManager().getDefaultDisplay().getWidth();
-        paramsWindow1.height = window1.getWindowManager().getDefaultDisplay().getHeight()-DensityUtil.dp2px(mContext, 80);
+        paramsWindow1.height = window1.getWindowManager().getDefaultDisplay().getHeight() - DensityUtil.dp2px(mContext, 80);
         window1.setAttributes(paramsWindow1);
-
 
 
         createDialog = new Dialog(this, R.style.MaterialDialogSheet);
@@ -237,7 +237,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         Window window = createDialog.getWindow();
         WindowManager.LayoutParams paramsWindow = window.getAttributes();
         paramsWindow.width = window.getWindowManager().getDefaultDisplay().getWidth();
-        paramsWindow.height = window.getWindowManager().getDefaultDisplay().getHeight()-DensityUtil.dp2px(mContext, 80);
+        paramsWindow.height = window.getWindowManager().getDefaultDisplay().getHeight() - DensityUtil.dp2px(mContext, 80);
         window.setAttributes(paramsWindow);
     }
 
@@ -400,8 +400,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             if (!blueadapter.isEnabled()) {
                 openBlueDialog.show();
             } else {
-
 //                buyDialog.show();
+                mPresenter.connectBlue();
                 createDialog.show();
             }
         } else {//不支持蓝牙模块
