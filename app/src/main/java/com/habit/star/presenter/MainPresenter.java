@@ -15,8 +15,7 @@ import javax.inject.Inject;
  *
  * @author dongdong
  * @version 1.0
- * @since
- * 文件名称： MainPresenter.java
+ * @since 文件名称： MainPresenter.java
  * 类说明：
  */
 public class MainPresenter extends RxPresenter<MainContract.View> implements MainContract.Presenter {
@@ -27,34 +26,37 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
     /**
      * 打开蓝牙成功之后，默认连接上次连接过的蓝牙
      */
-    public void connectBlue(){
-       String MAC = App.spUtils.getString(Constants.MAC);
-       if(StringUtils.isEmpty(MAC)){
-           return;
-       }
-       BlueUtils blueUtils = BlueUtils.getInstance();
-       blueUtils.setListener(new BlueUtils.onBlueListener() {
-           @Override
-           public void onConnect(boolean isConnect) {
+    public void connectBlue() {
+        String MAC = App.spUtils.getString(Constants.MAC);
+        if (StringUtils.isEmpty(MAC)) {
+            return;
+        }
+        BlueUtils blueUtils = BlueUtils.getInstance();
+        if (blueUtils.isConnect()) {
+            return;
+        }
+        blueUtils.setListener(new BlueUtils.onBlueListener() {
+            @Override
+            public void onConnect(boolean isConnect) {
 
-           }
+            }
 
-           @Override
-           public void searchStart() {
+            @Override
+            public void searchStart() {
 
-           }
+            }
 
-           @Override
-           public void searchStop() {
+            @Override
+            public void searchStop() {
 
-           }
+            }
 
-           @Override
-           public void searchMacs(SearchResult result) {
+            @Override
+            public void searchMacs(SearchResult result) {
 
-           }
-       });
-       blueUtils.connectMac(MAC);
+            }
+        });
+        blueUtils.connectMac(MAC);
     }
 
 }
