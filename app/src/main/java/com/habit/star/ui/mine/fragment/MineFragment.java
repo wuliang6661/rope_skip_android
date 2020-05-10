@@ -304,13 +304,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         deviceLixian.setText(linkBO.getOffline() + "");
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
     @Override
     public void onDestroyView() {
@@ -318,72 +311,4 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         unbinder.unbind();
     }
 
-
-//    @SingleClick
-//    @OnClick({
-//            R.id.item_wdzh_fragment_mine,
-//            R.id.item_sz_fragment_mine,
-//            R.id.item_qbdd_fragment_mine,
-//            R.id.item_fb_fragment_mine,
-//            R.id.item_wdyp_fragment_mine,
-//            R.id.item_wdgz_fragment_mine,
-//            R.id.item_wdzp_fragment_mine,
-//            R.id.item_wdsc_fragment_mine,
-//            R.id.item_tool_setting_fragment_mine,
-//            R.id.item_swhz_fragment_mine})
-//    public void onViewClicked(View view) {
-//        Intent intent;
-//        switch (view.getId()) {
-//            case R.id.item_qbdd_fragment_mine:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_FRAGMENT_WDGD);
-//                intent.setClass(_mActivity, MineMainActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.item_wdyp_fragment_mine:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_FRAGMENT_YP);
-//                intent.setClass(_mActivity, MineMainActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.item_wdgz_fragment_mine:
-//                showError("正在开发中");
-//                break;
-//            case R.id.item_wdzp_fragment_mine:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_FRAGMENT_WDZP);
-//                intent.setClass(_mActivity, MineMainActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.item_wdsc_fragment_mine:
-//                showError("正在开发中");
-//                break;
-//            case R.id.item_swhz_fragment_mine:
-//                break;
-//            case R.id.item_fb_fragment_mine:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_FRAGMENT_WDFB);
-//                intent.setClass(_mActivity, MineMainActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.item_wdzh_fragment_mine:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_FRAGMENT_ZH);
-//                intent.setClass(_mActivity, MineMainActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.item_sz_fragment_mine:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_FRAGMENT_SETTING);
-//                intent.setClass(_mActivity, MineMainActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.item_tool_setting_fragment_mine:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_FRAGMENT_TOOL_SETTING);
-//                intent.setClass(_mActivity, MineMainActivity.class);
-//                startActivity(intent);
-//                break;
-//        }
-//    }
 }

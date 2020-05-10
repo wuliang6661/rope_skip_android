@@ -33,7 +33,9 @@ public class MinePresenter extends RxPresenter<MineContract.View> implements Min
         HttpServerImpl.getUserInfo().subscribe(new HttpResultSubscriber<UserBO>() {
             @Override
             public void onSuccess(UserBO userBO) {
-
+                if (mView != null) {
+                    mView.getUserInfo(userBO);
+                }
             }
 
             @Override
