@@ -2,6 +2,7 @@ package com.habit.star.api;
 
 import com.habit.star.pojo.BaseResult;
 import com.habit.star.pojo.po.DeviceBO;
+import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.UserBO;
 
 import java.util.List;
@@ -77,6 +78,23 @@ public interface HttpService {
     @POST("app/my/device/saveDevice")
     Observable<BaseResult<String>> saveDevices(@Body Map<String, Object> params);
 
+    /**
+     * 查询设备数量
+     */
+    @GET("app/my/device/getDeviceData")
+    Observable<BaseResult<DeviceLinkBO>> getDeviceData();
+
+    /**
+     * 查询当前连接的设备
+     */
+    @GET("app/my/device/getLinkDevice")
+    Observable<BaseResult<DeviceBO>> getLinkDevice();
+
+    /**
+     * 获取用户信息
+     */
+    @GET("app/user/getUserInfo")
+    Observable<BaseResult<UserBO>> getUserInfo();
 
     /**
      * 修改用户名称

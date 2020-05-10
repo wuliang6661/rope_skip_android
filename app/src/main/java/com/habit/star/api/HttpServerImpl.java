@@ -2,6 +2,7 @@ package com.habit.star.api;
 
 import com.habit.star.api.rx.RxResultHelper;
 import com.habit.star.pojo.po.DeviceBO;
+import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.UserBO;
 
 import java.util.HashMap;
@@ -117,4 +118,26 @@ public class HttpServerImpl {
         params.put("macAddress", macAddress);
         return getService().saveDevices(params).compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 获取用户信息
+     */
+    public static Observable<UserBO> getUserInfo() {
+        return getService().getUserInfo().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询当前连接的设备
+     */
+    public static Observable<DeviceBO> getLinkDevice() {
+        return getService().getLinkDevice().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询设备数量
+     */
+    public static Observable<DeviceLinkBO> getDeviceData() {
+        return getService().getDeviceData().compose(RxResultHelper.httpRusult());
+    }
+
 }

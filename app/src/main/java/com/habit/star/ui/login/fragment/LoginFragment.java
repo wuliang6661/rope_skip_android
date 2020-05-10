@@ -95,6 +95,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         if (loginBean == null) {
             return;
         }
+        App.token = loginBean.getToken();
         App.userBO = loginBean;
         ///保存token
         App.spUtils.put(Constants.PREF_KEY_TOKEN, loginBean.getToken());

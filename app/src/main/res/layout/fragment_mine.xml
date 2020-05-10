@@ -76,11 +76,12 @@
                     </LinearLayout>
 
                     <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/device_zongshu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="5" />
                 </LinearLayout>
 
                 <View
@@ -115,11 +116,12 @@
                     </LinearLayout>
 
                     <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/device_zaixian"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="5" />
                 </LinearLayout>
 
                 <View
@@ -154,11 +156,12 @@
                     </LinearLayout>
 
                     <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/device_lixian"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="5" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

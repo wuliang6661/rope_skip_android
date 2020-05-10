@@ -206,6 +206,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     showToast("关闭蓝牙可能会影响跳绳功能！");
                 }
                 openBlueDialog.hide();
+                openBlueDialog.dismiss();
                 buyDialog.show();
             }
         });

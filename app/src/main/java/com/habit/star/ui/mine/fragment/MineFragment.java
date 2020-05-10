@@ -6,20 +6,27 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
+import com.habit.star.app.App;
 import com.habit.star.app.Constants;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.pojo.po.DeviceBO;
+import com.habit.star.pojo.po.DeviceLinkBO;
+import com.habit.star.pojo.po.UserBO;
 import com.habit.star.ui.activity.MainActivity;
 import com.habit.star.ui.devicemanager.DeviceManagerActivity;
 import com.habit.star.ui.login.activity.LoginActivity;
@@ -31,7 +38,9 @@ import com.habit.star.utils.PrefUtils;
 import com.habit.star.utils.ToastUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -68,6 +77,13 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @BindView(R.id.btn_exit_login_fragment_mine)
     AppCompatTextView mBtnExit;
     Dialog mBottomSheetDialog;
+    @BindView(R.id.device_zongshu)
+    AppCompatTextView deviceZongshu;
+    @BindView(R.id.device_zaixian)
+    AppCompatTextView deviceZaixian;
+    @BindView(R.id.device_lixian)
+    AppCompatTextView deviceLixian;
+    Unbinder unbinder;
 
     ///退出登录对话框
     private MaterialDialog exitDialog;
@@ -119,8 +135,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         });
 
 
-//        mPresenter.getUserInfo();
-        getUserInfo();
+        mPresenter.getUserInfo();
+        mPresenter.getDeviceData();
+        mPresenter.getLinkDevice();
     }
 
     private void initDialog() {
@@ -173,18 +190,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 }).build();
     }
 
-
-    void getUserInfo() {
-    }
-
-
-//    @Override
-//    public void getUserInfo(UserInfoMode userInfoMode) {
-//        tvLoginTitle.setText(userInfoMode.nickname);
-//        tvTypeName.setText(userInfoMode.typeName);
-//        log(Constants.HOST_DEFAULT+userInfoMode.head);
-//        ImageLoader.load(getContext(),ivHead, Constants.HOST_DEFAULT+userInfoMode.head);
-//    }
 
     @Override
     public void showProgress() {
@@ -280,6 +285,38 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         }
     }
 
+    @Override
+    public void getUserInfo(UserBO userBO) {
+        App.userBO = userBO;
+        toolbar.setTitle(userBO.getNickName());
+        Glide.with(getActivity()).load(userBO.getImage()).into(mIvUserHeader);
+    }
+
+    @Override
+    public void getLinkDevice(DeviceBO deviceBO) {
+        mItemDevice.setItemNameText(deviceBO.getName());
+    }
+
+    @Override
+    public void getDeviceData(DeviceLinkBO linkBO) {
+        deviceZongshu.setText(linkBO.getTotal() + "");
+        deviceZaixian.setText(linkBO.getOnline() + "");
+        deviceLixian.setText(linkBO.getOffline() + "");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
 
 //    @SingleClick
