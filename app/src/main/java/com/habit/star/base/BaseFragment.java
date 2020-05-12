@@ -117,6 +117,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     }
 
     /**
+     * 显示加载进度弹窗
+     */
+    public void showLoadingProgress() {
+        svProgressHUD.showWithStatus("加载中...", SVProgressHUD.SVProgressHUDMaskType.Black);
+    }
+    /**
      * 停止弹窗
      */
     protected void stopProgress() {

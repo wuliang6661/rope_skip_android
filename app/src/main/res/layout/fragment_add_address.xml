@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_F6F6F9"
@@ -18,10 +17,12 @@
         app:tl_brp_right_text_color="@color/colorText"
         app:tl_brp_title="收货地址"
         app:tl_brp_title_text_color="@color/colorText" />
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_layout_toolbar">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,157 +32,169 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:background="@color/white">
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:paddingHorizontal="20dp"
-                    android:orientation="horizontal"
                     android:background="@drawable/input_bottom_line"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp">
+
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="姓名"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorText"/>
+                        android:textColor="@color/colorText"
+                        android:textSize="14sp" />
 
                     <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/et_name_fragment_add_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/et_name_fragment_add_address"
                         android:layout_marginLeft="60dp"
+                        android:background="@color/white"
                         android:hint="输入收货人姓名"
-                        android:textColorHint="@color/color_C3C3C3"
                         android:textColor="@color/colorText"
-                        android:textSize="14sp"
-                        android:background="@color/white"/>
+                        android:textColorHint="@color/color_C3C3C3"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:paddingHorizontal="20dp"
-                    android:orientation="horizontal"
                     android:background="@drawable/input_bottom_line"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp">
+
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="手机号码"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorText"/>
+                        android:textColor="@color/colorText"
+                        android:textSize="14sp" />
 
                     <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/et_tel_fragment_add_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/et_tel_fragment_add_address"
                         android:layout_marginLeft="60dp"
+                        android:background="@color/white"
                         android:hint="输入手机号码"
                         android:inputType="number"
-                        android:textColorHint="@color/color_C3C3C3"
                         android:textColor="@color/colorText"
-                        android:textSize="14sp"
-                        android:background="@color/white"/>
+                        android:textColorHint="@color/color_C3C3C3"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
+
                 <LinearLayout
+                    android:id="@+id/quyu_layout"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
-                    android:paddingHorizontal="20dp"
-                    android:orientation="horizontal"
                     android:background="@drawable/input_bottom_line"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp">
+
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="所在区域"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorText"/>
+                        android:textColor="@color/colorText"
+                        android:textSize="14sp" />
 
                     <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/et_region_fragment_add_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:id="@+id/et_region_fragment_add_address"
                         android:layout_marginLeft="60dp"
-                        android:text="选择所在省份、城市、区县"
-                        android:textColor="@color/color_C3C3C3"
-                        android:textSize="14sp"
-                        android:background="@color/white"/>
+                        android:layout_weight="1"
+                        android:textColor="@color/colorText"
+                        android:background="@color/white"
+                        android:hint="选择所在省份、城市、区县"
+                        android:textColorHint="@color/color_C3C3C3"
+                        android:textSize="14sp" />
 
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="9dp"
                         android:layout_height="14dp"
                         android:layout_marginLeft="10dp"
-                        android:scaleType="fitXY"
-                        android:background="@mipmap/fanhui4" />
+                        android:background="@mipmap/fanhui4"
+                        android:scaleType="fitXY" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:paddingHorizontal="20dp"
-                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/input_bottom_line"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:minHeight="46dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="20dp">
+
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="详细地址"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorText"/>
+                        android:textColor="@color/colorText"
+                        android:textSize="14sp" />
 
                     <android.support.v7.widget.AppCompatEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:id="@+id/et_address_fragment_add_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="60dp"
+                        android:background="@color/white"
                         android:hint="街道、楼牌号等详细地址"
-                        android:textColorHint="@color/color_C3C3C3"
                         android:textColor="@color/colorText"
-                        android:textSize="14sp"
-                        android:background="@color/white"/>
+                        android:textColorHint="@color/color_C3C3C3"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
                 <!--<com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider-->
-                    <!--android:id="@+id/item_address_detail_fragment_add_address"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="47dp"-->
-                    <!--android:visibility="gone"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:paddingLeft="15dp"-->
-                    <!--app:lichtd_bottom_divider_visibility="gone"-->
-                    <!--app:lichtd_content_text_color="@color/color_888888"-->
-                    <!--app:lichtd_iv_detail_visibility="visible"-->
-                    <!--app:lichtd_title_text_size="14sp"-->
-                    <!--app:lichtd_content_text_size="14sp"-->
-                    <!--app:lichtd_title="详细地址"-->
-                    <!--app:lichtd_top_divider_visibility="gone" />-->
+                <!--android:id="@+id/item_address_detail_fragment_add_address"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="47dp"-->
+                <!--android:visibility="gone"-->
+                <!--android:background="@color/white"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--app:lichtd_bottom_divider_visibility="gone"-->
+                <!--app:lichtd_content_text_color="@color/color_888888"-->
+                <!--app:lichtd_iv_detail_visibility="visible"-->
+                <!--app:lichtd_title_text_size="14sp"-->
+                <!--app:lichtd_content_text_size="14sp"-->
+                <!--app:lichtd_title="详细地址"-->
+                <!--app:lichtd_top_divider_visibility="gone" />-->
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/cb_mr_fragment_add_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:button="@drawable/selector_checkbox_orc"
+                    android:paddingLeft="10dp"
                     android:text="设为默认收货地址"
                     android:textColor="@color/color_888888"
-                    android:textSize="12sp"
-                    android:button="@drawable/selector_checkbox_orc"
-                    android:paddingLeft="10dp"/>
+                    android:textSize="12sp" />
             </LinearLayout>
+
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_save_fragment_add_address"
                 style="?android:attr/borderlessButtonStyle"

@@ -133,8 +133,12 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 startActivity(intent);
             }
         });
+    }
 
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
         mPresenter.getUserInfo();
         mPresenter.getDeviceData();
         mPresenter.getLinkDevice();

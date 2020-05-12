@@ -20,13 +20,12 @@ import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.ui.mine.adapter.AddressListAdapter;
-import com.habit.star.ui.mine.bean.AddressModel;
 import com.habit.star.ui.mine.contract.MyAddressListContract;
 import com.habit.star.ui.mine.presenter.MyAddressListPresenter;
 import com.habit.star.utils.ToastUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,6 +55,7 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
 
     private MaterialDialog exitDialog;
     private AddressListAdapter mListAdapter;
+    private int position = 0;
 
     public static MyAddressListFragment newInstance(Bundle bundle) {
         MyAddressListFragment fragment = new MyAddressListFragment();
@@ -101,6 +101,13 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
     }
 
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        showLoadingProgress();
+        mPresenter.getAddressList();
+    }
+
     private void initDialog() {
         exitDialog = new MaterialDialog.Builder(getActivity())
                 .title(getResources().getString(R.string.remind))
@@ -112,7 +119,8 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
+                        showLoadingProgress();
+                        mPresenter.deleteAddress(mListAdapter.getItem(position).getId());
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -132,7 +140,8 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.ll_select_layout_fragment_address_list_item:
-                        mListAdapter.setItemSelected(position);
+                        showLoadingProgress();
+                        mPresenter.setDefaltAddress(mListAdapter.getItem(position).getId());
                         break;
                     case R.id.ll_bianji_layout_fragment_address_list_item:
                         Bundle bundle = new Bundle();
@@ -140,26 +149,13 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
                         start(AddAddressFragment.newInstance(bundle));
                         break;
                     case R.id.ll_delete_layout_fragment_address_list_item:
+                        MyAddressListFragment.this.position = position;
                         exitDialog.show();
                         break;
                 }
             }
         });
 
-        final List<AddressModel> list = new ArrayList();
-        AddressModel model1 = new AddressModel();
-        model1.title = "可爱的小兔兔";
-        model1.tel = "152****1849";
-        model1.address = "浙江省杭州市南山区科兴科学园";
-        model1.isSelected = true;
-        model1.tag = 1;
-        AddressModel model2 = new AddressModel();
-        model2.title = "风骚的小马哥";
-        model2.tel = "152****1849";
-        model2.address = "浙江省杭州市南山区科兴科学园";
-        list.add(model1);
-        list.add(model2);
-        mListAdapter.setNewData(list);
     }
 
     @Override
@@ -175,6 +171,7 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
 
     @Override
     public void showError(String msg) {
+        stopProgress();
         ToastUtil.show(msg);
     }
 
@@ -200,5 +197,23 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
     @OnClick(R.id.ll_btn_submit_fragment_feed_back)
     public void onViewClicked() {
         start(AddAddressFragment.newInstance(null));
+    }
+
+    @Override
+    public void getAddressList(List<AddressBO> list) {
+        stopProgress();
+        mListAdapter.setNewData(list);
+    }
+
+    @Override
+    public void defaltAddressSourcess() {
+        stopProgress();
+        mPresenter.getAddressList();
+    }
+
+    @Override
+    public void deleteAddressSouress() {
+        stopProgress();
+        mPresenter.getAddressList();
     }
 }

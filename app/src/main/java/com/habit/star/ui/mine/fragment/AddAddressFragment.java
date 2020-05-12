@@ -3,20 +3,37 @@ package com.habit.star.ui.mine.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
-import com.habit.star.ui.mine.bean.AddressModel;
+import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.ui.mine.contract.AddAddressContract;
 import com.habit.star.ui.mine.presenter.AddAddressPresenter;
 import com.habit.star.utils.ToastUtil;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citypickerview.CityPickerView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /*
  * 创建日期：2020-01-21 20:09
@@ -36,17 +53,23 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
     AppCompatEditText etNameFragmentAddAddress;
     @BindView(R.id.et_tel_fragment_add_address)
     AppCompatEditText etTelFragmentAddAddress;
-//    @BindView(R.id.et_region_fragment_add_address)
-//    AppCompatEditText etRegionFragmentAddAddress;
-//    @BindView(R.id.item_address_detail_fragment_add_address)
-//    LilayItemClickableWithHeadImageTopDivider itemAddressDetailFragmentAddAddress;
     @BindView(R.id.cb_mr_fragment_add_address)
     CheckBox cbMrFragmentAddAddress;
     @BindView(R.id.btn_save_fragment_add_address)
     AppCompatButton btnSaveFragmentAddAddress;
+    @BindView(R.id.quyu_layout)
+    LinearLayout quyuLayout;
+    @BindView(R.id.et_address_fragment_add_address)
+    AppCompatEditText etAddressFragmentAddAddress;
+
+    Unbinder unbinder;
+    @BindView(R.id.et_region_fragment_add_address)
+    AppCompatTextView etRegionFragmentAddAddress;
 
 
-    private AddressModel mAddressModel;
+    private AddressBO mAddressModel;
+    //申明对象
+    CityPickerView mPicker = new CityPickerView();
 
     public static AddAddressFragment newInstance(Bundle bundle) {
         AddAddressFragment fragment = new AddAddressFragment();
@@ -83,14 +106,16 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
         });
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mAddressModel = (AddressModel) bundle.getSerializable(RouterConstants.ARG_BEAN);
+            mAddressModel = (AddressBO) bundle.getSerializable(RouterConstants.ARG_BEAN);
         }
         if (mAddressModel != null) {
 //            toolbar.setTitle("编辑地址");
-            etNameFragmentAddAddress.setText(mAddressModel.title);
-            etNameFragmentAddAddress.setText(mAddressModel.tel);
-            etNameFragmentAddAddress.setText(mAddressModel.address);
+            etNameFragmentAddAddress.setText(mAddressModel.getName());
+            etTelFragmentAddAddress.setText(mAddressModel.getPhone());
+            etAddressFragmentAddAddress.setText(mAddressModel.getAddress());
         }
+        //预先加载仿iOS滚轮实现的全部数据
+        mPicker.init(getActivity());
     }
 
 
@@ -119,13 +144,100 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
 
     }
 
-//    @OnClick({R.id.item_address_detail_fragment_add_address, R.id.btn_save_fragment_add_address})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.item_address_detail_fragment_add_address:
-//                break;
-//            case R.id.btn_save_fragment_add_address:
-//                break;
-//        }
-//    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+
+    @OnClick({R.id.quyu_layout})
+    public void clickQuyu() {
+        //添加默认的配置，不需要自己定义，当然也可以自定义相关熟悉，详细属性请看demo
+        CityConfig cityConfig = new CityConfig.Builder()
+                .title("选择城市")//标题
+                .titleTextSize(18)//标题文字大小
+                .titleTextColor("#585858")//标题文字颜  色
+                .titleBackgroundColor("#E9E9E9")//标题栏背景色
+                .confirTextColor("#585858")//确认按钮文字颜色
+                .confirmText("确定")//确认按钮文字
+                .confirmTextSize(16)//确认按钮文字大小
+                .cancelTextColor("#585858")//取消按钮文字颜色
+                .cancelText("取消")//取消按钮文字
+                .cancelTextSize(16)//取消按钮文字大小
+                .showBackground(true)//是否显示半透明背景
+                .visibleItemsCount(7)//显示item的数量
+                .province("浙江省")//默认显示的省份
+                .city("杭州市")//默认显示省份下面的城市
+                .district("滨江区")//默认显示省市下面的区县数据
+                .setLineColor("#03a9f4")//中间横线的颜色
+                .setLineHeigh(3)//中间横线的高度
+                .build();
+        mPicker.setConfig(cityConfig);
+        //监听选择点击事件及返回结果
+        mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+            @Override
+            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+
+                //省份province
+                //城市city
+                //地区district
+                etRegionFragmentAddAddress.setText(province.getName() + city.getName() + district.getName());
+            }
+
+            @Override
+            public void onCancel() {
+//                ToastUtils.showLongToast(this, "已取消");
+            }
+        });
+
+        //显示
+        mPicker.showCityPicker();
+    }
+
+    @OnClick(R.id.btn_save_fragment_add_address)
+    public void save() {
+        String name = etNameFragmentAddAddress.getText().toString().trim();
+        String phone = etTelFragmentAddAddress.getText().toString().trim();
+        String address = etAddressFragmentAddAddress.getText().toString().trim();
+        String area = etRegionFragmentAddAddress.getText().toString().trim();
+        if (StringUtils.isEmpty(name)) {
+            showError("请填写收货人姓名！");
+            return;
+        }
+        if (StringUtils.isEmpty(phone)) {
+            showError("请填写收货人联系方式！");
+            return;
+        }
+        if (StringUtils.isEmpty(area)) {
+            showError("请填写收货人联系方式！");
+            return;
+        }
+        if (StringUtils.isEmpty(address)) {
+            showError("请选择所在省份城市区县信息！");
+            return;
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", mAddressModel != null ? mAddressModel.getId() : 0);
+        params.put("name", name);
+        params.put("phone", phone);
+        params.put("address", address);
+        params.put("isDefault", cbMrFragmentAddAddress.isChecked() ? 1 : 0);
+        params.put("area", area);
+        mPresenter.saveAddress(params);
+    }
+
+    @Override
+    public void saveSouress() {
+        showError("保存成功！");
+        _mActivity.onBackPressedSupport();
+    }
 }

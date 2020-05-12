@@ -5,7 +5,7 @@ import android.content.Context;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.habit.star.R;
 import com.habit.star.common.adapter.BaseRvAdapter;
-import com.habit.star.ui.mine.bean.AddressModel;
+import com.habit.star.pojo.po.AddressBO;
 
 import java.util.ArrayList;
 
@@ -17,21 +17,21 @@ import java.util.ArrayList;
  * 文件名称：AddressListAdapter.java
  * 类说明：收货地址列表
  */
-public class AddressListAdapter extends BaseRvAdapter<AddressModel, BaseViewHolder> {
+public class AddressListAdapter extends BaseRvAdapter<AddressBO, BaseViewHolder> {
 
     public AddressListAdapter(Context context) {
-        super(R.layout.layout_fragment_address_list_item, new ArrayList<AddressModel>());
+        super(R.layout.layout_fragment_address_list_item, new ArrayList<AddressBO>());
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AddressModel item) {
+    protected void convert(BaseViewHolder helper, AddressBO item) {
         helper.addOnClickListener(R.id.ll_select_layout_fragment_address_list_item)
                 .addOnClickListener(R.id.ll_bianji_layout_fragment_address_list_item)
                 .addOnClickListener(R.id.ll_delete_layout_fragment_address_list_item)
-                .setText(R.id.tv_title_layout_fragment_address_list_item, item.title)
-                .setText(R.id.tv_tel_layout_fragment_address_list_item, item.tel)
-                .setText(R.id.tv_address_name_layout_fragment_address_list_item, item.address);
-        if (item.isSelected){
+                .setText(R.id.tv_title_layout_fragment_address_list_item, item.getName())
+                .setText(R.id.tv_tel_layout_fragment_address_list_item, item.getPhone())
+                .setText(R.id.tv_address_name_layout_fragment_address_list_item, item.getAddress());
+        if (item.getIsDefault() == 1){
 //            helper.setBackgroundRes(R.id.iv_select_layout_fragment_address_list_item,R.mipmap.ic_address_pre);
             helper.setVisible(R.id.tv_mr_layout_fragment_address_list_item,true);
             helper.setVisible(R.id.iv_select_layout_fragment_address_list_item,true);
@@ -42,11 +42,11 @@ public class AddressListAdapter extends BaseRvAdapter<AddressModel, BaseViewHold
         }
     }
 
-    public void setItemSelected(int position){
-        for (int i = 0; i < mData.size(); i++) {
-            mData.get(i).isSelected = false;
-        }
-        mData.get(position).isSelected = true;
-        notifyDataSetChanged();
-    }
+//    public void setItemSelected(int position){
+//        for (int i = 0; i < mData.size(); i++) {
+//            mData.get(i).isSelected = false;
+//        }
+//        mData.get(position).isSelected = true;
+//        notifyDataSetChanged();
+//    }
 }

@@ -1,6 +1,7 @@
 package com.habit.star.api;
 
 import com.habit.star.api.rx.RxResultHelper;
+import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.UserBO;
@@ -140,4 +141,42 @@ public class HttpServerImpl {
         return getService().getDeviceData().compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 查询收货地址列表
+     */
+    public static Observable<List<AddressBO>> getAddressList() {
+        return getService().getAddressList("1", "2000").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 设置默认收货地址
+     */
+    public static Observable<String> defaultAddress(int id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        return getService().defaultAddress(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 删除地址
+     */
+    public static Observable<String> delAddress(int id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        return getService().delAddress(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询省市区地址
+     */
+    public static Observable<String> getAreaInfo() {
+        return getService().getAreaInfo().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 保存地址
+     */
+    public static Observable<String> saveAddress(Map<String, Object> params) {
+        return getService().saveAddress(params).compose(RxResultHelper.httpRusult());
+    }
 }

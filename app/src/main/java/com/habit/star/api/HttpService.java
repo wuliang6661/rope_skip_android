@@ -1,6 +1,7 @@
 package com.habit.star.api;
 
 import com.habit.star.pojo.BaseResult;
+import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.UserBO;
@@ -11,6 +12,7 @@ import java.util.Map;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -95,6 +97,49 @@ public interface HttpService {
      */
     @GET("app/user/getUserInfo")
     Observable<BaseResult<UserBO>> getUserInfo();
+
+    /**
+     * 查询收货地址
+     */
+    @GET("app/my/address/getAddress")
+    Observable<BaseResult<AddressBO>> getAddress(@Query("id") String id);
+
+    /**
+     * 查询收货地址列表
+     */
+    @GET("app/my/address/getAddressList")
+    Observable<BaseResult<List<AddressBO>>> getAddressList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
+
+    /**
+     * 查询省市区json数据
+     */
+    @GET("app/my/address/getAreaInfo")
+    Observable<BaseResult<String>> getAreaInfo();
+
+    /**
+     * 查询默认地址
+     */
+    @GET("app/my/address/getDefaultAddress")
+    Observable<BaseResult<AddressBO>> getDefaultAddress();
+
+    /**
+     * 保存收货地址
+     */
+    @POST("app/my/address/saveAddress")
+    Observable<BaseResult<String>> saveAddress(@Body Map<String, Object> params);
+
+    /**
+     * 设置默认收货地址
+     */
+    @POST("app/my/address/defaultAddress")
+    Observable<BaseResult<String>> defaultAddress(@Body Map<String, Object> params);
+
+    /**
+     * 删除收货地址
+     */
+    @POST("app/my/address/delAddress")
+    Observable<BaseResult<String>> delAddress(@Body Map<String, Object> params);
+
 
     /**
      * 修改用户名称
