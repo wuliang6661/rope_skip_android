@@ -312,7 +312,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+//        unbindender.unbind();
     }
 
 }

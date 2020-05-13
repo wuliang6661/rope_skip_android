@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F6F6F9"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/toolbar_layout_toolbar"
+        layout="@layout/layout_title" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_toolbar"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_head_layout_fragment_personal_data"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/selector_item_list_page"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_head_fragment_personal_data"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@color/no_image" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_title_fragment_personal_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_weight="1"
+                android:textColor="#B9CAE0"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+
+        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            app:lichtd_bottom_divider_visibility="gone"
+            app:lichtd_content="可爱的小兔子"
+            app:lichtd_content_text_color="@color/color_888888"
+            app:lichtd_head_icon="@mipmap/nicheng"
+            app:lichtd_iv_detail_visibility="gone"
+            app:lichtd_title="我的昵称"
+            app:lichtd_top_divider_visibility="gone" />
+
+        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            android:id="@+id/user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            app:lichtd_bottom_divider_visibility="gone"
+            app:lichtd_content="18888888888"
+            app:lichtd_content_text_color="@color/color_888888"
+            app:lichtd_head_icon="@mipmap/shoujihaoma"
+            app:lichtd_iv_detail_visibility="gone"
+            app:lichtd_title="手机号码"
+            app:lichtd_top_divider_visibility="gone" />
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_commit"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="195dp"
+            android:layout_height="@dimen/height_btn_bottom"
+            android:layout_marginHorizontal="@dimen/marginright_btn_submit_fragment_login"
+            android:layout_marginTop="54dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_common_btn"
+            android:text="添加到家庭成员"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

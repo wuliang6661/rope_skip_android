@@ -14,6 +14,7 @@ import com.habit.star.pojo.po.UserBO;
 import com.habit.star.ui.login.bean.LoginBean;
 import com.habit.star.ui.mine.bean.UserInfoMode;
 
+import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import id.zelory.compressor.Compressor;
 
 /**
@@ -68,7 +69,7 @@ public class App extends Application {
         Utils.init(this);
         spUtils = SPUtils.getInstance(TAG);
         tf = Typeface.createFromAsset(assetManager, "fonts/DS-DIGI-1.ttf");
-
+        CustomActivityOnCrash.install(this);
     }
 
 

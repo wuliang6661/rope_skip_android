@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F8F8F8"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/layout_title" />
+
+
+    <ImageView
+        android:layout_width="118dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="120dp"
+        android:src="@mipmap/qr_error" />
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_commit"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="195dp"
+        android:layout_height="@dimen/height_btn_bottom"
+        android:layout_marginHorizontal="@dimen/marginright_btn_submit_fragment_login"
+        android:layout_marginTop="40dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/selector_common_btn"
+        android:text="重新扫描"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+
+</LinearLayout>

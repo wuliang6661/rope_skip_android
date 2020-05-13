@@ -4,6 +4,8 @@ import com.habit.star.pojo.BaseResult;
 import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
+import com.habit.star.pojo.po.FamilyUserBO;
+import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.UserBO;
 
 import java.util.List;
@@ -139,6 +141,43 @@ public interface HttpService {
      */
     @POST("app/my/address/delAddress")
     Observable<BaseResult<String>> delAddress(@Body Map<String, Object> params);
+
+    /**
+     * 获取所有家庭成员
+     */
+    @GET("app/my/family/getFamilyUserList")
+    Observable<BaseResult<List<FamilyUserBO>>> getFamilyUserList();
+
+    /**
+     * 邀请家庭成员
+     */
+    @POST("app/my/family/addFamilyUser")
+    Observable<BaseResult<String>> addFamilyUser(@Body Map<String, Object> params);
+
+    /**
+     * 查询家庭成员
+     */
+    @GET("app/my/family/getFamilyUser")
+    Observable<BaseResult<FamilyUserDetailsBO>> getFamilyUser(@Query("id") String id);
+
+    /**
+     * 移除家庭成员
+     */
+    @POST("app/my/family/delFamilyUser")
+    Observable<BaseResult<String>> delFamilyUser(@Body Map<String, Object> params);
+
+
+    /**
+     * 根据二维码的编码获取人员信息
+     */
+    @POST("app/user/getUserInfoByCode")
+    Observable<BaseResult<UserBO>> getUserInfoByCode(@Body Map<String,Object> params);
+
+    /**
+     * 获取我的二维码图片
+     */
+    @POST("app/user/QRCode")
+    Observable<BaseResult<String>> getQrCode();
 
 
     /**

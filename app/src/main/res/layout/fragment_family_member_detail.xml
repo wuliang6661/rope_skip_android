@@ -49,7 +49,7 @@
                         android:id="@+id/tv_name_fragment_family_member_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="可爱的小兔兔"
+                        tools:text="可爱的小兔兔"
                         android:textColor="@color/colorText"
                         android:textSize="13sp" />
 
@@ -99,7 +99,7 @@
                                 android:id="@+id/tv_sheng_gao_fragment_family_member_detail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="88"
+                                tools:text="88"
                                 android:textColor="@color/color_FBBB65"
                                 android:textSize="18sp" />
 
@@ -150,7 +150,7 @@
                                 android:id="@+id/tv_ti_zhong_fragment_family_member_detail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="56"
+                                tools:text="56"
                                 android:textColor="@color/color_7EC7F5"
                                 android:textSize="18sp" />
 
@@ -201,7 +201,7 @@
                                 android:id="@+id/tv_nian_ling_fragment_family_member_detail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="56"
+                                tools:text="56"
                                 android:textColor="@color/color_B8ABE1"
                                 android:textSize="18sp" />
 
@@ -264,7 +264,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="25dp"
-                    android:text="7月2日"
+                    tools:text="7月2日"
                     android:textColor="@color/colorText"
                     android:textSize="14sp" />
 
@@ -322,7 +322,7 @@
                             android:id="@+id/tv_ts_total_fragment_family_member_detail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="125"
+                            tools:text="125"
                             android:textColor="@color/color_FBBB65"
                             android:textSize="18sp" />
 
@@ -363,7 +363,7 @@
                             android:id="@+id/tv_ts_total_time_fragment_family_member_detail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="56"
+                            tools:text="56"
                             android:textColor="@color/color_7EC7F5"
                             android:textSize="18sp" />
 
@@ -404,7 +404,7 @@
                             android:id="@+id/tv_ts_nian_ling_fragment_family_member_detail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="60"
+                            tools:text="60"
                             android:textColor="@color/color_B8ABE1"
                             android:textSize="18sp" />
 

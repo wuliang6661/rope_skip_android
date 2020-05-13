@@ -4,6 +4,8 @@ import com.habit.star.api.rx.RxResultHelper;
 import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
+import com.habit.star.pojo.po.FamilyUserBO;
+import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.UserBO;
 
 import java.util.HashMap;
@@ -178,5 +180,50 @@ public class HttpServerImpl {
      */
     public static Observable<String> saveAddress(Map<String, Object> params) {
         return getService().saveAddress(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取所有家庭成员
+     */
+    public static Observable<List<FamilyUserBO>> getFamilyUserList() {
+        return getService().getFamilyUserList().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 移除家庭成员
+     */
+    public static Observable<String> delUser(int id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        return getService().delFamilyUser(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取家庭成员数据
+     */
+    public static Observable<FamilyUserDetailsBO> getUser(int id) {
+        return getService().getFamilyUser(id + "").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 根据二维码获取成员信息
+     */
+    public static Observable<UserBO> getUserInfoByCode(String userCode) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userCode", userCode);
+        return getService().getUserInfoByCode(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 邀请家庭成员
+     */
+    public static Observable<String> addFamilyUser(int id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        return getService().addFamilyUser(params).compose(RxResultHelper.httpRusult());
+    }
+
+    public static Observable<String> getQrCode() {
+        return getService().getQrCode().compose(RxResultHelper.httpRusult());
     }
 }

@@ -6,14 +6,20 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
+import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.pojo.po.FamilyUserBO;
+import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.ui.mine.contract.FamilyMemberDetailContract;
 import com.habit.star.ui.mine.presenter.FamilyMemberDetailPresenter;
 import com.habit.star.utils.ToastUtil;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -83,12 +89,9 @@ public class FamilyMemberDetailFragment extends BaseFragment<FamilyMemberDetailP
     AppCompatTextView tvTsDayFragmentFamilyMemberDetail;
 
 
-    private int year1 = 2019;
-    private int month1 = 7;
-    private int day1 = 2;
-    private int year2 = 2019;
-    private int month2 = 7;
-    private int day2 = 2;
+    FamilyUserBO userBO;
+    private List<FamilyUserDetailsBO.SkipDataListBean> skipDataListBeans;
+    int selectDate = 0;
 
     public static FamilyMemberDetailFragment newInstance(Bundle bundle) {
         FamilyMemberDetailFragment fragment = new FamilyMemberDetailFragment();
@@ -123,14 +126,13 @@ public class FamilyMemberDetailFragment extends BaseFragment<FamilyMemberDetailP
                 _mActivity.onBackPressedSupport();
             }
         });
-        freshView();
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            userBO = (FamilyUserBO) bundle.getSerializable(RouterConstants.ARG_BEAN);
+            mPresenter.getUser(userBO.getId());
+        }
     }
 
-
-    private void freshView() {
-        tvTs1DayFragmentFamilyMemberDetail.setText(month1 + "月" + day1 + "日");
-        tvTsDayFragmentFamilyMemberDetail.setText(month2 + "月" + day2 + "日");
-    }
 
     private void initDialog() {
 
@@ -166,107 +168,51 @@ public class FamilyMemberDetailFragment extends BaseFragment<FamilyMemberDetailP
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_ts1_last_fragment_family_member_detail:
-                if (day1 > 1) {
-                    day1--;
-                } else if (month1 == 1) {
-                    year1--;
-                    month1 = 12;
-                    day1 = 31;
-                } else {
-                    if (month1 == 2 || month1 == 4 || month1 == 6 || month1 == 8 || month1 == 9 || month1 == 11) {
-                        month1--;
-                        day1 = 31;
-                    } else if (month1 == 3) {
-                        month1--;
-                        day1 = 28;//先不考虑闰月
-                    } else {
-                        month1--;
-                        day1 = 30;
-                    }
+                if (selectDate == 0) {
+                    showError("前面已经没有了！");
+                    return;
                 }
-                freshView();
+                selectDate--;
+                setData();
                 break;
             case R.id.tv_ts1_next_fragment_family_member_detail:
-                if (month1 == 1 || month1 == 3 || month1 == 5 || month1 == 7 || month1 == 8 || month1 == 10) {
-                    if (day1 == 31) {
-                        month1++;
-                        day1 = 1;
-                    } else {
-                        day1++;
-                    }
-                } else if (month1 == 2) {
-                    if (day1 == 28) {
-                        month1++;
-                        day1 = 1;
-                    } else {
-                        day1++;
-                    }
-                } else if (month1 == 12) {
-                    year1++;
-                    month1 = 1;
-                    day1 = 1;
-                } else {
-                    if (day1 == 30) {
-                        month1++;
-                        day1 = 1;
-                    } else {
-                        day1++;
-                    }
+                if (selectDate >= skipDataListBeans.size() - 1) {
+                    showError("后面已经没有了！");
+                    return;
                 }
-                freshView();
+                selectDate++;
+                setData();
                 break;
             case R.id.tv_ts_last_fragment_family_member_detail:
-                if (day2 > 1) {
-                    day2--;
-                } else if (month2 == 1) {
-                    year2--;
-                    month2 = 12;
-                    day2 = 31;
-                } else {
-                    if (month2 == 2 || month2 == 4 || month2 == 6 || month2 == 8 || month2 == 9 || month2 == 11) {
-                        month2--;
-                        day2 = 31;
-                    } else if (month2 == 3) {
-                        month2--;
-                        day2 = 28;//先不考虑闰月
-                    } else {
-                        month2--;
-                        day2 = 30;
-                    }
-                }
-                freshView();
                 break;
             case R.id.tv_ts_next_fragment_family_member_detail:
-                if (month2 == 1 || month2 == 3 || month2 == 5 || month2 == 7 || month2 == 8 || month2 == 10) {
-                    if (day2 == 31) {
-                        month2++;
-                        day2 = 1;
-                    } else {
-                        day2++;
-                    }
-                } else if (month2 == 2) {
-                    if (day2 == 28) {
-                        month2++;
-                        day2 = 1;
-                    } else {
-                        day2++;
-                    }
-                } else if (month2 == 12) {
-                    year2++;
-                    month2 = 1;
-                    day2 = 1;
-                } else {
-                    if (day2 == 30) {
-                        month2++;
-                        day2 = 1;
-                    } else {
-                        day2++;
-                    }
-                }
-                freshView();
                 break;
         }
     }
 
 
+    @Override
+    public void getUserDetails(FamilyUserDetailsBO detailsBO) {
+        tvNameFragmentFamilyMemberDetail.setText(detailsBO.getNickName());
+        if (detailsBO.getSex() == 0) {
+            ivSexFragmentFamilyMemberDetail.setBackgroundResource(R.mipmap.ic_male_tag);
+        } else {
+            ivSexFragmentFamilyMemberDetail.setBackgroundResource(R.mipmap.ic_nvxing);
+        }
+        Glide.with(getActivity()).load(detailsBO.getImage()).into(ivHeadFragmentFamilyMemberDetail);
+        tvShengGaoFragmentFamilyMemberDetail.setText(detailsBO.getHeight() + "");
+        tvTiZhongFragmentFamilyMemberDetail.setText(detailsBO.getWeight() + "");
+        tvNianLingFragmentFamilyMemberDetail.setText(detailsBO.getAge() + "");
+        skipDataListBeans = detailsBO.getSkipDataList();
+        selectDate = skipDataListBeans.size() - 1;
+        setData();
+    }
+
+
+    private void setData() {
+        tvTsTotalFragmentFamilyMemberDetail.setText(skipDataListBeans.get(selectDate).getSkipNum() + "");
+        tvTsTotalTimeFragmentFamilyMemberDetail.setText(skipDataListBeans.get(selectDate).getSkipTime() + "");
+        tvTsNianLingFragmentFamilyMemberDetail.setText(skipDataListBeans.get(selectDate).getBreakNum() + "");
+        tvTs1DayFragmentFamilyMemberDetail.setText(skipDataListBeans.get(selectDate).getTestDate());
+    }
 }

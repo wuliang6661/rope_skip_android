@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_F6F6F9"
@@ -18,14 +17,14 @@
         app:tl_brp_right_text_color="@color/colorText"
         app:tl_brp_title="家庭成员"
         app:tl_brp_title_text_color="@color/colorText" />
-    <android.support.v7.widget.RecyclerView
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="15dp"
         android:layout_below="@+id/toolbar_layout_toolbar"
         android:id="@+id/rv_family_list_fragment_family_member"
         android:layout_marginBottom="140dp">
-    </android.support.v7.widget.RecyclerView>
+    </com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"

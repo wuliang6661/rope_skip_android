@@ -76,6 +76,25 @@
             android:name=".ui.devicemanager.DevecesUpdateActivty"
             android:screenOrientation="portrait" />
 
+        <!--我的二维码页面-->
+        <activity
+            android:name=".ui.mine.fragment.MyQrCodeActivity"
+            android:screenOrientation="portrait" />
+
+        <!--扫一扫界面-->
+        <activity
+            android:name=".zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait" />
+
+        <!--扫码失败界面-->
+        <activity
+            android:name=".ui.mine.fragment.QrCodeErrorActivty"
+            android:screenOrientation="portrait" />
+
+        <!--扫码成功页面-->
+        <activity
+            android:name=".ui.mine.fragment.QrCodeSourcessActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.svprogresshud.SVProgressHUD;
+import com.blankj.utilcode.util.StringUtils;
 import com.habit.commonlibrary.utils.CompatResourceUtils;
 import com.habit.commonlibrary.utils.CustomToast;
 import com.habit.star.R;
@@ -93,6 +94,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
      * 显示加载进度弹窗
      */
     public void showProgress(String message) {
+        if(StringUtils.isEmpty(message)){
+            message = "加载中...";
+        }
         svProgressHUD.showWithStatus(message, SVProgressHUD.SVProgressHUDMaskType.Black);
     }
 

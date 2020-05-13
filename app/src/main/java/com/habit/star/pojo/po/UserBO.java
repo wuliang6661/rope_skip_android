@@ -1,6 +1,8 @@
 package com.habit.star.pojo.po;
 
-public class UserBO {
+import java.io.Serializable;
+
+public class UserBO implements Serializable {
 
 
     /**

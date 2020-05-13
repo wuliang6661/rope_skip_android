@@ -3,6 +3,9 @@ package com.habit.star.ui.mine.contract;
 
 import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
+import com.habit.star.pojo.po.FamilyUserBO;
+
+import java.util.List;
 
 /**
  * 创建日期：2018/7/2 16:49
@@ -14,6 +17,8 @@ import com.habit.star.base.BaseView;
  */
 public interface FamilyMemberContract {
     interface View extends BaseView {
+
+        void getAllUserBO(List<FamilyUserBO> list);
 
 
     }

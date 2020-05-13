@@ -1,28 +1,39 @@
 package com.habit.star.ui.mine.fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.blankj.utilcode.util.SizeUtils;
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.decoration.HorizontalDividerItemDecoration;
+import com.habit.commonlibrary.utils.ImageLoader;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
-import com.habit.star.ui.mine.adapter.FamilyMemberListAdapter;
-import com.habit.star.ui.mine.bean.FamilyMemberModel;
+import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.ui.mine.contract.FamilyMemberContract;
 import com.habit.star.ui.mine.presenter.FamilyMemberPresenter;
 import com.habit.star.utils.ToastUtil;
+import com.habit.star.widget.AlertDialog;
+import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
+import com.habit.star.zxing.activity.CaptureActivity;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,20 +47,21 @@ import butterknife.OnClick;
  * 文件名称：FamilyMemberFragment.java
  * 类说明：家庭成员
  */
-public class FamilyMemberFragment extends BaseFragment<FamilyMemberPresenter> implements FamilyMemberContract.View {
+public class FamilyMemberFragment extends BaseFragment<FamilyMemberPresenter>
+        implements FamilyMemberContract.View {
 
     @BindView(R.id.toolbar_layout_toolbar)
     ToolbarWithBackRightProgress toolbar;
     @BindView(R.id.progress_fragment_family_member)
     ProgressbarLayout progress;
     @BindView(R.id.rv_family_list_fragment_family_member)
-    RecyclerView mRvFamilyList;
+    SwipeMenuRecyclerView mRvFamilyList;
     @BindView(R.id.tv_my_code_fragment_family_member)
     AppCompatTextView mTvMyCode;
     @BindView(R.id.btn_scan_fragment_family_member)
     AppCompatButton mBtnScan;
 
-    private FamilyMemberListAdapter mMemberListAdapter;
+    List<FamilyUserBO> list;
 
     public static FamilyMemberFragment newInstance(Bundle bundle) {
         FamilyMemberFragment fragment = new FamilyMemberFragment();
@@ -87,42 +99,76 @@ public class FamilyMemberFragment extends BaseFragment<FamilyMemberPresenter> im
         });
     }
 
-    private void initAdapter(){
+
+    private void setSwipeMenu() {
+        // 创建菜单：
+        SwipeMenuCreator mSwipeMenuCreator = (leftMenu, rightMenu, viewType) -> {
+            // 2 删除
+            SwipeMenuItem deleteItem = new SwipeMenuItem(getActivity());
+            deleteItem.setText("删除")
+                    .setBackgroundColor(Color.parseColor("#7EC7F5"))
+                    .setTextColor(Color.WHITE) // 文字颜色。
+                    .setTextSize(14) // 文字大小。
+                    .setWidth(SizeUtils.dp2px(60))
+                    .setHeight(LinearLayout.LayoutParams.MATCH_PARENT);
+            rightMenu.addMenuItem(deleteItem);
+            // 注意：哪边不想要菜单，那么不要添加即可。
+        };
+        // 设置监听器。
+        mRvFamilyList.setSwipeMenuCreator(mSwipeMenuCreator);
+        SwipeMenuItemClickListener mMenuItemClickListener = (menuBridge, position) -> {
+            // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+            menuBridge.closeMenu();
+            new AlertDialog(getActivity()).builder().setGone().setMsg("是否确认移除该家庭成员？")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("确定", v -> mPresenter.delFamliayUser(list.get(position).getId())).show();
+
+        };
+        // 菜单点击监听。
+        mRvFamilyList.setSwipeMenuItemClickListener(mMenuItemClickListener);
+    }
+
+
+    private void initAdapter() {
         mRvFamilyList.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider_member).colorResId(R.color.transparent).build());
         mRvFamilyList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mMemberListAdapter = new FamilyMemberListAdapter(mContext);
-        mRvFamilyList.setAdapter(mMemberListAdapter);
-        mRvFamilyList.addOnItemTouchListener(new OnItemChildClickListener() {
-            @SingleClick
+        setSwipeMenu();
+
+    }
+
+
+    private void setAdapter(){
+        LGRecycleViewAdapter<FamilyUserBO> adapter = new LGRecycleViewAdapter<FamilyUserBO>(list) {
             @Override
-            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.ll_layout_fragment_family_member_list_item){
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(RouterConstants.ARG_BEAN,mMemberListAdapter.getItem(position));
-                    start(FamilyMemberDetailFragment.newInstance(bundle));
-                }
+            public int getLayoutId(int viewType) {
+                return R.layout.layout_fragment_family_member_list_item;
+            }
+
+            @Override
+            public void convert(LGViewHolder holder, FamilyUserBO item, int position) {
+                        holder.setText(R.id.tv_title_layout_fragment_family_member_list_item, item.getNickName());
+                ImageLoader.load(mContext, (ImageView) holder.getView(R.id.iv_img_fragment_family_member_list_item), item.getImage());
+            }
+        };
+        adapter.setOnItemClickListener(R.id.ll_layout_fragment_family_member_list_item, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(RouterConstants.ARG_BEAN, adapter.getItem(position));
+                start(FamilyMemberDetailFragment.newInstance(bundle));
             }
         });
-
-        ///添加测试数据
-        List list= new ArrayList<FamilyMemberModel>();
-        FamilyMemberModel model1 = new FamilyMemberModel();
-        model1.img = "https://tupian.qqw21.com/article/UploadPic/2019-12/2019122220574824440.jpg";
-        model1.name = "可爱的小兔兔";
-        list.add(model1);
-        FamilyMemberModel model2 = new FamilyMemberModel();
-        model2.img = "http://a.hiphotos.baidu.com/zhidao/pic/item/8d5494eef01f3a295d66c3bd9a25bc315c607c12.jpg";
-        model2.name = "爱丽丝豆豆";
-        list.add(model2);
-        FamilyMemberModel model3 = new FamilyMemberModel();
-        model3.img = "http://pic4.zhimg.com/50/v2-2ef01343920e66f878b05ff380d902d7_hd.jpg";
-        model3.name = "功夫假小子";
-        list.add(model3);
-        mMemberListAdapter.setNewData(list);
+        mRvFamilyList.setAdapter(adapter);
     }
 
     private void initDialog() {
 
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        mPresenter.getFamilyUserList();
     }
 
     @Override
@@ -151,9 +197,22 @@ public class FamilyMemberFragment extends BaseFragment<FamilyMemberPresenter> im
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_my_code_fragment_family_member:
+                gotoActivity(MyQrCodeActivity.class,false);
                 break;
             case R.id.btn_scan_fragment_family_member:
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    // 申请权限
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+                    return;
+                }
+                gotoActivity(CaptureActivity.class,false);
                 break;
         }
+    }
+
+    @Override
+    public void getAllUserBO(List<FamilyUserBO> list) {
+        this.list = list;
+        setAdapter();
     }
 }
