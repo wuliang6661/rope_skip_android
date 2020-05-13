@@ -133,6 +133,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 startActivity(intent);
             }
         });
+        mPresenter.getLinkDevice();
     }
 
 
@@ -141,7 +142,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         super.onSupportVisible();
         mPresenter.getUserInfo();
         mPresenter.getDeviceData();
-        mPresenter.getLinkDevice();
     }
 
     private void initDialog() {

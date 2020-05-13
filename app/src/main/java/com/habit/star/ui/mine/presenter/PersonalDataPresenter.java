@@ -1,8 +1,11 @@
 package com.habit.star.ui.mine.presenter;
 
 
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
+import com.habit.star.pojo.po.UserBO;
 import com.habit.star.ui.mine.contract.MyPkContract;
 import com.habit.star.ui.mine.contract.PersonalDataContract;
 
@@ -24,4 +27,24 @@ public class PersonalDataPresenter extends RxPresenter<PersonalDataContract.View
     public PersonalDataPresenter(RetrofitHelper retrofitHelper) {
         mRetrofitHelper = retrofitHelper;
     }
+
+
+    public void getUserInfo() {
+        HttpServerImpl.getUserInfo().subscribe(new HttpResultSubscriber<UserBO>() {
+            @Override
+            public void onSuccess(UserBO userBO) {
+                if (mView != null) {
+                    mView.getUserInfo(userBO);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.showError(message);
+                }
+            }
+        });
+    }
+
 }

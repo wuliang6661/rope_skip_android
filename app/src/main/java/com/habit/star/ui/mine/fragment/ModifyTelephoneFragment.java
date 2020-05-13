@@ -6,28 +6,23 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
-import com.habit.star.app.Constants;
+import com.habit.star.app.App;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.ui.login.activity.LoginActivity;
 import com.habit.star.ui.login.contract.ModifyTelephoneContract;
 import com.habit.star.ui.mine.presenter.ModifyTelephonePresenter;
-import com.habit.star.utils.PrefUtils;
 import com.habit.star.utils.ToastUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * @version V1.0
@@ -101,8 +96,7 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
                 _mActivity.onBackPressedSupport();
             }
         });
-        String userName = PrefUtils.getPrefString(mContext, Constants.PREF_KEY_USER, "");
-        etTel.setText("当前手机号码"+userName);
+        etTel.setText(App.userBO.getPhone());
         etTel.setEnabled(false);
     }
 

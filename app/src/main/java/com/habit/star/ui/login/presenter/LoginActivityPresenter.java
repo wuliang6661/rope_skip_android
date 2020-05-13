@@ -39,13 +39,12 @@ public class LoginActivityPresenter extends RxPresenter<LoginActivityContract.Vi
             @Override
             public void call(Subscriber<? super String> subscriber) {
                 //初始化图片压缩器
-                App.getInstance().imageCompressor = new Compressor.Builder(mContext)
+                App.getInstance().imageCompressor = new Compressor(mContext)
                         .setMaxWidth(768)
                         .setMaxHeight(1280)
                         .setQuality(90)
                         .setCompressFormat(Bitmap.CompressFormat.JPEG)
-                        .setDestinationDirectoryPath(AppDirUtil.getImageFilesDir().getAbsolutePath())
-                        .build();
+                        .setDestinationDirectoryPath(AppDirUtil.getImageFilesDir().getAbsolutePath());
                 subscriber.onNext("");
                 subscriber.onCompleted();
             }

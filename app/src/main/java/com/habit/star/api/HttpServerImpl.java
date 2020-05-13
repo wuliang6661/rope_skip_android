@@ -1,5 +1,6 @@
 package com.habit.star.api;
 
+import com.blankj.utilcode.util.Utils;
 import com.habit.star.api.rx.RxResultHelper;
 import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.pojo.po.DeviceBO;
@@ -8,10 +9,16 @@ import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.UserBO;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import id.zelory.compressor.Compressor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rx.Observable;
 
 public class HttpServerImpl {
@@ -225,5 +232,30 @@ public class HttpServerImpl {
 
     public static Observable<String> getQrCode() {
         return getService().getQrCode().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改用户昵称
+     */
+    public static Observable<String> updateNike(String nickName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("nickName", nickName);
+        return getService().updateNickName(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 提交图片
+     */
+    public static Observable<String> updateFile(File file) {
+        File compressedImageFile;
+        try {
+            compressedImageFile = new Compressor(Utils.getApp()).setQuality(30).compressToFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            compressedImageFile = file;
+        }
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), compressedImageFile);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("fileName", file.getName(), requestFile);
+        return getService().updateFile(body).compose(RxResultHelper.httpRusult());
     }
 }

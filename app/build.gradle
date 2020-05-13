@@ -46,6 +46,14 @@ android {
 //        }
     }
 
+    packagingOptions {
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/BenchmarkList'
+        exclude 'META-INF/io.netty.versions.properties'
+        exclude 'META-INF/CompilerHints'
+        exclude 'META-INF/rxjava.properties'
+    }
+
 }
 
 dependencies {
@@ -94,7 +102,7 @@ dependencies {
     }
 
     ///compressor
-    api('id.zelory:compressor:1.0.4') {
+    api('id.zelory:compressor:2.1.0') {
         exclude group: 'io.reactivex'
     }
 

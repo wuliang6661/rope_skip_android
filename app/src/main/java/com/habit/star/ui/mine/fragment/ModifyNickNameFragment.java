@@ -3,22 +3,22 @@ package com.habit.star.ui.mine.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
+import com.habit.star.app.App;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.presenter.CommonPresenter;
 import com.habit.star.presenter.contract.CommonContract;
 import com.habit.star.utils.ToastUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 
 /**
@@ -73,6 +73,7 @@ public class ModifyNickNameFragment extends BaseFragment<CommonPresenter> implem
                 _mActivity.onBackPressedSupport();
             }
         });
+        etNickName.setText(App.userBO.getNickName());
     }
 
 
@@ -104,5 +105,25 @@ public class ModifyNickNameFragment extends BaseFragment<CommonPresenter> implem
 
     @OnClick(R.id.btn_submit_fragment_modify_nick_name)
     public void onViewClicked() {
+        String name = etNickName.getText().toString().trim();
+        if (StringUtils.isEmpty(name)) {
+            showError(name);
+            return;
+        }
+        showProgress(null);
+        HttpServerImpl.updateNike(name).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                stopProgress();
+                showError("修改成功！");
+                _mActivity.onBackPressedSupport();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                stopProgress();
+                showError(message);
+            }
+        });
     }
 }

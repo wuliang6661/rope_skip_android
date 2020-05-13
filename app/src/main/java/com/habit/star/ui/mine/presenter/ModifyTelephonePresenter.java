@@ -1,6 +1,8 @@
 package com.habit.star.ui.mine.presenter;
 
 
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
 import com.habit.star.ui.login.contract.ModifyTelephoneContract;
@@ -21,5 +23,27 @@ public class ModifyTelephonePresenter extends RxPresenter<ModifyTelephoneContrac
     @Inject
     public ModifyTelephonePresenter(RetrofitHelper retrofitHelper) {
         mRetrofitHelper = retrofitHelper;
+    }
+
+
+    /**
+     * 发送验证码
+     */
+    public void sendCode(String phone) {
+        HttpServerImpl.sendCode(phone, 1).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    mView.getYZMSuccess();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.showError(message);
+                }
+            }
+        });
     }
 }

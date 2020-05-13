@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
+import com.habit.star.app.App;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.pojo.po.UserBO;
 import com.habit.star.ui.mine.contract.PersonalDataContract;
 import com.habit.star.ui.mine.presenter.PersonalDataPresenter;
 import com.habit.star.utils.ToastUtil;
@@ -37,9 +40,9 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter> im
     @BindView(R.id.progress_fragment_personal_data)
     ProgressbarLayout progress;
     @BindView(R.id.item_tz_fragment_perfect_information)
-    LilayItemClickableWithHeadImageTopDivider itemTzFragmentPerfectInformation;
+    LilayItemClickableWithHeadImageTopDivider person_name;
     @BindView(R.id.item_shoujihaoma_fragment_perfect_information)
-    LilayItemClickableWithHeadImageTopDivider itemShoujihaomaFragmentPerfectInformation;
+    LilayItemClickableWithHeadImageTopDivider person_phone;
     @BindView(R.id.btn_submit_fragment_feed_back)
     AppCompatButton btnSubmitFragmentFeedBack;
     @BindView(R.id.iv_head_fragment_personal_data)
@@ -76,7 +79,6 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter> im
 
     @Override
     protected void initEventAndData() {
-        initDialog();
         toolbar.setBackIBClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,8 +88,10 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter> im
     }
 
 
-    private void initDialog() {
-
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        mPresenter.getUserInfo();
     }
 
     @Override
@@ -108,6 +112,15 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter> im
     @Override
     public void showError(int errorCode) {
 
+    }
+
+    @Override
+    public void getUserInfo(UserBO userBO) {
+        App.userBO = userBO;
+        Glide.with(getActivity()).load(userBO.getImage()).into(ivHeadFragmentPersonalData);
+        person_name.setItemContent(userBO.getNickName());
+        person_phone.setItemContent(userBO.getPhone());
+        tvTitleFragmentPersonalData.setText("ID " + userBO.getUserCode());
     }
 
 

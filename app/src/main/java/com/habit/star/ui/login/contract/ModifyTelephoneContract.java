@@ -5,16 +5,17 @@ import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
 
 /**
- * @date:  2020-02-16 12:05
+ * @version V1.0
+ * @date: 2020-02-16 12:05
  * @ClassName: RetrievePasswordContract.java
  * @Description:
  * @author: sundongdong
- * @version V1.0
  */
 public interface ModifyTelephoneContract {
     interface View extends BaseView {
 
 
+        void getYZMSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
