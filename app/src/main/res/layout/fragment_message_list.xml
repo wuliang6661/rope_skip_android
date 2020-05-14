@@ -18,6 +18,7 @@
         app:tl_brp_right_text_color="@color/colorText"
         app:tl_brp_title="消息中心"
         app:tl_brp_title_text_color="@color/colorText" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

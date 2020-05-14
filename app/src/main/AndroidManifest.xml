@@ -95,6 +95,16 @@
         <activity
             android:name=".ui.mine.fragment.QrCodeSourcessActivity"
             android:screenOrientation="portrait" />
+
+        <!--常见问题页面-->
+        <activity
+            android:name=".ui.mine.fragment.FrequentlyActivty"
+            android:screenOrientation="portrait" />
+
+        <!--我的收藏-->
+        <activity
+            android:name=".ui.mine.fragment.MyShouCangActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

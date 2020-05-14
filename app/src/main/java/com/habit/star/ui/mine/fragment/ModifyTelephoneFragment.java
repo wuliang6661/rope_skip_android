@@ -2,6 +2,7 @@ package com.habit.star.ui.mine.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
@@ -19,6 +20,7 @@ import com.habit.star.base.BaseFragment;
 import com.habit.star.ui.login.activity.LoginActivity;
 import com.habit.star.ui.login.contract.ModifyTelephoneContract;
 import com.habit.star.ui.mine.presenter.ModifyTelephonePresenter;
+import com.habit.star.utils.AppManager;
 import com.habit.star.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -141,11 +143,7 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
                     showError("请输入短信验证");
                     return;
                 }
-                llType1.setVisibility(View.GONE);
-                llType2.setVisibility(View.VISIBLE);
-                tvType1Lable.setTextColor(getResources().getColor(R.color.color_C3C3C3));
-                tvType2Lable.setTextColor(getResources().getColor(R.color.color_7EC7F5));
-
+                mPresenter.verifyUserInfo(etTel.getText().toString(), etPleaseInputMsgCode.getText().toString());
                 break;
             case R.id.btn2_next_fragment_register:
                 if (TextUtils.isEmpty(etTel2.getText().toString())) {
@@ -156,15 +154,81 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
                     showError("请输入短信验证");
                     return;
                 }
-                showError("修改成功");
-
-                Intent intent = new Intent();
-                intent.putExtra(RouterConstants.ARG_MODE, LoginActivity.FLAG_LOGIN_TAG);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.setClass(_mActivity, LoginActivity.class);
-                startActivity(intent);
-                _mActivity.finish();
                 break;
+        }
+    }
+
+    int selectSend = 0; // 默认第一页的
+
+    @OnClick({R.id.btn_send_code_fragment_register, R.id.btn2_send_code_fragment_register})
+    public void sendCode(View view) {
+        switch (view.getId()) {
+            case R.id.btn_send_code_fragment_register:
+                selectSend = 0;
+                mPresenter.sendCode(App.userBO.getPhone());
+                break;
+            case R.id.btn2_send_code_fragment_register:
+                selectSend = 1;
+                mPresenter.sendCode(etTel2.getText().toString());
+                break;
+        }
+    }
+
+
+    @Override
+    public void getYZMSuccess() {
+        timer.start();
+    }
+
+    @Override
+    public void YzSouress() {
+        llType1.setVisibility(View.GONE);
+        llType2.setVisibility(View.VISIBLE);
+        tvType1Lable.setTextColor(getResources().getColor(R.color.color_C3C3C3));
+        tvType2Lable.setTextColor(getResources().getColor(R.color.color_7EC7F5));
+    }
+
+    @Override
+    public void updateSourcess() {
+        showError("修改成功");
+        Intent intent = new Intent();
+        intent.putExtra(RouterConstants.ARG_MODE, LoginActivity.FLAG_LOGIN_TAG);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setClass(_mActivity, LoginActivity.class);
+        AppManager.getAppManager().finishAllActivity();
+        startActivity(intent);
+    }
+
+
+    CountDownTimer timer = new CountDownTimer(60000, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            if (selectSend == 0) {
+                btnSendCode.setEnabled(false);
+                btnSendCode.setText((millisUntilFinished / 1000) + "S");
+            } else {
+                btn2SendCode.setEnabled(false);
+                btn2SendCode.setText((millisUntilFinished / 1000) + "S");
+            }
+        }
+
+        @Override
+        public void onFinish() {
+            if (selectSend == 0) {
+                btnSendCode.setEnabled(true);
+                btnSendCode.setText("重新获取");
+            } else {
+                btn2SendCode.setEnabled(true);
+                btn2SendCode.setText("重新获取");
+            }
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (timer != null) {
+            timer.cancel();
         }
     }
 }

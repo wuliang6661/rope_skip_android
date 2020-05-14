@@ -84,6 +84,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @BindView(R.id.device_lixian)
     AppCompatTextView deviceLixian;
     Unbinder unbinder;
+    @BindView(R.id.my_shoucang)
+    LilayItemClickableWithHeadImageTopDivider myShoucang;
+    Unbinder unbinder1;
 
     ///退出登录对话框
     private MaterialDialog exitDialog;
@@ -235,7 +238,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             R.id.item_yqhy_fragment_mine,
             R.id.item_xtsz_fragment_mine,
             R.id.item_bzzx_fragment_mine,
-            R.id.btn_exit_login_fragment_mine})
+            R.id.btn_exit_login_fragment_mine,
+            R.id.my_shoucang})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -286,6 +290,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             case R.id.btn_exit_login_fragment_mine:
                 exitDialog.show();
                 break;
+            case R.id.my_shoucang:
+                gotoActivity(MyShouCangActivity.class, false);
+                break;
         }
     }
 
@@ -308,11 +315,5 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         deviceLixian.setText(linkBO.getOffline() + "");
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-//        unbindender.unbind();
-    }
 
 }

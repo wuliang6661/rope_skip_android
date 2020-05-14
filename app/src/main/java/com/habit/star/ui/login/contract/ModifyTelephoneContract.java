@@ -16,6 +16,10 @@ public interface ModifyTelephoneContract {
 
 
         void getYZMSuccess();
+
+        void YzSouress();
+
+        void updateSourcess();
     }
 
     interface Presenter extends BasePresenter<View> {
