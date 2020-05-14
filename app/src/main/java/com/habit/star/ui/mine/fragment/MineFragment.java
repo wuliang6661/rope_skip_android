@@ -84,6 +84,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @BindView(R.id.device_lixian)
     AppCompatTextView deviceLixian;
     Unbinder unbinder;
+    @BindView(R.id.my_shoucang)
+    LilayItemClickableWithHeadImageTopDivider myShoucang;
+    Unbinder unbinder1;
 
     ///退出登录对话框
     private MaterialDialog exitDialog;
@@ -133,7 +136,22 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 startActivity(intent);
             }
         });
+        kaiguan();
         mPresenter.getLinkDevice();
+    }
+
+
+    /**
+     * 开关状态更改
+     */
+    private void kaiguan() {
+        if (App.userBO.getIsDayPush() == 0) {  //关闭
+            mLlMsgClose.setVisibility(View.VISIBLE);
+            mLlMsgOpen.setVisibility(View.GONE);
+        } else {
+            mLlMsgClose.setVisibility(View.GONE);
+            mLlMsgOpen.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -235,7 +253,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             R.id.item_yqhy_fragment_mine,
             R.id.item_xtsz_fragment_mine,
             R.id.item_bzzx_fragment_mine,
-            R.id.btn_exit_login_fragment_mine})
+            R.id.btn_exit_login_fragment_mine,
+            R.id.my_shoucang})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -245,6 +264,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
 //                intent.setClass(_mActivity, MineMainActivity.class);
 //                startActivity(intent);
 //                break;
+                break;
             case R.id.item_device_fragment_mine:
                 gotoActivity(DeviceManagerActivity.class, false);
                 break;
@@ -261,12 +281,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 startActivity(intent);
                 break;
             case R.id.ll_msg_close_fragment_mine:
-                mLlMsgClose.setVisibility(View.GONE);
-                mLlMsgOpen.setVisibility(View.VISIBLE);
-                break;
             case R.id.ll_msg_open_fragment_mine:
-                mLlMsgOpen.setVisibility(View.GONE);
-                mLlMsgClose.setVisibility(View.VISIBLE);
+                mPresenter.isPushDay();
                 break;
             case R.id.item_yqhy_fragment_mine:
                 mBottomSheetDialog.show();
@@ -286,6 +302,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             case R.id.btn_exit_login_fragment_mine:
                 exitDialog.show();
                 break;
+            case R.id.my_shoucang:
+                gotoActivity(MyShouCangActivity.class, false);
+                break;
         }
     }
 
@@ -294,6 +313,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         App.userBO = userBO;
         toolbar.setTitle(userBO.getNickName());
         Glide.with(getActivity()).load(userBO.getImage()).into(mIvUserHeader);
+        kaiguan();
     }
 
     @Override
@@ -308,11 +328,5 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         deviceLixian.setText(linkBO.getOffline() + "");
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-//        unbindender.unbind();
-    }
 
 }

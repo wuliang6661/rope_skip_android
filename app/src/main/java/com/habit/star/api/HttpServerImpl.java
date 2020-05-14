@@ -7,6 +7,10 @@ import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.pojo.po.FamilyUserDetailsBO;
+import com.habit.star.pojo.po.FeedBackBO;
+import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.QuestionBO;
+import com.habit.star.pojo.po.ShouCangBO;
 import com.habit.star.pojo.po.UserBO;
 
 import java.io.File;
@@ -244,6 +248,73 @@ public class HttpServerImpl {
     }
 
     /**
+     * 验证身份
+     */
+    public static Observable<String> verifyUserInfo(String phone, String code) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("phone", phone);
+        params.put("code", code);
+        return getService().verifyUserInfo(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改手机号
+     */
+    public static Observable<String> updatePhone(String phone, String code) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("phone", phone);
+        params.put("code", code);
+        return getService().updatePhone(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取我的消息
+     */
+    public static Observable<List<MessageBO>> getMessageList() {
+        return getService().getMessageList("1", "20000").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询常见问题
+     */
+    public static Observable<List<QuestionBO>> getQuestionList() {
+        return getService().getQuestionList("1", "20000").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询反馈类型
+     */
+    public static Observable<List<FeedBackBO>> getFeedbackType() {
+        return getService().getFeedbackType().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 提交反馈
+     */
+    public static Observable<String> addFeedback(int id, String message, String phone, String imageUrl) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("contact", message);
+        params.put("content", phone);
+        params.put("feedbackTypeId", id);
+        params.put("image", imageUrl);
+        return getService().addFeedback(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询我的收藏
+     */
+    public static Observable<List<ShouCangBO>> getCollectList(int objectType) {
+        return getService().getCollectList(objectType, "1", "20000").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 开启或关闭推送
+     */
+    public static Observable<String> isDayPush() {
+        return getService().isDayPush().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
      * 提交图片
      */
     public static Observable<String> updateFile(File file) {
@@ -258,4 +329,22 @@ public class HttpServerImpl {
         MultipartBody.Part body = MultipartBody.Part.createFormData("fileName", file.getName(), requestFile);
         return getService().updateFile(body).compose(RxResultHelper.httpRusult());
     }
+
+
+    /**
+     * 上传用户头像
+     */
+    public static Observable<String> uploadHeadImage(File file) {
+        File compressedImageFile;
+        try {
+            compressedImageFile = new Compressor(Utils.getApp()).setQuality(30).compressToFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            compressedImageFile = file;
+        }
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), compressedImageFile);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("fileName", file.getName(), requestFile);
+        return getService().updateFile(body).compose(RxResultHelper.httpRusult());
+    }
+
 }

@@ -128,4 +128,11 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <!--分享的popwindow弹出动画-->
+    <style name="anim_menu_bottombar">
+        <item name="android:windowEnterAnimation">@anim/share_pop_in</item>
+        <item name="android:windowExitAnimation">@anim/share_pop_out</item>
+    </style>
+
+
 </resources>

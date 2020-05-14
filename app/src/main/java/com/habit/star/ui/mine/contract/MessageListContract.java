@@ -3,6 +3,7 @@ package com.habit.star.ui.mine.contract;
 
 import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
+import com.habit.star.pojo.po.MessageBO;
 import com.habit.star.ui.mine.bean.MessageModel;
 import com.habit.star.ui.train.bean.ImprovePlanModel;
 
@@ -23,7 +24,7 @@ public interface MessageListContract {
          * 设置数据
          * @param data
          */
-        void setList(List<MessageModel> data);
+        void setList(List<MessageBO> data);
 
     }
 

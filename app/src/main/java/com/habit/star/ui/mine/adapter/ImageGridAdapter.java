@@ -1,13 +1,12 @@
 package com.habit.star.ui.mine.adapter;
 
 import android.content.Context;
-import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.habit.commonlibrary.utils.ImageLoader;
 import com.habit.star.R;
 import com.habit.star.app.Constants;
-import com.habit.commonlibrary.utils.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -34,7 +33,7 @@ public class ImageGridAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     public ImageGridAdapter(ArrayList<String> mDatas, ArrayList<String> imageCy, Context context) {
         super(R.layout.layout_image_grid_fragment_common, mDatas);
-        if (this.mData!=null){
+        if (this.mData != null) {
             this.mData.add("");
         }
         this.mContext = context;
@@ -57,10 +56,12 @@ public class ImageGridAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             if (helper.getLayoutPosition() == (mData.size() - 1)) {
                 helper.setImageResource(R.id.iv_layout_image_grid_fragment_task_order_feedback, R.mipmap.ic_menu_add_picture);
             } else {
-                ImageLoader.load(mContext, (ImageView) helper.getView(R.id.iv_layout_image_grid_fragment_task_order_feedback), "http://"+ Constants.HOST_DEFAULT +item);
+                ImageLoader.load(mContext, helper.getView(R.id.iv_layout_image_grid_fragment_task_order_feedback),
+                        item);
             }
         } else {
-            ImageLoader.load(mContext, (ImageView) helper.getView(R.id.iv_layout_image_grid_fragment_task_order_feedback), "http://"+Constants.HOST_DEFAULT +item);
+            ImageLoader.load(mContext, helper.getView(R.id.iv_layout_image_grid_fragment_task_order_feedback),
+                    item);
         }
     }
 }

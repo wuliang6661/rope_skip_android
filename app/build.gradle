@@ -140,4 +140,5 @@ dependencies {
     implementation 'liji.library.dev:citypickerview:5.2.2'
     implementation 'cat.ereza:customactivityoncrash:1.5.0'
     implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.guoqi.widget:actionsheet:1.0'
 }

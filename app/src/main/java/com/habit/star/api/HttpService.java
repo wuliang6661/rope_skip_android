@@ -6,6 +6,10 @@ import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.pojo.po.FamilyUserDetailsBO;
+import com.habit.star.pojo.po.FeedBackBO;
+import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.QuestionBO;
+import com.habit.star.pojo.po.ShouCangBO;
 import com.habit.star.pojo.po.UserBO;
 
 import java.util.List;
@@ -174,7 +178,7 @@ public interface HttpService {
      * 根据二维码的编码获取人员信息
      */
     @POST("app/user/getUserInfoByCode")
-    Observable<BaseResult<UserBO>> getUserInfoByCode(@Body Map<String,Object> params);
+    Observable<BaseResult<UserBO>> getUserInfoByCode(@Body Map<String, Object> params);
 
     /**
      * 获取我的二维码图片
@@ -190,6 +194,13 @@ public interface HttpService {
     @POST("app/common/uploadImage")
     Observable<BaseResult<String>> updateFile(@Part MultipartBody.Part file);
 
+    /**
+     * 上传用户头像
+     */
+    @Multipart
+    @POST("app/user/uploadHeadImage")
+    Observable<BaseResult<String>> uploadHeadImage(@Part MultipartBody.Part file);
+
 
     /**
      * 修改用户名称
@@ -197,5 +208,57 @@ public interface HttpService {
     @POST("app/user/updateNickName")
     Observable<BaseResult<String>> updateNickName(@Body Map<String, Object> params);
 
+    /**
+     * 验证身份
+     */
+    @POST("app/user/verifyUserInfo")
+    Observable<BaseResult<String>> verifyUserInfo(@Body Map<String, Object> params);
 
+
+    /**
+     * 修改手机号
+     */
+    @POST("app/user/updatePhone")
+    Observable<BaseResult<String>> updatePhone(@Body Map<String, Object> params);
+
+    /**
+     * 获取我的消息
+     */
+    @GET("app/my/message/getMessageList")
+    Observable<BaseResult<List<MessageBO>>> getMessageList(@Query("pageNum") String pageNum,
+                                                           @Query("pageSize") String pageSize);
+
+    /**
+     * 查询常见问题
+     */
+    @GET("app/my/question/getQuestionList")
+    Observable<BaseResult<List<QuestionBO>>> getQuestionList(@Query("pageNum") String pageNum,
+                                                             @Query("pageSize") String pageSize);
+
+    /**
+     * 查询反馈类型
+     */
+    @GET("app/my/feedback/getFeedbackType")
+    Observable<BaseResult<List<FeedBackBO>>> getFeedbackType();
+
+
+    /**
+     * 提交反馈类型
+     */
+    @POST("app/my/feedback/addFeedback")
+    Observable<BaseResult<String>> addFeedback(@Body Map<String, Object> params);
+
+    /**
+     * 查询我的收藏
+     */
+    @GET("app/my/collect/getCollectList")
+    Observable<BaseResult<List<ShouCangBO>>> getCollectList(@Query("objectType") int objectType,
+                                                            @Query("pageNum") String pageNum,
+                                                            @Query("pageSize") String pageSize);
+
+    /**
+     * 开启或关闭推送
+     */
+    @POST("app/user/isDayPush")
+    Observable<BaseResult<String>> isDayPush();
 }
