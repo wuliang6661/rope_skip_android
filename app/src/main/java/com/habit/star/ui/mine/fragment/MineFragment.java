@@ -264,6 +264,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
 //                intent.setClass(_mActivity, MineMainActivity.class);
 //                startActivity(intent);
 //                break;
+                break;
             case R.id.item_device_fragment_mine:
                 gotoActivity(DeviceManagerActivity.class, false);
                 break;
@@ -281,8 +282,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 break;
             case R.id.ll_msg_close_fragment_mine:
             case R.id.ll_msg_open_fragment_mine:
-//                mLlMsgClose.setVisibility(View.GONE);
-//                mLlMsgOpen.setVisibility(View.VISIBLE);
                 mPresenter.isPushDay();
                 break;
             case R.id.item_yqhy_fragment_mine:
