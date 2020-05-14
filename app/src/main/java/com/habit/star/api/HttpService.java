@@ -7,6 +7,8 @@ import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
+import com.habit.star.pojo.po.FenLeiBO;
+import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.MessageBO;
 import com.habit.star.pojo.po.QuestionBO;
 import com.habit.star.pojo.po.ShouCangBO;
@@ -261,4 +263,25 @@ public interface HttpService {
      */
     @POST("app/user/isDayPush")
     Observable<BaseResult<String>> isDayPush();
+
+    /**
+     * 查询精选活动分类
+     */
+    @GET("app/find/activity/getActivityClasss")
+    Observable<BaseResult<List<FenLeiBO>>> getActivityClasss();
+
+    /**
+     * 查询精选活动列表
+     */
+    @GET("app/find/activity/getActivityList")
+    Observable<BaseResult<List<HuodongBO>>> getActivityList(@Query("type") int type,
+                                                            @Query("pageNum") String pageNum,
+                                                            @Query("pageSize") String pageSize);
+
+    /**
+     * 报名活动
+     */
+    @POST("app/find/activity/joinActivity")
+    Observable<BaseResult<String>> joinActivity(@Body Map<String, Object> params);
+
 }

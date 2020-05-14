@@ -8,6 +8,8 @@ import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
+import com.habit.star.pojo.po.FenLeiBO;
+import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.MessageBO;
 import com.habit.star.pojo.po.QuestionBO;
 import com.habit.star.pojo.po.ShouCangBO;
@@ -312,6 +314,33 @@ public class HttpServerImpl {
      */
     public static Observable<String> isDayPush() {
         return getService().isDayPush().compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 获取精选活动分类
+     */
+    public static Observable<List<FenLeiBO>> getActivityClasss() {
+        return getService().getActivityClasss().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取精选活动列表
+     */
+    public static Observable<List<HuodongBO>> getActivityList(int type) {
+        return getService().getActivityList(type, "1", "20000").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 报名活动
+     */
+    public static Observable<String> joinActivity(String name, int age, int sex, int selectActivityId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        params.put("age", age);
+        params.put("sex", sex);
+        params.put("selectActivityId", selectActivityId);
+        return getService().joinActivity(params).compose(RxResultHelper.httpRusult());
     }
 
     /**

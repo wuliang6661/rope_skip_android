@@ -105,6 +105,11 @@
         <activity
             android:name=".ui.mine.fragment.MyShouCangActivity"
             android:screenOrientation="portrait" />
+
+        <!--活动详情界面-->
+        <activity
+            android:name=".ui.find.fragment.HuodongDetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

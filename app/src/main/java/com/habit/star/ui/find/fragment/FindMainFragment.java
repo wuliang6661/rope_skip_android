@@ -80,7 +80,7 @@ public class FindMainFragment extends BaseFragment<CommonPresenter> implements C
         bundle4.putString(RouterConstants.ARG_MODE,"4");
         Bundle bundle5 = new Bundle();
         bundle5.putString(RouterConstants.ARG_MODE,"5");
-        fragmentAdapter.addFragment(FindListFragment.newInstance(bundle1), "精选活动");
+        fragmentAdapter.addFragment(HuodongFragment.newInstance(bundle1), "精选活动");
         fragmentAdapter.addFragment(FindListFragment.newInstance(bundle2), "教程");
         fragmentAdapter.addFragment(FindListFragment.newInstance(bundle3), "跳绳知识");
         fragmentAdapter.addFragment(FindListFragment.newInstance(bundle4), "百问百答");

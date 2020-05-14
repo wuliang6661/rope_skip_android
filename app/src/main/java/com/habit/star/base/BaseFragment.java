@@ -20,6 +20,7 @@ import com.habit.star.app.App;
 import com.habit.star.di.component.DaggerFragmentComponent;
 import com.habit.star.di.component.FragmentComponent;
 import com.habit.star.di.module.FragmentModule;
+import com.habit.star.utils.StringUtils;
 import com.habit.star.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -80,7 +81,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         svProgressHUD = new SVProgressHUD(getActivity());
-        if (mPresenter!=null){
+        if (mPresenter != null) {
             mPresenter.attachView(this);
         }
         mUnBinder = ButterKnife.bind(this, view);
@@ -113,6 +114,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
      * 显示加载进度弹窗
      */
     public void showProgress(String message) {
+        if (StringUtils.isEmpty(message)) {
+            message = "加载中...";
+        }
         svProgressHUD.showWithStatus(message, SVProgressHUD.SVProgressHUDMaskType.Black);
     }
 
@@ -122,6 +126,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     public void showLoadingProgress() {
         svProgressHUD.showWithStatus("加载中...", SVProgressHUD.SVProgressHUDMaskType.Black);
     }
+
     /**
      * 停止弹窗
      */
@@ -130,7 +135,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
             svProgressHUD.dismiss();
         }
     }
-
 
 
     public void showToast(String message) {
@@ -312,6 +316,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
         super.onDestroy();
         if (mPresenter != null) mPresenter.detachView();
     }
+
     protected abstract void initInject();
 
     protected abstract int getLayoutId();

@@ -3,16 +3,13 @@ package com.habit.star.ui.find.fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
-import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.star.R;
@@ -27,7 +24,6 @@ import com.habit.star.utils.ToastUtil;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @version V1.0
@@ -36,7 +32,8 @@ import butterknife.OnClick;
  * @Description:发现列表
  * @author: sundongdong
  */
-public class FindListFragment extends BaseFragment<FindListPresenter> implements FindListContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class FindListFragment extends BaseFragment<FindListPresenter> implements FindListContract.View,
+        SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.rv_layout_swipe_to_refresh)
     RecyclerView mRecyclerView;
@@ -44,14 +41,15 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.progress_fragment_fragment_find_list)
     ProgressbarLayout progress;
-    @BindView(R.id.tv_proccess_fragment_find_list)
-    AppCompatTextView tvProccessFragmentFindList;
-    @BindView(R.id.tv_already_report_fragment_find_list)
-    AppCompatTextView tvAlreadyReportFragmentFindList;
-    @BindView(R.id.tv_finish_fragment_find_list)
-    AppCompatTextView tvFinishFragmentFindList;
-    @BindView(R.id.ll_toolbar_layout_toolbar)
-    LinearLayout llToolbarLayoutToolbar;
+//    @BindView(R.id.tv_proccess_fragment_find_list)
+//    AppCompatTextView tvProccessFragmentFindList;
+//    @BindView(R.id.tv_already_report_fragment_find_list)
+//    AppCompatTextView tvAlreadyReportFragmentFindList;
+//    @BindView(R.id.tv_finish_fragment_find_list)
+//    AppCompatTextView tvFinishFragmentFindList;
+//    @BindView(R.id.ll_toolbar_layout_toolbar)
+//    LinearLayout llToolbarLayoutToolbar;
+
     private String mModeType;
     private int state = 0;
     FindListAdapter mListAdapter;
@@ -156,45 +154,45 @@ public class FindListFragment extends BaseFragment<FindListPresenter> implements
 
     }
 
-    @SingleClick
-    @OnClick({R.id.tv_proccess_fragment_find_list,
-            R.id.tv_already_report_fragment_find_list,
-            R.id.tv_finish_fragment_find_list})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_proccess_fragment_find_list:
-                state = 0;
-                statasChange();
-                break;
-            case R.id.tv_already_report_fragment_find_list:
-                state = 1;
-                statasChange();
-                break;
-            case R.id.tv_finish_fragment_find_list:
-                state = 2;
-                statasChange();
-                break;
-        }
-    }
+//    @SingleClick
+//    @OnClick({R.id.tv_proccess_fragment_find_list,
+//            R.id.tv_already_report_fragment_find_list,
+//            R.id.tv_finish_fragment_find_list})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.tv_proccess_fragment_find_list:
+//                state = 0;
+//                statasChange();
+//                break;
+//            case R.id.tv_already_report_fragment_find_list:
+//                state = 1;
+//                statasChange();
+//                break;
+//            case R.id.tv_finish_fragment_find_list:
+//                state = 2;
+//                statasChange();
+//                break;
+//        }
+//    }
     private void statasChange(){
         switch (state){
             case 0:
-                tvProccessFragmentFindList.setTextColor(getResources().getColor(R.color.color_7EC7F5));
-                tvAlreadyReportFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
-                tvFinishFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
-                onRefresh();
-                break;
-            case 1:
-                tvProccessFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
-                tvAlreadyReportFragmentFindList.setTextColor(getResources().getColor(R.color.color_7EC7F5));
-                tvFinishFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
-                onRefresh();
-                break;
-            case 2:
-                tvProccessFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
-                tvAlreadyReportFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
-                tvFinishFragmentFindList.setTextColor(getResources().getColor(R.color.color_7EC7F5));
-                onRefresh();
+//                tvProccessFragmentFindList.setTextColor(getResources().getColor(R.color.color_7EC7F5));
+//                tvAlreadyReportFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
+//                tvFinishFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
+//                onRefresh();
+//                break;
+//            case 1:
+//                tvProccessFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
+//                tvAlreadyReportFragmentFindList.setTextColor(getResources().getColor(R.color.color_7EC7F5));
+//                tvFinishFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
+//                onRefresh();
+//                break;
+//            case 2:
+//                tvProccessFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
+//                tvAlreadyReportFragmentFindList.setTextColor(getResources().getColor(R.color.color_888888));
+//                tvFinishFragmentFindList.setTextColor(getResources().getColor(R.color.color_7EC7F5));
+//                onRefresh();
                 break;
         }
 
