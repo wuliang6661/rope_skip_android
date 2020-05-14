@@ -256,4 +256,9 @@ public interface HttpService {
                                                             @Query("pageNum") String pageNum,
                                                             @Query("pageSize") String pageSize);
 
+    /**
+     * 开启或关闭推送
+     */
+    @POST("app/user/isDayPush")
+    Observable<BaseResult<String>> isDayPush();
 }

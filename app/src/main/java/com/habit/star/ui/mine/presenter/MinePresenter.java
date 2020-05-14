@@ -91,4 +91,26 @@ public class MinePresenter extends RxPresenter<MineContract.View> implements Min
         });
     }
 
+
+    /**
+     * 操作推送开关
+     */
+    public void isPushDay() {
+        HttpServerImpl.isDayPush().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if (mView != null) {
+                    getUserInfo();
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.showError(message);
+                }
+            }
+        });
+    }
+
 }

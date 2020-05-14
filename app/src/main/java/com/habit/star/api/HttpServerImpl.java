@@ -308,6 +308,13 @@ public class HttpServerImpl {
     }
 
     /**
+     * 开启或关闭推送
+     */
+    public static Observable<String> isDayPush() {
+        return getService().isDayPush().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
      * 提交图片
      */
     public static Observable<String> updateFile(File file) {
