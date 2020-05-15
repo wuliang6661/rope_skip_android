@@ -8,14 +8,12 @@ import android.view.View;
 
 import com.habit.commonlibrary.widget.HackyViewPager;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
-import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.common.adapter.FragmentVPAdapter;
 import com.habit.star.presenter.CommonPresenter;
 import com.habit.star.presenter.contract.CommonContract;
-import com.habit.star.ui.train.fragment.TrainPlanListFragment;
 import com.habit.star.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -81,13 +79,14 @@ public class FindMainFragment extends BaseFragment<CommonPresenter> implements C
         Bundle bundle5 = new Bundle();
         bundle5.putString(RouterConstants.ARG_MODE,"5");
         fragmentAdapter.addFragment(HuodongFragment.newInstance(bundle1), "精选活动");
-        fragmentAdapter.addFragment(FindListFragment.newInstance(bundle2), "教程");
+        fragmentAdapter.addFragment(new KeChengFragment(), "教程");
         fragmentAdapter.addFragment(FindListFragment.newInstance(bundle3), "跳绳知识");
         fragmentAdapter.addFragment(FindListFragment.newInstance(bundle4), "百问百答");
         fragmentAdapter.addFragment(FindListFragment.newInstance(bundle5), "趣味商城");
         viewPager.setAdapter(fragmentAdapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setLocked(true);
+        viewPager.setOffscreenPageLimit(fragmentAdapter.getCount()-1);//设置缓存所有
     }
     @Override
     public boolean onBackPressedSupport() {

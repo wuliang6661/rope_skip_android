@@ -10,6 +10,15 @@ public class FenLeiBO {
 
     private int type;
     private String name;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getType() {
         return type;

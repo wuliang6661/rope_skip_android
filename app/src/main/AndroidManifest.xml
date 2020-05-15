@@ -17,8 +17,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>  
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>  
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />  
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+     
 
     <application
         android:name=".app.App"
@@ -112,6 +113,11 @@
         <!--活动详情界面-->
         <activity
             android:name=".ui.find.fragment.HuodongDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <!--课程详情界面-->
+        <activity
+            android:name=".ui.find.fragment.KeChengDetailsActivity"
             android:screenOrientation="portrait" />
     </application>
 

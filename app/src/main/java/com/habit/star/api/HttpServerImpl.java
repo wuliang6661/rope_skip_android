@@ -10,10 +10,12 @@ import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
 import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
+import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
 import com.habit.star.pojo.po.QuestionBO;
 import com.habit.star.pojo.po.ShouCangBO;
 import com.habit.star.pojo.po.UserBO;
+import com.habit.star.pojo.po.VideoBO;
 
 import java.io.File;
 import java.io.IOException;
@@ -342,6 +344,39 @@ public class HttpServerImpl {
         params.put("selectActivityId", selectActivityId);
         return getService().joinActivity(params).compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 获取课程分类
+     */
+    public static Observable<List<FenLeiBO>> getCourseClasss() {
+        return getService().getCourseClasss().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取课程列表
+     */
+    public static Observable<List<KechengBO>> getCourseInfoList(String classId, int isSelectAge, int isSelectHeight,
+                                                                int isSelectWeight, String title) {
+        return getService().getCourseInfoList("1", "20000", classId, isSelectAge,
+                isSelectHeight, isSelectWeight, title).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 获取课程详情
+     */
+    public static Observable<KechengBO> getCourseInfo(int id) {
+        return getService().getCourseInfo(id).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取视频列表
+     */
+    public static Observable<List<VideoBO>> getCourseVideoList(int id) {
+        return getService().getCourseVideoList("1", "20000", id + "")
+                .compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 提交图片

@@ -9,10 +9,12 @@ import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
 import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
+import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
 import com.habit.star.pojo.po.QuestionBO;
 import com.habit.star.pojo.po.ShouCangBO;
 import com.habit.star.pojo.po.UserBO;
+import com.habit.star.pojo.po.VideoBO;
 
 import java.util.List;
 import java.util.Map;
@@ -288,27 +290,35 @@ public interface HttpService {
      * 查询课程分类
      */
     @GET("app/find/course/getCourseClasss")
-    Observable<BaseResult<String>> getCourseClasss();
+    Observable<BaseResult<List<FenLeiBO>>> getCourseClasss();
 
     /**
      * 获取课程列表
      */
     @GET("app/find/course/getCourseInfoList")
-    Observable<BaseResult<String>> getCourseInfoList(@Query("pageNum") String pageNum,
-                                                     @Query("pageSize") String pageSize,
-                                                     @Query("classId") String classId,
-                                                     @Query("isSelectAge") int isSelectAge,
-                                                     @Query("isSelectHeight") int isSelectHeight,
-                                                     @Query("isSelectWeight") int isSelectWeight,
-                                                     @Query("title") String title);
+    Observable<BaseResult<List<KechengBO>>> getCourseInfoList(@Query("pageNum") String pageNum,
+                                                              @Query("pageSize") String pageSize,
+                                                              @Query("classId") String classId,
+                                                              @Query("isSelectAge") int isSelectAge,
+                                                              @Query("isSelectHeight") int isSelectHeight,
+                                                              @Query("isSelectWeight") int isSelectWeight,
+                                                              @Query("title") String title);
+
+
+    /**
+     * 获取课程详情
+     */
+    @GET("app/find/course/getCourseInfo")
+    Observable<BaseResult<KechengBO>> getCourseInfo(@Query("id") int id);
+
 
     /**
      * 根据课程id 获取课程视频列表
      */
     @GET("app/find/course/getCourseVideoList")
-    Observable<BaseResult<String>> getCourseVideoList(@Query("pageNum") String pageNum,
-                                                      @Query("pageSize") String pageSize,
-                                                      @Query("id") String id);
+    Observable<BaseResult<List<VideoBO>>> getCourseVideoList(@Query("pageNum") String pageNum,
+                                                             @Query("pageSize") String pageSize,
+                                                             @Query("id") String id);
 
     /**
      * 添加学习记录

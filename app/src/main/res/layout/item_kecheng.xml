@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
     android:background="@color/white"
-    android:gravity="center_vertical"
-    android:minHeight="150dp"
-    android:orientation="vertical">
+    android:minHeight="140dp">
 
 
     <LinearLayout
+        android:id="@+id/kecheng_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -137,6 +136,8 @@
         android:layout_marginTop="8dp"
         android:text="经典课程        2018-10-01"
         android:textColor="#C1C1C1"
-        android:textSize="11sp" />
+        android:textSize="11sp"
+        android:visibility="gone" />
 
-</LinearLayout>
+
+</RelativeLayout>
