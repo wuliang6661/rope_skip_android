@@ -41,6 +41,8 @@ public class BlueDeviceUtils {
      */
     private Context mContext;
 
+    private OnSearchListenter listener;
+
     /**
      * 存放搜索到的蓝牙列表
      */
@@ -102,7 +104,7 @@ public class BlueDeviceUtils {
         // 开始搜索
         mBluetoothAdapter.startDiscovery();
         if (this.listener != null) {
-            listener.startSearch();
+            listener.searchStart();
         }
     }
 
@@ -155,7 +157,7 @@ public class BlueDeviceUtils {
                         booth.remove(device.getName());
                         booth.put(device.getName(), device);
                         if (listener != null) {
-                            listener.searchDevice(device);
+                            listener.searchDevices(device);
                         }
                     }
                 }
@@ -182,20 +184,9 @@ public class BlueDeviceUtils {
         mContext.unregisterReceiver(receiver);
     }
 
-    private onSearchMacListener listener;
 
-    public void setListener(onSearchMacListener listener) {
+    public void setListener(OnSearchListenter listener) {
         this.listener = listener;
-    }
-
-    public interface onSearchMacListener {
-
-
-        void startSearch();
-
-        void searchDevice(BluetoothDevice device);
-
-        void searchStop();
     }
 
 }

@@ -29,21 +29,20 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.UUID;
 
+import static com.habit.star.app.Constants.characterUUID1;
+import static com.habit.star.app.Constants.serviceUUID;
 import static com.inuker.bluetooth.library.Constants.REQUEST_SUCCESS;
 import static com.inuker.bluetooth.library.Constants.STATUS_CONNECTED;
 import static com.inuker.bluetooth.library.Constants.STATUS_DISCONNECTED;
 
 /**
- * 蓝牙连接工具类，提供连接指定蓝牙设备的方法
+ * 蓝牙连接工具类，提供连接指定蓝牙设备的方法 （低功耗蓝牙）
  */
 public class BlueUtils {
 
     private static BlueUtils blueUtils;
 
     private BluetoothClient mClient;
-
-    private String serviceUUID = "6e401990-b5a3-f393-e0a9-e50e24dcca9a";
-    private String characterUUID1 = "6e401991-b5a3-f393-e0a9-e50e24dcca9a";
 
     private onBlueListener listener;
 
@@ -119,6 +118,7 @@ public class BlueUtils {
     public void searchMac() {
         SearchRequest request = new SearchRequest.Builder()
                 .searchBluetoothLeDevice(3000, 2)   // 先扫BLE设备3次，每次3s
+                .searchBluetoothClassicDevice(5)
                 .searchBluetoothLeDevice(2000)      // 再扫BLE设备2s
                 .build();
         mClient.search(request, new SearchResponse() {
@@ -168,15 +168,16 @@ public class BlueUtils {
         if (StringUtils.isEmpty(MAC)) {
             return;
         }
-        mClient.write(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1), bytes, new BleWriteResponse() {
+        mClient.write(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1),
+                bytes, new BleWriteResponse() {
 
-            @Override
-            public void onResponse(int code) {
-                if (code == REQUEST_SUCCESS) {
-                    LogUtils.e("写入成功！");
-                }
-            }
-        });
+                    @Override
+                    public void onResponse(int code) {
+                        if (code == REQUEST_SUCCESS) {
+                            LogUtils.e("写入成功！");
+                        }
+                    }
+                });
     }
 
 
@@ -187,12 +188,13 @@ public class BlueUtils {
         if (StringUtils.isEmpty(MAC)) {
             return;
         }
-        mClient.unnotify(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1), new BleUnnotifyResponse() {
-            @Override
-            public void onResponse(int code) {
+        mClient.unnotify(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1)
+                , new BleUnnotifyResponse() {
+                    @Override
+                    public void onResponse(int code) {
 
-            }
-        });
+                    }
+                });
         onBlueNotify(MAC, listener);
     }
 
@@ -250,29 +252,30 @@ public class BlueUtils {
      * 监听蓝牙的返回
      */
     private void onBlueNotify(String MAC, onBlueNotifiListener listener) {
-        mClient.notify(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1), new BleNotifyResponse() {
+        mClient.notify(MAC, UUID.fromString(serviceUUID), UUID.fromString(characterUUID1),
+                new BleNotifyResponse() {
 
-            @Override
-            public void onNotify(UUID service, UUID character, byte[] value) {
-                if (listener != null) {
-                    listener.onNotifiBlue(value);
-                }
-            }
+                    @Override
+                    public void onNotify(UUID service, UUID character, byte[] value) {
+                        if (listener != null) {
+                            listener.onNotifiBlue(value);
+                        }
+                    }
 
-            @Override
-            public void onResponse(int code) {
-                if (code == REQUEST_SUCCESS) {   //监听建立之后再发送数据
-                    notifiListener = listener;
-                    if (listener != null) {
-                        listener.notifiConnectSourcess();
+                    @Override
+                    public void onResponse(int code) {
+                        if (code == REQUEST_SUCCESS) {   //监听建立之后再发送数据
+                            notifiListener = listener;
+                            if (listener != null) {
+                                listener.notifiConnectSourcess();
+                            }
+                        } else {
+                            if (listener != null) {
+                                listener.notifiConnectError();
+                            }
+                        }
                     }
-                } else {
-                    if (listener != null) {
-                        listener.notifiConnectError();
-                    }
-                }
-            }
-        });
+                });
     }
 
 

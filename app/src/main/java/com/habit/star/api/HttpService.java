@@ -284,4 +284,36 @@ public interface HttpService {
     @POST("app/find/activity/joinActivity")
     Observable<BaseResult<String>> joinActivity(@Body Map<String, Object> params);
 
+    /**
+     * 查询课程分类
+     */
+    @GET("app/find/course/getCourseClasss")
+    Observable<BaseResult<String>> getCourseClasss();
+
+    /**
+     * 获取课程列表
+     */
+    @GET("app/find/course/getCourseInfoList")
+    Observable<BaseResult<String>> getCourseInfoList(@Query("pageNum") String pageNum,
+                                                     @Query("pageSize") String pageSize,
+                                                     @Query("classId") String classId,
+                                                     @Query("isSelectAge") int isSelectAge,
+                                                     @Query("isSelectHeight") int isSelectHeight,
+                                                     @Query("isSelectWeight") int isSelectWeight,
+                                                     @Query("title") String title);
+
+    /**
+     * 根据课程id 获取课程视频列表
+     */
+    @GET("app/find/course/getCourseVideoList")
+    Observable<BaseResult<String>> getCourseVideoList(@Query("pageNum") String pageNum,
+                                                      @Query("pageSize") String pageSize,
+                                                      @Query("id") String id);
+
+    /**
+     * 添加学习记录
+     */
+    @POST("app/find/course/addDataLearn")
+    Observable<BaseResult<String>> addDataLearn(@Body Map<String, Object> params);
+
 }
