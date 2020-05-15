@@ -1,12 +1,14 @@
 package com.habit.star.ui;
 
+import android.bluetooth.BluetoothDevice;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.habit.star.R;
-import com.habit.star.app.App;
 import com.habit.star.base.BaseActivity;
+import com.habit.star.pojo.po.BlueDeviceBO;
+import com.habit.star.utils.blue.BlueDeviceUtils;
 import com.habit.star.utils.blue.BlueUtils;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
@@ -24,7 +26,8 @@ public class SearchActivty extends BaseActivity {
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
 
-    List<SearchResult> results;
+    List<BlueDeviceBO> results;
+    List<BluetoothDevice> devices;
 
 
     @Override
@@ -49,6 +52,8 @@ public class SearchActivty extends BaseActivity {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleView.setLayoutManager(manager);
         results = new ArrayList<>();
+        devices = new ArrayList<>();
+        initDeviceBlue();
         initBlue();
     }
 
@@ -70,6 +75,50 @@ public class SearchActivty extends BaseActivity {
     @Override
     public void showError(int errorCode) {
 
+    }
+
+
+    /**
+     * 本机蓝牙搜索
+     */
+    private void initDeviceBlue() {
+        BlueDeviceUtils blueDeviceUtils = BlueDeviceUtils.getInstance();
+        BluetoothDevice device = blueDeviceUtils.getConnectBlue();
+//        if (device != null) {
+//            BlueDeviceBO deviceBO = new BlueDeviceBO();
+//            deviceBO.setConnect(true);
+//            deviceBO.setDeviceName(device.getName());
+//            deviceBO.setDeviceMac(device.getAddress());
+//            results.add(deviceBO);
+//            setAdapter();
+//        }
+        blueDeviceUtils.setListener(new BlueDeviceUtils.onSearchMacListener() {
+            @Override
+            public void startSearch() {
+//                showProgress("蓝牙搜索中...");
+            }
+
+            @Override
+            public void searchDevice(BluetoothDevice device) {
+                for (BlueDeviceBO item : results) {
+                    if (device.getName().equals(item.getDeviceName())) {
+                        return;
+                    }
+                }
+                BlueDeviceBO deviceBO = new BlueDeviceBO();
+                deviceBO.setDeviceMac(device.getAddress());
+                deviceBO.setDeviceName(device.getName());
+                results.add(deviceBO);
+                devices.add(device);
+                setAdapter();
+            }
+
+            @Override
+            public void searchStop() {
+
+            }
+        });
+        blueDeviceUtils.startScanBluth();
     }
 
 
@@ -96,53 +145,64 @@ public class SearchActivty extends BaseActivity {
 
             @Override
             public void searchStop() {
-               stopProgress();
+                stopProgress();
             }
 
             @Override
             public void searchMacs(SearchResult devices) {
-                for (SearchResult item : results) {
-                    if (devices.getName().equals(item.getName())) {
+                for (BlueDeviceBO item : results) {
+                    if (devices.getName().equals(item.getDeviceName())) {
                         return;
                     }
                 }
-                results.add(devices);
+                BlueDeviceBO deviceBO = new BlueDeviceBO();
+                deviceBO.setDeviceMac(devices.getAddress());
+                deviceBO.setDeviceName(devices.getName());
+                results.add(deviceBO);
                 setAdapter();
             }
         });
-        blueUtils.searchMac();
-        showProgress("蓝牙搜索中...");
+//        blueUtils.searchMac();
+//        showProgress("蓝牙搜索中...");
     }
 
     private void setAdapter() {
-        LGRecycleViewAdapter<SearchResult> adapter = new LGRecycleViewAdapter<SearchResult>(results) {
+        LGRecycleViewAdapter<BlueDeviceBO> adapter = new LGRecycleViewAdapter<BlueDeviceBO>(results) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_blue;
             }
 
             @Override
-            public void convert(LGViewHolder holder, SearchResult result, int position) {
-                holder.setText(R.id.item_text, result.getName());
+            public void convert(LGViewHolder holder, BlueDeviceBO result, int position) {
+                holder.setText(R.id.item_text, result.getDeviceName());
+//                if (result.isConnect()) {
+//                    holder.getView(R.id.connect).setVisibility(View.GONE);
+//                } else {
+//                    holder.getView(R.id.connect).setVisibility(View.VISIBLE);
+//                }
             }
         };
         adapter.setOnItemClickListener(R.id.connect, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                BlueUtils.getInstance().connectMac(results.get(position).getAddress());
+//                BlueUtils.getInstance().connectMac(results.get(position).getDeviceMac());
+                boolean connect = BlueDeviceUtils.getInstance().connectBlue(devices.get(position));
+                if (connect) {
+                    showError("连接成功！");
+                } else {
+                    showError("连接失败！");
+                }
             }
         });
         recycleView.setAdapter(adapter);
     }
 
 
-
     @OnClick(R.id.search_btn)
-    public void search(){
-        initBlue();
+    public void search() {
+        initDeviceBlue();
     }
-
-
 
 
 }
