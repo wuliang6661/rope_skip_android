@@ -297,8 +297,33 @@ public class KeChengDetailsActivity extends BaseActivity {
     /**
      * 收藏课程
      */
-    private void shoucang() {
+    @OnClick(R.id.shoucang_img)
+    public void shoucang() {
+        if ("1".equals(kechengBO.getIsCollect())) {  //已收藏
+            HttpServerImpl.cancelCollect(kechengBO.getId(), 0).subscribe(new HttpResultSubscriber<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    getClassDetails(id);
+                }
 
+                @Override
+                public void onFiled(String message) {
+                    showToast(message);
+                }
+            });
+        } else {
+            HttpServerImpl.addCollect(kechengBO.getId(), 0).subscribe(new HttpResultSubscriber<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    getClassDetails(id);
+                }
+
+                @Override
+                public void onFiled(String message) {
+                    showToast(message);
+                }
+            });
+        }
     }
 
 }

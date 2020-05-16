@@ -119,6 +119,41 @@
         <activity
             android:name=".ui.find.fragment.KeChengDetailsActivity"
             android:screenOrientation="portrait" />
+
+        <!--知识详情界面-->
+        <activity
+            android:name=".ui.find.fragment.ZhiShiDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <!--商品详情界面-->
+        <activity
+            android:name=".ui.find.fragment.ShopDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <!--商品兑换界面-->
+        <activity
+            android:name=".ui.find.fragment.ExChangeShopActivity"
+            android:screenOrientation="portrait" />
+
+        <!--收货地址列表界面-->
+        <activity
+            android:name=".ui.mine.fragment.MyAddressListFragment"
+            android:screenOrientation="portrait" />
+
+        <!--搜索问答界面-->
+        <activity
+            android:name=".ui.find.fragment.SearchQuestionsActivity"
+            android:screenOrientation="portrait" />
+
+        <!--增加问答界面-->
+        <activity
+            android:name=".ui.find.fragment.QuestionAddActivity"
+            android:screenOrientation="portrait" />
+
+        <!--问答详情页面-->
+        <activity
+            android:name=".ui.find.fragment.QuestionDetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -34,7 +34,6 @@ import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.pojo.po.FeedBackBO;
 import com.habit.star.ui.mine.adapter.ImageAddAdapter;
-import com.habit.star.ui.mine.adapter.ImageGridAdapter;
 import com.habit.star.ui.mine.contract.FeedBackContract;
 import com.habit.star.ui.mine.presenter.FeedBackPresenter;
 import com.habit.star.utils.PhotoFromPhotoAlbum;
@@ -78,7 +77,6 @@ public class FeedbackFragment extends BaseFragment<FeedBackPresenter> implements
     @BindView(R.id.et_phone)
     AppCompatEditText etPhone;
 
-    ImageGridAdapter mImageGridAdapter;
     Unbinder unbinder;
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -302,7 +300,8 @@ public class FeedbackFragment extends BaseFragment<FeedBackPresenter> implements
 
             @Override
             public void deleteImage(int position, String imageBO) {
-
+                images.remove(position);
+                addAdapter.setDatas(images);
             }
 
             @Override

@@ -7,7 +7,7 @@ package com.habit.star.pojo.po;
  * desc   :
  * version: 1.0
  */
-public class QuestionBO {
+public class WenDaBO {
 
 
     /**

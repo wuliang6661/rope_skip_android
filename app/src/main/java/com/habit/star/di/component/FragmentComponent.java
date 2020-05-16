@@ -79,7 +79,6 @@ public interface FragmentComponent {
     void inject(MyMedalAchievementFragment fragment);
     void inject(MyHonorCertificateFragment fragment);
     void inject(MyPkFragment fragment);
-    void inject(MyAddressListFragment fragment);
     void inject(TranHomeFragment fragment);
     void inject(BaseMsgInputFragment fragment);
     void inject(TrainPlanFragment fragment);

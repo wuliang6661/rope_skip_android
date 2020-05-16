@@ -143,4 +143,5 @@ dependencies {
     implementation 'cat.ereza:customactivityoncrash:1.5.0'
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.guoqi.widget:actionsheet:1.0'
+    implementation 'com.youth.banner:banner:1.4.10'
 }

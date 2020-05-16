@@ -50,8 +50,8 @@ public class ImageGridAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        helper.addOnClickListener(R.id.frame_layout_image_grid_fragment_task_order_feedback)
-                .addOnLongClickListener(R.id.frame_layout_image_grid_fragment_task_order_feedback);
+//        helper.addOnClickListener(R.id.frame_layout_image_grid_fragment_task_order_feedback)
+//                .addOnLongClickListener(R.id.frame_layout_image_grid_fragment_task_order_feedback);
         if (imageCy != null && imageCy.size() < imageNumber) {
             if (helper.getLayoutPosition() == (mData.size() - 1)) {
                 helper.setImageResource(R.id.iv_layout_image_grid_fragment_task_order_feedback, R.mipmap.ic_menu_add_picture);

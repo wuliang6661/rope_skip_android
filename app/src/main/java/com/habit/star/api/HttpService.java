@@ -11,10 +11,14 @@ import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
-import com.habit.star.pojo.po.QuestionBO;
+import com.habit.star.pojo.po.QuestionsBO;
+import com.habit.star.pojo.po.ShopBO;
+import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
+import com.habit.star.pojo.po.WenDaBO;
+import com.habit.star.pojo.po.ZhiShiBO;
 
 import java.util.List;
 import java.util.Map;
@@ -236,8 +240,8 @@ public interface HttpService {
      * 查询常见问题
      */
     @GET("app/my/question/getQuestionList")
-    Observable<BaseResult<List<QuestionBO>>> getQuestionList(@Query("pageNum") String pageNum,
-                                                             @Query("pageSize") String pageSize);
+    Observable<BaseResult<List<WenDaBO>>> getQuestionList(@Query("pageNum") String pageNum,
+                                                          @Query("pageSize") String pageSize);
 
     /**
      * 查询反馈类型
@@ -319,6 +323,114 @@ public interface HttpService {
     Observable<BaseResult<List<VideoBO>>> getCourseVideoList(@Query("pageNum") String pageNum,
                                                              @Query("pageSize") String pageSize,
                                                              @Query("id") String id);
+
+    /**
+     * 添加收藏
+     */
+    @POST("app/my/collect/addCollect")
+    Observable<BaseResult<String>> addCollect(@Body Map<String, Object> params);
+
+    /**
+     * 取消收藏
+     */
+    @POST("app/my/collect/cancelCollect")
+    Observable<BaseResult<String>> cancelCollect(@Body Map<String, Object> params);
+
+    /**
+     * 查询知识分类
+     */
+    @GET("app/find/knowledge/getKnowledgeClasss")
+    Observable<BaseResult<List<FenLeiBO>>> getKnowledgeClasss();
+
+    /**
+     * 查询知识列表
+     */
+    @GET("app/find/knowledge/getSelectKnowledgeInfoList")
+    Observable<BaseResult<List<ZhiShiBO>>> getSelectKnowledgeInfoList(@Query("pageNum") String pageNum,
+                                                                      @Query("pageSize") String pageSize,
+                                                                      @Query("classId") String classId,
+                                                                      @Query("isSelectAge") int isSelectAge,
+                                                                      @Query("isSelectHeight") int isSelectHeight,
+                                                                      @Query("isSelectWeight") int isSelectWeight,
+                                                                      @Query("title") String title);
+
+    /**
+     * 查询跳绳知识详情
+     */
+    @GET("app/find/knowledge/getKnowledge")
+    Observable<BaseResult<ZhiShiBO>> getKnowledge(@Query("id") int id);
+
+    /**
+     * 查询商品列表
+     */
+    @GET("app/find/good/getGoodList")
+    Observable<BaseResult<List<ShopBO>>> getGoodList(@Query("pageNum") String pageNum,
+                                                     @Query("pageSize") String pageSize,
+                                                     @Query("recommendStatus") int recommendStatus);
+
+    /**
+     * 查询商品详情
+     */
+    @GET("app/find/good/getGood")
+    Observable<BaseResult<ShopDetailsBO>> getGood(@Query("id") int id);
+
+    /**
+     * 兑换商品
+     */
+    @POST("app/find/good/exchangeGood")
+    Observable<BaseResult<String>> exchangeGood(@Body Map<String, Object> params);
+
+    /**
+     * 查询所有百问百答分类
+     */
+    @GET("app/find/questionAnswer/getQuestionAnswerClasss")
+    Observable<BaseResult<List<FenLeiBO>>> getQuestionAnswerClasss();
+
+    /**
+     * 查询问答列表
+     */
+    @GET("app/find/questionAnswer/getQuestionAnswerInfoList")
+    Observable<BaseResult<List<QuestionsBO>>> getQuestionAnswerInfoList(@Query("pageNum") String pageNum,
+                                                                        @Query("pageSize") String pageSize,
+                                                                        @Query("id") String id);
+
+    /**
+     * 根据关键字搜索问答
+     */
+    @GET("app/find/questionAnswer/getSelectQuestionAnswerInfoList")
+    Observable<BaseResult<List<QuestionsBO>>> getSelectQuestionAnswerInfoList(@Query("pageNum") String pageNum,
+                                                                              @Query("pageSize") String pageSize,
+                                                                              @Query("title") String title);
+
+    /**
+     * 发布问答
+     */
+    @POST("app/find/questionAnswer/AddQuestion")
+    Observable<BaseResult<String>> AddQuestion(@Body Map<String, Object> params);
+
+    /**
+     * 查询问答详情
+     */
+    @GET("app/find/questionAnswer/getQuestionAnswerInfo")
+    Observable<BaseResult<QuestionsBO>> getQuestionAnswerInfo(@Query("id") int id);
+
+    /**
+     * 查询所有一级评论
+     */
+    @GET("app/find/questionAnswer/getOneCommentList")
+    Observable<BaseResult<String>> getOneCommentList(@Query("pageNum") String pageNum,
+                                                     @Query("pageSize") String pageSize,
+                                                     @Query("id") String id);
+
+
+    /**
+     * 根据评论ID查询所有二级评论
+     */
+    @GET("app/find/questionAnswer/getTwoCommentList")
+    Observable<BaseResult<String>> getTwoCommentList(@Query("pageNum") String pageNum,
+                                                     @Query("pageSize") String pageSize,
+                                                     @Query("id") String id);
+
 
     /**
      * 添加学习记录
