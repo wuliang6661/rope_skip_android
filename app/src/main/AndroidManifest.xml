@@ -153,6 +153,23 @@
         <!--问答详情页面-->
         <activity
             android:name=".ui.find.fragment.QuestionDetailsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <!--二级评论-->
+        <activity
+            android:name=".ui.find.fragment.TwoPingLunActivity"
+            android:screenOrientation="portrait" />
+
+        <!--增加评论-->
+        <activity
+            android:name=".ui.find.fragment.AddPingLunActivity"
+            android:screenOrientation="portrait" />
+
+        <!--查看大图-->
+        <activity
+            android:name=".ui.BigPicutreActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
     </application>
 

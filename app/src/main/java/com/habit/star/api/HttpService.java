@@ -11,10 +11,12 @@ import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.OnePingLunBO;
 import com.habit.star.pojo.po.QuestionsBO;
 import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
+import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
 import com.habit.star.pojo.po.WenDaBO;
@@ -418,18 +420,24 @@ public interface HttpService {
      * 查询所有一级评论
      */
     @GET("app/find/questionAnswer/getOneCommentList")
-    Observable<BaseResult<String>> getOneCommentList(@Query("pageNum") String pageNum,
-                                                     @Query("pageSize") String pageSize,
-                                                     @Query("id") String id);
+    Observable<BaseResult<List<OnePingLunBO>>> getOneCommentList(@Query("pageNum") String pageNum,
+                                                                 @Query("pageSize") String pageSize,
+                                                                 @Query("id") String id);
 
 
     /**
      * 根据评论ID查询所有二级评论
      */
     @GET("app/find/questionAnswer/getTwoCommentList")
-    Observable<BaseResult<String>> getTwoCommentList(@Query("pageNum") String pageNum,
-                                                     @Query("pageSize") String pageSize,
-                                                     @Query("id") String id);
+    Observable<BaseResult<List<TwoPingLunBO>>> getTwoCommentList(@Query("pageNum") String pageNum,
+                                                                 @Query("pageSize") String pageSize,
+                                                                 @Query("id") String id);
+
+    /**
+     * 添加评论
+     */
+    @POST("app/find/questionAnswer/AddComment")
+    Observable<BaseResult<String>> AddComment(@Body Map<String, Object> params);
 
 
     /**

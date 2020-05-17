@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -54,6 +55,12 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
     BaseRvAdapter<KechengBO, BaseViewHolder> adapter;
 
     FenLeiAdapter fenLeiAdapter;
+
+    private int isSelectNianLing = 0;
+    private int isSelectShengao = 0;
+    private int isSelectTizhong = 0;
+
+    private int selectFeiLei = 0;
 
     @Override
     protected void initInject() {
@@ -177,13 +184,14 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
         fenLeiAdapter.setOnItemClickListener(R.id.fenlei_text, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
+                selectFeiLei = position;
                 getHuoDongList(s.get(position).getId());
                 fenLeiAdapter.setSelectFenLei(position);
             }
         });
         fenleiRecycle.setAdapter(fenLeiAdapter);
         if (!s.isEmpty()) {
-            getHuoDongList(s.get(0).getId());
+            getHuoDongList(s.get(selectFeiLei).getId());
         }
     }
 
@@ -193,7 +201,7 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
      */
     private void getHuoDongList(int classId) {
         showProgress(null);
-        HttpServerImpl.getCourseInfoList(classId + "", 0, 0, 0, null)
+        HttpServerImpl.getCourseInfoList(classId + "", isSelectNianLing, isSelectShengao, isSelectTizhong, null)
                 .subscribe(new HttpResultSubscriber<List<KechengBO>>() {
                     @Override
                     public void onSuccess(List<KechengBO> s) {
@@ -208,4 +216,22 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
                     }
                 });
     }
+
+
+
+    @OnClick(R.id.shaixuan_layout)
+    public void clickShaiXuan(){
+        PopShiXuanWindow popShiXuanWindow = new PopShiXuanWindow(getActivity(),isSelectNianLing,isSelectShengao,isSelectTizhong);
+        popShiXuanWindow.setListener(new PopShiXuanWindow.onSelectListener() {
+            @Override
+            public void onSelect(int Nianling, int Shengao, int Tizhong) {
+                isSelectNianLing = Nianling;
+                isSelectShengao = Shengao;
+                isSelectTizhong = Tizhong;
+                getHuoDongList(fenLeiAdapter.getItem(selectFeiLei).getId());
+            }
+        });
+        popShiXuanWindow.showAsDropDown(fenleiLayout);
+    }
+
 }

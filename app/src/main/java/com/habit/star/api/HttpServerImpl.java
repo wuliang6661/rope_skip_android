@@ -12,10 +12,12 @@ import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.OnePingLunBO;
 import com.habit.star.pojo.po.QuestionsBO;
 import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
+import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
 import com.habit.star.pojo.po.WenDaBO;
@@ -501,6 +503,33 @@ public class HttpServerImpl {
      */
     public static Observable<QuestionsBO> getQuestionAnswerInfo(int id) {
         return getService().getQuestionAnswerInfo(id).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询所有一级评论
+     */
+    public static Observable<List<OnePingLunBO>> getOneCommentList(String id) {
+        return getService().getOneCommentList("1", "20000", id + "").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询所有二级评论
+     */
+    public static Observable<List<TwoPingLunBO>> getTwoCommentList(String id) {
+        return getService().getTwoCommentList("1", "20000", id + "").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 发布评论
+     */
+    public static Observable<String> AddComment(int objectId, int parentId, String content, String image) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("objectType", 0);
+        params.put("objectId", objectId);
+        params.put("parentId", parentId);
+        params.put("image", image);
+        params.put("content", content);
+        return getService().AddComment(params).compose(RxResultHelper.httpRusult());
     }
 
 

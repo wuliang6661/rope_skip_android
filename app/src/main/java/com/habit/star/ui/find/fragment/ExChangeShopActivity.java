@@ -17,6 +17,7 @@ import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.ui.mine.fragment.MyAddressListFragment;
 import com.habit.star.utils.AppManager;
+import com.habit.star.widget.AlertDialog;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -166,20 +167,28 @@ public class ExChangeShopActivity extends BaseActivity {
             showToast("请选择收货地址！");
             return;
         }
+        new AlertDialog(this).builder().setGone().setMsg("是否确认兑换？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", v -> syncDuiHuan()).show();
+    }
+
+
+    private void syncDuiHuan(){
         HttpServerImpl.exchangeGood(address.getId(),detailsBO.getExchangeEnergy(),detailsBO.getId(),detailsBO.getPrice() + "")
                 .subscribe(new HttpResultSubscriber<String>() {
-            @Override
-            public void onSuccess(String s) {
-                showToast("兑换成功！");
-                AppManager.getAppManager().goHome();
-            }
+                    @Override
+                    public void onSuccess(String s) {
+                        showToast("兑换成功！");
+                        AppManager.getAppManager().goHome();
+                    }
 
-            @Override
-            public void onFiled(String message) {
-               showToast(message);
-            }
-        });
+                    @Override
+                    public void onFiled(String message) {
+                        showToast(message);
+                    }
+                });
     }
+
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
