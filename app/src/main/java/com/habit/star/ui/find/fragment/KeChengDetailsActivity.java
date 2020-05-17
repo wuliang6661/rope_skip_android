@@ -3,6 +3,7 @@ package com.habit.star.ui.find.fragment;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -30,6 +32,7 @@ import java.net.URL;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -72,10 +75,13 @@ public class KeChengDetailsActivity extends BaseActivity {
     WebView htmlText;
     @BindView(R.id.jianjie_layout)
     ScrollView jianjieLayout;
+    @BindView(R.id.full_screen)
+    FrameLayout fullScreen;
 
     private KechengBO kechengBO;
     private int id;
     private List<VideoBO> videos;
+//    private VideoPlayView videoPlayer;
 
     @Override
     protected void initInject() {
@@ -101,9 +107,12 @@ public class KeChengDetailsActivity extends BaseActivity {
         recycleView.setLayoutManager(manager);
 
         initWeb();
+//        videoPlayer = new VideoPlayView(this);
+//        fullScreen.addView(videoPlayer);
         id = getIntent().getExtras().getInt("kechengId");
         getClassDetails(id);
     }
+
 
 
     private void initWeb() {
@@ -254,6 +263,9 @@ public class KeChengDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(List<VideoBO> s) {
                 videos = s;
+//                if (!s.isEmpty()) {
+//                    videoPlayer.start(s.get(0).getUrl());
+//                }
                 showVideoAdapter();
             }
 
@@ -325,5 +337,17 @@ public class KeChengDetailsActivity extends BaseActivity {
             });
         }
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+
+    /**
+     *
+     */
 
 }

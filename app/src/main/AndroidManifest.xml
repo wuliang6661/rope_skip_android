@@ -31,7 +31,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:targetApi="m">
+        tools:targetApi="m"
+        android:appComponentFactory="11"
+        tools:replace="android:appComponentFactory">
         <activity
             android:name=".ui.login.activity.LoginActivity"
             android:screenOrientation="portrait">
@@ -64,6 +66,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
@@ -113,21 +116,25 @@
         <!--活动详情界面-->
         <activity
             android:name=".ui.find.fragment.HuodongDetailsActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--课程详情界面-->
         <activity
             android:name=".ui.find.fragment.KeChengDetailsActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--知识详情界面-->
         <activity
             android:name=".ui.find.fragment.ZhiShiDetailsActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--商品详情界面-->
         <activity
             android:name=".ui.find.fragment.ShopDetailsActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--商品兑换界面-->
@@ -153,7 +160,7 @@
         <!--问答详情页面-->
         <activity
             android:name=".ui.find.fragment.QuestionDetailsActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--二级评论-->

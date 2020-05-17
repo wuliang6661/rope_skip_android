@@ -1,6 +1,7 @@
 package com.habit.star.ui.mine.fragment;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +13,8 @@ import com.habit.star.api.HttpResultSubscriber;
 import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.BaseActivity;
 import com.habit.star.pojo.po.ShouCangBO;
+import com.habit.star.ui.find.fragment.KeChengDetailsActivity;
+import com.habit.star.ui.find.fragment.ZhiShiDetailsActivity;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
 
@@ -160,6 +163,11 @@ public class MyShouCangActivity extends BaseActivity {
                 holder.setText(R.id.beizhu_text, "作者  " + item.getReleaseName() + "  " + item.getReleaseDate());
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("Id", adapter.getItem(position).getId());
+            gotoActivity(ZhiShiDetailsActivity.class, bundle, false);
+        });
         recycleView.setAdapter(adapter);
     }
 
@@ -182,6 +190,11 @@ public class MyShouCangActivity extends BaseActivity {
                 holder.setText(R.id.remark, item.getReleaseName() + "  " + item.getReleaseDate());
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("kechengId", adapter.getItem(position).getId());
+            gotoActivity(KeChengDetailsActivity.class, bundle, false);
+        });
         recycleView.setAdapter(adapter);
     }
 }

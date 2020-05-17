@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.habit.star.R;
@@ -106,7 +107,7 @@ public class BigPicutreActivity extends BaseActivity {
         @Override
         public Object instantiateItem(ViewGroup view, int position) {
             View groupView = LayoutInflater.from(BigPicutreActivity.this).inflate(R.layout.act_big_img, null);
-            TouchImageView imageView = groupView.findViewById(R.id.iv_big_image);
+            ImageView imageView = groupView.findViewById(R.id.iv_big_image);
             Glide.with(BigPicutreActivity.this).load(imageBOS.get(position)).into(imageView);
             view.addView(groupView);
             return groupView;

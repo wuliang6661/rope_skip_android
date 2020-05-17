@@ -53,7 +53,6 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
     Unbinder unbinder;
 
     BaseRvAdapter<KechengBO, BaseViewHolder> adapter;
-
     FenLeiAdapter fenLeiAdapter;
 
     private int isSelectNianLing = 0;
@@ -87,8 +86,6 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         fenleiRecycle.setLayoutManager(manager);
         initAdapter();
-//        onRefresh();
-//        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
@@ -113,13 +110,8 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
         };
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE).build());
         adapter.setEmptyView(getActivity().getLayoutInflater().inflate(R.layout.layout_no_datas, (ViewGroup) mRecyclerView.getParent(), false));
-        AppCompatButton mBtnRefresh = (AppCompatButton) adapter.getEmptyView().findViewById(R.id.btn_refresh);
-        mBtnRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRefresh();
-            }
-        });
+        AppCompatButton mBtnRefresh = adapter.getEmptyView().findViewById(R.id.btn_refresh);
+        mBtnRefresh.setOnClickListener(v -> onRefresh());
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter a, View view, int position) {
@@ -222,14 +214,11 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
     @OnClick(R.id.shaixuan_layout)
     public void clickShaiXuan(){
         PopShiXuanWindow popShiXuanWindow = new PopShiXuanWindow(getActivity(),isSelectNianLing,isSelectShengao,isSelectTizhong);
-        popShiXuanWindow.setListener(new PopShiXuanWindow.onSelectListener() {
-            @Override
-            public void onSelect(int Nianling, int Shengao, int Tizhong) {
-                isSelectNianLing = Nianling;
-                isSelectShengao = Shengao;
-                isSelectTizhong = Tizhong;
-                getHuoDongList(fenLeiAdapter.getItem(selectFeiLei).getId());
-            }
+        popShiXuanWindow.setListener((Nianling, Shengao, Tizhong) -> {
+            isSelectNianLing = Nianling;
+            isSelectShengao = Shengao;
+            isSelectTizhong = Tizhong;
+            getHuoDongList(fenLeiAdapter.getItem(selectFeiLei).getId());
         });
         popShiXuanWindow.showAsDropDown(fenleiLayout);
     }
