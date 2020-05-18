@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
@@ -80,6 +81,14 @@ public class App extends Application {
                 // 是否打印相关日志
                 .enableLog(true);
     }
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
 
 
 }
