@@ -28,6 +28,7 @@ public class AddressListAdapter extends BaseRvAdapter<AddressBO, BaseViewHolder>
         helper.addOnClickListener(R.id.ll_select_layout_fragment_address_list_item)
                 .addOnClickListener(R.id.ll_bianji_layout_fragment_address_list_item)
                 .addOnClickListener(R.id.ll_delete_layout_fragment_address_list_item)
+                .addOnClickListener(R.id.address_layout)
                 .setText(R.id.tv_title_layout_fragment_address_list_item, item.getName())
                 .setText(R.id.tv_tel_layout_fragment_address_list_item, item.getPhone())
                 .setText(R.id.tv_address_name_layout_fragment_address_list_item, item.getAddress());

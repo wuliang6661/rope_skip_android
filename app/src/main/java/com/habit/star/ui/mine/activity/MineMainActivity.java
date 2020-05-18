@@ -7,17 +7,17 @@ import android.widget.FrameLayout;
 import com.habit.star.R;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseActivity;
-import com.habit.star.ui.mine.fragment.MessageListFragment;
-import com.habit.star.ui.mine.fragment.PersonalDataFragment;
-import com.habit.star.ui.mine.presenter.MineMainPresenter;
-import com.habit.star.ui.mine.contract.MineMainContract;
 import com.habit.star.ui.login.fragment.PerfectInformationFragment;
+import com.habit.star.ui.mine.contract.MineMainContract;
 import com.habit.star.ui.mine.fragment.FamilyMemberFragment;
 import com.habit.star.ui.mine.fragment.HelpCenterFragment;
+import com.habit.star.ui.mine.fragment.MessageListFragment;
 import com.habit.star.ui.mine.fragment.MyAchievementFragment;
 import com.habit.star.ui.mine.fragment.MyAddressListFragment;
 import com.habit.star.ui.mine.fragment.MyPkFragment;
+import com.habit.star.ui.mine.fragment.PersonalDataFragment;
 import com.habit.star.ui.mine.fragment.SystemSettingFragment;
+import com.habit.star.ui.mine.presenter.MineMainPresenter;
 
 import butterknife.BindView;
 
@@ -69,7 +69,8 @@ public class MineMainActivity extends BaseActivity<MineMainPresenter> implements
                 loadRootFragment(R.id.frame_container_activity_mine_main, SystemSettingFragment.newInstance(null));
                 break;
             case RouterConstants.SHOW_RECEIVING_ADDRESS:
-                loadRootFragment(R.id.frame_container_activity_mine_main, MyAddressListFragment.newInstance(null));
+//                loadRootFragment(R.id.frame_container_activity_mine_main, MyAddressListFragment.newInstance(null));
+                gotoActivity(MyAddressListFragment.class,true);
                 break;
             case RouterConstants.SHOW_FAMILY_MEMBER:
                 loadRootFragment(R.id.frame_container_activity_mine_main, FamilyMemberFragment.newInstance(null));

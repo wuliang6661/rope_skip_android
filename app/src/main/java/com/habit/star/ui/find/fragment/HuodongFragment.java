@@ -85,8 +85,13 @@ public class HuodongFragment extends BaseFragment implements SwipeRefreshLayout.
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         fenleiRecycle.setLayoutManager(manager);
         initAdapter();
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
         onRefresh();
-        mSwipeRefreshLayout.setRefreshing(true);
+//        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     private void initAdapter() {

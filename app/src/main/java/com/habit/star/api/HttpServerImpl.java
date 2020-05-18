@@ -12,10 +12,16 @@ import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
-import com.habit.star.pojo.po.QuestionBO;
+import com.habit.star.pojo.po.OnePingLunBO;
+import com.habit.star.pojo.po.QuestionsBO;
+import com.habit.star.pojo.po.ShopBO;
+import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
+import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
+import com.habit.star.pojo.po.WenDaBO;
+import com.habit.star.pojo.po.ZhiShiBO;
 
 import java.io.File;
 import java.io.IOException;
@@ -281,7 +287,7 @@ public class HttpServerImpl {
     /**
      * 查询常见问题
      */
-    public static Observable<List<QuestionBO>> getQuestionList() {
+    public static Observable<List<WenDaBO>> getQuestionList() {
         return getService().getQuestionList("1", "20000").compose(RxResultHelper.httpRusult());
     }
 
@@ -336,7 +342,7 @@ public class HttpServerImpl {
     /**
      * 报名活动
      */
-    public static Observable<String> joinActivity(String name, int age, int sex, int selectActivityId) {
+    public static Observable<String> joinActivity(String name, String age, int sex, int selectActivityId) {
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         params.put("age", age);
@@ -377,6 +383,155 @@ public class HttpServerImpl {
                 .compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 添加收藏
+     */
+    public static Observable<String> addCollect(int objectId, int objectType) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("objectId", objectId);
+        params.put("objectType", objectType);
+        return getService().addCollect(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 取消收藏
+     */
+    public static Observable<String> cancelCollect(int objectId, int objectType) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("objectId", objectId);
+        params.put("objectType", objectType);
+        return getService().cancelCollect(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询知识分类
+     */
+    public static Observable<List<FenLeiBO>> getKnowledgeClasss() {
+        return getService().getKnowledgeClasss().compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 获取知识列表
+     */
+    public static Observable<List<ZhiShiBO>> getSelectKnowledgeInfoList(String classId, int isSelectAge, int isSelectHeight,
+                                                                        int isSelectWeight, String title) {
+        return getService().getSelectKnowledgeInfoList("1", "20000", classId, isSelectAge,
+                isSelectHeight, isSelectWeight, title).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 查询知识详情
+     */
+    public static Observable<ZhiShiBO> getKnowledge(int id) {
+        return getService().getKnowledge(id).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询商品列表
+     */
+    public static Observable<List<ShopBO>> getGoodList(int recommendStatus, int pageSize) {
+        return getService().getGoodList("1", pageSize + "", recommendStatus).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询商品
+     */
+    public static Observable<ShopDetailsBO> getGood(int id) {
+        return getService().getGood(id).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询默认收货地址
+     */
+    public static Observable<AddressBO> getDefaultAddress() {
+        return getService().getDefaultAddress().compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 兑换商品
+     */
+    public static Observable<String> exchangeGood(int addressId, int exchangeEnergy, int goodId, String price) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("addressId", addressId);
+        params.put("exchangeEnergy", exchangeEnergy);
+        params.put("goodId", goodId);
+        params.put("price", price);
+        return getService().exchangeGood(params).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 获取百问百答分类
+     */
+    public static Observable<List<FenLeiBO>> getQuestionAnswerClasss() {
+        return getService().getQuestionAnswerClasss().compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 根据问答分类查询问答列表
+     */
+    public static Observable<List<QuestionsBO>> getQuestionAnswerInfoList(int id) {
+        return getService().getQuestionAnswerInfoList("1", "20000", id + "").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 根据关键字搜索问答
+     */
+    public static Observable<List<QuestionsBO>> getSelectQuestionAnswerInfoList(String title) {
+        return getService().getSelectQuestionAnswerInfoList("1", "20000", title).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 添加问答
+     */
+    public static Observable<String> AddQuestion(int questionAnswerClassId, String title, String content, String image) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("questionAnswerClassId", questionAnswerClassId);
+        params.put("title", title);
+        params.put("content", content);
+        params.put("image", image);
+        return getService().AddQuestion(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询问答详情
+     */
+    public static Observable<QuestionsBO> getQuestionAnswerInfo(int id) {
+        return getService().getQuestionAnswerInfo(id).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询所有一级评论
+     */
+    public static Observable<List<OnePingLunBO>> getOneCommentList(String id) {
+        return getService().getOneCommentList("1", "20000", id + "").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询所有二级评论
+     */
+    public static Observable<List<TwoPingLunBO>> getTwoCommentList(String id) {
+        return getService().getTwoCommentList("1", "20000", id + "").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 发布评论
+     */
+    public static Observable<String> AddComment(int objectId, int parentId, String content, String image) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("objectType", 0);
+        params.put("objectId", objectId);
+        params.put("parentId", parentId);
+        params.put("image", image);
+        params.put("content", content);
+        return getService().AddComment(params).compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 提交图片
@@ -408,7 +563,7 @@ public class HttpServerImpl {
         }
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), compressedImageFile);
         MultipartBody.Part body = MultipartBody.Part.createFormData("fileName", file.getName(), requestFile);
-        return getService().updateFile(body).compose(RxResultHelper.httpRusult());
+        return getService().uploadHeadImage(body).compose(RxResultHelper.httpRusult());
     }
 
 }

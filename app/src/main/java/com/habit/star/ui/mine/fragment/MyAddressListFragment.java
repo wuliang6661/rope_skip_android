@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -19,17 +17,18 @@ import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.app.RouterConstants;
-import com.habit.star.base.BaseFragment;
+import com.habit.star.base.BaseActivity;
 import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.ui.mine.adapter.AddressListAdapter;
 import com.habit.star.ui.mine.contract.MyAddressListContract;
 import com.habit.star.ui.mine.presenter.MyAddressListPresenter;
 import com.habit.star.utils.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -41,7 +40,7 @@ import butterknife.Unbinder;
  * 文件名称：MyAddressListFragment.java
  * 类说明：收货地址
  */
-public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> implements MyAddressListContract.View {
+public class MyAddressListFragment extends BaseActivity<MyAddressListPresenter> implements MyAddressListContract.View {
 
     @BindView(R.id.toolbar_layout_toolbar)
     ToolbarWithBackRightProgress toolbar;
@@ -57,18 +56,11 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
     private AddressListAdapter mListAdapter;
     private int position = 0;
 
-    public static MyAddressListFragment newInstance(Bundle bundle) {
-        MyAddressListFragment fragment = new MyAddressListFragment();
-        if (bundle != null) {
-            fragment.setArguments(bundle);
-        }
-
-        return fragment;
-    }
+    private int isSelect = 0;  //默认不是选择地址
 
     @Override
     protected void initInject() {
-        getFragmentComponent().inject(this);
+        getActivityComponent().inject(this);
     }
 
     @Override
@@ -88,28 +80,16 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
             @SingleClick
             @Override
             public void onClick(View v) {
-                _mActivity.onBackPressedSupport();
+                finish();
             }
         });
-//        toolbar.setRightBtnClick(new View.OnClickListener() {
-//            @SingleClick
-//            @Override
-//            public void onClick(View v) {
-//                start(AddAddressFragment.newInstance(null));
-//            }
-//        });
-    }
-
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        showLoadingProgress();
+        isSelect = getIntent().getIntExtra("isSelect", 0);
         mPresenter.getAddressList();
     }
 
+
     private void initDialog() {
-        exitDialog = new MaterialDialog.Builder(getActivity())
+        exitDialog = new MaterialDialog.Builder(this)
                 .title(getResources().getString(R.string.remind))
                 .content("是否确定删除")
                 .positiveText("确定")
@@ -119,7 +99,6 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        showLoadingProgress();
                         mPresenter.deleteAddress(mListAdapter.getItem(position).getId());
                     }
                 })
@@ -130,8 +109,8 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
                 }).build();
 
 
-        rvAddressContent.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider_address).colorResId(R.color.transparent).build());
-        rvAddressContent.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvAddressContent.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider_address).colorResId(R.color.transparent).build());
+        rvAddressContent.setLayoutManager(new LinearLayoutManager(this));
         mListAdapter = new AddressListAdapter(mContext);
         rvAddressContent.setAdapter(mListAdapter);
         rvAddressContent.addOnItemTouchListener(new OnItemChildClickListener() {
@@ -140,7 +119,6 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.ll_select_layout_fragment_address_list_item:
-                        showLoadingProgress();
                         mPresenter.setDefaltAddress(mListAdapter.getItem(position).getId());
                         break;
                     case R.id.ll_bianji_layout_fragment_address_list_item:
@@ -151,6 +129,13 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
                     case R.id.ll_delete_layout_fragment_address_list_item:
                         MyAddressListFragment.this.position = position;
                         exitDialog.show();
+                        break;
+                    case R.id.address_layout:
+                        if(isSelect != 0){
+                            EventBus.getDefault().post(mListAdapter.getItem(position));
+                            finish();
+                            return;
+                        }
                         break;
                 }
             }
@@ -178,20 +163,6 @@ public class MyAddressListFragment extends BaseFragment<MyAddressListPresenter> 
     @Override
     public void showError(int errorCode) {
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
     @OnClick(R.id.ll_btn_submit_fragment_feed_back)

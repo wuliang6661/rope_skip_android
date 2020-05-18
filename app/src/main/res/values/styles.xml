@@ -134,5 +134,9 @@
         <item name="android:windowExitAnimation">@anim/share_pop_out</item>
     </style>
 
+    <style name="AlertDialog" parent="@android:style/Theme.DeviceDefault.Dialog">
+        <!--该行代码就是设置AlertDialog的背景-->
+        <item name="android:background">@drawable/dialog_bg</item>
+    </style>
 
 </resources>

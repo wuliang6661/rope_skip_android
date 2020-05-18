@@ -15,7 +15,7 @@ import com.habit.star.api.HttpResultSubscriber;
 import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.BaseActivity;
 import com.habit.star.common.adapter.BaseRvAdapter;
-import com.habit.star.pojo.po.QuestionBO;
+import com.habit.star.pojo.po.WenDaBO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,10 +80,10 @@ public class FrequentlyActivty extends BaseActivity implements SwipeRefreshLayou
         swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider_test).colorResId(R.color.transparent).build());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mListAdapter = new BaseRvAdapter<QuestionBO, BaseViewHolder>(R.layout.item_question, new ArrayList<>()) {
+        mListAdapter = new BaseRvAdapter<WenDaBO, BaseViewHolder>(R.layout.item_question, new ArrayList<>()) {
 
             @Override
-            protected void convert(BaseViewHolder helper, QuestionBO item) {
+            protected void convert(BaseViewHolder helper, WenDaBO item) {
                 helper.setText(R.id.question_title, item.getQuestion());
                 helper.setText(R.id.question_message, item.getAnswer());
             }
@@ -120,9 +120,9 @@ public class FrequentlyActivty extends BaseActivity implements SwipeRefreshLayou
     }
 
     private void getData() {
-        HttpServerImpl.getQuestionList().subscribe(new HttpResultSubscriber<List<QuestionBO>>() {
+        HttpServerImpl.getQuestionList().subscribe(new HttpResultSubscriber<List<WenDaBO>>() {
             @Override
-            public void onSuccess(List<QuestionBO> s) {
+            public void onSuccess(List<WenDaBO> s) {
                 swipeRefreshLayout.setRefreshing(false);
                 mListAdapter.setNewData(s);
             }

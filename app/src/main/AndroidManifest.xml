@@ -31,7 +31,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:targetApi="m">
+        tools:targetApi="m"
+        android:appComponentFactory="11"
+        tools:replace="android:appComponentFactory">
         <activity
             android:name=".ui.login.activity.LoginActivity"
             android:screenOrientation="portrait">
@@ -64,6 +66,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
@@ -113,11 +116,67 @@
         <!--活动详情界面-->
         <activity
             android:name=".ui.find.fragment.HuodongDetailsActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--课程详情界面-->
         <activity
             android:name=".ui.find.fragment.KeChengDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!--知识详情界面-->
+        <activity
+            android:name=".ui.find.fragment.ZhiShiDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!--商品详情界面-->
+        <activity
+            android:name=".ui.find.fragment.ShopDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!--商品兑换界面-->
+        <activity
+            android:name=".ui.find.fragment.ExChangeShopActivity"
+            android:screenOrientation="portrait" />
+
+        <!--收货地址列表界面-->
+        <activity
+            android:name=".ui.mine.fragment.MyAddressListFragment"
+            android:screenOrientation="portrait" />
+
+        <!--搜索问答界面-->
+        <activity
+            android:name=".ui.find.fragment.SearchQuestionsActivity"
+            android:screenOrientation="portrait" />
+
+        <!--增加问答界面-->
+        <activity
+            android:name=".ui.find.fragment.QuestionAddActivity"
+            android:screenOrientation="portrait" />
+
+        <!--问答详情页面-->
+        <activity
+            android:name=".ui.find.fragment.QuestionDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!--二级评论-->
+        <activity
+            android:name=".ui.find.fragment.TwoPingLunActivity"
+            android:screenOrientation="portrait" />
+
+        <!--增加评论-->
+        <activity
+            android:name=".ui.find.fragment.AddPingLunActivity"
+            android:screenOrientation="portrait" />
+
+        <!--查看大图-->
+        <activity
+            android:name=".ui.BigPicutreActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
     </application>
 

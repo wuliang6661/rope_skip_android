@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -52,8 +53,13 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
     Unbinder unbinder;
 
     BaseRvAdapter<KechengBO, BaseViewHolder> adapter;
-
     FenLeiAdapter fenLeiAdapter;
+
+    private int isSelectNianLing = 0;
+    private int isSelectShengao = 0;
+    private int isSelectTizhong = 0;
+
+    private int selectFeiLei = 0;
 
     @Override
     protected void initInject() {
@@ -80,8 +86,6 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         fenleiRecycle.setLayoutManager(manager);
         initAdapter();
-//        onRefresh();
-//        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
@@ -106,13 +110,8 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
         };
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE).build());
         adapter.setEmptyView(getActivity().getLayoutInflater().inflate(R.layout.layout_no_datas, (ViewGroup) mRecyclerView.getParent(), false));
-        AppCompatButton mBtnRefresh = (AppCompatButton) adapter.getEmptyView().findViewById(R.id.btn_refresh);
-        mBtnRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRefresh();
-            }
-        });
+        AppCompatButton mBtnRefresh = adapter.getEmptyView().findViewById(R.id.btn_refresh);
+        mBtnRefresh.setOnClickListener(v -> onRefresh());
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter a, View view, int position) {
@@ -177,13 +176,14 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
         fenLeiAdapter.setOnItemClickListener(R.id.fenlei_text, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
+                selectFeiLei = position;
                 getHuoDongList(s.get(position).getId());
                 fenLeiAdapter.setSelectFenLei(position);
             }
         });
         fenleiRecycle.setAdapter(fenLeiAdapter);
         if (!s.isEmpty()) {
-            getHuoDongList(s.get(0).getId());
+            getHuoDongList(s.get(selectFeiLei).getId());
         }
     }
 
@@ -193,7 +193,7 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
      */
     private void getHuoDongList(int classId) {
         showProgress(null);
-        HttpServerImpl.getCourseInfoList(classId + "", 0, 0, 0, null)
+        HttpServerImpl.getCourseInfoList(classId + "", isSelectNianLing, isSelectShengao, isSelectTizhong, null)
                 .subscribe(new HttpResultSubscriber<List<KechengBO>>() {
                     @Override
                     public void onSuccess(List<KechengBO> s) {
@@ -208,4 +208,19 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
                     }
                 });
     }
+
+
+
+    @OnClick(R.id.shaixuan_layout)
+    public void clickShaiXuan(){
+        PopShiXuanWindow popShiXuanWindow = new PopShiXuanWindow(getActivity(),isSelectNianLing,isSelectShengao,isSelectTizhong);
+        popShiXuanWindow.setListener((Nianling, Shengao, Tizhong) -> {
+            isSelectNianLing = Nianling;
+            isSelectShengao = Shengao;
+            isSelectTizhong = Tizhong;
+            getHuoDongList(fenLeiAdapter.getItem(selectFeiLei).getId());
+        });
+        popShiXuanWindow.showAsDropDown(fenleiLayout);
+    }
+
 }

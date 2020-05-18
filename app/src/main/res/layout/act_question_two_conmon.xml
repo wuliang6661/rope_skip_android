@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F8F8F8">
+
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/layout_title" />
+
+
+    <LinearLayout
+        android:id="@+id/buttom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/white_button_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/user_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="25dp"
+            app:riv_corner_radius="360dp" />
+
+
+        <TextView
+            android:id="@+id/edit_pinglun"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/edit_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="16sp"
+            android:text="我来说几句"
+            android:textColor="#888888"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/buttom_layout"
+        android:layout_below="@+id/title_layout"
+        android:layout_height="wrap_content"/>
+
+
+
+</RelativeLayout>
