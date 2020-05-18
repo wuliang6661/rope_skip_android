@@ -2,8 +2,10 @@ package com.habit.star.api;
 
 import com.habit.star.pojo.BaseResult;
 import com.habit.star.pojo.po.AddressBO;
+import com.habit.star.pojo.po.ChengJiuBo;
 import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
+import com.habit.star.pojo.po.EnergyBO;
 import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
@@ -11,15 +13,21 @@ import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.NengLiangVO;
 import com.habit.star.pojo.po.OnePingLunBO;
+import com.habit.star.pojo.po.PkChangCiBO;
+import com.habit.star.pojo.po.PkJiLuBo;
 import com.habit.star.pojo.po.QuestionsBO;
+import com.habit.star.pojo.po.RongYuBO;
 import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
+import com.habit.star.pojo.po.TaskBO;
 import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
 import com.habit.star.pojo.po.WenDaBO;
+import com.habit.star.pojo.po.XIaoJiangBO;
 import com.habit.star.pojo.po.ZhiShiBO;
 
 import java.util.List;
@@ -445,5 +453,76 @@ public interface HttpService {
      */
     @POST("app/find/course/addDataLearn")
     Observable<BaseResult<String>> addDataLearn(@Body Map<String, Object> params);
+
+
+    /**
+     * 创建小将
+     */
+    @POST("app/general/addGeneralInfo")
+    Observable<BaseResult<String>> addGeneralInfo(@Body Map<String, Object> params);
+
+    /**
+     * 查询未领取能量
+     */
+    @GET("app/general/getEnergies")
+    Observable<BaseResult<List<NengLiangVO>>> getEnergies();
+
+
+    /**
+     * 领取能量
+     */
+    @POST("app/general/receiveEnergy")
+    Observable<BaseResult<String>> receiveEnergy(@Body Map<String, Object> params);
+
+    /**
+     * 获取我的勋章成就
+     */
+    @GET("app/general/getMedalList")
+    Observable<BaseResult<ChengJiuBo>> getMedalList();
+
+
+    /**
+     * 获取我的荣誉证书
+     */
+    @GET("app/general/getHonorList")
+    Observable<BaseResult<RongYuBO>> getHonorList();
+
+    /**
+     * 查询小将信息
+     */
+    @GET("app/general/getYoungGeneralInfo")
+    Observable<BaseResult<XIaoJiangBO>> getYoungGeneralInfo();
+
+    /**
+     * 查询Pk挑战信息列表
+     */
+    @GET("app/general/getPkChallengeList")
+    Observable<BaseResult<List<PkChangCiBO>>> getPkChallengeList();
+
+    /**
+     * 查询Pk明细列表
+     */
+    @GET("app/general/getDataPkList")
+    Observable<BaseResult<List<PkJiLuBo>>> getDataPkList(@Query("pageNum") String pageNum,
+                                                         @Query("pageSize") String pageSize);
+
+    /**
+     * 查询能量数据(累计能量、消耗能量、可用能量)
+     */
+    @GET("app/general/getEnergyData")
+    Observable<BaseResult<EnergyBO>> getEnergyData();
+
+    /**
+     * 查询能量明细列表
+     */
+    @GET("app/general/getDataEnergyList")
+    Observable<BaseResult<List<NengLiangVO>>> getDataEnergyList(@Query("pageNum") String pageNum,
+                                                     @Query("pageSize") String pageSize);
+
+    /**
+     * 查询待完成任务列表
+     */
+    @GET("app/general/getTaskList")
+    Observable<BaseResult<List<TaskBO>>> getTaskList();
 
 }

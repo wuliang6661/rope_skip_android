@@ -11,9 +11,11 @@ import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.BaseFragment;
-import com.habit.star.presenter.CommonPresenter;
-import com.habit.star.presenter.contract.CommonContract;
+import com.habit.star.pojo.po.EnergyBO;
+import com.habit.star.pojo.po.NengLiangVO;
 import com.habit.star.ui.train.adapter.EnergyRewardListAdapter;
 import com.habit.star.ui.train.bean.EnergyRewardModel;
 import com.habit.star.ui.train.contract.EnergyDetailContract;
@@ -24,6 +26,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 /**
@@ -49,9 +52,13 @@ public class EnergyDetailFragment extends BaseFragment<EnergyDetailPresenter> im
     AppCompatTextView tvNlzDetailFragmentEnergyDetail;
     @BindView(R.id.rv_nlz_detail_list_fragment_energy_detail)
     RecyclerView rvNlzDetailListFragmentEnergyDetail;
+    @BindView(R.id.tv_energy_count_fragment_test_result)
+    AppCompatTextView tvEnergyCountFragmentTestResult;
+    Unbinder unbinder;
 
 
     private EnergyRewardListAdapter mListAdapter;
+
     public static EnergyDetailFragment newInstance(Bundle bundle) {
         EnergyDetailFragment fragment = new EnergyDetailFragment();
         if (bundle != null) {
@@ -79,36 +86,21 @@ public class EnergyDetailFragment extends BaseFragment<EnergyDetailPresenter> im
     @Override
     protected void initEventAndData() {
         initAdapter();
-        initDialog();
-        mPresenter.getList();
-
+//        mPresenter.getList();
+        getEnergyData();
+        getDataEnergyList();
     }
+
     private void initAdapter() {
         rvNlzDetailListFragmentEnergyDetail.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider_address).colorResId(R.color.transparent).build());
         rvNlzDetailListFragmentEnergyDetail.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListAdapter = new EnergyRewardListAdapter(mContext);
         rvNlzDetailListFragmentEnergyDetail.setAdapter(mListAdapter);
-//        rvNlzDetailListFragmentEnergyDetail.addOnItemTouchListener(new OnItemChildClickListener() {
-//            @SingleClick
-//            @Override
-//            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                switch (view.getId()) {
-//                    case R.id.tv_look_layout_fragment_improve_plan_list_item:
-//                        start(TrainingPlanMainFragment.newInstance(null));
-//                        break;
-//                }
-//            }
-//        });
-    }
-
-    private void initDialog() {
-
     }
 
     @Override
     public void setList(List<EnergyRewardModel> data) {
 
-        mListAdapter.setNewData(data);
     }
 
     @Override
@@ -131,6 +123,7 @@ public class EnergyDetailFragment extends BaseFragment<EnergyDetailPresenter> im
     public void showError(int errorCode) {
 
     }
+
     @SingleClick
     @OnClick({R.id.ll_back_fragment_energy_detail,
             R.id.tv_nlz_detail_fragment_energy_detail})
@@ -143,4 +136,37 @@ public class EnergyDetailFragment extends BaseFragment<EnergyDetailPresenter> im
                 break;
         }
     }
+
+
+    private void getEnergyData() {
+        HttpServerImpl.getEnergyData().subscribe(new HttpResultSubscriber<EnergyBO>() {
+            @Override
+            public void onSuccess(EnergyBO s) {
+                tvValue1FragmentEnergyDetail.setText(s.getVailEnergyValue() + "");
+                tvValue2FragmentEnergyDetail.setText(s.getConsumeEnergyValue() + "");
+                tvEnergyCountFragmentTestResult.setText(s.getEnergyValue() + "");
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    private void getDataEnergyList() {
+        HttpServerImpl.getDataEnergyList().subscribe(new HttpResultSubscriber<List<NengLiangVO>>() {
+            @Override
+            public void onSuccess(List<NengLiangVO> s) {
+                mListAdapter.setNewData(s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
 }

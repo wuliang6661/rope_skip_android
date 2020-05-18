@@ -2,23 +2,27 @@ package com.habit.star.ui.login.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.ui.login.contract.PerfectInformationContract;
 import com.habit.star.ui.login.presenter.PerfectInformationPresenter;
+import com.habit.star.utils.StringUtils;
 import com.habit.star.utils.ToastUtil;
+import com.habit.star.widget.PopXingZhi;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /*
  * 创建日期：2020-01-22 10:54
@@ -34,16 +38,19 @@ public class PerfectInformationFragment extends BaseFragment<PerfectInformationP
     ToolbarWithBackRightProgress toolbar;
     @BindView(R.id.progress_fragment_perfect_information)
     ProgressbarLayout progress;
-    @BindView(R.id.item_nick_name_fragment_perfect_information)
-    LilayItemClickableWithHeadImageTopDivider itemNickNameFragmentPerfectInformation;
-    @BindView(R.id.item_sg_fragment_perfect_information)
-    LilayItemClickableWithHeadImageTopDivider itemSgFragmentPerfectInformation;
-    @BindView(R.id.item_tz_fragment_perfect_information)
-    LilayItemClickableWithHeadImageTopDivider itemTzFragmentPerfectInformation;
-    @BindView(R.id.item_sex_fragment_perfect_information)
-    LilayItemClickableWithHeadImageTopDivider itemSexFragmentPerfectInformation;
     @BindView(R.id.btn_submit_fragment_feed_back)
     AppCompatButton btnSubmitFragmentFeedBack;
+    @BindView(R.id.edit_name)
+    EditText editName;
+    @BindView(R.id.edit_height)
+    EditText editHeight;
+    @BindView(R.id.edit_weight)
+    EditText editWeight;
+    @BindView(R.id.select_sex)
+    LilayItemClickableWithHeadImageTopDivider selectSex;
+
+
+    private int sex = 0;   //默认男
 
 
     public static PerfectInformationFragment newInstance(Bundle bundle) {
@@ -88,7 +95,6 @@ public class PerfectInformationFragment extends BaseFragment<PerfectInformationP
 
     @Override
     public void showProgress() {
-
         progress.setVisibility(View.VISIBLE);
     }
 
@@ -107,25 +113,61 @@ public class PerfectInformationFragment extends BaseFragment<PerfectInformationP
 
     }
 
-    @OnClick({R.id.item_nick_name_fragment_perfect_information,
-            R.id.item_sg_fragment_perfect_information,
-            R.id.item_tz_fragment_perfect_information,
-            R.id.item_sex_fragment_perfect_information,
-            R.id.btn_submit_fragment_feed_back})
+    @OnClick(R.id.btn_submit_fragment_feed_back)
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.item_nick_name_fragment_perfect_information:
-                break;
-            case R.id.item_sg_fragment_perfect_information:
-                break;
-            case R.id.item_tz_fragment_perfect_information:
-                break;
-            case R.id.item_sex_fragment_perfect_information:
-                break;
-            case R.id.btn_submit_fragment_feed_back:
-                showError("领取成功");
-                _mActivity.onBackPressedSupport();
-                break;
+        String nikeName = editName.getText().toString().trim();
+        String height = editHeight.getText().toString().trim();
+        String weight = editWeight.getText().toString().trim();
+        if(StringUtils.isEmpty(nikeName)){
+            showToast("请输入昵称！");
+            return;
         }
+        if(StringUtils.isEmpty(height)){
+            showToast("请输入身高！");
+            return;
+        }
+        if(StringUtils.isEmpty(weight)){
+            showToast("请输入体重！");
+            return;
+        }
+        HttpServerImpl.addGeneralInfo(nikeName,null,sex+"",height,weight).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                showError("创建成功");
+                _mActivity.onBackPressedSupport();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
+
+
+    @OnClick(R.id.select_sex)
+    public void selectSex(){
+        showSexDialog();
+    }
+
+
+    /**
+     * 显示选择男女的弹窗
+     */
+    private void showSexDialog() {
+        List<String> sexs = new ArrayList<>();
+        sexs.add("男");
+        sexs.add("女");
+        PopXingZhi popXingZhi = new PopXingZhi(getActivity(), "", sexs);
+        popXingZhi.setListener(new PopXingZhi.onSelectListener() {
+            @Override
+            public void commit(int position, String item) {
+                sex = position;
+                selectSex.setRemindContent(item);
+            }
+        });
+        popXingZhi.setSelectPosition(sex);
+        popXingZhi.showAtLocation(getActivity().getWindow().getDecorView());
+    }
+
 }

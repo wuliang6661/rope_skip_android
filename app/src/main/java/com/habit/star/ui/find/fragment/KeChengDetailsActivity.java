@@ -1,9 +1,9 @@
 package com.habit.star.ui.find.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -12,13 +12,13 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.Glide;
 import com.habit.star.R;
 import com.habit.star.api.HttpResultSubscriber;
 import com.habit.star.api.HttpServerImpl;
@@ -27,12 +27,14 @@ import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.VideoBO;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import java.net.URL;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -75,13 +77,15 @@ public class KeChengDetailsActivity extends BaseActivity {
     WebView htmlText;
     @BindView(R.id.jianjie_layout)
     ScrollView jianjieLayout;
-    @BindView(R.id.full_screen)
-    FrameLayout fullScreen;
+    @BindView(R.id.video_player)
+    StandardGSYVideoPlayer videoPlayer;
 
     private KechengBO kechengBO;
     private int id;
     private List<VideoBO> videos;
-//    private VideoPlayView videoPlayer;
+    private boolean isPlay;
+    private OrientationUtils orientationUtils;
+    private VideoBO currnVideo;   //当前播放的video
 
     @Override
     protected void initInject() {
@@ -110,9 +114,36 @@ public class KeChengDetailsActivity extends BaseActivity {
 //        videoPlayer = new VideoPlayView(this);
 //        fullScreen.addView(videoPlayer);
         id = getIntent().getExtras().getInt("kechengId");
+        //增加title
+        videoPlayer.getTitleTextView().setVisibility(View.GONE);
+        videoPlayer.getBackButton().setVisibility(View.GONE);
+        inviVideo();
         getClassDetails(id);
     }
 
+
+    /**
+     * 初始化视频设置
+     */
+    private void inviVideo() {
+        //外部辅助的旋转，帮助全屏
+        orientationUtils = new OrientationUtils(this, videoPlayer);
+        //是否可以滑动调整
+        videoPlayer.setIsTouchWiget(true);
+        videoPlayer.getFullscreenButton().setEnabled(true);
+        videoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currnVideo == null) {
+                    return;
+                }
+                Intent intent = new Intent(KeChengDetailsActivity.this, FullVideoActivity.class);
+                intent.putExtra("url", currnVideo.getUrl());
+                intent.putExtra("startTime", videoPlayer.getCurrentPositionWhenPlaying());
+                startActivityForResult(intent, 1);
+            }
+        });
+    }
 
 
     private void initWeb() {
@@ -263,9 +294,9 @@ public class KeChengDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(List<VideoBO> s) {
                 videos = s;
-//                if (!s.isEmpty()) {
-//                    videoPlayer.start(s.get(0).getUrl());
-//                }
+                if (!s.isEmpty()) {
+                    video(s.get(0));
+                }
                 showVideoAdapter();
             }
 
@@ -274,6 +305,21 @@ public class KeChengDetailsActivity extends BaseActivity {
                 showToast(message);
             }
         });
+    }
+
+
+    /**
+     * 设置视频开始播放
+     */
+    private void video(VideoBO videoBO) {
+        this.currnVideo = videoBO;
+        //增加封面
+        ImageView imageView = new ImageView(KeChengDetailsActivity.this);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        Glide.with(KeChengDetailsActivity.this).load(videoBO.getImage()).into(imageView);
+        videoPlayer.setThumbImageView(imageView);
+        videoPlayer.setUp(videoBO.getUrl(), false, "");
+        videoPlayer.startPlayLogic();
     }
 
 
@@ -302,6 +348,12 @@ public class KeChengDetailsActivity extends BaseActivity {
                 }
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                video(adapter.getItem(position));
+            }
+        });
         recycleView.setAdapter(adapter);
     }
 
@@ -311,15 +363,18 @@ public class KeChengDetailsActivity extends BaseActivity {
      */
     @OnClick(R.id.shoucang_img)
     public void shoucang() {
+        showProgress(null);
         if ("1".equals(kechengBO.getIsCollect())) {  //已收藏
             HttpServerImpl.cancelCollect(kechengBO.getId(), 0).subscribe(new HttpResultSubscriber<String>() {
                 @Override
                 public void onSuccess(String s) {
-                    getClassDetails(id);
+                    stopProgress();
+                    shoucangImg.setImageResource(R.mipmap.shoucang);
                 }
 
                 @Override
                 public void onFiled(String message) {
+                    stopProgress();
                     showToast(message);
                 }
             });
@@ -327,11 +382,13 @@ public class KeChengDetailsActivity extends BaseActivity {
             HttpServerImpl.addCollect(kechengBO.getId(), 0).subscribe(new HttpResultSubscriber<String>() {
                 @Override
                 public void onSuccess(String s) {
-                    getClassDetails(id);
+                    stopProgress();
+                    shoucangImg.setImageResource(R.mipmap.yishoucang);
                 }
 
                 @Override
                 public void onFiled(String message) {
+                    stopProgress();
                     showToast(message);
                 }
             });
@@ -339,15 +396,40 @@ public class KeChengDetailsActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected void onPause() {
+        super.onPause();
+        videoPlayer.onVideoPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        videoPlayer.onVideoResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GSYVideoManager.releaseAllVideos();
+        if (orientationUtils != null)
+            orientationUtils.releaseListener();
     }
 
 
-    /**
-     *
-     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        switch (resultCode) {
+            case 1:
+                long startTime = data.getIntExtra("startTime", 0);
+                videoPlayer.setUp(currnVideo.getUrl(), false, "");
+                videoPlayer.startPlayLogic();
+                videoPlayer.setSeekOnStart(startTime);
+                break;
+        }
+    }
 
 }

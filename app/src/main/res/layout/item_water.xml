@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_icon_js_pk5_fragment_young_home"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@mipmap/ic_nlq">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/nengliang_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="+10"
+            android:textColor="#ff7ec7f5"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/nengliang_img"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@mipmap/icon_js_pk5" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/nengliang_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="参与问答"
+            android:textColor="#ff6be363"
+            android:textSize="7sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="40dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/item_pk_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_pk_power" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/item_pk_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="20Pk"
+        android:textColor="@color/color_FD6B4D"
+        android:textSize="12sp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/item_pk_name"
+        android:layout_width="56dp"
+        android:layout_height="17dp"
+        android:gravity="center"
+        android:text="新手PK场"
+        android:textColor="@color/color_7EC7F5"
+        android:textSize="12sp" />
+</LinearLayout>

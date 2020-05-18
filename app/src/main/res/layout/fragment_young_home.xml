@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/ic_yong_home_bg"
@@ -19,6 +18,7 @@
         app:tl_brp_title_text_color="@color/color_064A6C" />
 
     <LinearLayout
+        android:id="@+id/xiaojiang_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_layout_toolbar"
@@ -41,9 +41,9 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_nlz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ll_nlz"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -59,7 +59,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="12dp"
-                    android:text="32342"
                     android:textColor="#ff7ec7f5"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -67,36 +66,28 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_cj"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/ll_cj"
-                android:gravity="center_vertical"
                 android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/chenghao_img"
+                    android:layout_width="16dp"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_star2" />
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_star2" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/tv_cj"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="19dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="12dp"
-                    android:background="@mipmap/ic_grade_gold" />
+                    android:layout_marginRight="12dp" />
             </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
 
 
         </LinearLayout>
@@ -135,613 +126,15 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_icon_js_pk1_fragment_young_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="164dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@mipmap/ic_nlq">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="+10"
-                android:textColor="#ff7ec7f5"
-                android:textSize="10sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@mipmap/icon_js_pk1" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="即时PK"
-                android:textColor="#ffffc844"
-                android:textSize="7sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_icon_js_pk2_fragment_young_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="253dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@mipmap/ic_nlq">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="+10"
-                android:textColor="#ff7ec7f5"
-                android:textSize="10sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@mipmap/icon_js_pk2" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="幸运兑换"
-                android:textColor="#fffd6b4d"
-                android:textSize="7sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_icon_js_pk3_fragment_young_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="227dp"
-        android:layout_marginTop="140dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@mipmap/ic_nlq">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="+10"
-                android:textColor="#ff7ec7f5"
-                android:textSize="10sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@mipmap/icon_js_pk3" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="课程学习"
-                android:textColor="#ff59b2ff"
-                android:textSize="7sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_icon_js_pk4_fragment_young_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="182dp"
-        android:layout_marginTop="252dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@mipmap/ic_nlq">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="+10"
-                android:textColor="#ff7ec7f5"
-                android:textSize="10sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@mipmap/icon_js_pk4" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="知识学习"
-                android:textColor="#ff3ee5bd"
-                android:textSize="7sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_icon_js_pk5_fragment_young_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="157dp"
-        android:layout_marginTop="195dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@mipmap/ic_nlq">
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="+10"
-                android:textColor="#ff7ec7f5"
-                android:textSize="10sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@mipmap/icon_js_pk5" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="参与问答"
-                android:textColor="#ff6be363"
-                android:textSize="7sp" />
-        </LinearLayout>
-    </LinearLayout>
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gi_view_monkey_fragment_young_home"
         android:layout_width="168dp"
         android:layout_height="165dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="364dp"
-        android:src="@drawable/monkey" />
-
-
-    <RelativeLayout
-        android:id="@+id/rl_zrw_bottom_fragment_young_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="231dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="33dp"
-            android:background="@mipmap/ic_bg_zrw"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-        </LinearLayout>
-
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@mipmap/ic_zrw_title" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_close_bottom_fragment_young_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="42dp"
-            android:layout_marginRight="9dp"
-            android:background="@mipmap/icon_close" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tv_rw_lable_fragment_young_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="64dp"
-            android:text="做任务"
-            android:textColor="#ff333333"
-            android:textSize="12sp" />
-
-        <View
-            android:id="@+id/divider_rw_lable_fragment_young_home"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv_rw_lable_fragment_young_home"
-            android:layout_marginTop="4dp"
-            android:background="#E8E8E8" />
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/divider_rw_lable_fragment_young_home">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_rw_bg1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:background="@mipmap/ic_js_pk1" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="即时PK"
-                            android:textColor="#ffffffff"
-                            android:textSize="18sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="即时PK挑战更高战力"
-                            android:textColor="#ffffffff"
-                            android:textSize="14sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="*奖励10枚能量晶体"
-                            android:textColor="#ffffffff"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_go_tz_fragment_young_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_entry_bg1"
-                        android:paddingHorizontal="13dp"
-                        android:paddingVertical="5dp"
-                        android:text="去挑战"
-                        android:textColor="#ff469fd7"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@mipmap/ic_xydh_bg"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:background="@mipmap/ic_js_pk2" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="幸运兑换"
-                            android:textColor="#ffffffff"
-                            android:textSize="18sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="浏览商品加速生长"
-                            android:textColor="#ffffffff"
-                            android:textSize="14sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="*奖励10枚能量晶体"
-                            android:textColor="#ffffffff"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_go_read_fragment_young_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_entry_bg1"
-                        android:paddingHorizontal="13dp"
-                        android:paddingVertical="5dp"
-                        android:text="去浏览"
-                        android:textColor="#ff469fd7"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@mipmap/ic_kcxx_bg"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:background="@mipmap/ic_js_pk3" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="课程学习"
-                            android:textColor="#ffffffff"
-                            android:textSize="18sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="每日学习课程就送能量"
-                            android:textColor="#ffffffff"
-                            android:textSize="14sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="*奖励10枚能量晶体"
-                            android:textColor="#ffffffff"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_go_study_fragment_young_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_entry_bg1"
-                        android:paddingHorizontal="13dp"
-                        android:paddingVertical="5dp"
-                        android:text="去学习"
-                        android:textColor="#ff469fd7"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@mipmap/ic_zsxx_bg"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:background="@mipmap/ic_js_pk4" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="知识学习"
-                            android:textColor="#ffffffff"
-                            android:textSize="18sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="每日浏览知识就送能量"
-                            android:textColor="#ffffffff"
-                            android:textSize="14sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="*奖励10枚能量晶体"
-                            android:textColor="#ffffffff"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_go_finish_fragment_young_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_to_finish_bg"
-                        android:paddingHorizontal="13dp"
-                        android:paddingVertical="5dp"
-                        android:text="已完成"
-                        android:textColor="#ffffff"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@mipmap/ic_cywd_bg"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:background="@mipmap/ic_js_pk5" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="参与问答"
-                            android:textColor="#ffffffff"
-                            android:textSize="18sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="每日参与问答就送能量"
-                            android:textColor="#ffffffff"
-                            android:textSize="14sp" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="*奖励10枚能量晶体"
-                            android:textColor="#ffffffff"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_go_cg_fragment_young_home"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_entry_bg1"
-                        android:paddingHorizontal="13dp"
-                        android:paddingVertical="5dp"
-                        android:text="去参与"
-                        android:textColor="#ff469fd7"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-
-
-    </RelativeLayout>
+        android:layout_marginLeft="75dp"
+        android:layout_marginBottom="100dp"
+        android:src="@drawable/monkey" />
 
 
     <com.habit.commonlibrary.widget.ProgressbarLayout
@@ -751,5 +144,12 @@
         android:layout_below="@+id/toolbar_layout_toolbar"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
+
+    <com.habit.star.widget.waterview.WaterFlake
+        android:id="@+id/water_flake"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/gi_view_monkey_fragment_young_home" />
 
 </RelativeLayout>

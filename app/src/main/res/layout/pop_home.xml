@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_zrw_bottom_fragment_young_home"
+    android:layout_width="match_parent"
+    android:layout_height="450dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:background="@mipmap/ic_bg_zrw"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/ic_zrw_title" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/close_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="42dp"
+        android:layout_marginRight="9dp"
+        android:background="@mipmap/icon_close" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_rw_lable_fragment_young_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="64dp"
+        android:text="做任务"
+        android:textColor="#ff333333"
+        android:textSize="12sp" />
+
+    <View
+        android:id="@+id/divider_rw_lable_fragment_young_home"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_rw_lable_fragment_young_home"
+        android:layout_marginTop="4dp"
+        android:background="#E8E8E8" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider_rw_lable_fragment_young_home" />
+
+
+</RelativeLayout>

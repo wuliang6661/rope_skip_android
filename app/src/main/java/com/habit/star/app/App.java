@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
@@ -11,6 +12,7 @@ import com.habit.star.di.component.AppComponent;
 import com.habit.star.di.component.DaggerAppComponent;
 import com.habit.star.di.module.AppModule;
 import com.habit.star.pojo.po.UserBO;
+import com.habit.star.pojo.po.XIaoJiangBO;
 import com.habit.star.ui.login.bean.LoginBean;
 import com.habit.star.ui.mine.bean.UserInfoMode;
 import com.sdwfqin.cbt.CbtManager;
@@ -39,6 +41,7 @@ public class App extends Application {
 
     private static final String TAG = "habit_star";
     public static UserBO userBO;
+    public static XIaoJiangBO xIaoJiangBO;
 
     public static synchronized App getInstance() {
         return instance;
@@ -80,6 +83,14 @@ public class App extends Application {
                 // 是否打印相关日志
                 .enableLog(true);
     }
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
 
 
 }

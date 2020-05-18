@@ -5,8 +5,8 @@ import android.widget.FrameLayout;
 
 import com.habit.star.R;
 import com.habit.star.base.BaseActivity;
-import com.habit.star.ui.mine.presenter.MineMainPresenter;
 import com.habit.star.ui.mine.contract.MineMainContract;
+import com.habit.star.ui.mine.presenter.MineMainPresenter;
 
 import butterknife.BindView;
 
@@ -21,6 +21,8 @@ import butterknife.BindView;
  */
 
 public class YoungMainActivity extends BaseActivity<MineMainPresenter> implements MineMainContract.View {
+
+
     @BindView(R.id.frame_container_activity_mine_main)
     FrameLayout containerFrame;
 

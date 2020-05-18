@@ -23,4 +23,6 @@ public class CommonPresenter extends RxPresenter<CommonContract.View> implements
     public CommonPresenter(RetrofitHelper retrofitHelper) {
         mRetrofitHelper = retrofitHelper;
     }
+
+
 }

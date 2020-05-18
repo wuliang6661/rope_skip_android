@@ -3,8 +3,10 @@ package com.habit.star.api;
 import com.blankj.utilcode.util.Utils;
 import com.habit.star.api.rx.RxResultHelper;
 import com.habit.star.pojo.po.AddressBO;
+import com.habit.star.pojo.po.ChengJiuBo;
 import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
+import com.habit.star.pojo.po.EnergyBO;
 import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
@@ -12,15 +14,21 @@ import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.NengLiangVO;
 import com.habit.star.pojo.po.OnePingLunBO;
+import com.habit.star.pojo.po.PkChangCiBO;
+import com.habit.star.pojo.po.PkJiLuBo;
 import com.habit.star.pojo.po.QuestionsBO;
+import com.habit.star.pojo.po.RongYuBO;
 import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
+import com.habit.star.pojo.po.TaskBO;
 import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
 import com.habit.star.pojo.po.WenDaBO;
+import com.habit.star.pojo.po.XIaoJiangBO;
 import com.habit.star.pojo.po.ZhiShiBO;
 
 import java.io.File;
@@ -530,6 +538,98 @@ public class HttpServerImpl {
         params.put("image", image);
         params.put("content", content);
         return getService().AddComment(params).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 创建小将
+     */
+    public static Observable<String> addGeneralInfo(String nickName, String age,
+                                                    String sex, String height, String weight) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("nickName", nickName);
+        params.put("age", age);
+        params.put("sex", sex);
+        params.put("height", height);
+        params.put("weight", weight);
+        return getService().addGeneralInfo(params).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 查询未领取的能量
+     */
+    public static Observable<List<NengLiangVO>> getEnergies() {
+        return getService().getEnergies().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 领取能量
+     */
+    public static Observable<String> receiveEnergy(int id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        return getService().receiveEnergy(params).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 获取勋章成就
+     */
+    public static Observable<ChengJiuBo> getMedalList() {
+        return getService().getMedalList().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取我的荣誉证书
+     */
+    public static Observable<RongYuBO> getHonorList() {
+        return getService().getHonorList().compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 查询小将信息
+     */
+    public static Observable<XIaoJiangBO> getYoungGeneralInfo() {
+        return getService().getYoungGeneralInfo().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询Pk挑战信息列表
+     */
+    public static Observable<List<PkChangCiBO>> getPkChallengeList() {
+        return getService().getPkChallengeList().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询Pk明细列表
+     */
+    public static Observable<List<PkJiLuBo>> getDataPkList() {
+        return getService().getDataPkList("1", "20000").compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 查询能量数据
+     */
+    public static Observable<EnergyBO> getEnergyData() {
+        return getService().getEnergyData().compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 查询能量明细列表
+     */
+    public static Observable<List<NengLiangVO>> getDataEnergyList() {
+        return getService().getDataEnergyList("1", "20000").compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询待完成任务列表
+     */
+    public static Observable<List<TaskBO>> getTaskList() {
+        return getService().getTaskList().compose(RxResultHelper.httpRusult());
     }
 
 

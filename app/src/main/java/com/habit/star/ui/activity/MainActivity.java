@@ -2,11 +2,8 @@ package com.habit.star.ui.activity;
 
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -20,6 +17,7 @@ import android.widget.LinearLayout;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.habit.commonlibrary.widget.NoScrollViewPager;
 import com.habit.star.R;
+import com.habit.star.app.App;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseActivity;
 import com.habit.star.common.adapter.CommonFragmentAdapter;
@@ -45,7 +43,7 @@ import butterknife.OnClick;
  * @author sundongdong
  * @version 1.0
  * @since
- * 文件名称：MainActivity.java
+ * 文件名称：Demo.java
  * 类说明：主界面
  */
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
@@ -163,21 +161,90 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         moveTaskToBack(true);
     }
 
+
+    private void showDialogManager() {
+        if (App.userBO.getYoungGeneralCount() == 0) {  //未拥有小将，创建
+            showCreateYoung();
+        } else {
+            if (App.userBO.getIsBuy() == 0) {   //未购买设备
+                showBuyDialog();
+            }
+        }
+    }
+
+
+    /**
+     * 是否开启蓝牙
+     */
     void initDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.layout_fragment_dialog_open_blue, null);
-        View buyDialogView = getLayoutInflater().inflate(R.layout.layout_fragment_buy_device_dialog, null);
+        dialogView.findViewById(R.id.tv_refuse_layout_fragment_dialog_open_blue).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openBlueDialog.hide();
+                showDialogManager();
+            }
+        });
+        dialogView.findViewById(R.id.tv_pass_layout_fragment_dialog_open_blue).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (turnOnBluetooth()) {
+                    mPresenter.connectBlue();
+                } else {
+                    showToast("关闭蓝牙可能会影响跳绳功能！");
+                }
+                openBlueDialog.hide();
+                openBlueDialog.dismiss();
+                showDialogManager();
+            }
+        });
+        openBlueDialog = new MaterialDialog.Builder(this)
+                .customView(dialogView, false)
+                .build();
+    }
+
+
+    /**
+     * 是否创建过小将
+     */
+    private void showCreateYoung() {
         View receiveYoungDialogView = getLayoutInflater().inflate(R.layout.layout_fragment_receive_young_dialog, null);
         receiveYoungDialogView.findViewById(R.id.tv_create_monkey).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createDialog.hide();
-                buyDialog.show();
                 Intent intent = new Intent();
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_PERFECT_INFORMATION);
                 intent.setClass(MainActivity.this, MineMainActivity.class);
                 startActivity(intent);
             }
         });
+        createDialog = new Dialog(this, R.style.MaterialDialogSheet);
+        createDialog.setContentView(receiveYoungDialogView);
+        createDialog.setCancelable(false);
+        createDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                showBuyDialog();
+            }
+        });
+        Window window = createDialog.getWindow();
+        WindowManager.LayoutParams paramsWindow = window.getAttributes();
+        paramsWindow.width = window.getWindowManager().getDefaultDisplay().getWidth();
+        paramsWindow.height = window.getWindowManager().getDefaultDisplay().getHeight() - DensityUtil.dp2px(mContext, 80);
+        window.setAttributes(paramsWindow);
+        createDialog.show();
+    }
+
+
+    /**
+     * 是否购买了设备
+     */
+    private void showBuyDialog() {
+        if (App.userBO.getIsBuy() == 1) {   //购买设备
+            return;
+        }
+        View buyDialogView = getLayoutInflater().inflate(R.layout.layout_fragment_buy_device_dialog, null);
         buyDialogView.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,38 +257,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 buyDialog.hide();
             }
         });
-        dialogView.findViewById(R.id.tv_refuse_layout_fragment_dialog_open_blue).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openBlueDialog.hide();
-            }
-        });
-
-        dialogView.findViewById(R.id.tv_pass_layout_fragment_dialog_open_blue).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (turnOnBluetooth()) {
-                    mPresenter.connectBlue();
-                } else {
-                    showToast("关闭蓝牙可能会影响跳绳功能！");
-                }
-                openBlueDialog.hide();
-                openBlueDialog.dismiss();
-                buyDialog.show();
-            }
-        });
-        openBlueDialog = new MaterialDialog.Builder(this)
-                .customView(dialogView, false)
-                .build();
-//        buyDialog = new MaterialDialog.Builder(this)
-//                .canceledOnTouchOutside(false)
-//                .backgroundColor(getResources().getColor(R.color.transparent))
-//                .customView(buyDialogView, false)
-//                .cancelable(false)
-//                .build();
-//        buyDialog.getWindow().setBackgroundDrawable(setDialogBack(16, 16, 16, 16, 00, 0, 0, 0));
-
-
         buyDialog = new Dialog(this, R.style.MaterialDialogSheet);
         buyDialog.setContentView(buyDialogView);
         buyDialog.setCancelable(true);
@@ -230,26 +265,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         paramsWindow1.width = window1.getWindowManager().getDefaultDisplay().getWidth();
         paramsWindow1.height = window1.getWindowManager().getDefaultDisplay().getHeight() - DensityUtil.dp2px(mContext, 80);
         window1.setAttributes(paramsWindow1);
-
-
-        createDialog = new Dialog(this, R.style.MaterialDialogSheet);
-        createDialog.setContentView(receiveYoungDialogView);
-        createDialog.setCancelable(true);
-        Window window = createDialog.getWindow();
-        WindowManager.LayoutParams paramsWindow = window.getAttributes();
-        paramsWindow.width = window.getWindowManager().getDefaultDisplay().getWidth();
-        paramsWindow.height = window.getWindowManager().getDefaultDisplay().getHeight() - DensityUtil.dp2px(mContext, 80);
-        window.setAttributes(paramsWindow);
+        buyDialog.show();
     }
 
-
-    public Drawable setDialogBack(float cTopLeft, float cTopRight, float cBottomLeft, float cBottomRight, int a, int r, int g, int b) {
-        float outRectr[] = new float[]{cTopLeft, cTopLeft, cTopRight, cTopRight, cBottomRight, cBottomRight, cBottomLeft, cBottomLeft};
-        RoundRectShape rectShape = new RoundRectShape(outRectr, null, null);
-        ShapeDrawable normalDrawable = new ShapeDrawable(rectShape);
-        normalDrawable.getPaint().setColor(Color.argb(a, r, g, b));
-        return normalDrawable;
-    }
 
     @Override
     public void showProgress() {
@@ -401,13 +419,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             if (!blueadapter.isEnabled()) {
                 openBlueDialog.show();
             } else {
-//                buyDialog.show();
                 mPresenter.connectBlue();
-                createDialog.show();
+                showDialogManager();
             }
         } else {//不支持蓝牙模块
             ToastUtil.shortShow("该设备不支持蓝牙或没有蓝牙模块");
-
+            showDialogManager();
         }
     }
 

@@ -1,106 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="13dp"
-        android:layout_marginTop="36dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="4dp"
-            android:layout_height="18dp"
-            android:background="@mipmap/ic_lines"></View>
-
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="达人证书"
-            android:textColor="@color/color_AFAFAF"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="17dp"
-        android:orientation="horizontal">
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/ic_zs1">
-
-        </android.support.v7.widget.AppCompatImageView>
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:layout_marginHorizontal="22dp"
-            android:background="@mipmap/ic_zs2">
-
-        </android.support.v7.widget.AppCompatImageView>
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/ic_zs3">
-
-        </android.support.v7.widget.AppCompatImageView>
-    </LinearLayout>
-
-    <!--<com.zhy.view.flowlayout.FlowLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginHorizontal="15dp"-->
-        <!--android:layout_marginTop="17dp"-->
-        <!--app:max_select="1"-->
-        <!--app:tag_gravity="center">-->
-
-        <!--<android.support.v7.widget.AppCompatImageView-->
-            <!--android:layout_width="100dp"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:scaleType="centerInside"-->
-            <!--android:background="@mipmap/ic_zs1">-->
-
-        <!--</android.support.v7.widget.AppCompatImageView>-->
-        <!--<android.support.v7.widget.AppCompatImageView-->
-            <!--android:layout_width="100dp"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:scaleType="centerInside"-->
-            <!--android:layout_marginHorizontal="22dp"-->
-            <!--android:background="@mipmap/ic_zs2">-->
-
-        <!--</android.support.v7.widget.AppCompatImageView>-->
-        <!--<android.support.v7.widget.AppCompatImageView-->
-            <!--android:layout_width="100dp"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:scaleType="centerInside"-->
-            <!--android:background="@mipmap/ic_zs3">-->
-
-        <!--</android.support.v7.widget.AppCompatImageView>-->
-
-    <!--</com.zhy.view.flowlayout.FlowLayout>-->
+            android:orientation="vertical">
 
 
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/rlv_list"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginTop="5dp"-->
-    <!--android:layout_marginHorizontal="15dp"/>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="9dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/shap_style_line_yellow" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="已获荣誉"
+                    android:textColor="@color/color_FFB317"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="9dp"
+                android:layout_marginTop="36dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/ic_lines" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="未获荣誉"
+                    android:textColor="@color/color_AFAFAF"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/no_recycle_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
 </LinearLayout>

@@ -101,6 +101,8 @@
     <string name="find">发现</string>
     <!--MineFragment-->
 
+    <string name="offset"/>
+    <string name="isUp"/>
     <string name="cube_views_load_more_loading">loading...</string>
     <string name="cube_views_load_more_click_to_load_more">Click to load more</string>
     <string name="cube_views_load_more_loaded_no_more">All the data has been loaded</string>

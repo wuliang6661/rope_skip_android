@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_F6F6F9"
@@ -18,70 +17,146 @@
         app:tl_brp_right_text_color="@color/colorText"
         app:tl_brp_title="领取小将"
         app:tl_brp_title_text_color="@color/colorText" />
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_layout_toolbar">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
-                android:id="@+id/item_nick_name_fragment_perfect_information"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:background="@color/white"
-                app:lichtd_bottom_divider_visibility="gone"
-                app:lichtd_content_text_color="@color/color_888888"
-                app:lichtd_head_icon="@mipmap/ic_ts7"
-                app:lichtd_iv_detail_visibility="visible"
-                app:lichtd_title="小将昵称"
-                app:lichtd_content="可爱的小兔兔"
-                app:lichtd_top_divider_visibility="gone" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@mipmap/nicheng" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="小将昵称"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="43dp"
+                    android:background="@null"
+                    android:hint="请输入小将昵称"
+                    android:textColor="#888888"
+                    android:textColorHint="#999999"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@mipmap/shengao" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="小将身高"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edit_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="43dp"
+                    android:background="@null"
+                    android:hint="请输入小将身高"
+                    android:textColor="#888888"
+                    android:textColorHint="#999999"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@mipmap/tizhong" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="小将体重"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edit_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="43dp"
+                    android:background="@null"
+                    android:hint="请输入小将体重"
+                    android:textColor="#888888"
+                    android:textColorHint="#999999"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
 
             <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
-                android:id="@+id/item_sg_fragment_perfect_information"
+                android:id="@+id/select_sex"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 app:lichtd_bottom_divider_visibility="gone"
-                app:lichtd_content_text_color="@color/color_888888"
-                app:lichtd_head_icon="@mipmap/ic_ts8"
-                app:lichtd_iv_detail_visibility="visible"
-                app:lichtd_title="小将身高"
-                app:lichtd_content="88cm"
-                app:lichtd_top_divider_visibility="gone" />
-
-            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
-                android:id="@+id/item_tz_fragment_perfect_information"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                app:lichtd_bottom_divider_visibility="gone"
-                app:lichtd_content_text_color="@color/color_888888"
-                app:lichtd_head_icon="@mipmap/ic_ts9"
-                app:lichtd_iv_detail_visibility="visible"
-                app:lichtd_title="小将体重"
-                app:lichtd_content="58斤"
-                app:lichtd_top_divider_visibility="gone" />
-            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
-                android:id="@+id/item_sex_fragment_perfect_information"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                app:lichtd_bottom_divider_visibility="gone"
+                app:lichtd_content="男"
                 app:lichtd_content_text_color="@color/color_888888"
                 app:lichtd_head_icon="@mipmap/ic_ts9"
                 app:lichtd_iv_detail_visibility="visible"
                 app:lichtd_title="小将性别"
-                app:lichtd_content="女"
                 app:lichtd_top_divider_visibility="gone" />
+
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_submit_fragment_feed_back"
                 style="?android:attr/borderlessButtonStyle"
