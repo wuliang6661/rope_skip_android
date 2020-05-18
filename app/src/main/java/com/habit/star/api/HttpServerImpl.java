@@ -534,6 +534,21 @@ public class HttpServerImpl {
 
 
     /**
+     * 创建小将
+     */
+    public static Observable<String> addGeneralInfo(String nickName, String age,
+                                                    String sex, String height, String weight) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("nickName", nickName);
+        params.put("age", age);
+        params.put("sex", sex);
+        params.put("height", height);
+        params.put("weight", weight);
+        return getService().addGeneralInfo(params).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
      * 提交图片
      */
     public static Observable<String> updateFile(File file) {

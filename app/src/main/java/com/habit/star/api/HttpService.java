@@ -446,4 +446,12 @@ public interface HttpService {
     @POST("app/find/course/addDataLearn")
     Observable<BaseResult<String>> addDataLearn(@Body Map<String, Object> params);
 
+
+    /**
+     * 创建小将
+     */
+    @POST("app/general/addGeneralInfo")
+    Observable<BaseResult<String>> addGeneralInfo(@Body Map<String, Object> params);
+
+
 }

@@ -45,7 +45,7 @@ import butterknife.OnClick;
  * @author sundongdong
  * @version 1.0
  * @since
- * 文件名称：MainActivity.java
+ * 文件名称：Demo.java
  * 类说明：主界面
  */
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
