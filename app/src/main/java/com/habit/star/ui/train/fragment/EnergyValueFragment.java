@@ -1,21 +1,30 @@
 package com.habit.star.ui.train.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
+import com.habit.star.app.App;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.ui.train.contract.EnergyValueContract;
 import com.habit.star.ui.train.presenter.EnergyValuePresenter;
 import com.habit.star.utils.ToastUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -40,24 +49,15 @@ public class EnergyValueFragment extends BaseFragment<EnergyValuePresenter> impl
     CircleImageView ivUserHeaderFragmentMine;
     @BindView(R.id.v_center_tag)
     View vCenterTag;
-    @BindView(R.id.iv_line1_center_fragment_energy_value)
-    AppCompatImageView ivLine1Center;
-    @BindView(R.id.iv_line2_center_fragment_energy_value)
-    AppCompatImageView ivLine2Center;
-    @BindView(R.id.iv_line3_center_fragment_energy_value)
-    AppCompatImageView ivLine3Center;
-    @BindView(R.id.iv_circle1_fragment_energy_value)
-    AppCompatImageView ivCircle1;
-    @BindView(R.id.iv_circle2_fragment_energy_value)
-    AppCompatImageView ivCircle2;
-    @BindView(R.id.iv_circle3_fragment_energy_value)
-    AppCompatImageView ivCircle3;
-    @BindView(R.id.iv_circle4_fragment_energy_value)
-    AppCompatImageView ivCircle4;
     @BindView(R.id.tv_count_fragment_energy_value)
     AppCompatTextView tvCount;
     @BindView(R.id.ll_count_fragment_energy_value)
     LinearLayout llCount;
+    @BindView(R.id.xiaojiang_name)
+    AppCompatTextView xiaojiangName;
+    @BindView(R.id.nengliang_dengji)
+    RecyclerView nengliangDengji;
+    Unbinder unbinder;
 
 
     public static EnergyValueFragment newInstance(Bundle bundle) {
@@ -86,13 +86,17 @@ public class EnergyValueFragment extends BaseFragment<EnergyValuePresenter> impl
 
     @Override
     protected void initEventAndData() {
-        initDialog();
+
+        xiaojiangName.setText(App.xIaoJiangBO.getNickName());
+        Glide.with(getActivity()).load(App.userBO.getImage()).into(ivUserHeaderFragmentMine);
+        tvCount.setText(App.xIaoJiangBO.getEnergyValue());
+
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        nengliangDengji.setLayoutManager(manager);
     }
 
 
-    private void initDialog() {
-
-    }
 
     @Override
     public void showProgress() {
@@ -128,4 +132,23 @@ public class EnergyValueFragment extends BaseFragment<EnergyValuePresenter> impl
                 break;
         }
     }
+
+
+    /**
+     * 获取所有能量登记
+     */
+    private void getEnergyLevelInfoList(){
+        HttpServerImpl.getEnergyLevelInfoList().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFiled(String message) {
+
+            }
+        });
+    }
+
 }

@@ -2,6 +2,8 @@ package com.habit.star.utils.blue;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +13,13 @@ import com.blankj.utilcode.util.LogUtils;
 import com.habit.star.utils.AppManager;
 import com.habit.star.utils.StringUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * author : wuliang
@@ -136,6 +140,7 @@ public class BlueDeviceUtils {
             return false;
         }
     }
+
 
 
     /**

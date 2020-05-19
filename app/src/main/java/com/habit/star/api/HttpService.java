@@ -525,4 +525,27 @@ public interface HttpService {
     @GET("app/general/getTaskList")
     Observable<BaseResult<List<TaskBO>>> getTaskList();
 
+
+    /**
+     * 查询所有能量等级
+     */
+    @GET("app/general/getEnergyLevelInfoList")
+    Observable<BaseResult<String>> getEnergyLevelInfoList();
+
+    /**
+     * 查询我的能量等级
+     */
+    @GET("app/general/getMyEnergyLevelInfo")
+    Observable<BaseResult<String>> getMyEnergyLevelInfo();
+
+    /**
+     * 查询训练计划
+     */
+    @GET("app/general/getTrainList")
+    Observable<BaseResult<String>> getTrainList();
+
+    /**
+     *
+     */
+
 }

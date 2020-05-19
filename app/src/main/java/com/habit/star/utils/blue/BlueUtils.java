@@ -118,7 +118,7 @@ public class BlueUtils {
     public void searchMac() {
         SearchRequest request = new SearchRequest.Builder()
                 .searchBluetoothLeDevice(3000, 2)   // 先扫BLE设备3次，每次3s
-                .searchBluetoothClassicDevice(5)
+//                .searchBluetoothClassicDevice(5)
                 .searchBluetoothLeDevice(2000)      // 再扫BLE设备2s
                 .build();
         mClient.search(request, new SearchResponse() {

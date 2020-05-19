@@ -245,7 +245,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
     public void onDestroy() {
         super.onDestroy();
         if (handler != null) {
-            handler.removeMessages(COUNT);
+            handler.removeCallbacksAndMessages(null);
             handler = null;
         }
     }

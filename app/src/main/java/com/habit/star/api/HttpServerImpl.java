@@ -632,6 +632,19 @@ public class HttpServerImpl {
         return getService().getTaskList().compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 获取所有能量等级
+     */
+    public static Observable<String> getEnergyLevelInfoList() {
+        return getService().getEnergyLevelInfoList().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取我的能量等级
+     */
+    public static Observable<String> getMyEnergyLevelInfo(){
+        return getService().getMyEnergyLevelInfo().compose(RxResultHelper.httpRusult());
+    }
 
     /**
      * 提交图片

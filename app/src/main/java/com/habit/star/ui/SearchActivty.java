@@ -57,8 +57,8 @@ public class SearchActivty extends BaseActivity {
         results = new ArrayList<>();
         devices = new ArrayList<>();
 //        initDeviceBlue();
-//        initBlue();
-        searchCbtBlue();
+        initBlue();
+//        searchCbtBlue();
     }
 
     @Override
@@ -230,7 +230,34 @@ public class SearchActivty extends BaseActivity {
         adapter.setOnItemClickListener(R.id.connect, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                BlueUtils.getInstance().connectMac(results.get(position).getDeviceMac());
+                BlueUtils blueUtils = BlueUtils.getInstance();
+                blueUtils.setListener(new BlueUtils.onBlueListener() {
+                    @Override
+                    public void onConnect(boolean isConnect) {
+                        if (isConnect) {
+                            showToast("蓝牙连接成功！");
+                        } else {
+                            showToast("蓝牙连接成功！");
+                        }
+                    }
+
+                    @Override
+                    public void searchStart() {
+
+                    }
+
+                    @Override
+                    public void searchStop() {
+
+                    }
+
+                    @Override
+                    public void searchMacs(SearchResult result) {
+
+                    }
+                });
+                blueUtils.connectMac(results.get(position).getDeviceMac());
+//                CbtBlueUtils.getInstance().connectDevices(devices.get(position));
 //                boolean connect = BlueDeviceUtils.getInstance().connectBlue(devices.get(position));
 //                if (connect) {
 //                    showError("连接成功！");
@@ -246,8 +273,8 @@ public class SearchActivty extends BaseActivity {
     @OnClick(R.id.search_btn)
     public void search() {
 //        initDeviceBlue();
-//        initBlue();
-        searchCbtBlue();
+        initBlue();
+//        searchCbtBlue();
     }
 
 
