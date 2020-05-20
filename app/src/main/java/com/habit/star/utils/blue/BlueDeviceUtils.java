@@ -101,8 +101,6 @@ public class BlueDeviceUtils {
             // 不做提示，强行打开
             mBluetoothAdapter.enable();
         }
-        booth = new HashMap<>();
-        registerBrodcast();
     }
 
 
@@ -127,6 +125,8 @@ public class BlueDeviceUtils {
         if (mBluetoothAdapter.isDiscovering()) {
             mBluetoothAdapter.cancelDiscovery();
         }
+        booth = new HashMap<>();
+        registerBrodcast();
         // 开始搜索
         mBluetoothAdapter.startDiscovery();
         if (this.listener != null) {
@@ -148,6 +148,19 @@ public class BlueDeviceUtils {
             }
         }
         return null;
+    }
+
+
+    /**
+     * 配对蓝牙
+     */
+    public boolean pairBlue(BluetoothDevice device) {
+        try {
+            return ClsUtils.createBond(device.getClass(), device);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 
@@ -383,7 +396,9 @@ public class BlueDeviceUtils {
 
 
     public void onDestory() {
-        mContext.unregisterReceiver(receiver);
+        if (receiver != null) {
+            mContext.unregisterReceiver(receiver);
+        }
     }
 
 

@@ -88,7 +88,7 @@ public class SearchActivty extends BaseActivity {
      */
     private void initDeviceBlue() {
         BlueDeviceUtils blueDeviceUtils = BlueDeviceUtils.getInstance();
-        BluetoothDevice device = blueDeviceUtils.getConnectBlue();
+//        BluetoothDevice device = blueDeviceUtils.getConnectBlue();
 //        if (device != null) {
 //            BlueDeviceBO deviceBO = new BlueDeviceBO();
 //            deviceBO.setConnect(true);
@@ -231,34 +231,7 @@ public class SearchActivty extends BaseActivity {
         adapter.setOnItemClickListener(R.id.connect, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-//                BlueUtils blueUtils = BlueUtils.getInstance();
-//                blueUtils.setListener(new BlueUtils.onBlueListener() {
-//                    @Override
-//                    public void onConnect(boolean isConnect) {
-//                        if (isConnect) {
-//                            showToast("蓝牙连接成功！");
-//                        } else {
-//                            showToast("蓝牙连接成功！");
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void searchStart() {
-//
-//                    }
-//
-//                    @Override
-//                    public void searchStop() {
-//
-//                    }
-//
-//                    @Override
-//                    public void searchMacs(SearchResult result) {
-//
-//                    }
-//                });
 //                blueUtils.connectMac(results.get(position).getDeviceMac());
-//                CbtBlueUtils.getInstance().connectDevices(devices.get(position));
 //                boolean connect = BlueDeviceUtils.getInstance().connectBlue(devices.get(position));
 //                if (connect) {
 //                    showError("连接成功！");
@@ -285,6 +258,9 @@ public class SearchActivty extends BaseActivity {
         });
         recycleView.setAdapter(adapter);
     }
+
+
+
 
 
     @Override
