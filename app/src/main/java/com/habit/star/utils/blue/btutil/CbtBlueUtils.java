@@ -1,9 +1,10 @@
-package com.habit.star.utils.blue;
+package com.habit.star.utils.blue.btutil;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 
 import com.habit.star.utils.AppManager;
+import com.habit.star.utils.blue.OnSearchListenter;
 
 import java.util.ArrayList;
 import java.util.List;

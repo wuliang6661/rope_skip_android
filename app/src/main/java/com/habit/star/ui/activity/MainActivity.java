@@ -30,7 +30,7 @@ import com.habit.star.ui.train.fragment.TranHomeFragment;
 import com.habit.star.ui.young.fragment.YoungHomeFragment;
 import com.habit.star.utils.DensityUtil;
 import com.habit.star.utils.ToastUtil;
-import com.habit.star.utils.blue.BlueUtils;
+import com.habit.star.utils.blue.bleutils.BlueUtils;
 
 import java.util.ArrayList;
 import java.util.List;

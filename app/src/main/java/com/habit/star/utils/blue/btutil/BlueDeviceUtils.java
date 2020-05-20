@@ -1,4 +1,4 @@
-package com.habit.star.utils.blue;
+package com.habit.star.utils.blue.btutil;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -14,6 +14,10 @@ import com.blankj.utilcode.util.LogUtils;
 import com.habit.star.app.Constants;
 import com.habit.star.utils.AppManager;
 import com.habit.star.utils.StringUtils;
+import com.habit.star.utils.blue.ByteUtils;
+import com.habit.star.utils.blue.ClsUtils;
+import com.habit.star.utils.blue.OnConnectListener;
+import com.habit.star.utils.blue.OnSearchListenter;
 
 import java.io.IOException;
 import java.io.InputStream;

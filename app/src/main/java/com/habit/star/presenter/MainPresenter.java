@@ -5,7 +5,7 @@ import com.habit.star.app.Constants;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.presenter.contract.MainContract;
 import com.habit.star.utils.StringUtils;
-import com.habit.star.utils.blue.BlueUtils;
+import com.habit.star.utils.blue.bleutils.BlueUtils;
 import com.inuker.bluetooth.library.search.SearchResult;
 
 import javax.inject.Inject;

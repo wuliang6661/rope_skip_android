@@ -1,4 +1,4 @@
-package com.habit.star.utils.blue;
+package com.habit.star.utils.blue.btutil;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.habit.star.utils.blue.ClsUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

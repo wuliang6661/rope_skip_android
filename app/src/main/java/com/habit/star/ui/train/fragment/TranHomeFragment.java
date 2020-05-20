@@ -34,7 +34,7 @@ import com.habit.star.ui.train.contract.TranHomeContract;
 import com.habit.star.ui.train.presenter.TranHomePresenter;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.utils.Utils;
-import com.habit.star.utils.blue.BlueUtils;
+import com.habit.star.utils.blue.bleutils.BlueUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

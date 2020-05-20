@@ -187,7 +187,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".utils.blue.PairingReceiver">
+        <receiver android:name=".utils.blue.btutil.PairingReceiver">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.PAIRING_REQUEST" />
             </intent-filter>

@@ -4,7 +4,7 @@ import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
 import com.habit.star.ui.train.bean.TranRecordModel;
 import com.habit.star.ui.train.contract.TranHomeContract;
-import com.habit.star.utils.blue.BlueUtils;
+import com.habit.star.utils.blue.bleutils.BlueUtils;
 import com.habit.star.utils.blue.cmd.BleCmd;
 import com.habit.star.utils.blue.cmd.RequstBleCmd;
 
