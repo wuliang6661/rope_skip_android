@@ -9,11 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.habit.star.app.Constants;
 import com.habit.star.utils.AppManager;
 import com.habit.star.utils.StringUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +49,15 @@ public class BlueDeviceUtils {
      */
     private Context mContext;
 
+    /**
+     * 搜索监听器
+     */
     private OnSearchListenter listener;
+
+    /**
+     * 连接监听器
+     */
+    private OnConnectListener connectListener;
 
     /**
      * 存放搜索到的蓝牙列表
@@ -53,6 +65,16 @@ public class BlueDeviceUtils {
     private Map<String, BluetoothDevice> booth;
 
     private List<BluetoothDevice> mBlueList = new ArrayList<>();
+
+    /**
+     * 读取线程是否继续执行
+     */
+    private boolean isRead = false;
+
+    /**
+     * 连接蓝牙的线程
+     */
+    private ConnectThread connectThread;
 
 
     public static BlueDeviceUtils getInstance() {
@@ -130,17 +152,192 @@ public class BlueDeviceUtils {
 
 
     /**
-     * 连接蓝牙
+     * 作为客户端连接蓝牙
      */
-    public boolean connectBlue(BluetoothDevice device) {
-        try {
-            return ClsUtils.createBond(device.getClass(), device);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+    public void connectBlue(BluetoothDevice device, OnConnectListener listener) {
+        isRead = true;
+        this.connectListener = listener;
+        connectThread = new ConnectThread(device);
+        connectThread.start();
+    }
+
+
+    /**
+     * 写入数据
+     */
+    public void writeData(byte[] data) {
+        if (connectThread != null) {
+            connectThread.writeByte(data);
+        } else {
+            LogUtils.e("蓝牙连接线程未启动！");
         }
     }
 
+
+    /**
+     * 断开连接
+     */
+    public void disConnenctBlue() {
+        isRead = false;
+    }
+
+
+    /**
+     * 作为服务端连接蓝牙
+     */
+    public void asServiceConnectBlue(BluetoothDevice device) {
+        new AcceptThread().start();
+    }
+
+
+    /**
+     * 启动一个客户端连接线程
+     */
+    private class ConnectThread extends Thread {
+
+        private BluetoothSocket mSocket;
+
+        public ConnectThread(BluetoothDevice device) {
+            // 这里的 UUID 需要和服务器的一致
+            try {
+                mSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(Constants.serviceUUID));
+                if (mSocket != null) {
+                    if (connectListener != null) {
+                        connectListener.onConnectSourcess();
+                    }
+                } else {
+                    if (connectListener != null) {
+                        connectListener.onConnectError();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /**
+         * 启动读取数据
+         */
+        public void run() {
+            // 判断是否在搜索,如果在搜索，就取消搜索
+            if (mBluetoothAdapter.isDiscovering()) {
+                mBluetoothAdapter.cancelDiscovery();
+            }
+            try {
+                mSocket.connect();
+                while (isRead) {
+                    InputStream inputStream = mSocket.getInputStream();
+                    if (inputStream == null) {
+                        continue;
+                    }
+                    byte[] result = ByteUtils.readStream1(inputStream);
+                    if (result == null || result.length == 0) {
+                        continue;
+                    }
+                    if (connectListener != null) {
+                        connectListener.onNitifion(result);
+                    }
+                }
+                if (!isRead) {
+                    cancle();
+                }
+            } catch (IOException connectException) {
+                cancle();
+            }
+        }
+
+
+        /**
+         * 写入数据
+         */
+        public void writeByte(byte[] data) {
+            OutputStream outputStream = null;
+            try {
+                if (mSocket == null) {
+                    return;
+                }
+//                if (data.length > 40) {   //大于40个字节长度 ，分割循环发送
+//
+//                }
+                outputStream = mSocket.getOutputStream();
+                outputStream.write(data);
+                outputStream.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (outputStream != null) {
+                        outputStream.close();
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+
+        public void cancle() {
+            try {
+                if (mSocket != null) {
+                    mSocket.close();
+                    mSocket = null;
+                }
+            } catch (IOException closeException) {
+                closeException.printStackTrace();
+            }
+        }
+    }
+
+
+    /**
+     * 启动一个服务端线程 ，等待连接
+     */
+    private class AcceptThread extends Thread {
+
+        private BluetoothServerSocket mServerSocket;
+
+        public AcceptThread() {
+            try {
+                mServerSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord(AppUtils.getAppPackageName()
+                        , UUID.fromString(Constants.serviceUUID));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void run() {
+            BluetoothSocket socket = null;
+            while (true) {
+                try {
+                    socket = mServerSocket.accept();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (socket != null) {
+                    // 自定义方法
+                    InputStream inputStream = null;
+                    try {
+                        inputStream = socket.getInputStream();
+                        byte[] result = ByteUtils.readStream1(inputStream);
+                        mServerSocket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+
+            }
+        }
+
+        public void cancle() {
+            try {
+                mServerSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
 
     /**
@@ -190,6 +387,9 @@ public class BlueDeviceUtils {
     }
 
 
+    /**
+     * 设置搜索连接
+     */
     public void setListener(OnSearchListenter listener) {
         this.listener = listener;
     }

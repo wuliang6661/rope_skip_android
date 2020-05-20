@@ -15,7 +15,7 @@ import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.XIaoJiangBO;
 import com.habit.star.ui.login.bean.LoginBean;
 import com.habit.star.ui.mine.bean.UserInfoMode;
-import com.sdwfqin.cbt.CbtManager;
+//import com.sdwfqin.cbt.CbtManager;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import id.zelory.compressor.Compressor;
@@ -76,12 +76,12 @@ public class App extends Application {
         CustomActivityOnCrash.install(this);
 
         //初始化经典蓝牙
-        CbtManager
-                .getInstance()
-                // 初始化
-                .init(this)
-                // 是否打印相关日志
-                .enableLog(true);
+//        CbtManager
+//                .getInstance()
+//                // 初始化
+//                .init(this)
+//                // 是否打印相关日志
+//                .enableLog(true);
     }
 
 

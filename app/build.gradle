@@ -138,7 +138,7 @@ dependencies {
     //低功耗蓝牙
     implementation 'com.inuker.bluetooth:library:1.4.0'
     //经典蓝牙
-    implementation 'com.sdwfqin.cbt:cbt:1.1.1'
+//    implementation 'com.sdwfqin.cbt:cbt:1.1.1'
     implementation 'com.bigkoo:svprogresshud:1.0.6'
     implementation 'com.yanzhenjie:recyclerview-swipe:1.2.0'
     implementation 'liji.library.dev:citypickerview:5.2.2'

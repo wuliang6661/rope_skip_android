@@ -1,18 +1,9 @@
 package com.habit.star.utils.blue;
 
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.widget.Toast;
 
-import com.habit.star.app.Constants;
 import com.habit.star.utils.AppManager;
-import com.sdwfqin.cbt.CbtManager;
-import com.sdwfqin.cbt.callback.ConnectDeviceCallback;
-import com.sdwfqin.cbt.callback.ScanCallback;
-import com.sdwfqin.cbt.callback.SendDataCallback;
-import com.sdwfqin.cbt.callback.ServiceListenerCallback;
-import com.sdwfqin.cbt.utils.CbtLogs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +41,7 @@ public class CbtBlueUtils {
 
     private CbtBlueUtils() {
         mContext = AppManager.getAppManager().curremtActivity();
-        CbtManager.getInstance().setUUID(Constants.serviceUUID);
+//        CbtManager.getInstance().setUUID(Constants.serviceUUID);
     }
 
 
@@ -58,33 +49,33 @@ public class CbtBlueUtils {
      * 搜索蓝牙
      */
     public void searchDevices() {
-        CbtManager
-                .getInstance()
-                .scan(new ScanCallback() {
-                    @Override
-                    public void onScanStart(boolean isOn) {
-                        // 开始扫描
-                        if (listener != null) {
-                            listener.searchStart();
-                        }
-                    }
-
-                    @Override
-                    public void onScanStop(List<BluetoothDevice> devices) {
-                        // 搜索完成
-                        if (listener != null) {
-                            listener.searchStop();
-                        }
-                    }
-
-                    @Override
-                    public void onFindDevice(BluetoothDevice device) {
-                        // 搜索到设备
-                        if (listener != null) {
-                            listener.searchDevices(device);
-                        }
-                    }
-                });
+//        CbtManager
+//                .getInstance()
+//                .scan(new ScanCallback() {
+//                    @Override
+//                    public void onScanStart(boolean isOn) {
+//                        // 开始扫描
+//                        if (listener != null) {
+//                            listener.searchStart();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onScanStop(List<BluetoothDevice> devices) {
+//                        // 搜索完成
+//                        if (listener != null) {
+//                            listener.searchStop();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFindDevice(BluetoothDevice device) {
+//                        // 搜索到设备
+//                        if (listener != null) {
+//                            listener.searchDevices(device);
+//                        }
+//                    }
+//                });
     }
 
 
@@ -92,21 +83,21 @@ public class CbtBlueUtils {
      * 连接指定经典蓝牙
      */
     public void connectDevices(BluetoothDevice device) {
-        CbtManager.getInstance()
-                .connectDevice(device, new ConnectDeviceCallback() {
-                    @Override
-                    public void connectSuccess(BluetoothSocket socket, BluetoothDevice device) {
-                        // 连接成功
-                        Toast.makeText(mContext, "连接成功！", Toast.LENGTH_SHORT).show();
-                        notifiBlue();
-                    }
-
-                    @Override
-                    public void connectError(Throwable throwable) {
-                        // 连接失败
-                        Toast.makeText(mContext, "连接失败：" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+//        CbtManager.getInstance()
+//                .connectDevice(device, new ConnectDeviceCallback() {
+//                    @Override
+//                    public void connectSuccess(BluetoothSocket socket, BluetoothDevice device) {
+//                        // 连接成功
+//                        Toast.makeText(mContext, "连接成功！", Toast.LENGTH_SHORT).show();
+//                        notifiBlue();
+//                    }
+//
+//                    @Override
+//                    public void connectError(Throwable throwable) {
+//                        // 连接失败
+//                        Toast.makeText(mContext, "连接失败：" + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
     }
 
 
@@ -114,20 +105,20 @@ public class CbtBlueUtils {
      * 监听蓝牙的回调
      */
     public void notifiBlue() {
-        CbtManager
-                .getInstance()
-                .startServiceListener(new ServiceListenerCallback() {
-                    @Override
-                    public void onStartError(Throwable throwable) {
-                        // 发生错误
-                        CbtLogs.e(throwable.getMessage());
-                    }
-
-                    @Override
-                    public void onDataListener(String s, BluetoothDevice device) {
-                        // 获取到数据
-                    }
-                });
+//        CbtManager
+//                .getInstance()
+//                .startServiceListener(new ServiceListenerCallback() {
+//                    @Override
+//                    public void onStartError(Throwable throwable) {
+//                        // 发生错误
+//                        CbtLogs.e(throwable.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onDataListener(String s, BluetoothDevice device) {
+//                        // 获取到数据
+//                    }
+//                });
     }
 
 
@@ -139,19 +130,19 @@ public class CbtBlueUtils {
 //        bytes.add(BYTES[0]);
 //        bytes.add(BYTES[1]);
 //        bytes.add(data);
-        CbtManager
-                .getInstance()
-                .sendData(bytes, new SendDataCallback() {
-                    @Override
-                    public void sendSuccess() {
-                        // 发送成功
-                    }
-
-                    @Override
-                    public void sendError(Throwable throwable) {
-                        // 发送失败
-                    }
-                });
+//        CbtManager
+//                .getInstance()
+//                .sendData(bytes, new SendDataCallback() {
+//                    @Override
+//                    public void sendSuccess() {
+//                        // 发送成功
+//                    }
+//
+//                    @Override
+//                    public void sendError(Throwable throwable) {
+//                        // 发送失败
+//                    }
+//                });
     }
 
 

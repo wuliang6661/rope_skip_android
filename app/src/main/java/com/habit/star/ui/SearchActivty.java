@@ -12,6 +12,7 @@ import com.habit.star.pojo.po.BlueDeviceBO;
 import com.habit.star.utils.blue.BlueDeviceUtils;
 import com.habit.star.utils.blue.BlueUtils;
 import com.habit.star.utils.blue.CbtBlueUtils;
+import com.habit.star.utils.blue.OnConnectListener;
 import com.habit.star.utils.blue.OnSearchListenter;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
@@ -56,8 +57,8 @@ public class SearchActivty extends BaseActivity {
         recycleView.setLayoutManager(manager);
         results = new ArrayList<>();
         devices = new ArrayList<>();
-//        initDeviceBlue();
-        initBlue();
+        initDeviceBlue();
+//        initBlue();
 //        searchCbtBlue();
     }
 
@@ -230,33 +231,33 @@ public class SearchActivty extends BaseActivity {
         adapter.setOnItemClickListener(R.id.connect, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                BlueUtils blueUtils = BlueUtils.getInstance();
-                blueUtils.setListener(new BlueUtils.onBlueListener() {
-                    @Override
-                    public void onConnect(boolean isConnect) {
-                        if (isConnect) {
-                            showToast("蓝牙连接成功！");
-                        } else {
-                            showToast("蓝牙连接成功！");
-                        }
-                    }
-
-                    @Override
-                    public void searchStart() {
-
-                    }
-
-                    @Override
-                    public void searchStop() {
-
-                    }
-
-                    @Override
-                    public void searchMacs(SearchResult result) {
-
-                    }
-                });
-                blueUtils.connectMac(results.get(position).getDeviceMac());
+//                BlueUtils blueUtils = BlueUtils.getInstance();
+//                blueUtils.setListener(new BlueUtils.onBlueListener() {
+//                    @Override
+//                    public void onConnect(boolean isConnect) {
+//                        if (isConnect) {
+//                            showToast("蓝牙连接成功！");
+//                        } else {
+//                            showToast("蓝牙连接成功！");
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void searchStart() {
+//
+//                    }
+//
+//                    @Override
+//                    public void searchStop() {
+//
+//                    }
+//
+//                    @Override
+//                    public void searchMacs(SearchResult result) {
+//
+//                    }
+//                });
+//                blueUtils.connectMac(results.get(position).getDeviceMac());
 //                CbtBlueUtils.getInstance().connectDevices(devices.get(position));
 //                boolean connect = BlueDeviceUtils.getInstance().connectBlue(devices.get(position));
 //                if (connect) {
@@ -264,16 +265,38 @@ public class SearchActivty extends BaseActivity {
 //                } else {
 //                    showError("连接失败！");
 //                }
+                BlueDeviceUtils.getInstance().connectBlue(devices.get(position), new OnConnectListener() {
+                    @Override
+                    public void onConnectSourcess() {
+                        showError("连接成功！");
+                    }
+
+                    @Override
+                    public void onConnectError() {
+                        showError("连接失败！");
+                    }
+
+                    @Override
+                    public void onNitifion(byte[] bytes) {
+
+                    }
+                });
             }
         });
         recycleView.setAdapter(adapter);
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BlueDeviceUtils.getInstance().onDestory();
+    }
+
     @OnClick(R.id.search_btn)
     public void search() {
-//        initDeviceBlue();
-        initBlue();
+        initDeviceBlue();
+//        initBlue();
 //        searchCbtBlue();
     }
 
