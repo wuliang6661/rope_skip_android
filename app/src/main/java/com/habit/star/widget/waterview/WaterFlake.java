@@ -63,7 +63,7 @@ public class WaterFlake extends FrameLayout {
     /**
      * 水滴球的最大数量
      */
-    private static final int MaxNum = 10;
+    private static final int MaxNum = 8;
 
     private Random mRandom = new Random();
     private float mWidth, mHeight;
