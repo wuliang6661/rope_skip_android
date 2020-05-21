@@ -1,19 +1,20 @@
 package com.habit.star.ui;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.habit.star.R;
 import com.habit.star.base.BaseActivity;
 import com.habit.star.pojo.po.BlueDeviceBO;
-import com.habit.star.utils.blue.btutil.BlueDeviceUtils;
-import com.habit.star.utils.blue.bleutils.BlueUtils;
-import com.habit.star.utils.blue.btutil.CbtBlueUtils;
-import com.habit.star.utils.blue.OnConnectListener;
 import com.habit.star.utils.blue.OnSearchListenter;
+import com.habit.star.utils.blue.bleutils.BlueUtils;
+import com.habit.star.utils.blue.btutil.BlueDeviceUtils;
+import com.habit.star.utils.blue.btutil.BluetoothChatService;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
 import com.inuker.bluetooth.library.search.SearchResult;
@@ -173,44 +174,6 @@ public class SearchActivty extends BaseActivity {
     }
 
 
-    /**
-     * 经典蓝牙搜索
-     */
-    private void searchCbtBlue() {
-        CbtBlueUtils utils = CbtBlueUtils.getInstance();
-        utils.setListener(new OnSearchListenter() {
-            @Override
-            public void searchStart() {
-
-            }
-
-            @Override
-            public void searchDevices(BluetoothDevice device) {
-                for (BlueDeviceBO item : results) {
-                    if (StringUtils.isEmpty(device.getName())) {
-                        return;
-                    }
-                    if (item.getDeviceName().equals(device.getName())) {
-                        return;
-                    }
-                }
-                BlueDeviceBO deviceBO = new BlueDeviceBO();
-                deviceBO.setDeviceMac(device.getAddress());
-                deviceBO.setDeviceName(device.getName());
-                results.add(deviceBO);
-                devices.add(device);
-                setAdapter();
-            }
-
-            @Override
-            public void searchStop() {
-
-            }
-        });
-        utils.searchDevices();
-    }
-
-
     private void setAdapter() {
         LGRecycleViewAdapter<BlueDeviceBO> adapter = new LGRecycleViewAdapter<BlueDeviceBO>(results) {
             @Override
@@ -238,36 +201,72 @@ public class SearchActivty extends BaseActivity {
 //                } else {
 //                    showError("连接失败！");
 //                }
-                BlueDeviceUtils.getInstance().connectBlue(devices.get(position), new OnConnectListener() {
-                    @Override
-                    public void onConnectSourcess() {
-                        showError("连接成功！");
-                    }
-
-                    @Override
-                    public void onConnectError() {
-                        showError("连接失败！");
-                    }
-
-                    @Override
-                    public void onNitifion(byte[] bytes) {
-
-                    }
-                });
+                connect(devices.get(position));
             }
         });
         recycleView.setAdapter(adapter);
     }
 
 
+    BluetoothChatService service;
 
+    /**
+     * 连接蓝牙
+     */
+    private void connect(BluetoothDevice device) {
+        if (service != null && service.getState() != BluetoothChatService.STATE_NONE) {
+            return;
+        }
+        BlueDeviceUtils deviceUtils = BlueDeviceUtils.getInstance();
+        deviceUtils.cancleScan();
+        service = new BluetoothChatService(this, handler);
+        service.connect(device);
+    }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BlueDeviceUtils.getInstance().onDestory();
+        BlueDeviceUtils deviceUtils = BlueDeviceUtils.getInstance();
+        deviceUtils.onDestory();
+        if (service != null) {
+            service.stop();
+        }
     }
+
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case BluetoothChatService.MESSAGE_DEVICE_NAME:
+
+                    break;
+                case BluetoothChatService.MESSAGE_READ:
+                    byte[] data = (byte[]) msg.obj;
+//
+                    break;
+                case BluetoothChatService.MESSAGE_TOAST:
+                    showToast(msg.getData().getString(BluetoothChatService.TOAST));
+                    break;
+                case BluetoothChatService.MESSAGE_STATE_CHANGE:
+                    switch (msg.arg1) {
+                        case BluetoothChatService.STATE_NONE:
+                            break;
+                        case BluetoothChatService.STATE_CONNECTING:
+                            showToast("蓝牙连接中...");
+                            break;
+                        case BluetoothChatService.STATE_CONNECTED:
+                            showToast("蓝牙已连接！");
+                            break;
+                    }
+                    break;
+            }
+        }
+    };
+
 
     @OnClick(R.id.search_btn)
     public void search() {

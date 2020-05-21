@@ -140,6 +140,13 @@ public class BlueDeviceUtils {
 
 
     /**
+     * 停止搜索
+     */
+    public void cancleScan() {
+        mBluetoothAdapter.cancelDiscovery();
+    }
+
+    /**
      * 获取当前正在连接的蓝牙设备
      */
     public BluetoothDevice getConnectBlue() {
