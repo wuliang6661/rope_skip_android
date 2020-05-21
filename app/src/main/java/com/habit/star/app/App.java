@@ -15,6 +15,7 @@ import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.XIaoJiangBO;
 import com.habit.star.ui.login.bean.LoginBean;
 import com.habit.star.ui.mine.bean.UserInfoMode;
+import com.habit.star.utils.blue.bleutils.UartService;
 //import com.sdwfqin.cbt.CbtManager;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
@@ -42,6 +43,7 @@ public class App extends Application {
     private static final String TAG = "habit_star";
     public static UserBO userBO;
     public static XIaoJiangBO xIaoJiangBO;
+    public static UartService blueService;
 
     public static synchronized App getInstance() {
         return instance;
@@ -90,7 +92,6 @@ public class App extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
 
 
 }

@@ -1,10 +1,17 @@
 package com.habit.star.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
@@ -15,12 +22,16 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.habit.commonlibrary.widget.NoScrollViewPager;
 import com.habit.star.R;
 import com.habit.star.app.App;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseActivity;
 import com.habit.star.common.adapter.CommonFragmentAdapter;
+import com.habit.star.event.model.BlueDataEvent;
+import com.habit.star.event.model.BlueEvent;
 import com.habit.star.presenter.MainPresenter;
 import com.habit.star.presenter.contract.MainContract;
 import com.habit.star.ui.find.fragment.FindMainFragment;
@@ -31,9 +42,18 @@ import com.habit.star.ui.young.fragment.YoungHomeFragment;
 import com.habit.star.utils.DensityUtil;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.utils.blue.bleutils.BlueUtils;
+import com.habit.star.utils.blue.bleutils.UartService;
+import com.habit.star.utils.blue.btutil.BlueDeviceUtils;
+import com.habit.star.utils.blue.btutil.BluetoothChatService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -89,6 +109,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     //创建对话框
     private Dialog createDialog;
 
+    /**
+     * 存放device的map
+     */
+    private Map<String, BluetoothDevice> maps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +144,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         fragmentAdapter = new CommonFragmentAdapter(getSupportFragmentManager(), list);
         fragmentVp.setAdapter(fragmentAdapter);
         fragmentVp.setCurrentItem(currentIndex);
-
+        fragmentVp.setOffscreenPageLimit(fragmentAdapter.getCount()-1);//设置缓存所有
+        maps = new HashMap<>();
 
         fragmentVp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -189,7 +215,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onClick(View v) {
                 if (turnOnBluetooth()) {
-                    mPresenter.connectBlue();
+//                    mPresenter.connectBlue();
                 } else {
                     showToast("关闭蓝牙可能会影响跳绳功能！");
                 }
@@ -419,7 +445,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             if (!blueadapter.isEnabled()) {
                 openBlueDialog.show();
             } else {
-                mPresenter.connectBlue();
+//                mPresenter.connectBlue();
                 showDialogManager();
             }
         } else {//不支持蓝牙模块
@@ -441,5 +467,117 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
         return false;
     }
+
+    @Override
+    public void getBlueDevice(BluetoothDevice device) {
+        startConnectService(device);
+    }
+
+
+    private BluetoothDevice device;
+
+    /**
+     * 启动蓝牙监听服务
+     */
+    public void startConnectService(BluetoothDevice device) {
+        if (StringUtils.isEmpty(device.getName())) {
+            return;
+        }
+        if (maps.containsKey(device.getName())) {
+            return;
+        }
+        maps.put(device.getName(), device);
+        if (device.getName().startsWith("TH")) {
+            BlueDeviceUtils.getInstance().cancleScan();
+            Intent bindIntent = new Intent(this, UartService.class);
+            bindService(bindIntent, connection, BIND_AUTO_CREATE);
+        }
+    }
+
+
+    /**
+     * 别的页面请求连接
+     *
+     * @param device
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(BluetoothDevice device) {
+        this.device = device;
+        if (blueService != null) {
+            BlueDeviceUtils.getInstance().cancleScan();
+            blueService.initialize();
+            blueService.setHandler(handler);
+            blueService.connect(device.getAddress());
+        } else {
+            BlueDeviceUtils.getInstance().cancleScan();
+            Intent bindIntent = new Intent(this, UartService.class);
+            bindService(bindIntent, connection, BIND_AUTO_CREATE);
+        }
+    }
+
+
+    private UartService blueService;
+
+    /**
+     * service连接服务
+     */
+    private ServiceConnection connection = new ServiceConnection() {
+        //可交互的后台服务与普通服务的不同之处，就在于这个connection建立起了两者的联系
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            LogUtils.e("获取服务的对象开始");
+            UartService.LocalBinder localBinder = (UartService.LocalBinder) service;
+            blueService = localBinder.getService();
+            App.blueService = blueService;
+            blueService.initialize();
+            blueService.setHandler(handler);
+            blueService.connect(device.getAddress());
+        }
+    };
+
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case UartService.MESSAGE_DEVICE_NAME:
+
+                    break;
+                case UartService.MESSAGE_READ:
+                    byte[] data = (byte[]) msg.obj;
+                    BlueDataEvent event = new BlueDataEvent();
+                    event.setData(data);
+                    EventBus.getDefault().post(event);
+                    break;
+                case UartService.MESSAGE_TOAST:
+                    showToast(msg.getData().getString(BluetoothChatService.TOAST));
+                    break;
+                case UartService.MESSAGE_STATE_CHANGE:
+                    EventBus.getDefault().post(new BlueEvent(msg.arg1));
+                    switch (msg.arg1) {
+                        case UartService.STATE_DISCONNECTED:
+                            showToast("蓝牙连接失败！");
+//                            mPresenter.connectBlue();
+                            break;
+                        case UartService.STATE_CONNECTING:
+//                            showToast("蓝牙连接中...");
+                            break;
+                        case UartService.STATE_CONNECTED:
+                            showToast("蓝牙已连接！");
+                            break;
+                    }
+                    break;
+                case UartService.NITIFI_SOURESS:   //监听一开始建立
+                    EventBus.getDefault().post(new BlueEvent(UartService.NITIFI_SOURESS));
+                    break;
+            }
+        }
+    };
 
 }

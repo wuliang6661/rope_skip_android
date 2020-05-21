@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
@@ -17,12 +15,16 @@ import com.habit.star.api.HttpResultSubscriber;
 import com.habit.star.api.HttpServerImpl;
 import com.habit.star.app.App;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.pojo.po.NengLiangDengjiBO;
 import com.habit.star.ui.train.contract.EnergyValueContract;
 import com.habit.star.ui.train.presenter.EnergyValuePresenter;
 import com.habit.star.utils.ToastUtil;
+import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
+
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -94,8 +96,8 @@ public class EnergyValueFragment extends BaseFragment<EnergyValuePresenter> impl
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         nengliangDengji.setLayoutManager(manager);
+        getEnergyLevelInfoList();
     }
-
 
 
     @Override
@@ -137,18 +139,39 @@ public class EnergyValueFragment extends BaseFragment<EnergyValuePresenter> impl
     /**
      * 获取所有能量登记
      */
-    private void getEnergyLevelInfoList(){
-        HttpServerImpl.getEnergyLevelInfoList().subscribe(new HttpResultSubscriber<String>() {
+    private void getEnergyLevelInfoList() {
+        HttpServerImpl.getEnergyLevelInfoList().subscribe(new HttpResultSubscriber<List<NengLiangDengjiBO>>() {
             @Override
-            public void onSuccess(String s) {
-
+            public void onSuccess(List<NengLiangDengjiBO> s) {
+                setAdapter(s);
             }
 
             @Override
             public void onFiled(String message) {
-
+                showToast(message);
             }
         });
     }
 
+
+    private void setAdapter(List<NengLiangDengjiBO> dengjiBOS) {
+        LGRecycleViewAdapter<NengLiangDengjiBO> adapter = new LGRecycleViewAdapter<NengLiangDengjiBO>(dengjiBOS) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_nengliang_dengji;
+            }
+
+            @Override
+            public void convert(LGViewHolder holder, NengLiangDengjiBO nengLiangDengjiBO, int position) {
+                if (getItemCount() != 0 && position == (getItemCount() - 1)) {
+                    holder.getView(R.id.iv_line3_center_fragment_energy_value).setVisibility(View.GONE);
+                } else {
+                    holder.getView(R.id.iv_line3_center_fragment_energy_value).setVisibility(View.VISIBLE);
+                }
+                holder.setText(R.id.nengliang_text, nengLiangDengjiBO.getName());
+                holder.setImageUrl(getActivity(), R.id.nengliang_img, nengLiangDengjiBO.getImage());
+            }
+        };
+        nengliangDengji.setAdapter(adapter);
+    }
 }

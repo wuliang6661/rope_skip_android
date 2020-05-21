@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.habit.star.app.Constants;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -27,7 +29,7 @@ public class BluetoothChatService {
     // 创建服务器套接字时SDP记录的名称
     private static final String NAME = "BluetoothChat";
     // 该应用的唯一UUID
-    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID MY_UUID = UUID.fromString(Constants.serviceUUID);
     // 成员变量
     private final BluetoothAdapter mAdapter;
     private final Handler mHandler;
@@ -355,6 +357,7 @@ public class BluetoothChatService {
                 // 这是一个阻塞调用，只会在成功的连接或异常返回
                 mmSocket.connect();
             } catch (IOException e) {
+                e.printStackTrace();
                 connectionFailed();
                 // Close the socket
                 try {

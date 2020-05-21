@@ -13,6 +13,7 @@ import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.NengLiangDengjiBO;
 import com.habit.star.pojo.po.NengLiangVO;
 import com.habit.star.pojo.po.OnePingLunBO;
 import com.habit.star.pojo.po.PkChangCiBO;
@@ -50,7 +51,7 @@ import rx.Observable;
 
 public interface HttpService {
 
-    String URL = "http://47.116.77.29:8080/rope_skipping_webservice/";
+    String URL = "http://47.96.126.117:8084/rope_skipping_webservice/";
 
     /**
      * 密码登录接口
@@ -530,7 +531,7 @@ public interface HttpService {
      * 查询所有能量等级
      */
     @GET("app/general/getEnergyLevelInfoList")
-    Observable<BaseResult<String>> getEnergyLevelInfoList();
+    Observable<BaseResult<List<NengLiangDengjiBO>>> getEnergyLevelInfoList();
 
     /**
      * 查询我的能量等级
