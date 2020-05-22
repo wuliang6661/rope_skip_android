@@ -1,6 +1,8 @@
 package com.habit.star.presenter.contract;
 
 
+import android.bluetooth.BluetoothDevice;
+
 import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
 
@@ -16,6 +18,7 @@ public interface MainContract {
     interface View extends BaseView {
 
 
+        void getBlueDevice(BluetoothDevice device);
     }
 
     interface Presenter extends BasePresenter<View> {

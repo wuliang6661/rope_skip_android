@@ -84,7 +84,7 @@ public class SplashPresenter extends RxPresenter<SplashContract.View> implements
             @Override
             public void onFiled(String message) {
                 if (mView != null) {
-                    mView.showError(message);
+                    mView.getUserInfoError();
                 }
             }
         });

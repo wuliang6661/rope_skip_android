@@ -14,6 +14,7 @@ import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.NengLiangDengjiBO;
 import com.habit.star.pojo.po.NengLiangVO;
 import com.habit.star.pojo.po.OnePingLunBO;
 import com.habit.star.pojo.po.PkChangCiBO;
@@ -635,7 +636,7 @@ public class HttpServerImpl {
     /**
      * 获取所有能量等级
      */
-    public static Observable<String> getEnergyLevelInfoList() {
+    public static Observable<List<NengLiangDengjiBO>> getEnergyLevelInfoList() {
         return getService().getEnergyLevelInfoList().compose(RxResultHelper.httpRusult());
     }
 

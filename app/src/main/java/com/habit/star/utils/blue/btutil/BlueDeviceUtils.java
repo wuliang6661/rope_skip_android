@@ -139,6 +139,10 @@ public class BlueDeviceUtils {
     }
 
 
+    public void cancleScan(){
+        mBluetoothAdapter.cancelDiscovery();
+    }
+
     /**
      * 获取当前正在连接的蓝牙设备
      */
@@ -146,9 +150,9 @@ public class BlueDeviceUtils {
         Set<BluetoothDevice> bondedDevices = mBluetoothAdapter.getBondedDevices();
         for (BluetoothDevice device : bondedDevices) {
             if (!StringUtils.isEmpty(device.getName())) {
-                booth.remove(device.getName());
-                booth.put(device.getName(), device);
-                return device;
+                if(device.getName().startsWith("TH")){
+                    return device;
+                }
             }
         }
         return null;
@@ -370,27 +374,24 @@ public class BlueDeviceUtils {
                 // 从intent中获取设备
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 LogUtils.e(device.getName() + "    Mac===" + device.getAddress());
-                // 没否配对
-                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    if (!StringUtils.isEmpty(device.getName())) {
-                        booth.remove(device.getName());
-                        booth.put(device.getName(), device);
-                        if (listener != null) {
-                            listener.searchDevices(device);
-                        }
+                if (!StringUtils.isEmpty(device.getName())) {
+                    booth.remove(device.getName());
+                    booth.put(device.getName(), device);
+                    if (listener != null) {
+                        listener.searchDevices(device);
                     }
                 }
                 // 搜索完成
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 // 关闭进度条
-                for (String key : booth.keySet()) {
-                    if (!mBlueList.contains(booth.get(key))) {
-                        if (booth.get(key).getName().contains("RP4")) {
-                            mBlueList.add(booth.get(key));
-                        }
-
-                    }
-                }
+//                for (String key : booth.keySet()) {
+//                    if (!mBlueList.contains(booth.get(key))) {
+//                        if (booth.get(key).getName().contains("RP4")) {
+//                            mBlueList.add(booth.get(key));
+//                        }
+//
+//                    }
+//                }
                 if (listener != null) {
                     listener.searchStop();
                 }

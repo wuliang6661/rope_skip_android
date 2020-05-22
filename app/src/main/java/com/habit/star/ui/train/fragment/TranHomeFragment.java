@@ -24,6 +24,7 @@ import com.habit.star.R;
 import com.habit.star.app.App;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.event.model.BlueDataEvent;
 import com.habit.star.event.model.BlueEvent;
 import com.habit.star.ui.SearchActivty;
 import com.habit.star.ui.mine.activity.MineMainActivity;
@@ -34,7 +35,8 @@ import com.habit.star.ui.train.contract.TranHomeContract;
 import com.habit.star.ui.train.presenter.TranHomePresenter;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.utils.Utils;
-import com.habit.star.utils.blue.bleutils.BlueUtils;
+import com.habit.star.utils.blue.bleutils.UartService;
+import com.habit.star.utils.blue.cmd.BleCmd;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -89,6 +91,11 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
     private boolean testState;
     Timer timer;
     private int timeCount;
+
+    /**
+     * 默认获取的第一次跳绳数量
+     */
+    private int firstTiaoShengNum = Integer.MAX_VALUE;
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -159,13 +166,16 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                     }
                 }).build();
-        if (BlueUtils.getInstance().isConnect()) {
-            tvBlueConnectStatus.setText("已连接");
-        } else {
+        if (App.blueService == null || App.blueService.getConnectionState() == UartService.STATE_DISCONNECTED) {
             tvBlueConnectStatus.setText("已断开");
+        } else {
+            if (App.blueService.getConnectionState() == UartService.STATE_CONNECTING) {
+                tvBlueConnectStatus.setText("设备连接中...");
+            } else {
+                tvBlueConnectStatus.setText("已连接");
+                mPresenter.getDeviceQC();
+            }
         }
-//        exitDialog.show();
-//        initBlue();
     }
 
 
@@ -195,8 +205,12 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BlueEvent event) {
-        if (event.isConnect) {
+        if (event.isConnect == UartService.STATE_CONNECTED) {
             tvBlueConnectStatus.setText("已连接");
+        } else if (event.isConnect == UartService.STATE_CONNECTING) {
+            tvBlueConnectStatus.setText("设备连接中...");
+        } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
+            mPresenter.getDeviceQC();
         } else {
             tvBlueConnectStatus.setText("已断开");
         }
@@ -216,9 +230,26 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
 
     @Override
     public void getDeviceCishu(String cichu) {
-        showError("跳绳次数：" + cichu);
+//        showError("跳绳次数：" + cichu);
         tvTimeCount.setText(cichu);
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(BlueDataEvent event) {
+        BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
+        if (UartService.COUNT_OPENTION == 0x11) {  //电量
+            getDeviceQcAndType(String.valueOf(builder.getDataBody()[0]), String.valueOf(builder.getDataBody()[1]));
+        }
+        if (UartService.COUNT_OPENTION == 0x22) { //跳绳次数
+            int cishu = Math.abs(builder.getDataBody()[builder.getDataBody().length - 1]);
+            if (firstTiaoShengNum == Integer.MAX_VALUE) {
+                firstTiaoShengNum = cishu;
+            }
+            getDeviceCishu(String.valueOf(cishu - firstTiaoShengNum));
+        }
+    }
+
 
     @Override
     public void showProgress() {
@@ -260,10 +291,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         Intent intent;
         switch (view.getId()) {
             case R.id.iv_start_test_fragment_train_main:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
-//                intent.setClass(_mActivity, TainMainActivity.class);
-//                startActivity(intent);
                 if (testState) {//开始
                     testState = false;
                     timeCount = 0;
@@ -271,16 +298,14 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                         timer.cancel();
                         timer = null;
                     }
+                    firstTiaoShengNum = Integer.MAX_VALUE;
                     String time = Utils.timeToString(timeCount);
                     tvTime.setText("时间  " + time);
-//                    tvTimeCount.setText(timeCount * 2 < 10 ? ("0" + timeCount * 2) : (timeCount * 2 + ""));
                     ivStartTest.setBackgroundResource(R.mipmap.ic_home8);
-//                    start(RopeSkipResultFragment.newInstance(null));
                     intent = new Intent();
                     intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
                     intent.setClass(_mActivity, TainMainActivity.class);
                     startActivity(intent);
-
                 } else {//未开始
                     testState = true;
                     ivStartTest.setBackgroundResource(R.mipmap.ic_finish_test);
@@ -311,7 +336,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
                 intent.setClass(_mActivity, TainMainActivity.class);
                 startActivity(intent);
-//                showError("正在开发中");
                 break;
             case R.id.iv_fresh_fragment_train_main:
                 break;
@@ -328,8 +352,8 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
 
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onSupportVisible() {
+        super.onSupportVisible();
         mPresenter.getDeviceQC();
     }
 

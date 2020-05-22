@@ -1,11 +1,11 @@
 package com.habit.star.ui.train.presenter;
 
+import com.habit.star.app.App;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
 import com.habit.star.ui.train.bean.TranRecordModel;
 import com.habit.star.ui.train.contract.TranHomeContract;
-import com.habit.star.utils.blue.bleutils.BlueUtils;
-import com.habit.star.utils.blue.cmd.BleCmd;
+import com.habit.star.utils.blue.bleutils.UartService;
 import com.habit.star.utils.blue.cmd.RequstBleCmd;
 
 import java.util.ArrayList;
@@ -73,27 +73,30 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
      * 获取电量
      */
     public void getDeviceQC() {
-        BlueUtils blueUtils = BlueUtils.getInstance();
-        blueUtils.createNotifion(new BlueUtils.onBlueNotifiListener() {
-            @Override
-            public void onNotifiBlue(byte[] value) {
-                BleCmd.Builder builder = new BleCmd.Builder().setBuilder(value);
-                if (mView != null) {
-                    mView.getDeviceQcAndType(String.valueOf(builder.getDataBody()[0]), String.valueOf(builder.getDataBody()[1]));
-                }
-            }
-
-            @Override
-            public void notifiConnectSourcess() {   //监听创建成功之后发送
-                blueUtils.writeData(RequstBleCmd.createGetEQCmd().getCmdByte());
-            }
-
-            @Override
-            public void notifiConnectError() {
-
-            }
-        });
-
+//        BlueUtils blueUtils = BlueUtils.getInstance();
+//        blueUtils.createNotifion(new BlueUtils.onBlueNotifiListener() {
+//            @Override
+//            public void onNotifiBlue(byte[] value) {
+//                BleCmd.Builder builder = new BleCmd.Builder().setBuilder(value);
+//                if (mView != null) {
+//                    mView.getDeviceQcAndType(String.valueOf(builder.getDataBody()[0]), String.valueOf(builder.getDataBody()[1]));
+//                }
+//            }
+//
+//            @Override
+//            public void notifiConnectSourcess() {   //监听创建成功之后发送
+//                blueUtils.writeData(RequstBleCmd.createGetEQCmd().getCmdByte());
+//            }
+//
+//            @Override
+//            public void notifiConnectError() {
+//
+//            }
+//        });
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            UartService.COUNT_OPENTION = 0x11;
+            App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetEQCmd().getCmdByte());
+        }
     }
 
 
@@ -101,27 +104,31 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
      * 获取跳绳次数
      */
     public void getTiaoshenCishu() {
-        BlueUtils blueUtils = BlueUtils.getInstance();
-        blueUtils.createNotifion(new BlueUtils.onBlueNotifiListener() {
-            @Override
-            public void onNotifiBlue(byte[] value) {
-                BleCmd.Builder builder = new BleCmd.Builder().setBuilder(value);
-                if (mView != null) {
-                    mView.getDeviceCishu(
-                            String.valueOf(Math.abs(builder.getDataBody()[builder.getDataBody().length - 1])));
-                }
-            }
-
-            @Override
-            public void notifiConnectSourcess() {   //监听创建成功之后发送
-                blueUtils.writeData(RequstBleCmd.createTodayFrequencyCmd().getCmdByte());
-            }
-
-            @Override
-            public void notifiConnectError() {
-
-            }
-        });
+//        BlueUtils blueUtils = BlueUtils.getInstance();
+//        blueUtils.createNotifion(new BlueUtils.onBlueNotifiListener() {
+//            @Override
+//            public void onNotifiBlue(byte[] value) {
+//                BleCmd.Builder builder = new BleCmd.Builder().setBuilder(value);
+//                if (mView != null) {
+//                    mView.getDeviceCishu(
+//                            String.valueOf(Math.abs(builder.getDataBody()[builder.getDataBody().length - 1])));
+//                }
+//            }
+//
+//            @Override
+//            public void notifiConnectSourcess() {   //监听创建成功之后发送
+//                blueUtils.writeData(RequstBleCmd.createTodayFrequencyCmd().getCmdByte());
+//            }
+//
+//            @Override
+//            public void notifiConnectError() {
+//
+//            }
+//        });
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            UartService.COUNT_OPENTION = 0x22;
+            App.blueService.writeCharacteristic1Info(RequstBleCmd.createTodayFrequencyCmd().getCmdByte());
+        }
     }
 
 }

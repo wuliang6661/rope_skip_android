@@ -5,6 +5,14 @@ public class BlueEvent {
     private String name;
 
 
-    public boolean isConnect;
+    public int isConnect;
 
+    public BlueEvent() {
+
+    }
+
+
+    public BlueEvent(int isConnect) {
+        this.isConnect = isConnect;
+    }
 }

@@ -1,12 +1,14 @@
 package com.habit.star.presenter;
 
+import android.bluetooth.BluetoothDevice;
+
 import com.habit.star.app.App;
 import com.habit.star.app.Constants;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.presenter.contract.MainContract;
 import com.habit.star.utils.StringUtils;
-import com.habit.star.utils.blue.bleutils.BlueUtils;
-import com.inuker.bluetooth.library.search.SearchResult;
+import com.habit.star.utils.blue.OnSearchListenter;
+import com.habit.star.utils.blue.btutil.BlueDeviceUtils;
 
 import javax.inject.Inject;
 
@@ -27,19 +29,12 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
      * 打开蓝牙成功之后，默认连接上次连接过的蓝牙
      */
     public void connectBlue() {
-        String MAC = App.spUtils.getString(Constants.MAC);
-        if (StringUtils.isEmpty(MAC)) {
-            return;
-        }
-        BlueUtils blueUtils = BlueUtils.getInstance();
-        if (blueUtils.isConnect()) {
-            return;
-        }
-        blueUtils.setListener(new BlueUtils.onBlueListener() {
-            @Override
-            public void onConnect(boolean isConnect) {
-
-            }
+//        String MAC = App.spUtils.getString(Constants.MAC);
+//        if (StringUtils.isEmpty(MAC)) {
+//            return;
+//        }
+        BlueDeviceUtils blueDeviceUtils = BlueDeviceUtils.getInstance();
+        blueDeviceUtils.setListener(new OnSearchListenter() {
 
             @Override
             public void searchStart() {
@@ -47,16 +42,18 @@ public class MainPresenter extends RxPresenter<MainContract.View> implements Mai
             }
 
             @Override
-            public void searchStop() {
-
+            public void searchDevices(BluetoothDevice device) {
+                if(mView != null){
+                    mView.getBlueDevice(device);
+                }
             }
 
             @Override
-            public void searchMacs(SearchResult result) {
+            public void searchStop() {
 
             }
         });
-        blueUtils.connectMac(MAC);
+        blueDeviceUtils.startScanBluth();
     }
 
 }

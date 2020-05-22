@@ -97,7 +97,7 @@ public class BlueUtils {
                         if (listener != null) {
                             listener.onConnect(true);
                             BlueEvent event = new BlueEvent();
-                            event.isConnect = true;
+//                            event.isConnect = true;
                             EventBus.getDefault().post(event);
                             isConnect = true;
                             App.spUtils.put(Constants.MAC, MAC);
@@ -215,7 +215,7 @@ public class BlueUtils {
 //                    listener.onConnect(false);
 //                }
                 BlueEvent event = new BlueEvent();
-                event.isConnect = false;
+//                event.isConnect = false;
                 EventBus.getDefault().post(event);
                 isConnect = false;
             }
