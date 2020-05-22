@@ -518,7 +518,7 @@ public interface HttpService {
      */
     @GET("app/general/getDataEnergyList")
     Observable<BaseResult<List<NengLiangVO>>> getDataEnergyList(@Query("pageNum") String pageNum,
-                                                     @Query("pageSize") String pageSize);
+                                                                @Query("pageSize") String pageSize);
 
     /**
      * 查询待完成任务列表
@@ -546,7 +546,9 @@ public interface HttpService {
     Observable<BaseResult<String>> getTrainList();
 
     /**
-     *
+     * 添加测试记录
      */
+    @POST("app/test/addTest")
+    Observable<BaseResult<String>> addTest();
 
 }
