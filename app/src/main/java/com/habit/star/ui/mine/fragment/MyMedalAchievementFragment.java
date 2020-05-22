@@ -3,6 +3,7 @@ package com.habit.star.ui.mine.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.habit.star.R;
 import com.habit.star.api.HttpResultSubscriber;
@@ -123,6 +124,12 @@ public class MyMedalAchievementFragment extends BaseFragment<MyMedalAchievementP
                 holder.setText(R.id.xunzhang_text, acquireMedalListBean.getName());
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+
+            }
+        });
         return adapter;
     }
 

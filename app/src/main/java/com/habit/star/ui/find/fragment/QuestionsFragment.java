@@ -186,7 +186,7 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
      * 根据活动分类查询课程列表
      */
     private void getHuoDongList(int classId) {
-        showProgress(null);
+//        showProgress(null);
         HttpServerImpl.getQuestionAnswerInfoList(classId)
                 .subscribe(new HttpResultSubscriber<List<QuestionsBO>>() {
                     @Override

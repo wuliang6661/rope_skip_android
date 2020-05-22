@@ -120,7 +120,6 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:singleLine="true"
-                            android:text="dsdsad"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 
@@ -152,7 +151,6 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:singleLine="true"
-                            android:text="dsdsad"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp" />
 

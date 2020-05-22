@@ -32,6 +32,7 @@ import com.habit.star.base.BaseActivity;
 import com.habit.star.common.adapter.CommonFragmentAdapter;
 import com.habit.star.event.model.BlueDataEvent;
 import com.habit.star.event.model.BlueEvent;
+import com.habit.star.event.model.SwitchMainEvent;
 import com.habit.star.presenter.MainPresenter;
 import com.habit.star.presenter.contract.MainContract;
 import com.habit.star.ui.find.fragment.FindMainFragment;
@@ -144,7 +145,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         fragmentAdapter = new CommonFragmentAdapter(getSupportFragmentManager(), list);
         fragmentVp.setAdapter(fragmentAdapter);
         fragmentVp.setCurrentItem(currentIndex);
-        fragmentVp.setOffscreenPageLimit(fragmentAdapter.getCount()-1);//设置缓存所有
+        fragmentVp.setOffscreenPageLimit(fragmentAdapter.getCount() - 1);//设置缓存所有
         maps = new HashMap<>();
 
         fragmentVp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -337,8 +338,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
         fragmentVp.setCurrentItem(currentIndex);
         freshView();
-
     }
+
+    /**
+     * 切换页面
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void switechFragment(SwitchMainEvent event) {
+        currentIndex = event.toSwitch;
+        fragmentVp.setCurrentItem(currentIndex);
+        freshView();
+    }
+
 
     ///刷新界面
     private void freshView() {

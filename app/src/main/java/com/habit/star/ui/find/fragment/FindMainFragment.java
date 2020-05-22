@@ -11,9 +11,13 @@ import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.star.R;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.common.adapter.FragmentVPAdapter;
+import com.habit.star.event.model.SwitchMainEvent;
 import com.habit.star.presenter.CommonPresenter;
 import com.habit.star.presenter.contract.CommonContract;
 import com.habit.star.utils.ToastUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -86,6 +90,15 @@ public class FindMainFragment extends BaseFragment<CommonPresenter> implements C
     private void initDialog() {
 
     }
+
+    /**
+     * 切换页面
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void switechFragment(SwitchMainEvent event) {
+        viewPager.setCurrentItem(event.gotoSonPage);
+    }
+
 
     @Override
     public void showProgress() {

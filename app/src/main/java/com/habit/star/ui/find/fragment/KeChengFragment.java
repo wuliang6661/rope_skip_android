@@ -1,6 +1,7 @@
 package com.habit.star.ui.find.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -78,20 +79,30 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     protected void initEventAndData() {
-        shaixuanLayout.setVisibility(View.VISIBLE);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                shaixuanLayout.setVisibility(View.VISIBLE);
+                mSwipeRefreshLayout.setOnRefreshListener(KeChengFragment.this);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        fenleiRecycle.setLayoutManager(manager);
-        initAdapter();
+                LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                fenleiRecycle.setLayoutManager(manager);
+                initAdapter();
+            }
+        });
     }
 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        onRefresh();
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                onRefresh();
+            }
+        });
     }
 
     private void initAdapter() {
@@ -192,7 +203,7 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
      * 根据活动分类查询课程列表
      */
     private void getHuoDongList(int classId) {
-        showProgress(null);
+//        showProgress(null);
         HttpServerImpl.getCourseInfoList(classId + "", isSelectNianLing, isSelectShengao, isSelectTizhong, null)
                 .subscribe(new HttpResultSubscriber<List<KechengBO>>() {
                     @Override
@@ -210,10 +221,9 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
     }
 
 
-
     @OnClick(R.id.shaixuan_layout)
-    public void clickShaiXuan(){
-        PopShiXuanWindow popShiXuanWindow = new PopShiXuanWindow(getActivity(),isSelectNianLing,isSelectShengao,isSelectTizhong);
+    public void clickShaiXuan() {
+        PopShiXuanWindow popShiXuanWindow = new PopShiXuanWindow(getActivity(), isSelectNianLing, isSelectShengao, isSelectTizhong);
         popShiXuanWindow.setListener((Nianling, Shengao, Tizhong) -> {
             isSelectNianLing = Nianling;
             isSelectShengao = Shengao;

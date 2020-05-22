@@ -193,7 +193,7 @@ public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.O
      * 根据活动分类查询课程列表
      */
     private void getHuoDongList(int classId) {
-        showProgress(null);
+//        showProgress(null);
         HttpServerImpl.getSelectKnowledgeInfoList(classId + "", isSelectNianLing, isSelectShengao, isSelectTizhong, null)
                 .subscribe(new HttpResultSubscriber<List<ZhiShiBO>>() {
                     @Override

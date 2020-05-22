@@ -14,9 +14,12 @@ import android.widget.PopupWindow;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.habit.star.R;
+import com.habit.star.event.model.SwitchMainEvent;
 import com.habit.star.pojo.po.TaskBO;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -104,6 +107,33 @@ public class PopYoungHomeDialog extends PopupWindow {
                 }
             }
         };
+        adapter.setOnItemClickListener(R.id.go_pk, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                dismiss();
+                SwitchMainEvent event = new SwitchMainEvent();
+                switch (list.get(position).getType()) {
+                    case 0:   //pk任务
+                        break;
+                    case 1:   //幸运兑换
+                        event.gotoSonPage = 4;
+                        EventBus.getDefault().post(event);
+                        break;
+                    case 2:   //课程学习
+                        event.gotoSonPage = 1;
+                        EventBus.getDefault().post(event);
+                        break;
+                    case 3:   //知识学习
+                        event.gotoSonPage = 2;
+                        EventBus.getDefault().post(event);
+                        break;
+                    case 4:   //参与问答
+                        event.gotoSonPage = 3;
+                        EventBus.getDefault().post(event);
+                        break;
+                }
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 

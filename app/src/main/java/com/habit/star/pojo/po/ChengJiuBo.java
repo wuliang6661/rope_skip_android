@@ -1,5 +1,6 @@
 package com.habit.star.pojo.po;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ChengJiuBo {
@@ -24,7 +25,7 @@ public class ChengJiuBo {
         this.noAcquireMedalList = noAcquireMedalList;
     }
 
-    public static class AcquireMedalListBean {
+    public static class AcquireMedalListBean implements Serializable {
         /**
          * id : 1
          * name : 银一星
