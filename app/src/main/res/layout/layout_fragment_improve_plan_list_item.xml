@@ -7,180 +7,202 @@
     android:background="@mipmap/ic_improve_item_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="16dp"
         android:layout_marginHorizontal="21dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:layout_marginVertical="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/title"
             android:layout_width="113dp"
             android:layout_height="wrap_content"
             android:text="高度训练"
             android:textColor="#ff333333"
             android:textSize="14sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/item_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="X 7"
             android:textColor="#ff333333"
             android:textSize="14sp"
-            />
+            android:visibility="gone" />
+
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_state_name_layout_fragment_improve_plan_list_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="添加计划"
-            android:id="@+id/tv_state_name_layout_fragment_improve_plan_list_item"
             android:gravity="right"
+            android:text="添加计划"
             android:textColor="#fff5b68f"
-            android:textSize="14sp"
-            />
+            android:textSize="14sp" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#F8F8F8"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="21dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="113dp"
-            android:layout_height="wrap_content"
-            android:text="内容"
-            android:textColor="#ff7ec7f5"
-            android:textSize="14sp"
-            />
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="跳绳高度训练"
-            android:id="@+id/tv_content_layout_fragment_improve_plan_list_item"
-            android:textColor="#ff7ec7f5"
-            android:textSize="12sp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginHorizontal="21dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="113dp"
-            android:layout_height="wrap_content"
-            android:text="单次训练时长"
-            android:textColor="#ff7ec7f5"
-            android:textSize="14sp"
-            />
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:text="5"
-            android:id="@+id/tv_train_time_layout_fragment_improve_plan_list_item"
-            android:gravity="bottom"
-            android:textColor="#ff7ec7f5"
-            android:textSize="14sp"
-            />
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:text="分钟"
-            android:id="@+id/tv_train_time_unit_layout_fragment_improve_plan_list_item"
-            android:gravity="bottom"
-            android:textColor="#ff7ec7f5"
-            android:textSize="8sp"
-            />
+        android:background="#F8F8F8" />
 
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/tv_energy_layout_fragment_improve_plan_list_item"
-            android:gravity="right"
-            android:text="+10能量"
-            android:textColor="#ff7ec7f5"
-            android:textSize="14sp"
-            />
-    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginHorizontal="21dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="113dp"
+        android:layout_height="90dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="训练计划"
-            android:textColor="#ff7ec7f5"
-            android:textSize="14sp"
-            />
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:text="7"
-            android:id="@+id/tv_train_plan_layout_fragment_improve_plan_list_item"
-            android:gravity="bottom"
-            android:textColor="#ff7ec7f5"
-            android:textSize="12sp"
-            />
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:text="天"
-            android:id="@+id/tv_train_plan_unit_layout_fragment_improve_plan_list_item"
-            android:gravity="bottom"
-            android:textColor="#ff7ec7f5"
-            android:textSize="8sp"
-            />
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/neirong"
+                android:layout_width="113dp"
+                android:layout_height="wrap_content"
+                android:text="内容"
+                android:textColor="#ff7ec7f5"
+                android:textSize="14sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_content_layout_fragment_improve_plan_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳绳高度训练"
+                android:textColor="#ff7ec7f5"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/shichang"
+                android:layout_width="113dp"
+                android:layout_height="wrap_content"
+                android:text="单次训练时长"
+                android:textColor="#ff7ec7f5"
+                android:textSize="14sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_train_time_layout_fragment_improve_plan_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:gravity="bottom"
+                android:text="5"
+                android:textColor="#ff7ec7f5"
+                android:textSize="14sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_train_time_unit_layout_fragment_improve_plan_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:gravity="bottom"
+                android:text="分钟"
+                android:textColor="#ff7ec7f5"
+                android:textSize="8sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_energy_layout_fragment_improve_plan_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="+10能量"
+                android:textColor="#ff7ec7f5"
+                android:textSize="14sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/item_jihua"
+                android:layout_width="113dp"
+                android:layout_height="wrap_content"
+                android:text="训练计划"
+                android:textColor="#ff7ec7f5"
+                android:textSize="14sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_train_plan_layout_fragment_improve_plan_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:gravity="bottom"
+                android:text="7"
+                android:textColor="#ff7ec7f5"
+                android:textSize="12sp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_train_plan_unit_layout_fragment_improve_plan_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:gravity="bottom"
+                android:text="天"
+                android:textColor="#ff7ec7f5"
+                android:textSize="8sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="15dp"
-        android:background="#F8F8F8"
-        />
+        android:background="#F8F8F8" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="21dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="14dp"
-        android:layout_marginHorizontal="21dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/jiaocheng"
             android:layout_width="113dp"
             android:layout_height="wrap_content"
             android:text="训练教程"
             android:textColor="#ff888888"
-            android:textSize="14sp"
-            />
+            android:textSize="14sp" />
+
         <View
             android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_look_layout_fragment_improve_plan_list_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查看"
-            android:id="@+id/tv_look_layout_fragment_improve_plan_list_item"
             android:gravity="right"
+            android:text="查看"
             android:textColor="#ff86a7c8"
-            android:textSize="14sp"
-            />
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

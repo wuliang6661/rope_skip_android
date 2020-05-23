@@ -318,7 +318,7 @@ public class KeChengDetailsActivity extends BaseActivity {
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Glide.with(KeChengDetailsActivity.this).load(videoBO.getImage()).into(imageView);
         videoPlayer.setThumbImageView(imageView);
-        videoPlayer.setUp(videoBO.getUrl(), false, "");
+        videoPlayer.setUp(videoBO.getUrl(), true, "");
         videoPlayer.startPlayLogic();
     }
 
@@ -425,7 +425,7 @@ public class KeChengDetailsActivity extends BaseActivity {
         switch (resultCode) {
             case 1:
                 long startTime = data.getIntExtra("startTime", 0);
-                videoPlayer.setUp(currnVideo.getUrl(), false, "");
+                videoPlayer.setUp(currnVideo.getUrl(), true, "");
                 videoPlayer.startPlayLogic();
                 videoPlayer.setSeekOnStart(startTime);
                 break;

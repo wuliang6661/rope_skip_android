@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_F6F6F9"
@@ -53,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="100%"
+                        android:text="--"
                         android:textColor="@color/white" />
 
                     <android.support.v7.widget.AppCompatTextView
@@ -108,6 +106,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/blue_state_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_home19" />
@@ -148,18 +147,19 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="37dp"
+                                android:layout_marginTop="30dp"
                                 android:text="00"
                                 android:paddingHorizontal="3dp"
+                                android:textStyle="bold"
                                 android:textColor="@color/white"
-                                android:textSize="28sp" />
+                                android:textSize="45sp" />
 
                             <android.support.v7.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/tv_time_count_fragment_train_main"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="18dp"
+                                android:layout_marginTop="15dp"
                                 android:text="数量"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
@@ -217,7 +217,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="时间  00''00''"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <android.support.v7.widget.AppCompatImageView
@@ -276,10 +276,10 @@
                             android:textStyle="bold" />
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/leiji_fenzhong"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="858"
                             android:textColor="#ffb9cae0"
                             android:textSize="25sp"
                             android:textStyle="bold" />
@@ -320,10 +320,10 @@
                             android:textStyle="bold" />
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/leiji_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="458"
                             android:textColor="#F5B68F"
                             android:textSize="25sp"
                             android:textStyle="bold" />
@@ -376,10 +376,10 @@
                             android:textStyle="bold" />
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/tiaoshengzongshu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="3443"
                             android:textColor="#D8D4E5"
                             android:textSize="25sp"
                             android:textStyle="bold" />
@@ -415,16 +415,16 @@
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="训练总数"
+                            android:text="测试总数"
                             android:textColor="#FDC0BB"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/xunlian_zongshu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="258"
                             android:textColor="#FDC0BB"
                             android:textSize="25sp"
                             android:textStyle="bold" />

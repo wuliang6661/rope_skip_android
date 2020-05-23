@@ -1,20 +1,13 @@
 package com.habit.star.ui.train.fragment;
 
 import android.app.Dialog;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -34,16 +27,10 @@ import com.habit.star.utils.DensityUtil;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.widget.CutRelativeLayout;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -100,20 +87,12 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     AppCompatTextView tvTimeLayoutDialogToastShareSuccess;
     @BindView(R.id.iv_qr_code_layout_dialog_toast_share_success)
     AppCompatImageView ivQrCodeLayoutDialogToastShareSuccess;
-//    @BindView(R.id.ll_layout_dialog_toast_share_success)
-//    LinearLayout llLayoutDialogToastShareSuccess;
     @BindView(R.id.cr_full_screen_fragment_test_result)
     CutRelativeLayout crFullScreen;
 
     private String testId;
     private Dialog mBottomSheetDialog;
     private ImprovePlanListAdapter mPlanListAdapter;
-//    private String shareFilePath;
-//    private Handler handler = new Handler() {
-//        public void handleMessage(Message msg) {
-//            llLayoutDialogToastShareSuccess.setVisibility(View.GONE);
-//        }
-//    };
 
     public static TestResultFragment newInstance(Bundle bundle) {
         TestResultFragment fragment = new TestResultFragment();
@@ -181,9 +160,6 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.hide();
-//                llLayoutDialogToastShareSuccess.setVisibility(View.VISIBLE);
-//                catchScreen();
-//                shareFilePath =crFullScreen.createShareFile();
                 start(TestResultShareSuccessFragment.newInstance(null));
 
             }
@@ -192,22 +168,14 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.hide();
-//                llLayoutDialogToastShareSuccess.setVisibility(View.VISIBLE);
-//                catchScreen();
-//                shareFilePath = crFullScreen.createShareFile();
                 start(TestResultShareSuccessFragment.newInstance(null));
-//                handler.sendEmptyMessageDelayed(0, 1000);
             }
         });
         view.findViewById(R.id.ll_save_picture_dialog_invitation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.hide();
-//                llLayoutDialogToastShareSuccess.setVisibility(View.VISIBLE);
-//                catchScreen();
-//                shareFilePath =crFullScreen.createShareFile();
                 start(TestResultShareSuccessFragment.newInstance(null));
-//                handler.sendEmptyMessageDelayed(0, 1000);
             }
         });
 

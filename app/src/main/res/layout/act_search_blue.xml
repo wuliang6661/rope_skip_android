@@ -2,22 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
-
-    <Button
-        android:id="@+id/search_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="搜索蓝牙" />
+    <include layout="@layout/layout_title" />
 
 
-    <Button
-        android:id="@+id/duqu_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="读取数据" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"

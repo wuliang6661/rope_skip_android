@@ -84,9 +84,13 @@ public class MyAddressListFragment extends BaseActivity<MyAddressListPresenter> 
             }
         });
         isSelect = getIntent().getIntExtra("isSelect", 0);
-        mPresenter.getAddressList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.getAddressList();
+    }
 
     private void initDialog() {
         exitDialog = new MaterialDialog.Builder(this)
@@ -124,14 +128,14 @@ public class MyAddressListFragment extends BaseActivity<MyAddressListPresenter> 
                     case R.id.ll_bianji_layout_fragment_address_list_item:
                         Bundle bundle = new Bundle();
                         bundle.putSerializable(RouterConstants.ARG_BEAN, mListAdapter.getItem(position));
-                        start(AddAddressFragment.newInstance(bundle));
+                        gotoActivity(AddAddressFragment.class,bundle,false);
                         break;
                     case R.id.ll_delete_layout_fragment_address_list_item:
                         MyAddressListFragment.this.position = position;
                         exitDialog.show();
                         break;
                     case R.id.address_layout:
-                        if(isSelect != 0){
+                        if (isSelect != 0) {
                             EventBus.getDefault().post(mListAdapter.getItem(position));
                             finish();
                             return;
@@ -167,7 +171,8 @@ public class MyAddressListFragment extends BaseActivity<MyAddressListPresenter> 
 
     @OnClick(R.id.ll_btn_submit_fragment_feed_back)
     public void onViewClicked() {
-        start(AddAddressFragment.newInstance(null));
+        Bundle bundle = new Bundle();
+        gotoActivity(AddAddressFragment.class, bundle, false);
     }
 
     @Override

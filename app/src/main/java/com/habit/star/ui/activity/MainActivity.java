@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -40,10 +41,11 @@ import com.habit.star.ui.mine.activity.MineMainActivity;
 import com.habit.star.ui.mine.fragment.MineFragment;
 import com.habit.star.ui.train.fragment.TranHomeFragment;
 import com.habit.star.ui.young.fragment.YoungHomeFragment;
+import com.habit.star.utils.AppManager;
 import com.habit.star.utils.DensityUtil;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.utils.blue.bleutils.BlueUtils;
-import com.habit.star.utils.blue.bleutils.UartService;
+import com.habit.star.service.UartService;
 import com.habit.star.utils.blue.btutil.BlueDeviceUtils;
 import com.habit.star.utils.blue.btutil.BluetoothChatService;
 
@@ -571,6 +573,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     break;
                 case UartService.MESSAGE_STATE_CHANGE:
                     EventBus.getDefault().post(new BlueEvent(msg.arg1));
+                    App.connectDevice = null;
                     switch (msg.arg1) {
                         case UartService.STATE_DISCONNECTED:
                             showToast("蓝牙连接失败！");
@@ -580,6 +583,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //                            showToast("蓝牙连接中...");
                             break;
                         case UartService.STATE_CONNECTED:
+                            App.connectDevice = device;
                             showToast("蓝牙已连接！");
                             break;
                     }
@@ -591,4 +595,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
     };
 
+
+    //记录用户首次点击返回键的时间
+    private long firstTime = 0;
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                long secondTime = System.currentTimeMillis();
+                if (secondTime - firstTime > 2000) {
+                    showToast("再按一次退出程序");
+                    firstTime = secondTime;
+                    return true;
+                } else {
+                    AppManager.getAppManager().finishAllActivity();
+                    System.exit(0);
+                }
+                break;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 }

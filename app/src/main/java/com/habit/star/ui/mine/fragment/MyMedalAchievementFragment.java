@@ -96,8 +96,8 @@ public class MyMedalAchievementFragment extends BaseFragment<MyMedalAchievementP
         HttpServerImpl.getMedalList().subscribe(new HttpResultSubscriber<ChengJiuBo>() {
             @Override
             public void onSuccess(ChengJiuBo s) {
-                recycleView.setAdapter(getAdapter(s.getAcquireMedalList()));
-                noRecycleView.setAdapter(getAdapter(s.getNoAcquireMedalList()));
+                recycleView.setAdapter(getAdapter(s.getAcquireMedalList(), 0));
+                noRecycleView.setAdapter(getAdapter(s.getNoAcquireMedalList(), 1));
             }
 
             @Override
@@ -111,7 +111,7 @@ public class MyMedalAchievementFragment extends BaseFragment<MyMedalAchievementP
     /**
      * 获取适配器
      */
-    private LGRecycleViewAdapter getAdapter(List<ChengJiuBo.AcquireMedalListBean> listBeans) {
+    private LGRecycleViewAdapter getAdapter(List<ChengJiuBo.AcquireMedalListBean> listBeans, int type) {
         LGRecycleViewAdapter<ChengJiuBo.AcquireMedalListBean> adapter = new LGRecycleViewAdapter<ChengJiuBo.AcquireMedalListBean>(listBeans) {
             @Override
             public int getLayoutId(int viewType) {
@@ -127,7 +127,13 @@ public class MyMedalAchievementFragment extends BaseFragment<MyMedalAchievementP
         adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-
+                if(type == 1){
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                bundle.putInt("type", 1);   //成就勋章
+                bundle.putSerializable("xunzhang", listBeans.get(position));
+                gotoActivity(ShapeChengJiuActivity.class, bundle, false);
             }
         });
         return adapter;

@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
@@ -15,7 +13,7 @@ import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.app.RouterConstants;
-import com.habit.star.base.BaseFragment;
+import com.habit.star.base.BaseActivity;
 import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.ui.mine.contract.AddAddressContract;
 import com.habit.star.ui.mine.presenter.AddAddressPresenter;
@@ -31,7 +29,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -43,7 +40,7 @@ import butterknife.Unbinder;
  * 文件名称：AddAddressFragment.java
  * 类说明：新增地址
  */
-public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implements AddAddressContract.View {
+public class AddAddressFragment extends BaseActivity<AddAddressPresenter> implements AddAddressContract.View {
 
     @BindView(R.id.toolbar_layout_toolbar)
     ToolbarWithBackRightProgress toolbar;
@@ -71,18 +68,10 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
     //申明对象
     CityPickerView mPicker = new CityPickerView();
 
-    public static AddAddressFragment newInstance(Bundle bundle) {
-        AddAddressFragment fragment = new AddAddressFragment();
-        if (bundle != null) {
-            fragment.setArguments(bundle);
-        }
-
-        return fragment;
-    }
 
     @Override
     protected void initInject() {
-        getFragmentComponent().inject(this);
+        getActivityComponent().inject(this);
     }
 
     @Override
@@ -101,10 +90,10 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
         toolbar.setBackIBClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _mActivity.onBackPressedSupport();
+                finish();
             }
         });
-        Bundle bundle = getArguments();
+        Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             mAddressModel = (AddressBO) bundle.getSerializable(RouterConstants.ARG_BEAN);
         }
@@ -115,7 +104,7 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
             etAddressFragmentAddAddress.setText(mAddressModel.getAddress());
         }
         //预先加载仿iOS滚轮实现的全部数据
-        mPicker.init(getActivity());
+        mPicker.init(this);
     }
 
 
@@ -142,20 +131,6 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
     @Override
     public void showError(int errorCode) {
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
 
@@ -238,6 +213,6 @@ public class AddAddressFragment extends BaseFragment<AddAddressPresenter> implem
     @Override
     public void saveSouress() {
         showError("保存成功！");
-        _mActivity.onBackPressedSupport();
+        finish();
     }
 }

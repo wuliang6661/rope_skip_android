@@ -12,6 +12,7 @@ import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
 import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
+import com.habit.star.pojo.po.JiHuaBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
 import com.habit.star.pojo.po.NengLiangDengjiBO;
@@ -25,6 +26,7 @@ import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
 import com.habit.star.pojo.po.TaskBO;
+import com.habit.star.pojo.po.TestDataBO;
 import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
@@ -643,9 +645,51 @@ public class HttpServerImpl {
     /**
      * 获取我的能量等级
      */
-    public static Observable<String> getMyEnergyLevelInfo(){
+    public static Observable<String> getMyEnergyLevelInfo() {
         return getService().getMyEnergyLevelInfo().compose(RxResultHelper.httpRusult());
     }
+
+    /**
+     * 查询训练计划列表
+     */
+    public static Observable<List<JiHuaBO>> getTrainList(int isComplete) {
+        return getService().getTrainList("1", "20000", isComplete).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询测试累积数据
+     */
+    public static Observable<TestDataBO> getTestTotal() {
+        return getService().getTestTotal().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询测试记录
+     */
+    public static Observable<String> getTestList() {
+        return getService().getTestList("1", "20000").compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 查询测试结果
+     */
+    public static Observable<String> getTest(String id) {
+        return getService().getTest(id).compose(RxResultHelper.httpRusult());
+    }
+
+
+    /**
+     * 添加测试记录
+     */
+    public static Observable<String> addTest(String breakNum, String skipNum, String skipTime) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("breakNum", breakNum);
+        params.put("skipNum", skipNum);
+        params.put("skipTime", skipTime);
+        return getService().addTest(params).compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 提交图片

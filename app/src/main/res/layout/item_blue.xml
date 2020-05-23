@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="80dp"
+    android:background="@color/white"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="18dp"
+        android:src="@mipmap/lanya_hei" />
 
     <TextView
         android:id="@+id/item_text"
@@ -12,15 +20,21 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_weight="1"
-        android:text="" />
+        android:text=""
+        android:textColor="#333333"
+        android:textSize="14sp" />
 
 
-    <Button
+    <TextView
         android:id="@+id/connect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:text="连接" />
+        android:layout_width="68dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bt_bangding_bg"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="绑定"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
 
 
 </LinearLayout>

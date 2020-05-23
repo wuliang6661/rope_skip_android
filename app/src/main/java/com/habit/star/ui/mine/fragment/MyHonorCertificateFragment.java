@@ -3,12 +3,12 @@ package com.habit.star.ui.mine.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.habit.star.R;
 import com.habit.star.api.HttpResultSubscriber;
 import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.BaseFragment;
-import com.habit.star.pojo.po.ChengJiuBo;
 import com.habit.star.pojo.po.RongYuBO;
 import com.habit.star.ui.mine.contract.MyHonorCertificateContract;
 import com.habit.star.ui.mine.presenter.MyHonorCertificatePresenter;
@@ -90,12 +90,12 @@ public class MyHonorCertificateFragment extends BaseFragment<MyHonorCertificateP
     /**
      * 获取荣誉证书
      */
-    private void getHonorList(){
+    private void getHonorList() {
         HttpServerImpl.getHonorList().subscribe(new HttpResultSubscriber<RongYuBO>() {
             @Override
             public void onSuccess(RongYuBO s) {
-                recycleView.setAdapter(getAdapter(s.getAcquireHonorList()));
-                noRecycleView.setAdapter(getAdapter(s.getNoAcquireHonorList()));
+                recycleView.setAdapter(getAdapter(s.getAcquireHonorList(), 0));
+                noRecycleView.setAdapter(getAdapter(s.getNoAcquireHonorList(), 1));
             }
 
             @Override
@@ -109,7 +109,7 @@ public class MyHonorCertificateFragment extends BaseFragment<MyHonorCertificateP
     /**
      * 获取适配器
      */
-    private LGRecycleViewAdapter getAdapter(List<RongYuBO.AcquireHonorListBean> listBeans) {
+    private LGRecycleViewAdapter getAdapter(List<RongYuBO.AcquireHonorListBean> listBeans, int type) {
         LGRecycleViewAdapter<RongYuBO.AcquireHonorListBean> adapter = new LGRecycleViewAdapter<RongYuBO.AcquireHonorListBean>(listBeans) {
             @Override
             public int getLayoutId(int viewType) {
@@ -122,6 +122,18 @@ public class MyHonorCertificateFragment extends BaseFragment<MyHonorCertificateP
                 holder.setText(R.id.xunzhang_text, acquireMedalListBean.getName());
             }
         };
+        adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                if (type == 1) {
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                bundle.putInt("type", 2);   //证书
+                bundle.putSerializable("zhengshu", listBeans.get(position));
+                gotoActivity(ShapeChengJiuActivity.class, bundle, false);
+            }
+        });
         return adapter;
     }
 

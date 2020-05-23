@@ -1,4 +1,4 @@
-package com.habit.star.utils.blue.bleutils;
+package com.habit.star.service;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -88,7 +88,7 @@ public class UartService extends Service {
                 mConnectionState = STATE_DISCONNECTED;
                 Log.i(TAG, "Disconnected from GATT server.");
                 connectionLost();
-//                mHandler.obtainMessage(MESSAGE_STATE_CHANGE, mConnectionState, -1).sendToTarget();
+                mHandler.obtainMessage(MESSAGE_STATE_CHANGE, mConnectionState, -1).sendToTarget();
             } else if (newState == BluetoothProfile.STATE_CONNECTING) {
                 mHandler.obtainMessage(MESSAGE_STATE_CHANGE, mConnectionState, -1).sendToTarget();
             }
@@ -148,14 +148,6 @@ public class UartService extends Service {
             mHandler.obtainMessage(MESSAGE_READ, characteristic.getValue().length, -1, characteristic.getValue())
                     .sendToTarget();  //将消息传回主界面
         }
-
-
-        private void enableNotification(boolean enable, BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-            if (gatt == null || characteristic == null)
-                return; //这一步必须要有 否则收不到通知
-            gatt.setCharacteristicNotification(characteristic, enable);
-        }
-
 
     };
 

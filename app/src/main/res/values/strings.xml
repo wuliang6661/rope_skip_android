@@ -101,8 +101,8 @@
     <string name="find">发现</string>
     <!--MineFragment-->
 
-    <string name="offset"/>
-    <string name="isUp"/>
+    <string name="offset" />
+    <string name="isUp" />
     <string name="cube_views_load_more_loading">loading...</string>
     <string name="cube_views_load_more_click_to_load_more">Click to load more</string>
     <string name="cube_views_load_more_loaded_no_more">All the data has been loaded</string>
@@ -177,4 +177,21 @@
     <string name="can_not_play">can not play this video</string>
 
     <string name="not_support">player not support this device</string>
+
+    <string name="pk_shuoming"> PK规则说明\n
+1、PK赛参与者双方均为使用习惯星智能跳绳产品的用户，暂不支持其他跳绳产品的用户。\n
+2、PK赛分为不同的场次，参与者进入不同的场次需要达到一定的等级，该等级由习惯星平台结合参与者日常跳绳成绩及参与度自行认证，而非专业跳绳等级的认证，请参与者根据选择适合自己的赛场。\n
+3、参与者双方的PK结果将根据跳绳时间、跳绳个数等判断胜负。</string>
+
+    <string name="xieyiandtiaokuan">
+        温馨提示\n
+感谢您信任并使用习惯星的产品和服务！\n
+我们非常注重您的个人信息和隐私的保护，为了更好地为您提供服务，特向您说明以下内容：\n
+1、我们将在法律允许的范围内，基于您的明示授权，在您使用某些功能和服务时，收集必要的用户信息、设备权限（如手机号、设备信息、地理位置等），您有权拒绝或取消授权。\n
+2、未经您的授权同意，我们不会将您的信息共享给第三方或用于其他您未授权的用途；\n
+3、我们会采取业内先进的安全措施保护您的信息安全；\n
+4、请您仔细阅读《用户服务协议》和《隐私政策》的全部内容。如果您是未满18周岁的未成年人，请在使用我们的产品、提交个人信息前，务必征求您的监护人的指导和同意。点击「同意」，即表示您和您的监护人同意并接受全部条款。\n
+若您选择不同意，将无法使用我们的产品和服务，并退出应用。\n
+    </string>
+
 </resources>

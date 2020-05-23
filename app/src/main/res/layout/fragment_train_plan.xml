@@ -43,11 +43,12 @@
 
 
                     <LinearLayout
+                        android:id="@+id/ll_back_fragment_train_plan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="20dp"
-                        android:id="@+id/ll_back_fragment_train_plan"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
                         <android.support.v7.widget.AppCompatImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -89,10 +90,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_battery_fragment_train_plan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/toolbar_layout_toolbar"
-                    android:id="@+id/ll_battery_fragment_train_plan"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="26dp"
                     android:gravity="center_vertical"
@@ -108,59 +109,62 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="100%"
                         android:gravity="center"
+                        android:text="--"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
+
                 <LinearLayout
+                    android:id="@+id/blue_status_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ll_battery_fragment_train_plan"
-                    android:id="@+id/ll_connect_state_fragment_train_plan"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_connnet_state_fragment_train_plan"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/iv_connnet_state_fragment_train_plan" />
+                        android:layout_height="wrap_content" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_connect_state_fragment_train_plan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="已连接"
                         android:gravity="center_vertical"
+                        android:text="已连接"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
 
 
                 <LinearLayout
+                    android:id="@+id/ll_record_model_fragment_train_plan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_below="@id/toolbar_layout_toolbar"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="26dp"
-                    android:id="@+id/ll_record_model_fragment_train_plan"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="计时模式"
                         android:textColor="#ffffffff"
                         android:textSize="14sp" />
+
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/iv_fresh_fragment_train_main"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/ic_home11"
-                        android:layout_marginTop="7dp"/>
+                        android:layout_marginTop="7dp"
+                        android:background="@mipmap/ic_home11" />
                 </LinearLayout>
 
                 <FrameLayout
@@ -178,21 +182,22 @@
                         android:layout_gravity="center"
                         android:background="@mipmap/ic_circle_center_wb_pane">
                         <!--<com.habit.commonlibrary.widget.CountDownProgressBar-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--app:countDown_centerTextSize="25dp"-->
-                            <!--app:countDown_circleWidth="4dp"-->
-                            <!--app:countDown_firstColor="@color/cpb_red"-->
-                            <!--app:countDown_secondColor="@color/colorText"-->
-                            <!--app:countDown_isShowGradient="true"-->
-                            <!--app:countDown_centerTextColor="#2395FF"-->
-                            <!--android:id="@+id/cd_process_fragment_train_plan"/>-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--app:countDown_centerTextSize="25dp"-->
+                        <!--app:countDown_circleWidth="4dp"-->
+                        <!--app:countDown_firstColor="@color/cpb_red"-->
+                        <!--app:countDown_secondColor="@color/colorText"-->
+                        <!--app:countDown_isShowGradient="true"-->
+                        <!--app:countDown_centerTextColor="#2395FF"-->
+                        <!--android:id="@+id/cd_process_fragment_train_plan"/>-->
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:orientation="vertical"
-                            android:gravity="center_horizontal">
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -210,17 +215,17 @@
                                     android:layout_marginLeft="5dp"
                                     android:text="时间"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp" />
+                                    android:textSize="16sp" />
                             </LinearLayout>
 
                             <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tv_time_second_fragment_train_plan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="7dp"
                                 android:text="00''00''"
-                                android:id="@+id/tv_time_second_fragment_train_plan"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="20sp" />
 
                         </LinearLayout>
                     </RelativeLayout>
@@ -230,18 +235,20 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
+                    android:layout_below="@id/rl_count_fragment_train_main"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="29dp"
-                    android:layout_below="@id/rl_count_fragment_train_main">
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_time_count_fragment_train_main"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" 00 "
+                        android:textStyle="bold"
                         android:textColor="@color/white"
-                        android:textSize="28sp" />
+                        android:textSize="40sp" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
@@ -255,24 +262,22 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_start_fragment_train_plan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/rl_start_fragment_train_plan"
                 android:layout_marginTop="8dp"
                 android:background="@mipmap/ic_ty_plan">
+
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_contral_fragment_train_plan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="开始"
-                    android:id="@+id/tv_contral_fragment_train_plan"
                     android:layout_centerInParent="true"
+                    android:text="开始"
                     android:textColor="#ffffffff"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
             </RelativeLayout>
-
-
-
 
 
         </LinearLayout>
