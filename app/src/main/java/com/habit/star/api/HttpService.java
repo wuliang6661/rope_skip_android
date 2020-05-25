@@ -542,6 +542,8 @@ public interface HttpService {
     @GET("app/general/getMyEnergyLevelInfo")
     Observable<BaseResult<String>> getMyEnergyLevelInfo();
 
+
+    
     /**
      * 查询训练计划
      */
