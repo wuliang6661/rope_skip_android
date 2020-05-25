@@ -1,6 +1,7 @@
 package com.habit.star.app;
 
 import android.app.Application;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -15,7 +16,7 @@ import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.XIaoJiangBO;
 import com.habit.star.ui.login.bean.LoginBean;
 import com.habit.star.ui.mine.bean.UserInfoMode;
-import com.habit.star.utils.blue.bleutils.UartService;
+import com.habit.star.service.UartService;
 //import com.sdwfqin.cbt.CbtManager;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
@@ -44,6 +45,7 @@ public class App extends Application {
     public static UserBO userBO;
     public static XIaoJiangBO xIaoJiangBO;
     public static UartService blueService;
+    public static BluetoothDevice connectDevice;
 
     public static synchronized App getInstance() {
         return instance;

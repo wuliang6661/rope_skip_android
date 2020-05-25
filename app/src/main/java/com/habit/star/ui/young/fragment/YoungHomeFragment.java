@@ -23,6 +23,7 @@ import com.habit.star.pojo.po.XIaoJiangBO;
 import com.habit.star.presenter.CommonPresenter;
 import com.habit.star.presenter.contract.CommonContract;
 import com.habit.star.ui.mine.activity.MineMainActivity;
+import com.habit.star.ui.mine.fragment.XunLianJiHuaActivity;
 import com.habit.star.ui.train.activity.TainMainActivity;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.widget.waterview.WaterFlake;
@@ -183,10 +184,7 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
                 getTaskList();
                 break;
             case R.id.ic_rw2_fragment_young_home:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_MY_ACHIVEMENT);
-//                intent.setClass(_mActivity, MineMainActivity.class);
-//                startActivity(intent);
+                gotoActivity(XunLianJiHuaActivity.class, false);
                 break;
             case R.id.ll_nlz:
                 intent = new Intent();
@@ -213,7 +211,7 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
             @Override
             public void onSuccess(List<TaskBO> s) {
                 stopProgress();
-                PopYoungHomeDialog popYoungHomeDialog = new PopYoungHomeDialog(getActivity(),s);
+                PopYoungHomeDialog popYoungHomeDialog = new PopYoungHomeDialog(getActivity(), s);
                 popYoungHomeDialog.showAtLocation(getActivity().getWindow().getDecorView());
             }
 

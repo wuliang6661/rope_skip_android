@@ -5,22 +5,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.habit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
+import com.habit.star.app.App;
 import com.habit.star.base.BaseActivity;
+import com.habit.star.event.model.BlueEvent;
+import com.habit.star.pojo.po.DeviceBO;
+import com.habit.star.service.UartService;
 import com.habit.star.utils.blue.OnSearchListenter;
-import com.habit.star.utils.blue.bleutils.BlueUtils;
 import com.habit.star.utils.blue.btutil.BlueDeviceUtils;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
-import com.inuker.bluetooth.library.search.SearchResult;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class SearchActivty extends BaseActivity {
 
@@ -30,6 +36,7 @@ public class SearchActivty extends BaseActivity {
 
     List<BluetoothDevice> devices;
 
+    private List<DeviceBO> deviceBOS;
 
     @Override
     protected void initInject() {
@@ -48,12 +55,15 @@ public class SearchActivty extends BaseActivity {
 
     @Override
     protected void initEventAndData() {
-
+        goBack();
+        setTitleText("蓝牙搜索中...");
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleView.setLayoutManager(manager);
+        recycleView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE).build());
         devices = new ArrayList<>();
         initDeviceBlue();
+        getData();
     }
 
     @Override
@@ -82,9 +92,8 @@ public class SearchActivty extends BaseActivity {
      */
     private void initDeviceBlue() {
         BlueDeviceUtils blueDeviceUtils = BlueDeviceUtils.getInstance();
-        BluetoothDevice device = blueDeviceUtils.getConnectBlue();
-        if(device != null){
-            devices.add(device);
+        if (App.connectDevice != null) {   //如果当前已连接设备 ，则显示该设备
+            devices.add(App.connectDevice);
             setAdapter();
         }
         blueDeviceUtils.setListener(new OnSearchListenter() {
@@ -96,54 +105,59 @@ public class SearchActivty extends BaseActivity {
 
             @Override
             public void searchDevices(BluetoothDevice device) {
-                if (device.getName().startsWith("TH")) {
-                    devices.add(device);
-                    setAdapter();
+                for (BluetoothDevice item : devices) {   //避免搜索到重复的设备
+                    if (item.getName().equals(device.getName())) {
+                        return;
+                    }
                 }
+//                if (device.getName().startsWith("TH")) {
+                devices.add(device);
+                setAdapter();
+//                }
             }
 
             @Override
             public void searchStop() {
-
+                blueDeviceUtils.startScanBluth();
             }
         });
         blueDeviceUtils.startScanBluth();
     }
 
 
-    /**
-     * 蓝牙连接并获取数据
-     */
-    private void initBlue() {
-        BlueUtils blueUtils = BlueUtils.getInstance();
-        blueUtils.setListener(new BlueUtils.onBlueListener() {
-            @Override
-            public void onConnect(boolean isConnect) {
-                stopProgress();
-                if (isConnect) {
-                    showToast("蓝牙连接成功！");
-                } else {
-                    showToast("蓝牙连接成功！");
-                }
-            }
-
-            @Override
-            public void searchStart() {
-
-            }
-
-            @Override
-            public void searchStop() {
-                stopProgress();
-            }
-
-            @Override
-            public void searchMacs(SearchResult devices) {
-                setAdapter();
-            }
-        });
-        blueUtils.searchMac();
-    }
+//    /**
+//     * 蓝牙连接并获取数据
+//     */
+//    private void initBlue() {
+//        BlueUtils blueUtils = BlueUtils.getInstance();
+//        blueUtils.setListener(new BlueUtils.onBlueListener() {
+//            @Override
+//            public void onConnect(boolean isConnect) {
+//                stopProgress();
+//                if (isConnect) {
+//                    showToast("蓝牙连接成功！");
+//                } else {
+//                    showToast("蓝牙连接成功！");
+//                }
+//            }
+//
+//            @Override
+//            public void searchStart() {
+//
+//            }
+//
+//            @Override
+//            public void searchStop() {
+//                stopProgress();
+//            }
+//
+//            @Override
+//            public void searchMacs(SearchResult devices) {
+//                setAdapter();
+//            }
+//        });
+//        blueUtils.searchMac();
+//    }
 
 
     private void setAdapter() {
@@ -156,15 +170,40 @@ public class SearchActivty extends BaseActivity {
             @Override
             public void convert(LGViewHolder holder, BluetoothDevice result, int position) {
                 holder.setText(R.id.item_text, result.getName());
+                holder.getView(R.id.connect).setEnabled(false);
+                if (App.connectDevice != null && App.connectDevice.getAddress().equals(result.getAddress())) {
+                    holder.setText(R.id.connect, "已连接");
+                } else {
+                    if (deviceBOS != null) {
+                        for (DeviceBO deviceBO : deviceBOS) {
+                            if (deviceBO.getMacAddress().equals(result.getAddress())) {
+                                holder.getView(R.id.connect).setEnabled(true);
+                            }
+                        }
+                    }
+                }
             }
         };
         adapter.setOnItemClickListener(R.id.connect, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
+                showProgress("蓝牙连接中...");
+//                BlueDeviceUtils.getInstance().cancleScan();
                 EventBus.getDefault().post(devices.get(position));
             }
         });
         recycleView.setAdapter(adapter);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(BlueEvent event) {
+        stopProgress();
+        if (event.isConnect == UartService.STATE_CONNECTED) {
+        } else if (event.isConnect == UartService.STATE_CONNECTING) {
+        } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
+        } else {
+        }
     }
 
 
@@ -175,10 +214,18 @@ public class SearchActivty extends BaseActivity {
         deviceUtils.onDestory();
     }
 
+    private void getData() {
+        HttpServerImpl.getDeviceList().subscribe(new HttpResultSubscriber<List<DeviceBO>>() {
+            @Override
+            public void onSuccess(List<DeviceBO> s) {
+                deviceBOS = s;
+            }
 
-    @OnClick(R.id.search_btn)
-    public void search() {
-        initDeviceBlue();
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
 
 

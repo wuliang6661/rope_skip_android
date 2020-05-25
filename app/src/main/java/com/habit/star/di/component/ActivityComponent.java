@@ -7,6 +7,7 @@ import com.habit.star.di.module.ActivityModule;
 import com.habit.star.ui.activity.MainActivity;
 import com.habit.star.ui.login.activity.LoginActivity;
 import com.habit.star.ui.mine.activity.MineMainActivity;
+import com.habit.star.ui.mine.fragment.AddAddressFragment;
 import com.habit.star.ui.mine.fragment.MyAddressListFragment;
 import com.habit.star.ui.train.activity.TainMainActivity;
 import com.habit.star.ui.young.activity.YoungMainActivity;
@@ -30,4 +31,5 @@ public interface ActivityComponent {
     void inject(MainActivity activity);
     void inject(TainMainActivity activity);
     void inject(MyAddressListFragment activity);
+    void inject(AddAddressFragment activity);
 }

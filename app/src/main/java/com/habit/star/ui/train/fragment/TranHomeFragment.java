@@ -1,10 +1,10 @@
 package com.habit.star.ui.train.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +13,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.habit.commonlibrary.apt.SingleClick;
@@ -26,8 +24,8 @@ import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.event.model.BlueDataEvent;
 import com.habit.star.event.model.BlueEvent;
+import com.habit.star.pojo.po.TestDataBO;
 import com.habit.star.ui.SearchActivty;
-import com.habit.star.ui.mine.activity.MineMainActivity;
 import com.habit.star.ui.train.activity.TainMainActivity;
 import com.habit.star.ui.train.adapter.TranRecordListAdapter;
 import com.habit.star.ui.train.bean.TranRecordModel;
@@ -35,7 +33,7 @@ import com.habit.star.ui.train.contract.TranHomeContract;
 import com.habit.star.ui.train.presenter.TranHomePresenter;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.utils.Utils;
-import com.habit.star.utils.blue.bleutils.UartService;
+import com.habit.star.service.UartService;
 import com.habit.star.utils.blue.cmd.BleCmd;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -47,6 +45,7 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 /**
@@ -83,9 +82,20 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
     AppCompatImageView ivStartTest;
     @BindView(R.id.tv_test_time_train)
     AppCompatTextView tvTime;
+    @BindView(R.id.blue_state_img)
+    AppCompatImageView blueStateImg;
+    Unbinder unbinder;
+    @BindView(R.id.leiji_fenzhong)
+    AppCompatTextView leijiFenzhong;
+    @BindView(R.id.leiji_day)
+    AppCompatTextView leijiDay;
+    @BindView(R.id.tiaoshengzongshu)
+    AppCompatTextView tiaoshengzongshu;
+    @BindView(R.id.xunlian_zongshu)
+    AppCompatTextView xunlianZongshu;
+    Unbinder unbinder1;
 
     private TranRecordListAdapter mRecordListAdapter;
-    private MaterialDialog exitDialog;
 
     private final static int COUNT = 1;
     private boolean testState;
@@ -97,6 +107,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
      */
     private int firstTiaoShengNum = Integer.MAX_VALUE;
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -144,35 +155,16 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         tvTimeCount.setTypeface(App.getInstance().tf);
         initAdapter();
         mPresenter.getRecodList();
-        exitDialog = new MaterialDialog.Builder(getActivity())
-                .title(getResources().getString(R.string.remind))
-                .content("您还未领取小将 点击即刻领取运动小将")
-                .positiveText("创建")
-                .negativeText(getResources().getString(R.string.cancel))
-                .positiveColor(getResources().getColor(R.color.blue))
-                .negativeColor(getResources().getColor(R.color.gray_text))
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Intent intent = new Intent();
-                        intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_PERFECT_INFORMATION);
-                        intent.setClass(_mActivity, MineMainActivity.class);
-                        startActivity(intent);
-                        exitDialog.hide();
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                    }
-                }).build();
         if (App.blueService == null || App.blueService.getConnectionState() == UartService.STATE_DISCONNECTED) {
             tvBlueConnectStatus.setText("已断开");
+            blueStateImg.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
         } else {
             if (App.blueService.getConnectionState() == UartService.STATE_CONNECTING) {
                 tvBlueConnectStatus.setText("设备连接中...");
+                blueStateImg.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
             } else {
                 tvBlueConnectStatus.setText("已连接");
+                blueStateImg.setBackgroundResource(R.mipmap.ic_home19);
                 mPresenter.getDeviceQC();
             }
         }
@@ -207,12 +199,16 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
     public void onEvent(BlueEvent event) {
         if (event.isConnect == UartService.STATE_CONNECTED) {
             tvBlueConnectStatus.setText("已连接");
+            blueStateImg.setBackgroundResource(R.mipmap.ic_home19);
         } else if (event.isConnect == UartService.STATE_CONNECTING) {
             tvBlueConnectStatus.setText("设备连接中...");
+            blueStateImg.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
         } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
             mPresenter.getDeviceQC();
         } else {
             tvBlueConnectStatus.setText("已断开");
+            blueStateImg.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
+
         }
     }
 
@@ -224,14 +220,21 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
 
     @Override
     public void getDeviceQcAndType(String dianliang, String type) {
-        showError("电量：" + dianliang + "%");
         tvBattery.setText(dianliang + "%");
     }
 
     @Override
     public void getDeviceCishu(String cichu) {
-//        showError("跳绳次数：" + cichu);
         tvTimeCount.setText(cichu);
+    }
+
+
+    @Override
+    public void getTestData(TestDataBO dataBO) {
+        leijiFenzhong.setText(String.valueOf(dataBO.getTotalMinute()));
+        leijiDay.setText(String.valueOf(dataBO.getTotalDay()));
+        tiaoshengzongshu.setText(String.valueOf(dataBO.getSkipTotalNum()));
+        xunlianZongshu.setText(String.valueOf(dataBO.getTestTotalNum()));
     }
 
 
@@ -253,13 +256,10 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
 
     @Override
     public void showProgress() {
-//        progress.setVisibility(View.VISIBLE);
-
     }
 
     @Override
     public void hideProgress() {
-//        progress.setVisibility(View.GONE);
     }
 
     @Override
@@ -298,7 +298,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                         timer.cancel();
                         timer = null;
                     }
-                    firstTiaoShengNum = Integer.MAX_VALUE;
                     String time = Utils.timeToString(timeCount);
                     tvTime.setText("时间  " + time);
                     ivStartTest.setBackgroundResource(R.mipmap.ic_home8);
@@ -309,21 +308,19 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 } else {//未开始
                     testState = true;
                     ivStartTest.setBackgroundResource(R.mipmap.ic_finish_test);
-//                    mCdProcess.startCountDown();
                     if (timer == null) {
                         timer = new Timer();
                     }
+                    firstTiaoShengNum = Integer.MAX_VALUE;
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
                             handler.sendEmptyMessage(COUNT);
                         }
                     }, 0, 1000);
-
                 }
                 break;
             case R.id.tv_tj_fragment_train_main:
-//                showError("正在开发中");
                 intent = new Intent();
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ENERGY_VALUE);
                 intent.setClass(_mActivity, TainMainActivity.class);
@@ -355,15 +352,8 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
     public void onSupportVisible() {
         super.onSupportVisible();
         mPresenter.getDeviceQC();
+        mPresenter.getTestTotal();
+        mPresenter.getTestList();
     }
 
-    @OnClick(R.id.rl_count_fragment_train_main)
-    public void getNum() {
-
-    }
-
-
-    @OnClick(R.id.iv_start_test_fragment_train_main)
-    public void onViewClicked() {
-    }
 }

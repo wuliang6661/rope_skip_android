@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <!--<com.habit.commonlibrary.widget.ToolbarWithBackRightProgress-->
-    <!--android:id="@+id/toolbar_layout_toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/height_toolbar_default"-->
-    <!--android:background="@color/colorToolbarBg"-->
-    <!--app:tl_brp_back_ib_drawable="@mipmap/ic_backarrow"-->
-    <!--app:tl_brp_bottom_divider_visibility="gone"-->
-    <!--app:tl_brp_left_text_color="@color/colorText"-->
-    <!--app:tl_brp_right_ib_drawable="@mipmap/ic_share"-->
-    <!--app:tl_brp_right_text_color="@color/colorText"-->
-    <!--app:tl_brp_title="测试结果"-->
-    <!--app:tl_brp_title_text_color="@color/colorText" />-->
 
     <LinearLayout
         android:id="@+id/toolbar_layout_toolbar"

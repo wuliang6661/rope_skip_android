@@ -11,6 +11,7 @@ import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
 import com.habit.star.pojo.po.FenLeiBO;
 import com.habit.star.pojo.po.HuodongBO;
+import com.habit.star.pojo.po.JiHuaBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
 import com.habit.star.pojo.po.NengLiangDengjiBO;
@@ -24,6 +25,7 @@ import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
 import com.habit.star.pojo.po.TaskBO;
+import com.habit.star.pojo.po.TestDataBO;
 import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
@@ -545,12 +547,33 @@ public interface HttpService {
      * 查询训练计划
      */
     @GET("app/general/getTrainList")
-    Observable<BaseResult<String>> getTrainList();
+    Observable<BaseResult<List<JiHuaBO>>> getTrainList(@Query("pageNum") String pageNum,
+                                                       @Query("pageSize") String pageSize,
+                                                       @Query("isComplete") int isComplete);
+
+    /**
+     * 查询测试总记录
+     */
+    @GET("app/test/getTestTotal")
+    Observable<BaseResult<TestDataBO>> getTestTotal();
+
+    /**
+     * 查询测试记录列表
+     */
+    @GET("app/test/getTestList")
+    Observable<BaseResult<String>> getTestList(@Query("pageNum") String pageNum,
+                                               @Query("pageSize") String pageSize);
+
+    /**
+     * 查询测试结果
+     */
+    @GET("app/test/getTest")
+    Observable<BaseResult<String>> getTest(@Query("id") String id);
 
     /**
      * 添加测试记录
      */
     @POST("app/test/addTest")
-    Observable<BaseResult<String>> addTest();
+    Observable<BaseResult<String>> addTest(@Body Map<String, Object> params);
 
 }

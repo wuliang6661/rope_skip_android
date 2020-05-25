@@ -3,6 +3,7 @@ package com.habit.star.ui.train.contract;
 
 import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
+import com.habit.star.pojo.po.TestDataBO;
 import com.habit.star.ui.train.bean.TranRecordModel;
 
 import java.util.List;
@@ -28,8 +29,12 @@ public interface TranHomeContract {
 
         void getDeviceQcAndType(String dianliang, String type);
 
-
         void getDeviceCishu(String cichu);
+
+        /**
+         * 获取测试总数据
+         */
+        void getTestData(TestDataBO dataBO);
 
     }
 

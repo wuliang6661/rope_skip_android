@@ -31,7 +31,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:hardwareAccelerated="false"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory"
         tools:targetApi="m">
@@ -156,6 +155,12 @@
             android:name=".ui.mine.fragment.MyAddressListFragment"
             android:screenOrientation="portrait" />
 
+        <!--地址编辑页面-->
+        <activity
+            android:name=".ui.mine.fragment.AddAddressFragment"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <!--搜索问答界面-->
         <activity
             android:name=".ui.find.fragment.SearchQuestionsActivity"
@@ -182,6 +187,49 @@
             android:name=".ui.find.fragment.AddPingLunActivity"
             android:screenOrientation="portrait" />
 
+
+        <!--成就分享详情页面-->
+        <activity
+            android:name=".ui.mine.fragment.ShapeChengJiuActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!--训练计划列表页面-->
+        <activity
+            android:name=".ui.mine.fragment.XunLianJiHuaActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!--跳绳页面-->
+        <activity
+            android:name=".ui.mine.fragment.TakeRopeSkipActivty"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!--pk大厅页面-->
+        <activity
+            android:name=".ui.young.fragment.PKHomeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!--开始PK页面-->
+        <activity
+            android:name=".ui.young.fragment.PKStartActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!--各种协议页面-->
+        <activity
+            android:name=".ui.XieYiActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+       <!--关于我们-->
+        <activity
+            android:name=".ui.AboutActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <!--查看大图-->
         <activity
             android:name=".ui.BigPicutreActivity"
@@ -194,7 +242,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".utils.blue.bleutils.UartService" />
+        <service android:name=".service.UartService" />
     </application>
 
 </manifest>

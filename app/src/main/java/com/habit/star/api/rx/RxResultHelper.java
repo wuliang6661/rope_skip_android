@@ -8,7 +8,6 @@ import com.habit.star.api.DialogCallException;
 import com.habit.star.app.App;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.pojo.BaseResult;
-import com.habit.star.ui.activity.MainActivity;
 import com.habit.star.ui.login.activity.LoginActivity;
 import com.habit.star.utils.AppManager;
 import com.habit.star.utils.ToastUtil;
@@ -35,9 +34,6 @@ public class RxResultHelper {
                         App.spUtils.remove("token");
                         App.token = null;
                         Activity activity = AppManager.getAppManager().curremtActivity();
-                        if (activity instanceof MainActivity) {
-                            return Observable.error(new RuntimeException(mDYResponse.getMsg()));
-                        }
                         Intent intent = new Intent(activity, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra(RouterConstants.ARG_MODE,LoginActivity.FLAG_LOGIN_TAG);
@@ -51,9 +47,6 @@ public class RxResultHelper {
                         App.spUtils.remove("token");
                         App.token = null;
                         Activity activity = AppManager.getAppManager().curremtActivity();
-                        if (activity instanceof MainActivity) {
-                            return Observable.error(new RuntimeException(mDYResponse.getMsg()));
-                        }
                         Intent intent = new Intent(activity, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra(RouterConstants.ARG_MODE,LoginActivity.FLAG_LOGIN_TAG);

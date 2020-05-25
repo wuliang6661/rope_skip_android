@@ -15,6 +15,7 @@ import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.ui.XieYiActivity;
 import com.habit.star.ui.login.contract.RegisterContract;
 import com.habit.star.ui.login.presenter.RegisterPresenter;
 import com.habit.star.utils.MD5;
@@ -143,9 +144,12 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
                 _mActivity.onBackPressedSupport();
                 break;
             case R.id.tv_read_remind_fragment_register:
+                Bundle bundle = new Bundle();
+                bundle.putInt("type", 0);
+                gotoActivity(XieYiActivity.class, bundle, false);
                 break;
             case R.id.btn_next_fragment_register:
-                 register();
+                register();
                 break;
         }
     }
@@ -208,7 +212,6 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
             timer.cancel();
         }
     }
-
 
 
 }

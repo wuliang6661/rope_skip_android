@@ -1,6 +1,7 @@
 package com.habit.star.widget.lgrecycleadapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.habit.star.R;
 
 
 /**
@@ -63,12 +63,22 @@ public class LGViewHolder extends RecyclerView.ViewHolder {
         textView.setText(text);
     }
 
+    /**
+     * 设置文字颜色
+     */
+    public void setTextColor(int viewId, String color){
+        TextView textView = (TextView) getView(viewId);
+        textView.setTextColor(Color.parseColor(color));
+    }
+
+
     public void setImageUrl(Context mContext, int viewId, String url) {
         ImageView view = (ImageView) getView(viewId);
 
         Glide.with(mContext).load(url)
                 .into(view);
     }
+
 
     public void setImageResurce(@IdRes int viewId, @DrawableRes int drawable) {
         ImageView view = (ImageView) getView(viewId);

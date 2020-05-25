@@ -401,6 +401,7 @@ public class BlueDeviceUtils {
 
 
     public void onDestory() {
+        cancleScan();
         if (receiver != null) {
             mContext.unregisterReceiver(receiver);
         }

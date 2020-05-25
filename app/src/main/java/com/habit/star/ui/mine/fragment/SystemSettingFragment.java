@@ -9,6 +9,7 @@ import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.ui.AboutActivity;
 import com.habit.star.ui.mine.contract.SystemSettingContract;
 import com.habit.star.ui.mine.presenter.SystemSettingPresenter;
 import com.habit.star.utils.ToastUtil;
@@ -111,6 +112,7 @@ public class SystemSettingFragment extends BaseFragment<SystemSettingPresenter> 
             case R.id.item_check_version_fragment_system_setting:
                 break;
             case R.id.item_about_us_fragment_system_setting:
+                gotoActivity(AboutActivity.class,false);
                 break;
         }
     }

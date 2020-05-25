@@ -1,5 +1,6 @@
 package com.habit.star.pojo.po;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class RongYuBO {
@@ -24,7 +25,7 @@ public class RongYuBO {
         this.noAcquireHonorList = noAcquireHonorList;
     }
 
-    public static class AcquireHonorListBean {
+    public static class AcquireHonorListBean implements Serializable {
         /**
          * id : 1
          * name : 荣誉证书一

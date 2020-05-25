@@ -11,6 +11,7 @@
     <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:id="@+id/video_player"
         android:layout_width="match_parent"
+        android:hardwareAccelerated="true"
         android:layout_height="200dp" />
 
 

@@ -1,6 +1,7 @@
 package com.habit.star.ui.young.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.habit.star.R;
 import com.habit.star.event.model.SwitchMainEvent;
 import com.habit.star.pojo.po.TaskBO;
+import com.habit.star.utils.AppManager;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
 
@@ -114,6 +116,9 @@ public class PopYoungHomeDialog extends PopupWindow {
                 SwitchMainEvent event = new SwitchMainEvent();
                 switch (list.get(position).getType()) {
                     case 0:   //pk任务
+                        Activity activity = AppManager.getAppManager().curremtActivity();
+                        Intent intent = new Intent(activity,PKHomeActivity.class);
+                        activity.startActivity(intent);
                         break;
                     case 1:   //幸运兑换
                         event.gotoSonPage = 4;

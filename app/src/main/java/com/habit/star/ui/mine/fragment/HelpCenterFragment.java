@@ -1,9 +1,7 @@
 package com.habit.star.ui.mine.fragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
@@ -11,17 +9,14 @@ import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.base.BaseFragment;
-import com.habit.star.presenter.CommonPresenter;
-import com.habit.star.presenter.contract.CommonContract;
+import com.habit.star.ui.XieYiActivity;
 import com.habit.star.ui.mine.contract.HelpCenterContract;
 import com.habit.star.ui.mine.presenter.HelpCenterPresenter;
 import com.habit.star.utils.SystemUtil;
 import com.habit.star.utils.ToastUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /*
  * 创建日期：2020-01-21 19:07
@@ -111,6 +106,9 @@ public class HelpCenterFragment extends BaseFragment<HelpCenterPresenter> implem
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.item_xytk_fragment_help_center:
+                Bundle bundle = new Bundle();
+                bundle.putInt("type",2);
+                gotoActivity(XieYiActivity.class,bundle,false);
                 break;
             case R.id.item_kfrx_fragment_help_center:
                 SystemUtil.startPhoneDial(_mActivity,"40000885");

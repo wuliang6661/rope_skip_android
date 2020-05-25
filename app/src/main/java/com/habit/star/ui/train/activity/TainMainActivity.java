@@ -69,7 +69,7 @@ public class TainMainActivity extends BaseActivity<MineMainPresenter> implements
                 loadRootFragment(R.id.frame_container_activity_mine_main, EnergyValueFragment.newInstance(null));
                 break;
             case RouterConstants.ROPE_SKIP_RESULTS:
-                loadRootFragment(R.id.frame_container_activity_mine_main, TrainPlanFragment.newInstance(null));
+                loadRootFragment(R.id.frame_container_activity_mine_main, TrainPlanFragment.newInstance(intent.getExtras()));
                 break;
             case RouterConstants.ROPE_PLAN_MAIN:
                 loadRootFragment(R.id.frame_container_activity_mine_main, TrainingPlanMainFragment.newInstance(null));

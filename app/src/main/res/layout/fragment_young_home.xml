@@ -149,7 +149,6 @@
     <com.habit.star.widget.waterview.WaterFlake
         android:id="@+id/water_flake"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/gi_view_monkey_fragment_young_home" />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
