@@ -24,16 +24,17 @@ import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.event.model.BlueDataEvent;
 import com.habit.star.event.model.BlueEvent;
+import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
+import com.habit.star.service.UartService;
 import com.habit.star.ui.SearchActivty;
 import com.habit.star.ui.train.activity.TainMainActivity;
 import com.habit.star.ui.train.adapter.TranRecordListAdapter;
-import com.habit.star.ui.train.bean.TranRecordModel;
 import com.habit.star.ui.train.contract.TranHomeContract;
 import com.habit.star.ui.train.presenter.TranHomePresenter;
+import com.habit.star.ui.young.fragment.StatisticsActivity;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.utils.Utils;
-import com.habit.star.service.UartService;
 import com.habit.star.utils.blue.cmd.BleCmd;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -184,7 +185,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     case R.id.tv_look_layout_fragment_train_record_list_item:
                         Intent intent = new Intent();
                         Bundle bundle = new Bundle();
-                        bundle.putString(RouterConstants.KEY_STRING, mRecordListAdapter.getItem(position).id);
+                        bundle.putString(RouterConstants.KEY_STRING, mRecordListAdapter.getItem(position).getId() + "");
                         intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
                         intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
                         intent.setClass(_mActivity, TainMainActivity.class);
@@ -214,7 +215,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
 
 
     @Override
-    public void setRecordList(List<TranRecordModel> data) {
+    public void setRecordList(List<TestBO> data) {
         mRecordListAdapter.setNewData(data);
     }
 
@@ -321,10 +322,11 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 }
                 break;
             case R.id.tv_tj_fragment_train_main:
-                intent = new Intent();
-                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ENERGY_VALUE);
-                intent.setClass(_mActivity, TainMainActivity.class);
-                startActivity(intent);
+//                intent = new Intent();
+//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ENERGY_VALUE);
+//                intent.setClass(_mActivity, TainMainActivity.class);
+//                startActivity(intent);
+                gotoActivity(StatisticsActivity.class,false);
                 break;
             case R.id.tv_battery_fragment_train_main:
                 break;

@@ -24,6 +24,7 @@ import com.habit.star.pojo.po.XIaoJiangBO;
 import com.habit.star.service.UartService;
 import com.habit.star.ui.SearchActivty;
 import com.habit.star.ui.XieYiActivity;
+import com.habit.star.ui.young.websocket.WebSocketUtils;
 import com.habit.star.utils.blue.cmd.BleCmd;
 import com.habit.star.utils.blue.cmd.RequstBleCmd;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
@@ -59,6 +60,7 @@ public class PKHomeActivity extends BaseActivity {
     @BindView(R.id.pk_recycle)
     RecyclerView pkRecycle;
 
+
     @Override
     protected void initInject() {
 
@@ -86,6 +88,7 @@ public class PKHomeActivity extends BaseActivity {
         pkRecycle.setNestedScrollingEnabled(false);
         getYoungGeneralInfo();
         getPkList();
+        connectWebSocket();
     }
 
 
@@ -106,7 +109,6 @@ public class PKHomeActivity extends BaseActivity {
             ivConnnetState.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
         }
     }
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -170,8 +172,8 @@ public class PKHomeActivity extends BaseActivity {
     }
 
     @OnClick(R.id.blue_layout)
-    public void onClickBlue(){
-        gotoActivity(SearchActivty.class,false);
+    public void onClickBlue() {
+        gotoActivity(SearchActivty.class, false);
     }
 
 
@@ -235,7 +237,17 @@ public class PKHomeActivity extends BaseActivity {
         adapter.setOnItemClickListener(R.id.bt_tiaozhan, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-               gotoActivity(PKStartActivity.class,false);
+//                if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+                if (WebSocketUtils.getInstance().getState()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id",pkChangCiBOS.get(position).getId());
+                    gotoActivity(PKStartActivity.class, bundle,false);
+                } else {
+                    showToast("游戏服务器正在连接！");
+                }
+//                } else {
+//                    showToast("请先连接跳绳设备！");
+//                }
             }
         });
         pkRecycle.setAdapter(adapter);
@@ -243,9 +255,30 @@ public class PKHomeActivity extends BaseActivity {
 
 
     @OnClick(R.id.btn_album)
-    public void goGuize(){
+    public void goGuize() {
         Bundle bundle = new Bundle();
-        bundle.putInt("type",3);
-        gotoActivity(XieYiActivity.class,bundle,false);
+        bundle.putInt("type", 3);
+        gotoActivity(XieYiActivity.class, bundle, false);
+    }
+
+    /**
+     * 开始连接websocket
+     */
+    private void connectWebSocket() {
+        WebSocketUtils utils = WebSocketUtils.getInstance();
+        utils.setOnNotifiListener(new WebSocketUtils.onNotifiListener() {
+            @Override
+            public void onNotifi(String message) {
+
+            }
+        });
+        utils.connect();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebSocketUtils.getInstance().closeConnect();
     }
 }

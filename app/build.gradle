@@ -153,4 +153,5 @@ dependencies {
         exclude group: 'com.android.support'
     }
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation "org.java-websocket:Java-WebSocket:1.4.0"
 }

@@ -69,7 +69,7 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
         model3.jb = "A+";
         model3.payTime = "30";
         testData.add(model3);
-        mView.setRecordList(testData);
+//        mView.setRecordList(testData);
     }
 
 
@@ -124,7 +124,9 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
         HttpServerImpl.getTestList().subscribe(new HttpResultSubscriber<List<TestBO>>() {
             @Override
             public void onSuccess(List<TestBO> s) {
-
+                if (mView != null) {
+                    mView.setRecordList(s);
+                }
             }
 
             @Override

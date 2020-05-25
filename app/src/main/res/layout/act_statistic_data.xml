@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/fanhui" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+
+            <RelativeLayout
+                android:id="@+id/data_tongji"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+
+                <TextView
+                    android:id="@+id/tongji_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="数据统计"
+                    android:textColor="#7EC7F5"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:id="@+id/tongji_view"
+                    android:layout_width="37dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="#7EC7F5" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/data_baogao"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="1">
+
+
+                <TextView
+                    android:id="@+id/baogao_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="数据报告"
+                    android:textColor="#AAAAAA"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:id="@+id/baogao_view"
+                    android:layout_width="37dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="#7EC7F5"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/tongji_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="22dp"
+                    android:background="#B9CAE0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="跳绳数据 "
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="（近7天） "
+                    android:textColor="#333333"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#F8F8F8" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="22dp"
+                    android:background="#B9CAE0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="断绳次数 "
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="（近7天） "
+                    android:textColor="#333333"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/bar1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#F8F8F8" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="22dp"
+                    android:background="#B9CAE0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="平均速度 "
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="（近7天） "
+                    android:textColor="#333333"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#F8F8F8" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="22dp"
+                    android:background="#B9CAE0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="加速度 "
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="（近7天） "
+                    android:textColor="#333333"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/bar2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="#F8F8F8" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F8F8F8"
+        android:visibility="gone" />
+
+
+</LinearLayout>
