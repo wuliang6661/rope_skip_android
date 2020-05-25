@@ -5,6 +5,7 @@ import com.habit.star.api.HttpServerImpl;
 import com.habit.star.app.App;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
+import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
 import com.habit.star.ui.train.bean.TranRecordModel;
 import com.habit.star.ui.train.contract.TranHomeContract;
@@ -120,9 +121,9 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
      * 获取测试记录
      */
     public void getTestList() {
-        HttpServerImpl.getTestList().subscribe(new HttpResultSubscriber<String>() {
+        HttpServerImpl.getTestList().subscribe(new HttpResultSubscriber<List<TestBO>>() {
             @Override
-            public void onSuccess(String s) {
+            public void onSuccess(List<TestBO> s) {
 
             }
 
