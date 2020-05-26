@@ -25,6 +25,7 @@ import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
 import com.habit.star.pojo.po.TaskBO;
+import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
 import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
@@ -561,8 +562,8 @@ public interface HttpService {
      * 查询测试记录列表
      */
     @GET("app/test/getTestList")
-    Observable<BaseResult<String>> getTestList(@Query("pageNum") String pageNum,
-                                               @Query("pageSize") String pageSize);
+    Observable<BaseResult<List<TestBO>>> getTestList(@Query("pageNum") String pageNum,
+                                                     @Query("pageSize") String pageSize);
 
     /**
      * 查询测试结果

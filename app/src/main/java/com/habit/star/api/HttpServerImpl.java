@@ -26,6 +26,7 @@ import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
 import com.habit.star.pojo.po.TaskBO;
+import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
 import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
@@ -666,7 +667,7 @@ public class HttpServerImpl {
     /**
      * 查询测试记录
      */
-    public static Observable<String> getTestList() {
+    public static Observable<List<TestBO>> getTestList() {
         return getService().getTestList("1", "20000").compose(RxResultHelper.httpRusult());
     }
 

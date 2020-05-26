@@ -24,12 +24,12 @@
             android:textSize="12sp" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_time_layout_fragment_train_record_list_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
             android:text="2019-06-10"
-            android:id="@+id/tv_time_layout_fragment_train_record_list_item"
             android:textColor="#ffc3c3c3"
             android:textSize="10sp" />
     </LinearLayout>
@@ -74,10 +74,10 @@
                     android:textSize="12sp" />
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_jb_layout_fragment_train_record_list_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="A+"
-                    android:id="@+id/tv_jb_layout_fragment_train_record_list_item"
                     android:textColor="#ff888888"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -109,26 +109,28 @@
                     android:textColor="#ff888888"
                     android:textSize="12sp" />
 
-               <LinearLayout
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:orientation="horizontal"
-                   android:gravity="bottom">
-                   <android.support.v7.widget.AppCompatTextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="30"
-                       android:textColor="#ff888888"
-                       android:id="@+id/tv_pay_time_layout_fragment_train_record_list_item"
-                       android:textSize="18sp" />
-                   <android.support.v7.widget.AppCompatTextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="分钟"
-                       android:textColor="#ff888888"
-                       android:id="@+id/tv_pay_time_table_layout_fragment_train_record_list_item"
-                       android:textSize="8sp" />
-               </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_pay_time_layout_fragment_train_record_list_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30"
+                        android:textColor="#ff888888"
+                        android:textSize="18sp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_pay_time_table_layout_fragment_train_record_list_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="分钟"
+                        android:textColor="#ff888888"
+                        android:textSize="8sp" />
+                </LinearLayout>
             </LinearLayout>
 
         </FrameLayout>
@@ -156,9 +158,9 @@
             android:textSize="12sp" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_look_layout_fragment_train_record_list_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_look_layout_fragment_train_record_list_item"
             android:layout_weight="1"
             android:gravity="right"
             android:text="查看"

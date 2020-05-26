@@ -3,6 +3,7 @@ package com.habit.star.ui.train.contract;
 
 import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
+import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
 import com.habit.star.ui.train.bean.TranRecordModel;
 
@@ -25,7 +26,7 @@ public interface TranHomeContract {
          *
          * @param data
          */
-        void setRecordList(List<TranRecordModel> data);
+        void setRecordList(List<TestBO> data);
 
         void getDeviceQcAndType(String dianliang, String type);
 
