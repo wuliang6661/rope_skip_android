@@ -3,6 +3,7 @@ package com.habit.star.api;
 import com.habit.star.pojo.BaseResult;
 import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.pojo.po.ChengJiuBo;
+import com.habit.star.pojo.po.DataBaoGaoBO;
 import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.EnergyBO;
@@ -543,7 +544,6 @@ public interface HttpService {
     Observable<BaseResult<String>> getMyEnergyLevelInfo();
 
 
-    
     /**
      * 查询训练计划
      */
@@ -576,5 +576,19 @@ public interface HttpService {
      */
     @POST("app/test/addTest")
     Observable<BaseResult<String>> addTest(@Body Map<String, Object> params);
+
+
+    /**
+     * 查询数据报告记录
+     */
+    @GET("app/test/getDataReportList")
+    Observable<BaseResult<List<DataBaoGaoBO>>> getDataReportList(@Query("pageNum") String pageNum,
+                                                                 @Query("pageSize") String pageSize);
+
+    /**
+     * 查询数据报告详情
+     */
+    @GET("app/test/getDataReport")
+    Observable<BaseResult<String>> getDataReport(@Query("id") int id);
 
 }

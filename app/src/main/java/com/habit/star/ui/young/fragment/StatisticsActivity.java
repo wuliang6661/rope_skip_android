@@ -1,6 +1,7 @@
 package com.habit.star.ui.young.fragment;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,16 +12,19 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.BaseActivity;
+import com.habit.star.pojo.po.DataBaoGaoBO;
+import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -114,6 +118,7 @@ public class StatisticsActivity extends BaseActivity {
                 tongjiView.setVisibility(View.GONE);
                 baogaoText.setTextColor(Color.parseColor("#7EC7F5"));
                 baogaoView.setVisibility(View.VISIBLE);
+                getBaoGaoData();
                 break;
         }
     }
@@ -201,4 +206,50 @@ public class StatisticsActivity extends BaseActivity {
 //        setBarChartData();
 
     }
+
+
+    /**
+     * 获取数据报告列表
+     */
+    private void getBaoGaoData() {
+        HttpServerImpl.getDataReportList().subscribe(new HttpResultSubscriber<List<DataBaoGaoBO>>() {
+            @Override
+            public void onSuccess(List<DataBaoGaoBO> s) {
+                setAdapter(s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 显示适配器
+     */
+    private void setAdapter(List<DataBaoGaoBO> s) {
+        LGRecycleViewAdapter<DataBaoGaoBO> adapter = new LGRecycleViewAdapter<DataBaoGaoBO>(s) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_baogao;
+            }
+
+            @Override
+            public void convert(LGViewHolder holder, DataBaoGaoBO dataBaoGaoBO, int position) {
+                holder.setText(R.id.baogao_title, dataBaoGaoBO.getTitle());
+                holder.setImageUrl(StatisticsActivity.this, R.id.user_img, dataBaoGaoBO.getImage());
+                holder.setText(R.id.baogao_message, dataBaoGaoBO.getContent());
+                holder.setText(R.id.baogao_time, dataBaoGaoBO.getCreateDate());
+            }
+        };
+        adapter.setOnItemClickListener(R.id.item_layout, (view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", s.get(position).getId());
+            gotoActivity(DataDetailsActivity.class, bundle, false);
+        });
+        recycleView.setAdapter(adapter);
+    }
+
 }

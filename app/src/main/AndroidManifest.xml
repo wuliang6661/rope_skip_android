@@ -224,6 +224,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <!--数据报告详情页面-->
+        <activity
+            android:name=".ui.young.fragment.DataDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <!--各种协议页面-->
         <activity
             android:name=".ui.XieYiActivity"

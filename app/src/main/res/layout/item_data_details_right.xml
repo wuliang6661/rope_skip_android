@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/baogao_line" />
+
+
+    <View
+        android:id="@+id/view_yuan"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/clice_bg" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/view_yuan"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <View
+            android:layout_width="45dp"
+            android:layout_height="5dp"
+            android:background="@drawable/xu_line" />
+
+        <TextView
+            android:id="@+id/task_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="30"
+            android:textColor="#F97B61"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/task_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@+id/view_yuan"
+        android:background="@drawable/data_time_zhou_bg"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="5dp"
+        android:text="本周完成pk任务"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+
+</RelativeLayout>

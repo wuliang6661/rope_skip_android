@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F8F8F8"
+    android:orientation="vertical">
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="316dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/data_bg" />
+
+
+                <RelativeLayout
+                    android:id="@+id/title_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+
+                    <LinearLayout
+                        android:id="@+id/back"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/fanhui_white" />
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="标题"
+                        android:textColor="#ffffff"
+                        android:textSize="16dp" />
+
+                </RelativeLayout>
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/user_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/title_layout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:src="@mipmap/ic_home14"
+                    app:riv_corner_radius="360dp" />
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/user_pk_icon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignRight="@+id/user_img"
+                    android:layout_alignBottom="@+id/user_img"
+                    android:layout_marginRight="-5dp"
+                    android:src="@mipmap/ic_grade_tag3" />
+
+
+                <TextView
+                    android:id="@+id/pk_vaule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_img"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="36sp" />
+
+
+                <TextView
+                    android:id="@+id/pk_miaoshu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pk_vaule"
+                    android:layout_centerHorizontal="true"
+                    android:text="本周新增PK值"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/pk_miaoshu"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="本周任务完成"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+
+                        <TextView
+                            android:id="@+id/wancheng_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="0个"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="30dp"
+                        android:background="@color/white" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="本周累积跳绳"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+
+                        <TextView
+                            android:id="@+id/leiji_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="0个"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="30dp"
+                        android:background="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="本周参与挑战"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp" />
+
+
+                        <TextView
+                            android:id="@+id/tiaozhan_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="0次"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/bt_share_pk"
+                    android:layout_width="110dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@mipmap/bt_share"
+                    android:gravity="center"
+                    android:text="晒晒我的PK值"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/white_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="本周任务数据"
+                    android:textColor="#7EC7F5"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/task_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/xu_line" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="本周跳绳数据"
+                        android:textColor="#7EC7F5"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/xu_line" />
+                </LinearLayout>
+
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/line_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="30dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>
