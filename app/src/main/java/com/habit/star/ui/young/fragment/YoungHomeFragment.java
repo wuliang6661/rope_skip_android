@@ -111,6 +111,8 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
         getEnergies();
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
