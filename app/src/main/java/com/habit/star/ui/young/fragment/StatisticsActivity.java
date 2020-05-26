@@ -203,8 +203,6 @@ public class StatisticsActivity extends BaseActivity {
             set1.setDrawValues(true);
             set1.setValueTextColor(Color.parseColor("#5678FF"));
             LineData data = new LineData(set1);
-            data.setDrawValues(false);
-            // set data
             chart.setData(data);
         }
     }
