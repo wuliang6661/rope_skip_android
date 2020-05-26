@@ -26,6 +26,7 @@ import com.habit.star.pojo.po.RongYuBO;
 import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
+import com.habit.star.pojo.po.StatisticsBO;
 import com.habit.star.pojo.po.TaskBO;
 import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
@@ -703,8 +704,15 @@ public class HttpServerImpl {
     /**
      * 获取数据报告详情
      */
-    public static Observable<String> getDataReport(int id){
+    public static Observable<String> getDataReport(int id) {
         return getService().getDataReport(id).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询数据统计
+     */
+    public static Observable<List<StatisticsBO>> getDataStatistic() {
+        return getService().getDataStatistic().compose(RxResultHelper.httpRusult());
     }
 
 

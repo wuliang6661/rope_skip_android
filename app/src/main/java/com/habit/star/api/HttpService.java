@@ -25,6 +25,7 @@ import com.habit.star.pojo.po.RongYuBO;
 import com.habit.star.pojo.po.ShopBO;
 import com.habit.star.pojo.po.ShopDetailsBO;
 import com.habit.star.pojo.po.ShouCangBO;
+import com.habit.star.pojo.po.StatisticsBO;
 import com.habit.star.pojo.po.TaskBO;
 import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
@@ -590,5 +591,11 @@ public interface HttpService {
      */
     @GET("app/test/getDataReport")
     Observable<BaseResult<String>> getDataReport(@Query("id") int id);
+
+    /**
+     * 查询数据统计
+     */
+    @GET("app/test/getDataStatistic")
+    Observable<BaseResult<List<StatisticsBO>>> getDataStatistic();
 
 }

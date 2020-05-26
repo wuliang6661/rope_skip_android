@@ -15,15 +15,20 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.habit.star.R;
 import com.habit.star.api.HttpResultSubscriber;
 import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.BaseActivity;
 import com.habit.star.pojo.po.DataBaoGaoBO;
+import com.habit.star.pojo.po.StatisticsBO;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,6 +61,8 @@ public class StatisticsActivity extends BaseActivity {
     @BindView(R.id.baogao_view)
     View baogaoView;
 
+    private List<StatisticsBO> statisticsBOS;
+
     @Override
     protected void initInject() {
 
@@ -76,6 +83,9 @@ public class StatisticsActivity extends BaseActivity {
         goBack();
 
         recycleView.setLayoutManager(new LinearLayoutManager(this));
+        initChart(chart1);
+        initChart(chart2);
+        getDataStatistic();
     }
 
     @Override
@@ -109,6 +119,8 @@ public class StatisticsActivity extends BaseActivity {
                 tongjiView.setVisibility(View.VISIBLE);
                 baogaoText.setTextColor(Color.parseColor("#AAAAAA"));
                 baogaoView.setVisibility(View.GONE);
+
+                getDataStatistic();
                 break;
             case R.id.data_baogao:
                 tongjiLayout.setVisibility(View.GONE);
@@ -120,6 +132,80 @@ public class StatisticsActivity extends BaseActivity {
                 baogaoView.setVisibility(View.VISIBLE);
                 getBaoGaoData();
                 break;
+        }
+    }
+
+
+    /**
+     * 查询数据统计
+     */
+    private void getDataStatistic() {
+        HttpServerImpl.getDataStatistic().subscribe(new HttpResultSubscriber<List<StatisticsBO>>() {
+            @Override
+            public void onSuccess(List<StatisticsBO> s) {
+                statisticsBOS = s;
+                initChartData(s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 初始化各自折线图柱状图的数据
+     */
+    private void initChartData(List<StatisticsBO> s) {
+        List<Entry> nums = new ArrayList<>();
+        List<Entry> cishus = new ArrayList<>();
+        List<Entry> sudus = new ArrayList<>();
+        List<Entry> jiasudus = new ArrayList<>();
+        for (int i = 0; i < s.size(); i++) {
+            nums.add(new Entry(i, s.get(i).getSkipNum()));
+            cishus.add(new Entry(i, s.get(i).getBreakNum()));
+            sudus.add(new Entry(i, (float) s.get(i).getAverageVelocity()));
+            jiasudus.add(new Entry(i, (float) s.get(i).getAccelerateVelocity()));
+        }
+        setNumData(nums, chart1);
+        setNumData(sudus, chart2);
+    }
+
+
+    /**
+     * 设置跳绳数量的数据
+     */
+    private void setNumData(List<Entry> datas, LineChart chart) {
+        chart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return statisticsBOS.get((int) value % statisticsBOS.size()).getCreateDate();
+            }
+        });
+        LineDataSet set1;
+        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+            set1 = (LineDataSet) chart.getData().getDataSetByIndex(0);
+            set1.setValues(datas);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+            chart.invalidate();
+            chart.animateY(1000);
+        } else {
+            set1 = new LineDataSet(datas, "");
+//            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set1.setColor(Color.parseColor("#5678FF"));
+            set1.setCircleColor(Color.parseColor("#5678FF"));
+            set1.setCircleHoleColor(Color.parseColor("#5678FF"));
+            set1.setLineWidth(2f);
+            set1.setCircleRadius(7f);
+            set1.setDrawValues(true);
+            set1.setValueTextColor(Color.parseColor("#5678FF"));
+            LineData data = new LineData(set1);
+            data.setDrawValues(false);
+            // set data
+            chart.setData(data);
         }
     }
 
@@ -154,14 +240,14 @@ public class StatisticsActivity extends BaseActivity {
         legend.setEnabled(false);
         //设置x轴
         XAxis xAxis = chart.getXAxis();
-        xAxis.setTextColor(Color.parseColor("#6F6F6F"));
-        xAxis.setTextSize(11f);
+        xAxis.setTextColor(Color.parseColor("#B9CAE0"));
+        xAxis.setTextSize(12f);
         xAxis.setAxisMinimum(0);
-        xAxis.setAxisMaximum(7);
+//        xAxis.setAxisMaximum(7);
         xAxis.setDrawAxisLine(false);//是否绘制轴线
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
-        xAxis.setLabelCount(7, false);
+//        xAxis.setLabelCount(7, false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
 
     }
