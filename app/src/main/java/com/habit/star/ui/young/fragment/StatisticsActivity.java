@@ -11,9 +11,12 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.habit.star.R;
 import com.habit.star.base.BaseActivity;
 
@@ -158,4 +161,44 @@ public class StatisticsActivity extends BaseActivity {
 
     }
 
+
+    /**
+     * 初始化柱状图视图
+     */
+    private void initBar(BarChart mChart) {
+        mChart.setDrawBarShadow(false);
+        mChart.setDrawValueAboveBar(true);
+        mChart.getDescription().setEnabled(false);
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        mChart.setMaxVisibleValueCount(60);
+        // scaling can now only be done on x- and y-axis separately
+        mChart.setPinchZoom(false);
+        mChart.setDrawGridBackground(false);
+        //        IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(mChart);
+        //自定义坐标轴适配器，配置在X轴，xAxis.setValueFormatter(xAxisFormatter);
+        ValueFormatter xAxisFormatter = new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return super.getFormattedValue(value);
+            }
+        };
+        XAxis xAxis = mChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setGranularity(1f);
+        xAxis.setValueFormatter(xAxisFormatter);
+
+
+        //获取到图形左边的Y轴
+        YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis.setEnabled(false);
+        //获取到图形右边的Y轴，并设置为不显示
+        mChart.getAxisRight().setEnabled(false);
+        //图例设置
+        Legend legend = mChart.getLegend();
+        legend.setEnabled(false);
+//        setBarChartData();
+
+    }
 }
