@@ -59,6 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:layout_marginLeft="35dp"
                         android:text="计数模式"
                         android:textColor="@color/white"
                         android:textSize="17sp"

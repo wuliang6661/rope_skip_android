@@ -3,6 +3,7 @@ package com.habit.star.api;
 import com.blankj.utilcode.util.Utils;
 import com.habit.star.api.rx.RxResultHelper;
 import com.habit.star.pojo.po.AddressBO;
+import com.habit.star.pojo.po.BaoGaoDetailsBO;
 import com.habit.star.pojo.po.ChengJiuBo;
 import com.habit.star.pojo.po.DataBaoGaoBO;
 import com.habit.star.pojo.po.DeviceBO;
@@ -704,7 +705,7 @@ public class HttpServerImpl {
     /**
      * 获取数据报告详情
      */
-    public static Observable<String> getDataReport(int id) {
+    public static Observable<BaoGaoDetailsBO> getDataReport(int id) {
         return getService().getDataReport(id).compose(RxResultHelper.httpRusult());
     }
 
@@ -713,6 +714,17 @@ public class HttpServerImpl {
      */
     public static Observable<List<StatisticsBO>> getDataStatistic() {
         return getService().getDataStatistic().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 提交手动
+     */
+    public static Observable<String> input(String breakNum, String skipNum, String skipTime) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("breakNum", breakNum);
+        params.put("skipNum", skipNum);
+        params.put("skipTime", skipTime);
+        return getService().input(params).compose(RxResultHelper.httpRusult());
     }
 
 

@@ -230,6 +230,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <!--手动输入页面-->
+        <activity
+            android:name=".ui.train.fragment.InputActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <!--各种协议页面-->
         <activity
             android:name=".ui.XieYiActivity"

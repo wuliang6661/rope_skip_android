@@ -2,6 +2,7 @@ package com.habit.star.api;
 
 import com.habit.star.pojo.BaseResult;
 import com.habit.star.pojo.po.AddressBO;
+import com.habit.star.pojo.po.BaoGaoDetailsBO;
 import com.habit.star.pojo.po.ChengJiuBo;
 import com.habit.star.pojo.po.DataBaoGaoBO;
 import com.habit.star.pojo.po.DeviceBO;
@@ -590,12 +591,18 @@ public interface HttpService {
      * 查询数据报告详情
      */
     @GET("app/test/getDataReport")
-    Observable<BaseResult<String>> getDataReport(@Query("id") int id);
+    Observable<BaseResult<BaoGaoDetailsBO>> getDataReport(@Query("id") int id);
 
     /**
      * 查询数据统计
      */
     @GET("app/test/getDataStatistic")
     Observable<BaseResult<List<StatisticsBO>>> getDataStatistic();
+
+    /**
+     * 手动输入接口
+     */
+    @POST("app/test/input")
+    Observable<BaseResult<String>> input(@Body Map<String, Object> params);
 
 }

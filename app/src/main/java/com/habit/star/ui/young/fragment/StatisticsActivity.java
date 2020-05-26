@@ -15,6 +15,9 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -47,7 +50,7 @@ public class StatisticsActivity extends BaseActivity {
     @BindView(R.id.chart2)
     LineChart chart2;
     @BindView(R.id.bar2)
-    LineChart bar2;
+    BarChart bar2;
     @BindView(R.id.tongji_layout)
     NestedScrollView tongjiLayout;
     @BindView(R.id.recycle_view)
@@ -85,6 +88,8 @@ public class StatisticsActivity extends BaseActivity {
         recycleView.setLayoutManager(new LinearLayoutManager(this));
         initChart(chart1);
         initChart(chart2);
+        initBar(bar1);
+        initBar(bar2);
         getDataStatistic();
     }
 
@@ -160,24 +165,55 @@ public class StatisticsActivity extends BaseActivity {
      */
     private void initChartData(List<StatisticsBO> s) {
         List<Entry> nums = new ArrayList<>();
-        List<Entry> cishus = new ArrayList<>();
+        List<BarEntry> cishus = new ArrayList<>();
         List<Entry> sudus = new ArrayList<>();
-        List<Entry> jiasudus = new ArrayList<>();
+        List<BarEntry> jiasudus = new ArrayList<>();
+        float maxskip = 0;
+        float maxbresk = 0;
+        float maxaverage = 0;
+        float maxaccelerate = 0;
         for (int i = 0; i < s.size(); i++) {
-            nums.add(new Entry(i, s.get(i).getSkipNum()));
-            cishus.add(new Entry(i, s.get(i).getBreakNum()));
+            nums.add(new Entry(i, s.get(i).getSkipTime()));
+            cishus.add(new BarEntry(i, s.get(i).getBreakNum()));
             sudus.add(new Entry(i, (float) s.get(i).getAverageVelocity()));
-            jiasudus.add(new Entry(i, (float) s.get(i).getAccelerateVelocity()));
+            jiasudus.add(new BarEntry(i, (float) s.get(i).getAccelerateVelocity()));
+            if (s.get(i).getSkipTime() > maxskip) {
+                maxskip = s.get(i).getSkipTime();
+            }
+            if (s.get(i).getBreakNum() > maxbresk) {
+                maxbresk = s.get(i).getBreakNum();
+            }
+            if (s.get(i).getAverageVelocity() > maxaverage) {
+                maxaverage = (float) s.get(i).getAverageVelocity();
+            }
+            if (s.get(i).getAccelerateVelocity() > maxaccelerate) {
+                maxaccelerate = (float) s.get(i).getAccelerateVelocity();
+            }
+//            float val = (float) Math.random();
+//            nums.add(new Entry(i, val));
+//            cishus.add(new BarEntry(i, val));
+//            sudus.add(new Entry(i, val));
+//            jiasudus.add(new BarEntry(i, val));
         }
-        setNumData(nums, chart1);
-        setNumData(sudus, chart2);
+        chart1.getAxisLeft().setAxisMinimum(0);
+        chart2.getAxisLeft().setAxisMinimum(0);
+        bar1.getAxisLeft().setAxisMinimum(0);
+        bar2.getAxisLeft().setAxisMinimum(0);
+        chart1.getAxisLeft().setAxisMaximum(maxskip + 10);
+        chart2.getAxisLeft().setAxisMaximum(maxaverage + 10);
+        bar1.getAxisLeft().setAxisMaximum(maxbresk + 10);
+        bar2.getAxisLeft().setAxisMaximum(maxaccelerate + 10);
+        setNumData(nums, chart1, 0);
+        setNumData(sudus, chart2, 1);
+        setBarData(cishus, bar1);
+        setBarData(jiasudus, bar2);
     }
 
 
     /**
      * 设置跳绳数量的数据
      */
-    private void setNumData(List<Entry> datas, LineChart chart) {
+    private void setNumData(List<Entry> datas, LineChart chart, int type) {
         chart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
@@ -195,15 +231,69 @@ public class StatisticsActivity extends BaseActivity {
         } else {
             set1 = new LineDataSet(datas, "");
 //            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set1.setColor(Color.parseColor("#5678FF"));
-            set1.setCircleColor(Color.parseColor("#5678FF"));
-            set1.setCircleHoleColor(Color.parseColor("#5678FF"));
+            set1.setDrawFilled(true);
+            set1.setFillDrawable(ContextCompat.getDrawable(this, R.drawable.chart_fill_bg));
+            set1.setColor(Color.parseColor("#ECD1FC"));
+            set1.setCircleColor(Color.parseColor("#CEC3F9"));
+            set1.setCircleHoleColor(Color.parseColor("#CEC3F9"));
             set1.setLineWidth(2f);
-            set1.setCircleRadius(7f);
+            set1.setCircleRadius(5f);
             set1.setDrawValues(true);
-            set1.setValueTextColor(Color.parseColor("#5678FF"));
+            set1.setValueTextColor(Color.parseColor("#7EC7F5"));
+            set1.setValueTextSize(10f);
+            if(type == 0){
+                set1.setValueFormatter(new ValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value) {
+                        return statisticsBOS.get((int) value % statisticsBOS.size()).getSkipTime() + "分钟";
+                    }
+                });
+            }else{
+                set1.setValueFormatter(new ValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value) {
+                        return statisticsBOS.get((int) value % statisticsBOS.size()).getSkipTime() + "个/分钟";
+                    }
+                });
+            }
             LineData data = new LineData(set1);
             chart.setData(data);
+        }
+    }
+
+
+    /**
+     * 设置柱状图数据
+     */
+    private void setBarData(List<BarEntry> barData, BarChart chart) {
+        chart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return statisticsBOS.get((int) value % statisticsBOS.size()).getCreateDate();
+            }
+        });
+        BarDataSet set1;
+        if (chart.getData() != null &&
+                chart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+            set1.setValues(barData);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+            chart.invalidate();
+            chart.animateY(1000);
+        } else {
+            set1 = new BarDataSet(barData, "");
+            set1.setDrawIcons(false);
+            set1.setDrawValues(true);
+            set1.setValueTextColor(Color.parseColor("#7EC7F5"));
+            set1.setValueTextSize(14f);
+            set1.setGradientColor(Color.parseColor("#CFECFC"), Color.parseColor("#ECD1FC"));
+            BarData data = new BarData(set1);
+            data.setBarWidth(0.9f);
+            chart.setData(data);
+
+            chart.invalidate();
+            chart.animateY(1000);
         }
     }
 
@@ -234,14 +324,14 @@ public class StatisticsActivity extends BaseActivity {
         rightAxis.setEnabled(false);
         //设置图表左边的Y轴禁用
         chart.getAxisLeft().setEnabled(false);
+//        chart.getAxisLeft().setAxisMinimum(10);
         Legend legend = chart.getLegend();
         legend.setEnabled(false);
         //设置x轴
         XAxis xAxis = chart.getXAxis();
         xAxis.setTextColor(Color.parseColor("#B9CAE0"));
         xAxis.setTextSize(12f);
-        xAxis.setAxisMinimum(0);
-//        xAxis.setAxisMaximum(7);
+//        xAxis.setAxisMinimum(0);
         xAxis.setDrawAxisLine(false);//是否绘制轴线
         xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
@@ -255,39 +345,33 @@ public class StatisticsActivity extends BaseActivity {
      * 初始化柱状图视图
      */
     private void initBar(BarChart mChart) {
-        mChart.setDrawBarShadow(false);
-        mChart.setDrawValueAboveBar(true);
         mChart.getDescription().setEnabled(false);
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        mChart.setMaxVisibleValueCount(60);
-        // scaling can now only be done on x- and y-axis separately
+        // enable touch gestures
+        mChart.setTouchEnabled(false);
+        mChart.setDragDecelerationFrictionCoef(0.9f);
+        // enable scaling and dragging
+        mChart.setDragEnabled(true);
+        mChart.setScaleEnabled(true);
+        mChart.setHighlightPerDragEnabled(true);
         mChart.setPinchZoom(false);
         mChart.setDrawGridBackground(false);
-        //        IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(mChart);
-        //自定义坐标轴适配器，配置在X轴，xAxis.setValueFormatter(xAxisFormatter);
-        ValueFormatter xAxisFormatter = new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return super.getFormattedValue(value);
-            }
-        };
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(false);
-        xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(xAxisFormatter);
-
-
+        xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
+        xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
+        xAxis.setTextColor(Color.parseColor("#B9CAE0"));
+        xAxis.setTextSize(12f);
+//        xAxis.setGranularity(1f);
         //获取到图形左边的Y轴
         YAxis leftAxis = mChart.getAxisLeft();
+//        leftAxis.setAxisMinimum(10);
         leftAxis.setEnabled(false);
         //获取到图形右边的Y轴，并设置为不显示
         mChart.getAxisRight().setEnabled(false);
         //图例设置
         Legend legend = mChart.getLegend();
         legend.setEnabled(false);
-//        setBarChartData();
 
     }
 

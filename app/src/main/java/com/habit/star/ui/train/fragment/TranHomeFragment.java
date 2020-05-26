@@ -322,19 +322,16 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 }
                 break;
             case R.id.tv_tj_fragment_train_main:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ENERGY_VALUE);
-//                intent.setClass(_mActivity, TainMainActivity.class);
-//                startActivity(intent);
                 gotoActivity(StatisticsActivity.class,false);
                 break;
             case R.id.tv_battery_fragment_train_main:
                 break;
             case R.id.ll_sd_input_fragment_train_main:
-                intent = new Intent();
-                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
-                intent.setClass(_mActivity, TainMainActivity.class);
-                startActivity(intent);
+//                intent = new Intent();
+//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
+//                intent.setClass(_mActivity, TainMainActivity.class);
+//                startActivity(intent);
+                gotoActivity(InputActivity.class,false);
                 break;
             case R.id.iv_fresh_fragment_train_main:
                 break;
