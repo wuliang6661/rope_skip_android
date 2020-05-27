@@ -236,6 +236,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <!--视频讲解页面-->
+        <activity
+            android:name=".ui.young.fragment.VideoExplainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <!--各种协议页面-->
         <activity
             android:name=".ui.XieYiActivity"

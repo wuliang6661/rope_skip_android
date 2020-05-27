@@ -605,4 +605,10 @@ public interface HttpService {
     @POST("app/test/input")
     Observable<BaseResult<String>> input(@Body Map<String, Object> params);
 
+    /**
+     * 查询改良方案
+     */
+    @GET("app/test/getImprovePlan")
+    Observable<BaseResult<String>> getImprovePlan(@Query("id") int id);
+
 }

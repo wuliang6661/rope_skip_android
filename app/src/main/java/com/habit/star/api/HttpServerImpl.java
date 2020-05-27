@@ -727,6 +727,13 @@ public class HttpServerImpl {
         return getService().input(params).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 查询改良方案
+     */
+    public static Observable<String> getImprovePlan(int id) {
+        return getService().getImprovePlan(id).compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 提交图片

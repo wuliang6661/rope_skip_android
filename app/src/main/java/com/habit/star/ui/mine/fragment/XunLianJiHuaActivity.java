@@ -17,6 +17,7 @@ import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseActivity;
 import com.habit.star.pojo.po.JiHuaBO;
 import com.habit.star.ui.train.activity.TainMainActivity;
+import com.habit.star.ui.young.fragment.VideoExplainActivity;
 import com.habit.star.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.habit.star.widget.lgrecycleadapter.LGViewHolder;
 
@@ -187,6 +188,14 @@ public class XunLianJiHuaActivity extends BaseActivity {
                 intent.putExtras(bundle);
                 intent.setClass(XunLianJiHuaActivity.this, TainMainActivity.class);
                 startActivity(intent);
+            }
+        });
+        adapter.setOnItemClickListener(R.id.tv_look_layout_fragment_improve_plan_list_item, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("id",jiHuaBOS.get(position).getImprovePlanId());
+                gotoActivity(VideoExplainActivity.class,bundle,false);
             }
         });
         recycleView.setAdapter(adapter);
