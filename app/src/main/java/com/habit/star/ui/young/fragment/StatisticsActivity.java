@@ -251,7 +251,7 @@ public class StatisticsActivity extends BaseActivity {
                 set1.setValueFormatter(new ValueFormatter() {
                     @Override
                     public String getFormattedValue(float value) {
-                        return statisticsBOS.get((int) value % statisticsBOS.size()).getSkipTime() + "个/分钟";
+                        return statisticsBOS.get((int) value % statisticsBOS.size()).getAverageVelocity() + "个/分钟";
                     }
                 });
             }
