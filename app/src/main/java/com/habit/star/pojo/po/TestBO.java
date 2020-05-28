@@ -49,6 +49,9 @@ public class TestBO {
     private String remark;
     private int id;
 
+    private String skipGrade;
+
+
     public int getUserId() {
         return userId;
     }
@@ -215,5 +218,13 @@ public class TestBO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSkipGrade() {
+        return skipGrade;
+    }
+
+    public void setSkipGrade(String skipGrade) {
+        this.skipGrade = skipGrade;
     }
 }

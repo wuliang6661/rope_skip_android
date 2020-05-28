@@ -5,20 +5,18 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.listener.CustomListener;
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
-import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.pojo.po.BeatsBO;
+import com.habit.star.pojo.po.MusicBO;
 import com.habit.star.ui.train.contract.RopeSkipSettingContract;
 import com.habit.star.ui.train.presenter.RoseSkipSettingPresenter;
 import com.habit.star.utils.ToastUtil;
+import com.habit.star.widget.PopXingZhi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,14 +50,8 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
     AppCompatButton btnSave;
 
 
-    private OptionsPickerView<String> jiezhouOptions;
-    private List<String> jiezhouList = new ArrayList<>();
-    private String jpStr = "3下/秒";
-
-    private OptionsPickerView<String> musicOptions;
-    private List<String> musicList = new ArrayList<>();
-    private String musicStr = "小苹果";
-
+    private List<BeatsBO> beatsBOS;
+    private List<MusicBO> musicBOS;
 
     public static RopeSkipSettingFragment newInstance(Bundle bundle) {
         RopeSkipSettingFragment fragment = new RopeSkipSettingFragment();
@@ -94,91 +86,11 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
                 _mActivity.onBackPressedSupport();
             }
         });
-        jiezhouList.add("1下/秒");
-        jiezhouList.add("2下/秒");
-        jiezhouList.add("3下/秒");
-        jiezhouList.add("4下/秒");
-        jiezhouList.add("5下/秒");
 
-        musicList.add("小苹果");
-        musicList.add("小苹果1");
-        musicList.add("小苹果2");
-        musicList.add("小苹果3");
-        musicList.add("小苹果4");
-        musicList.add("小苹果5");
-        musicList.add("小苹果6");
-        initCustomOptionPicker();
+        mPresenter.getBeats();
+        mPresenter.getMusicList();
     }
 
-
-    private void initCustomOptionPicker() {
-
-        jiezhouOptions = new OptionsPickerBuilder(getContext(), new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                jpStr = jiezhouList.get(options1);
-                tvJzName.setText(jpStr);
-            }
-        }).setLayoutRes(R.layout.custom_zhiye_select, new CustomListener() {
-                    @Override
-                    public void customLayout(View v) {
-                        final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-                        TextView ivCancel = (TextView) v.findViewById(R.id.tv_cancle);
-                        tvSubmit.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                jiezhouOptions.returnData();
-                                jiezhouOptions.dismiss();
-                            }
-                        });
-
-                        ivCancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                jiezhouOptions.dismiss();
-                            }
-                        });
-
-                    }
-                })
-//                .isDialog(true)
-                .build();
-
-        jiezhouOptions.setPicker(jiezhouList);
-
-        musicOptions = new OptionsPickerBuilder(getContext(), new OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                musicStr = musicList.get(options1);
-                tvBgMusicName.setText(musicStr);
-            }
-        }).setLayoutRes(R.layout.custom_zhiye_select, new CustomListener() {
-                    @Override
-                    public void customLayout(View v) {
-                        final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-                        TextView ivCancel = (TextView) v.findViewById(R.id.tv_cancle);
-                        tvSubmit.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                musicOptions.returnData();
-                                musicOptions.dismiss();
-                            }
-                        });
-
-                        ivCancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                musicOptions.dismiss();
-                            }
-                        });
-
-                    }
-                })
-//                .isDialog(true)
-                .build();
-
-        musicOptions.setPicker(musicList);//添加数据
-    }
 
     private void initDialog() {
 
@@ -212,23 +124,63 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_bg_music_fragment_rope_skip_setting:
-                int p = jiezhouList.indexOf(musicStr);
-                if (p >= 0) {
-                    musicOptions.setSelectOptions(p);
-                }
-                musicOptions.show();
+                showMusic();
                 break;
             case R.id.ll_jz_fragment_rope_skip_setting:
-                int position = jiezhouList.indexOf(jpStr);
-                if (position >= 0) {
-                    jiezhouOptions.setSelectOptions(position);
-                }
-                jiezhouOptions.show();
+                showBeats();
                 break;
             case R.id.btn_save_fragment_rope_skip_setting:
                 ToastUtil.show("保存成功");
                 _mActivity.onBackPressedSupport();
                 break;
         }
+    }
+
+    @Override
+    public void getBeats(List<BeatsBO> beatsBOS) {
+        this.beatsBOS = beatsBOS;
+        if (!beatsBOS.isEmpty()) {
+            tvJzName.setText(beatsBOS.get(0).getBeat() + "下/秒");
+        }
+    }
+
+    @Override
+    public void getMusics(List<MusicBO> musicBOS) {
+        this.musicBOS = musicBOS;
+        if (!musicBOS.isEmpty()) {
+            tvBgMusicName.setText(musicBOS.get(0).getName());
+        }
+    }
+
+
+    private void showBeats() {
+        List<String> beat = new ArrayList<>();
+        for (BeatsBO beatsBO : beatsBOS) {
+            beat.add(beatsBO.getBeat() + "下/秒");
+        }
+        PopXingZhi popXingZhi = new PopXingZhi(getActivity(), "", beat);
+        popXingZhi.setListener(new PopXingZhi.onSelectListener() {
+            @Override
+            public void commit(int position, String item) {
+                tvJzName.setText(item);
+            }
+        });
+        popXingZhi.showAtLocation(getActivity().getWindow().getDecorView());
+    }
+
+
+    private void showMusic() {
+        List<String> beat = new ArrayList<>();
+        for (MusicBO beatsBO : musicBOS) {
+            beat.add(beatsBO.getName());
+        }
+        PopXingZhi popXingZhi = new PopXingZhi(getActivity(), "", beat);
+        popXingZhi.setListener(new PopXingZhi.onSelectListener() {
+            @Override
+            public void commit(int position, String item) {
+                tvBgMusicName.setText(item);
+            }
+        });
+        popXingZhi.showAtLocation(getActivity().getWindow().getDecorView());
     }
 }

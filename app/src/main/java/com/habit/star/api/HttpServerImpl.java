@@ -4,11 +4,13 @@ import com.blankj.utilcode.util.Utils;
 import com.habit.star.api.rx.RxResultHelper;
 import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.pojo.po.BaoGaoDetailsBO;
+import com.habit.star.pojo.po.BeatsBO;
 import com.habit.star.pojo.po.ChengJiuBo;
 import com.habit.star.pojo.po.DataBaoGaoBO;
 import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.EnergyBO;
+import com.habit.star.pojo.po.ExplainDetailsBO;
 import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
@@ -17,6 +19,7 @@ import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.JiHuaBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.MusicBO;
 import com.habit.star.pojo.po.NengLiangDengjiBO;
 import com.habit.star.pojo.po.NengLiangVO;
 import com.habit.star.pojo.po.OnePingLunBO;
@@ -730,8 +733,22 @@ public class HttpServerImpl {
     /**
      * 查询改良方案
      */
-    public static Observable<String> getImprovePlan(int id) {
+    public static Observable<ExplainDetailsBO> getImprovePlan(int id) {
         return getService().getImprovePlan(id).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询所有节拍
+     */
+    public static Observable<List<BeatsBO>> getBeats() {
+        return getService().getBeats().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 查询所有系统音乐
+     */
+    public static Observable<List<MusicBO>> getMusicList() {
+        return getService().getMusicList().compose(RxResultHelper.httpRusult());
     }
 
 

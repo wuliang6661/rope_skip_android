@@ -3,11 +3,13 @@ package com.habit.star.api;
 import com.habit.star.pojo.BaseResult;
 import com.habit.star.pojo.po.AddressBO;
 import com.habit.star.pojo.po.BaoGaoDetailsBO;
+import com.habit.star.pojo.po.BeatsBO;
 import com.habit.star.pojo.po.ChengJiuBo;
 import com.habit.star.pojo.po.DataBaoGaoBO;
 import com.habit.star.pojo.po.DeviceBO;
 import com.habit.star.pojo.po.DeviceLinkBO;
 import com.habit.star.pojo.po.EnergyBO;
+import com.habit.star.pojo.po.ExplainDetailsBO;
 import com.habit.star.pojo.po.FamilyUserBO;
 import com.habit.star.pojo.po.FamilyUserDetailsBO;
 import com.habit.star.pojo.po.FeedBackBO;
@@ -16,6 +18,7 @@ import com.habit.star.pojo.po.HuodongBO;
 import com.habit.star.pojo.po.JiHuaBO;
 import com.habit.star.pojo.po.KechengBO;
 import com.habit.star.pojo.po.MessageBO;
+import com.habit.star.pojo.po.MusicBO;
 import com.habit.star.pojo.po.NengLiangDengjiBO;
 import com.habit.star.pojo.po.NengLiangVO;
 import com.habit.star.pojo.po.OnePingLunBO;
@@ -609,6 +612,18 @@ public interface HttpService {
      * 查询改良方案
      */
     @GET("app/test/getImprovePlan")
-    Observable<BaseResult<String>> getImprovePlan(@Query("id") int id);
+    Observable<BaseResult<ExplainDetailsBO>> getImprovePlan(@Query("id") int id);
+
+    /**
+     * 查询所有节拍
+     */
+    @GET("app/test/getBeats")
+    Observable<BaseResult<List<BeatsBO>>> getBeats();
+
+    /**
+     * 查询系统音乐
+     */
+    @GET("app/test/getMusicList")
+    Observable<BaseResult<List<MusicBO>>> getMusicList();
 
 }

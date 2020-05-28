@@ -16,7 +16,7 @@ public class TestDataBO {
      */
 
     private int userId;
-    private int totalMinute;
+    private String totalMinute;
     private int totalDay;
     private int skipTotalNum;
     private int testTotalNum;
@@ -33,11 +33,11 @@ public class TestDataBO {
         this.userId = userId;
     }
 
-    public int getTotalMinute() {
+    public String getTotalMinute() {
         return totalMinute;
     }
 
-    public void setTotalMinute(int totalMinute) {
+    public void setTotalMinute(String totalMinute) {
         this.totalMinute = totalMinute;
     }
 

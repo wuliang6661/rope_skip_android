@@ -6,8 +6,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.habit.star.R;
 import com.habit.star.common.adapter.BaseRvAdapter;
 import com.habit.star.pojo.po.TestBO;
-import com.habit.star.ui.mine.bean.AddressModel;
-import com.habit.star.ui.train.bean.TranRecordModel;
 
 import java.util.ArrayList;
 
@@ -29,7 +27,7 @@ public class TranRecordListAdapter extends BaseRvAdapter<TestBO, BaseViewHolder>
     protected void convert(BaseViewHolder helper, TestBO item) {
         helper.addOnClickListener(R.id.tv_look_layout_fragment_train_record_list_item)
                 .setText(R.id.tv_time_layout_fragment_train_record_list_item, item.getUpdateDate())
-//                .setText(R.id.tv_jb_layout_fragment_train_record_list_item, item.jb)
+                .setText(R.id.tv_jb_layout_fragment_train_record_list_item, item.getSkipGrade())
                 .setText(R.id.tv_pay_time_layout_fragment_train_record_list_item, item.getSkipTime() + "");
     }
 }

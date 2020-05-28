@@ -7,12 +7,10 @@ import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
 import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
-import com.habit.star.ui.train.bean.TranRecordModel;
-import com.habit.star.ui.train.contract.TranHomeContract;
 import com.habit.star.service.UartService;
+import com.habit.star.ui.train.contract.TranHomeContract;
 import com.habit.star.utils.blue.cmd.RequstBleCmd;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,40 +34,7 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
 
     @Override
     public void getRecodList() {
-//        mView.showProgress();
-//        addSubscrebe(mRetrofitHelper.getRecodList().subscribe(new Action1<UserInfoMode>() {
-//            @Override
-//            public void call(UserInfoMode userInfoMode) {
-//                mView.hideProgress();
-//                mView.getUserInfo(userInfoMode);
-//            }
-//        }, new ActionError(App.getStringResource(R.string.getUserInfoError)) {
-//            @Override
-//            public void onError(String msg, int code) {
-//                mView.hideProgress();
-//                mView.showError(msg);
-//            }
-//        }));
 
-
-        ///添加测试数据
-        List<TranRecordModel> testData = new ArrayList<>();
-        TranRecordModel model1 = new TranRecordModel();
-        model1.time = "2019-06-10";
-        model1.jb = "A+";
-        model1.payTime = "30";
-        testData.add(model1);
-        TranRecordModel model2 = new TranRecordModel();
-        model2.time = "2019-06-1";
-        model2.jb = "B+";
-        model2.payTime = "33";
-        testData.add(model2);
-        TranRecordModel model3 = new TranRecordModel();
-        model3.time = "2019-04-10";
-        model3.jb = "A+";
-        model3.payTime = "30";
-        testData.add(model3);
-//        mView.setRecordList(testData);
     }
 
 

@@ -242,13 +242,20 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <!--讲解详情页面-->
+        <activity
+            android:name=".ui.young.fragment.ExplainDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+
         <!--各种协议页面-->
         <activity
             android:name=".ui.XieYiActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-       <!--关于我们-->
+        <!--关于我们-->
         <activity
             android:name=".ui.AboutActivity"
             android:launchMode="singleTop"

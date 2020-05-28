@@ -1,18 +1,25 @@
 package com.habit.star.ui.young.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.habit.star.R;
 import com.habit.star.api.HttpResultSubscriber;
 import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.BaseActivity;
-import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.habit.star.pojo.po.ExplainDetailsBO;
+import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
+
+import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 训练讲解页面
@@ -37,6 +44,9 @@ public class VideoExplainActivity extends BaseActivity {
     ImageView jinImg;
     @BindView(R.id.video_jin)
     RelativeLayout videoJin;
+
+    private ExplainDetailsBO detailsBO;
+
 
 
     @Override
@@ -74,9 +84,18 @@ public class VideoExplainActivity extends BaseActivity {
         videoPlayer.getBackButton().setVisibility(View.GONE);
         //是否可以滑动调整
         videoPlayer.setIsTouchWiget(false);
-        videoPlayer.getFullscreenButton().setEnabled(false);
-        videoPlayer.setIsTouchWigetFull(false);
+        videoPlayer.getFullscreenButton().setVisibility(View.GONE);
+        videoPlayer.setNeedLockFull(true);
         videoPlayer.setHideKey(false);
+
+        videoPlayer.setGSYVideoProgressListener(new GSYVideoProgressListener() {
+            @Override
+            public void onProgress(int progress, int secProgress, int currentPosition, int duration) {
+                String time = TimeUtils.millis2String(duration - currentPosition,
+                        new SimpleDateFormat("mm:ss"));
+                downTime.setText(time);
+            }
+        });
     }
 
 
@@ -84,17 +103,31 @@ public class VideoExplainActivity extends BaseActivity {
      * 查询
      */
     private void getImprovePlan(int id) {
-        HttpServerImpl.getImprovePlan(id).subscribe(new HttpResultSubscriber<String>() {
+        HttpServerImpl.getImprovePlan(id).subscribe(new HttpResultSubscriber<ExplainDetailsBO>() {
             @Override
-            public void onSuccess(String s) {
-
+            public void onSuccess(ExplainDetailsBO s) {
+                detailsBO = s;
+                showUIData();
             }
 
             @Override
             public void onFiled(String message) {
-
+                showToast(message);
             }
         });
+    }
+
+
+    /**
+     * 设置界面显示
+     */
+    private void showUIData() {
+        setTitleText(detailsBO.getVideoTitle());
+        videoPlayer.setUp(detailsBO.getVideoUrl(), true, "");
+        videoPlayer.startPlayLogic();
+
+        long time = videoPlayer.getDuration();
+        downTime.setText(TimeUtils.millis2String(time, new SimpleDateFormat("mm`ss``")));
     }
 
 
@@ -133,8 +166,41 @@ public class VideoExplainActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        if (videoPlayer != null) {
+            getCurPlay().release();
+        }
         super.onDestroy();
-        GSYVideoManager.releaseAllVideos();
+    }
+
+    private GSYVideoPlayer getCurPlay() {
+        if (videoPlayer.getFullWindowPlayer() != null) {
+            return videoPlayer.getFullWindowPlayer();
+        }
+        return videoPlayer;
+    }
+
+
+    @OnClick(R.id.bt_look_jiangjie)
+    public void jiangjie() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("details", detailsBO);
+        gotoActivity(ExplainDetailsActivity.class, bundle, false);
+    }
+
+
+    @OnClick({R.id.video_pause, R.id.video_jin, R.id.video_tui})
+    public void clickVideoController(View view) {
+        switch (view.getId()) {
+            case R.id.video_pause:
+                videoPlayer.getStartButton().performClick();
+                break;
+            case R.id.video_jin:
+                videoPlayer.seekTo(videoPlayer.getCurrentPositionWhenPlaying() + 1000);
+                break;
+            case R.id.video_tui:
+                videoPlayer.seekTo(videoPlayer.getCurrentPositionWhenPlaying() - 1000);
+                break;
+        }
     }
 
 }
