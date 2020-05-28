@@ -1,7 +1,10 @@
 package com.habit.star.ui.train.presenter;
 
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
+import com.habit.star.pojo.po.TestDetailsBO;
 import com.habit.star.ui.train.bean.ImprovePlanModel;
 import com.habit.star.ui.train.bean.TranRecordModel;
 import com.habit.star.ui.train.contract.TestResultContract;
@@ -80,6 +83,30 @@ public class TestResultPresenter extends RxPresenter<TestResultContract.View> im
         model3.planTimeUnit = "天";
         testData.add(model3);
 
-        mView.setList(testData);
+//        mView.setList(testData);
     }
+
+
+    /**
+     * 查询测试结果
+     */
+    public void getTestData(String id) {
+        HttpServerImpl.getTest(id).subscribe(new HttpResultSubscriber<TestDetailsBO>() {
+            @Override
+            public void onSuccess(TestDetailsBO s) {
+                if (mView != null) {
+                    mView.setList(s);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if (mView != null) {
+                    mView.showError(message);
+                }
+            }
+        });
+    }
+
+
 }

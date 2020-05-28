@@ -33,6 +33,8 @@ import com.habit.star.pojo.po.StatisticsBO;
 import com.habit.star.pojo.po.TaskBO;
 import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
+import com.habit.star.pojo.po.TestDetailsBO;
+import com.habit.star.pojo.po.TrainBO;
 import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
@@ -574,7 +576,7 @@ public interface HttpService {
      * 查询测试结果
      */
     @GET("app/test/getTest")
-    Observable<BaseResult<String>> getTest(@Query("id") String id);
+    Observable<BaseResult<TestDetailsBO>> getTest(@Query("id") String id);
 
     /**
      * 添加测试记录
@@ -625,5 +627,18 @@ public interface HttpService {
      */
     @GET("app/test/getMusicList")
     Observable<BaseResult<List<MusicBO>>> getMusicList();
+
+
+    /**
+     * 添加训练结果
+     */
+    @POST("app/test/addTrain")
+    Observable<BaseResult<String>> addTrain(@Body Map<String,Object> params);
+
+    /**
+     * 获取训练结果
+     */
+    @GET("app/test/getTrain")
+    Observable<BaseResult<TrainBO>> getTrain(@Query("id") String id);
 
 }

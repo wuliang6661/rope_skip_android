@@ -53,6 +53,9 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
     private List<BeatsBO> beatsBOS;
     private List<MusicBO> musicBOS;
 
+    private int selectBeat = 0;
+    private int selectMusic = 0;
+
     public static RopeSkipSettingFragment newInstance(Bundle bundle) {
         RopeSkipSettingFragment fragment = new RopeSkipSettingFragment();
         if (bundle != null) {
@@ -130,6 +133,8 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
                 showBeats();
                 break;
             case R.id.btn_save_fragment_rope_skip_setting:
+                TrainPlanFragment.musicBO = musicBOS.get(selectMusic);
+                TrainPlanFragment.beat = beatsBOS.get(selectBeat).getBeat() + "";
                 ToastUtil.show("保存成功");
                 _mActivity.onBackPressedSupport();
                 break;
@@ -162,9 +167,11 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
         popXingZhi.setListener(new PopXingZhi.onSelectListener() {
             @Override
             public void commit(int position, String item) {
+                selectBeat = position;
                 tvJzName.setText(item);
             }
         });
+        popXingZhi.setSelectPosition(selectBeat);
         popXingZhi.showAtLocation(getActivity().getWindow().getDecorView());
     }
 
@@ -179,8 +186,10 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
             @Override
             public void commit(int position, String item) {
                 tvBgMusicName.setText(item);
+                selectMusic = position;
             }
         });
+        popXingZhi.setSelectPosition(selectMusic);
         popXingZhi.showAtLocation(getActivity().getWindow().getDecorView());
     }
 }

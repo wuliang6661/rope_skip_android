@@ -1,9 +1,13 @@
 package com.habit.star.presenter;
 
 
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
 import com.habit.star.presenter.contract.CommonContract;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -12,8 +16,7 @@ import javax.inject.Inject;
  *
  * @author dongdong
  * @version 1.0
- * @since
- * 文件名称： CommonPresenter.java
+ * @since 文件名称： CommonPresenter.java
  * 类说明：
  */
 public class CommonPresenter extends RxPresenter<CommonContract.View> implements CommonContract.Presenter {
@@ -23,6 +26,7 @@ public class CommonPresenter extends RxPresenter<CommonContract.View> implements
     public CommonPresenter(RetrofitHelper retrofitHelper) {
         mRetrofitHelper = retrofitHelper;
     }
+
 
 
 }

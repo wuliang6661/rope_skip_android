@@ -3,6 +3,7 @@ package com.habit.star.ui.train.contract;
 
 import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
+import com.habit.star.pojo.po.TrainBO;
 import com.habit.star.ui.train.bean.RopeSkipResultModel;
 
 /**
@@ -15,7 +16,8 @@ import com.habit.star.ui.train.bean.RopeSkipResultModel;
  */
 public interface RopeSkipResultContract {
     interface View extends BaseView {
-        void getData(RopeSkipResultModel data);
+
+        void getData(TrainBO data);
 
     }
 

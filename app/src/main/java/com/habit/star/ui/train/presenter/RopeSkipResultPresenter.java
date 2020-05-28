@@ -1,10 +1,12 @@
 package com.habit.star.ui.train.presenter;
 
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.base.RxPresenter;
 import com.habit.star.model.http.RetrofitHelper;
+import com.habit.star.pojo.po.TrainBO;
 import com.habit.star.ui.train.bean.RopeSkipResultModel;
 import com.habit.star.ui.train.contract.RopeSkipResultContract;
-import com.habit.star.ui.train.contract.RopeSkipSettingContract;
 
 import javax.inject.Inject;
 
@@ -50,7 +52,7 @@ public class RopeSkipResultPresenter extends RxPresenter<RopeSkipResultContract.
         model.averageVelocity="111";
         model.acceleration="88";
         model.ropeHeight="110";
-        mView.getData(model);
+//        mView.getData(model);
     }
     @Override
     public void tryAgainRope() {
@@ -77,6 +79,29 @@ public class RopeSkipResultPresenter extends RxPresenter<RopeSkipResultContract.
         model.averageVelocity="0";
         model.acceleration="0";
         model.ropeHeight="0";
-        mView.getData(model);
+//        mView.getData(model);
     }
+
+
+    /**
+     * 获取训练结果
+     */
+    public void getTrain(String id){
+        HttpServerImpl.getTrain(id).subscribe(new HttpResultSubscriber<TrainBO>() {
+            @Override
+            public void onSuccess(TrainBO s) {
+                if(mView != null){
+                    mView.getData(s);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                if(mView != null){
+                    mView.showError(message);
+                }
+            }
+        });
+    }
+
 }

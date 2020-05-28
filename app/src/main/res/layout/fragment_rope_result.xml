@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_F8F8F8"
@@ -145,9 +143,9 @@
                         android:orientation="vertical">
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/tv_time_fragment_rope_result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tv_time_fragment_rope_result"
                             android:text="00'24''"
                             android:textColor="#fff5b68f"
                             android:textSize="16sp" />
@@ -182,9 +180,9 @@
                         android:orientation="vertical">
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/tv_number_fragment_rope_result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tv_number_fragment_rope_result"
                             android:text="125"
                             android:textColor="#ffb9cae0"
                             android:textSize="16sp" />
@@ -219,9 +217,9 @@
                         android:orientation="vertical">
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/tv_break_number_fragment_rope_result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tv_break_number_fragment_rope_result"
                             android:text="05"
                             android:textColor="#fffdc0bb"
                             android:textSize="16sp" />
@@ -286,8 +284,8 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingTop="11dp"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:paddingTop="11dp">
 
                         <android.support.v7.widget.AppCompatImageView
                             android:layout_width="wrap_content"
@@ -305,21 +303,23 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="19dp"
-                                android:orientation="horizontal"
-                                android:gravity="bottom">
+                                android:gravity="bottom"
+                                android:orientation="horizontal">
+
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_average_number_fragment_rope_result"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:id="@+id/tv_average_number_fragment_rope_result"
                                     android:text="111"
                                     android:textColor="#fff5b68f"
                                     android:textSize="16sp" />
+
                                 <android.support.v7.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="0.7dp"
-                                    android:text="个/分钟"
                                     android:gravity="bottom"
+                                    android:text="个/分钟"
                                     android:textColor="#fff5b68f"
                                     android:textSize="9sp" />
                             </LinearLayout>
@@ -337,8 +337,8 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingTop="4dp"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:paddingTop="4dp">
 
                         <android.support.v7.widget.AppCompatImageView
                             android:layout_width="52dp"
@@ -357,21 +357,23 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="19dp"
-                                android:orientation="horizontal"
-                                android:gravity="bottom">
+                                android:gravity="bottom"
+                                android:orientation="horizontal">
+
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_access_fragment_rope_result"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:text="111"
-                                    android:id="@+id/tv_access_fragment_rope_result"
                                     android:textColor="#ffb9cae0"
                                     android:textSize="16sp" />
+
                                 <android.support.v7.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="0.7dp"
-                                    android:text="个/分钟"
                                     android:gravity="bottom"
+                                    android:text="个/分钟"
                                     android:textColor="#ffb9cae0"
                                     android:textSize="9sp" />
                             </LinearLayout>
@@ -389,8 +391,9 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingTop="6dp"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:paddingTop="6dp">
 
                         <android.support.v7.widget.AppCompatImageView
                             android:layout_width="44dp"
@@ -409,21 +412,23 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="19dp"
-                                android:orientation="horizontal"
-                                android:gravity="bottom">
+                                android:gravity="bottom"
+                                android:orientation="horizontal">
+
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_height_fragment_rope_result"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:text="180"
-                                    android:id="@+id/tv_height_fragment_rope_result"
                                     android:textColor="#fffdc0bb"
                                     android:textSize="16sp" />
+
                                 <android.support.v7.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="0.7dp"
-                                    android:text="cm"
                                     android:gravity="bottom"
+                                    android:text="cm"
                                     android:textColor="#fffdc0bb"
                                     android:textSize="9sp" />
                             </LinearLayout>
@@ -522,7 +527,7 @@
         layout="@layout/layout_dialog_toast_share_success"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

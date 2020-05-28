@@ -3,6 +3,7 @@ package com.habit.star.ui.train.contract;
 
 import com.habit.star.base.BasePresenter;
 import com.habit.star.base.BaseView;
+import com.habit.star.pojo.po.TestDetailsBO;
 import com.habit.star.ui.train.bean.ImprovePlanModel;
 import com.habit.star.ui.train.bean.TranRecordModel;
 
@@ -23,7 +24,7 @@ public interface TestResultContract {
          * 设置数据
          * @param data
          */
-        void setList(List<ImprovePlanModel> data);
+        void setList(TestDetailsBO data);
 
     }
 

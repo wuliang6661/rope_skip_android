@@ -119,7 +119,7 @@ public class TrainPlanListFragment extends BaseFragment<TrainPlanListPresenter> 
             mSwipeRefreshLayout.setRefreshing(false);
         }
 
-        mListAdapter.setNewData(orderList);
+//        mListAdapter.setNewData(orderList);
     }
 
     @Override

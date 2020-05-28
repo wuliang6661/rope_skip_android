@@ -8,27 +8,27 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.star.R;
 import com.habit.star.base.BaseFragment;
-import com.habit.star.ui.train.bean.RopeSkipResultModel;
+import com.habit.star.pojo.po.TrainBO;
 import com.habit.star.ui.train.contract.RopeSkipResultContract;
 import com.habit.star.ui.train.presenter.RopeSkipResultPresenter;
 import com.habit.star.utils.DensityUtil;
 import com.habit.star.utils.ToastUtil;
+import com.habit.star.utils.Utils;
+
+import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -86,6 +86,8 @@ public class RopeSkipResultFragment extends BaseFragment<RopeSkipResultPresenter
         }
     };
 
+    private String id;
+
     public static RopeSkipResultFragment newInstance(Bundle bundle) {
         RopeSkipResultFragment fragment = new RopeSkipResultFragment();
         if (bundle != null) {
@@ -113,17 +115,18 @@ public class RopeSkipResultFragment extends BaseFragment<RopeSkipResultPresenter
     @Override
     protected void initEventAndData() {
         initDialog();
-        mPresenter.getData();
+        id = getArguments().getString("id");
+        mPresenter.getTrain(id);
     }
 
     @Override
-    public void getData(RopeSkipResultModel data) {
-        tvTimeFragmentRopeResult.setText(data.time);
-        tvNumberFragmentRopeResult.setText(data.ropeNumber);
-        tvBreakNumberFragmentRopeResult.setText(data.breakNumber);
-        tvAverageNumberFragmentRopeResult.setText(data.averageVelocity);
-        tvAccessFragmentRopeResult.setText(data.acceleration);
-        tvHeightFragmentRopeResult.setText(data.ropeHeight);
+    public void getData(TrainBO data) {
+        String time = Utils.timeToString(data.getSkipTime());
+        tvTimeFragmentRopeResult.setText(time);
+        tvNumberFragmentRopeResult.setText(data.getSkipNum() + "");
+        tvBreakNumberFragmentRopeResult.setText(data.getBreakNum() + "");
+        tvAverageNumberFragmentRopeResult.setText(data.getAverageVelocity() + "");
+        tvAccessFragmentRopeResult.setText(data.getAccelerateVelocity() + "");
     }
 
     private void initDialog() {
@@ -174,7 +177,6 @@ public class RopeSkipResultFragment extends BaseFragment<RopeSkipResultPresenter
 
     @Override
     public void showProgress() {
-
         progress.setVisibility(View.VISIBLE);
     }
 
@@ -193,6 +195,13 @@ public class RopeSkipResultFragment extends BaseFragment<RopeSkipResultPresenter
 
     }
 
+
+    /**
+     *
+     * @param view
+     */
+
+
     @SingleClick
     @OnClick({R.id.ll_back_fragment_energy_detail,
             R.id.ll_again_fragment_rope_result,
@@ -204,7 +213,8 @@ public class RopeSkipResultFragment extends BaseFragment<RopeSkipResultPresenter
                 _mActivity.onBackPressedSupport();
                 break;
             case R.id.btn_save_fragment_rope_skip_setting:
-                _mActivity.onBackPressedSupport();
+//                _mActivity.onBackPressedSupport();
+                getActivity().finish();
                 break;
             case R.id.ll_again_fragment_rope_result:
                 mPresenter.tryAgainRope();

@@ -34,6 +34,8 @@ import com.habit.star.pojo.po.StatisticsBO;
 import com.habit.star.pojo.po.TaskBO;
 import com.habit.star.pojo.po.TestBO;
 import com.habit.star.pojo.po.TestDataBO;
+import com.habit.star.pojo.po.TestDetailsBO;
+import com.habit.star.pojo.po.TrainBO;
 import com.habit.star.pojo.po.TwoPingLunBO;
 import com.habit.star.pojo.po.UserBO;
 import com.habit.star.pojo.po.VideoBO;
@@ -681,7 +683,7 @@ public class HttpServerImpl {
     /**
      * 查询测试结果
      */
-    public static Observable<String> getTest(String id) {
+    public static Observable<TestDetailsBO> getTest(String id) {
         return getService().getTest(id).compose(RxResultHelper.httpRusult());
     }
 
@@ -749,6 +751,20 @@ public class HttpServerImpl {
      */
     public static Observable<List<MusicBO>> getMusicList() {
         return getService().getMusicList().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 添加训练结果
+     */
+    public static Observable<String> addTrain(Map<String, Object> params) {
+        return getService().addTrain(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取训练结果
+     */
+    public static Observable<TrainBO> getTrain(String id) {
+        return getService().getTrain(id).compose(RxResultHelper.httpRusult());
     }
 
 

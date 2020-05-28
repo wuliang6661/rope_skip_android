@@ -18,7 +18,9 @@ import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.star.R;
+import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.pojo.po.TestDetailsBO;
 import com.habit.star.ui.train.adapter.ImprovePlanListAdapter;
 import com.habit.star.ui.train.bean.ImprovePlanModel;
 import com.habit.star.ui.train.contract.TestResultContract;
@@ -120,14 +122,13 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
 
     @Override
     protected void initEventAndData() {
-        initToast();
+        String id = getArguments().getString(RouterConstants.KEY_STRING);
         initDialog();
         initAdapter();
         mPresenter.getList();
+        mPresenter.getTestData(id);
     }
 
-    private void initToast() {
-    }
 
     private void initAdapter() {
         rcImprovementPlan.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider_test).colorResId(R.color.transparent).build());
@@ -193,7 +194,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     }
 
     @Override
-    public void setList(List<ImprovePlanModel> data) {
+    public void setList(TestDetailsBO data) {
         mPlanListAdapter.setNewData(data);
     }
 
