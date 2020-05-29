@@ -1,6 +1,7 @@
 package com.habit.star.ui.train.fragment;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -14,6 +15,14 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
@@ -22,13 +31,16 @@ import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.pojo.po.TestDetailsBO;
 import com.habit.star.ui.train.adapter.ImprovePlanListAdapter;
-import com.habit.star.ui.train.bean.ImprovePlanModel;
 import com.habit.star.ui.train.contract.TestResultContract;
 import com.habit.star.ui.train.presenter.TestResultPresenter;
+import com.habit.star.ui.young.fragment.VideoExplainActivity;
 import com.habit.star.utils.DensityUtil;
 import com.habit.star.utils.ToastUtil;
+import com.habit.star.utils.Utils;
 import com.habit.star.widget.CutRelativeLayout;
+import com.habit.star.widget.RadarView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -53,34 +65,8 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     LinearLayout llShare;
     @BindView(R.id.toolbar_layout_toolbar)
     LinearLayout toolbarLayoutToolbar;
-    @BindView(R.id.iv_circle1)
-    AppCompatImageView ivCircle1;
-    @BindView(R.id.ll_circle1)
-    LinearLayout llCircle1;
-    @BindView(R.id.iv_circle2)
-    AppCompatImageView ivCircle2;
-    @BindView(R.id.ll_circle2)
-    LinearLayout llCircle2;
-    @BindView(R.id.iv_circle3)
-    AppCompatImageView ivCircle3;
-    @BindView(R.id.ll_circle3)
-    LinearLayout llCircle3;
-    @BindView(R.id.iv_circle4)
-    AppCompatImageView ivCircle4;
-    @BindView(R.id.ll_circle4)
-    LinearLayout llCircle4;
-    @BindView(R.id.iv_circle5)
-    AppCompatImageView ivCircle5;
-    @BindView(R.id.ll_circle5)
-    LinearLayout llCircle5;
-    @BindView(R.id.iv_circle6)
-    AppCompatImageView ivCircle6;
-    @BindView(R.id.ll_circle6)
-    LinearLayout llCircle6;
     @BindView(R.id.rc_improvement_plan_fragment_test_result)
     RecyclerView rcImprovementPlan;
-    @BindView(R.id.tv_this_test_grade_fragment_test_result)
-    AppCompatTextView tvThisTestGradeFragmentTestResult;
     @BindView(R.id.iv_user_header_layout_dialog_toast_share_success)
     CircleImageView ivUserHeaderLayoutDialogToastShareSuccess;
     @BindView(R.id.tv_name_layout_dialog_toast_share_success)
@@ -91,8 +77,17 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     AppCompatImageView ivQrCodeLayoutDialogToastShareSuccess;
     @BindView(R.id.cr_full_screen_fragment_test_result)
     CutRelativeLayout crFullScreen;
+    @BindView(R.id.radar_view)
+    RadarView radarView;
+    @BindView(R.id.time_text)
+    AppCompatTextView timeText;
+    @BindView(R.id.skip_num)
+    AppCompatTextView skipNum;
+    @BindView(R.id.break_num)
+    AppCompatTextView breakNum;
+    @BindView(R.id.bar_chart)
+    BarChart barChart;
 
-    private String testId;
     private Dialog mBottomSheetDialog;
     private ImprovePlanListAdapter mPlanListAdapter;
 
@@ -125,7 +120,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
         String id = getArguments().getString(RouterConstants.KEY_STRING);
         initDialog();
         initAdapter();
-        mPresenter.getList();
+        initBar(barChart);
         mPresenter.getTestData(id);
     }
 
@@ -141,7 +136,12 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.tv_look_layout_fragment_improve_plan_list_item:
-//                        start(TrainingPlanMainFragment.newInstance(null));
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("id", ((TestDetailsBO.PlanListBean) adapter.getItem(position)).getId());
+                        gotoActivity(VideoExplainActivity.class, bundle, false);
+                        break;
+                    case R.id.tv_state_name_layout_fragment_improve_plan_list_item:
+
                         break;
                 }
             }
@@ -195,12 +195,22 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
 
     @Override
     public void setList(TestDetailsBO data) {
-        mPlanListAdapter.setNewData(data);
+        breakNum.setText(data.getBreakNum() + "");
+        skipNum.setText(data.getSkipNum() + "");
+        timeText.setText(Utils.timeToString(data.getSkipTime()));
+        setBarData(data, barChart);
+        List<Double> radarData = new ArrayList<>();
+        radarData.add((double) data.getActionScore());
+        radarData.add((double) data.getCoordinateScore());
+        radarData.add((double) data.getStableScore());
+        radarData.add((double) data.getRhythmScore());
+        radarData.add((double) data.getEnduranceScore());
+        radarView.setData(radarData);
+        mPlanListAdapter.setNewData(data.getPlanList());
     }
 
     @Override
     public void showProgress() {
-
         progress.setVisibility(View.VISIBLE);
     }
 
@@ -231,6 +241,90 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             case R.id.ll_share_fragment_test_result:
                 mBottomSheetDialog.show();
                 break;
+        }
+    }
+
+
+    /**
+     * 初始化柱状图视图
+     */
+    private void initBar(BarChart mChart) {
+        mChart.getDescription().setEnabled(false);
+        // enable touch gestures
+        mChart.setTouchEnabled(false);
+        mChart.setDragDecelerationFrictionCoef(0.9f);
+        // enable scaling and dragging
+        mChart.setDragEnabled(true);
+        mChart.setScaleEnabled(true);
+        mChart.setHighlightPerDragEnabled(true);
+        mChart.setPinchZoom(false);
+        mChart.setDrawGridBackground(false);
+        XAxis xAxis = mChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
+        xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
+        xAxis.setTextColor(Color.parseColor("#B9CAE0"));
+        xAxis.setTextSize(12f);
+        xAxis.setLabelCount(2);
+//        xAxis.setGranularity(1f);
+        //获取到图形左边的Y轴
+        YAxis leftAxis = mChart.getAxisLeft();
+//        leftAxis.setAxisMinimum(10);
+        leftAxis.setEnabled(false);
+        //获取到图形右边的Y轴，并设置为不显示
+        mChart.getAxisRight().setEnabled(false);
+        //图例设置
+        Legend legend = mChart.getLegend();
+        legend.setEnabled(false);
+
+    }
+
+
+    /**
+     * 设置柱状图数据
+     */
+    private void setBarData(TestDetailsBO detailsBO, BarChart chart) {
+        List<BarEntry> barData = new ArrayList<>();
+        barData.add(new BarEntry(0, (float) detailsBO.getAverageVelocity()));   //平均速度
+        barData.add(new BarEntry(1, (float) detailsBO.getAccelerateVelocity()));  //加速度
+        double maxNum = detailsBO.getAverageVelocity() > detailsBO.getAccelerateVelocity() ?
+                detailsBO.getAverageVelocity() : detailsBO.getAccelerateVelocity();
+        chart.getAxisLeft().setAxisMaximum((float) (maxNum + 10));
+        chart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                switch ((int) value) {
+                    case 0:
+                        return "平均速度\n" + detailsBO.getAverageVelocity() + "个/分钟";
+                    case 1:
+                        return "加速度\n" + detailsBO.getAccelerateVelocity() + "个/分钟";
+                }
+                return value + "";
+            }
+        });
+        BarDataSet set1;
+        if (chart.getData() != null &&
+                chart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+            set1.setValues(barData);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+            chart.invalidate();
+            chart.animateY(1000);
+        } else {
+            set1 = new BarDataSet(barData, "");
+            set1.setDrawIcons(false);
+            set1.setDrawValues(true);
+            set1.setValueTextColor(Color.parseColor("#7EC7F5"));
+            set1.setValueTextSize(14f);
+            set1.setGradientColor(Color.parseColor("#CFECFC"), Color.parseColor("#ECD1FC"));
+            BarData data = new BarData(set1);
+            data.setBarWidth(0.4f);
+            chart.setData(data);
+
+            chart.invalidate();
+            chart.animateY(1000);
         }
     }
 }

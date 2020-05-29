@@ -1,6 +1,7 @@
 package com.habit.star.ui.train.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.habit.star.R;
@@ -28,22 +29,21 @@ public class ImprovePlanListAdapter extends BaseRvAdapter<TestDetailsBO.PlanList
     @Override
     protected void convert(BaseViewHolder helper, TestDetailsBO.PlanListBean item) {
         helper.addOnClickListener(R.id.tv_look_layout_fragment_improve_plan_list_item)
-                .setText(R.id.tv_state_name_layout_fragment_improve_plan_list_item, item.stateName)
-                .setText(R.id.tv_content_layout_fragment_improve_plan_list_item, item.content)
-                .setText(R.id.tv_train_time_unit_layout_fragment_improve_plan_list_item, item.trainTimeUnit)
-                .setText(R.id.tv_train_time_layout_fragment_improve_plan_list_item, item.trainTime)
-                .setText(R.id.tv_train_plan_layout_fragment_improve_plan_list_item, item.planTime)
-                .setText(R.id.tv_train_plan_unit_layout_fragment_improve_plan_list_item, item.planTimeUnit)
-                .setText(R.id.tv_energy_layout_fragment_improve_plan_list_item, item.energy);
+                .addOnClickListener(R.id.tv_state_name_layout_fragment_improve_plan_list_item)
+                .setText(R.id.tv_content_layout_fragment_improve_plan_list_item, item.getVideoTitle())
+                .setText(R.id.tv_train_time_layout_fragment_improve_plan_list_item, item.getTrainLength() + "");
         switch (item.getStatus()) {
             case 0:
-                helper.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, mContext.getResources().getColor(R.color.color_F97B61));
+                helper.setText(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "添加计划");
+                helper.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, Color.parseColor("#F5B68F"));
                 break;
             case 1:
-                helper.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, mContext.getResources().getColor(R.color.color_F5B68F));
+                helper.setText(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "进行中");
+                helper.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, Color.parseColor("#7EC7F5"));
                 break;
             case 2:
-                helper.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, mContext.getResources().getColor(R.color.color_D1EDFF));
+                helper.setText(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "已完成");
+                helper.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, Color.parseColor("#AAAAAA"));
                 break;
             case 3:
                 helper.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, mContext.getResources().getColor(R.color.color_AAAAAA));

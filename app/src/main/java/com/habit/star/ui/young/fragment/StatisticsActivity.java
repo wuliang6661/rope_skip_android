@@ -240,21 +240,21 @@ public class StatisticsActivity extends BaseActivity {
             set1.setDrawValues(true);
             set1.setValueTextColor(Color.parseColor("#7EC7F5"));
             set1.setValueTextSize(10f);
-            if(type == 0){
-                set1.setValueFormatter(new ValueFormatter() {
-                    @Override
-                    public String getFormattedValue(float value) {
-                        return statisticsBOS.get((int) value % statisticsBOS.size()).getSkipTime() + "分钟";
-                    }
-                });
-            }else{
-                set1.setValueFormatter(new ValueFormatter() {
-                    @Override
-                    public String getFormattedValue(float value) {
-                        return statisticsBOS.get((int) value % statisticsBOS.size()).getAverageVelocity() + "个/分钟";
-                    }
-                });
-            }
+//            if(type == 0){
+//                set1.setValueFormatter(new ValueFormatter() {
+//                    @Override
+//                    public String getFormattedValue(float value) {
+//                        return statisticsBOS.get((int) value % statisticsBOS.size()).getSkipTime() + "分钟";
+//                    }
+//                });
+//            }else{
+//                set1.setValueFormatter(new ValueFormatter() {
+//                    @Override
+//                    public String getFormattedValue(float value) {
+//                        return statisticsBOS.get((int) value % statisticsBOS.size()).getAverageVelocity() + "个/分钟";
+//                    }
+//                });
+//            }
             LineData data = new LineData(set1);
             chart.setData(data);
         }

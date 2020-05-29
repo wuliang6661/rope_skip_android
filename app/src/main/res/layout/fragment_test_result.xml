@@ -57,9 +57,9 @@
     </LinearLayout>
 
     <com.habit.star.widget.CutRelativeLayout
+        android:id="@+id/cr_full_screen_fragment_test_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/cr_full_screen_fragment_test_result"
         android:layout_below="@+id/toolbar_layout_toolbar">
 
         <android.support.v4.widget.NestedScrollView
@@ -72,277 +72,18 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="274dp"
-                    android:layout_height="253dp"
-                    android:layout_marginTop="27dp">
 
-                    <RelativeLayout
-                        android:layout_width="186dp"
-                        android:layout_height="184dp"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="34dp"
-                        android:background="@mipmap/ic_test_result1">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="129dp"
-                            android:layout_height="119dp"
-                            android:layout_marginLeft="29dp"
-                            android:layout_marginTop="29dp"
-                            android:background="@mipmap/ic_test_result2" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginLeft="21dp"
-                            android:layout_marginTop="61dp"
-                            android:background="@mipmap/ic_test_result7" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginTop="61dp"
-                            android:layout_marginRight="22dp"
-                            android:background="@mipmap/ic_test_result7" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginLeft="81dp"
-                            android:layout_marginTop="22dp"
-                            android:background="@mipmap/ic_test_result4" />
-
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="81dp"
-                            android:layout_marginBottom="28dp"
-                            android:background="@mipmap/ic_test_result5" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="27dp"
-                            android:layout_marginBottom="57dp"
-                            android:background="@mipmap/ic_test_result5" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginRight="25dp"
-                            android:layout_marginBottom="55dp"
-                            android:background="@mipmap/ic_test_result5" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="61dp"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:shadowColor="#80000000"
-                                android:shadowRadius="3.0"
-                                android:text="本次测评"
-                                android:textColor="#ffffffff"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:gravity="bottom"
-                                android:orientation="horizontal">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:id="@+id/tv_this_test_grade_fragment_test_result"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:shadowColor="#80000000"
-                                    android:shadowRadius="3.0"
-                                    android:text="99"
-                                    android:textColor="#ffffffff"
-                                    android:textSize="24sp" />
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="2dp"
-                                    android:shadowColor="#80000000"
-                                    android:shadowRadius="3.0"
-                                    android:text="分"
-                                    android:textColor="#ffffffff"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_circle1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="75dp"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/iv_circle1"
-                            android:layout_width="34dp"
-                            android:layout_height="34dp"
-                            android:layout_marginLeft="34dp"
-                            android:background="@mipmap/ic_test_result8" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="18dp"
-                            android:gravity="center"
-                            android:text="摇绳标准"
-                            android:textColor="#ff333333"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_circle2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="122dp"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="34dp"
-                            android:layout_height="18dp"
-                            android:gravity="center"
-                            android:text="耐力"
-                            android:textColor="#ff333333"
-                            android:textSize="12sp" />
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/iv_circle2"
-                            android:layout_width="34dp"
-                            android:layout_height="34dp"
-                            android:background="@mipmap/ic_test_result3" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_circle3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="75dp"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/iv_circle3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="22dp"
-                            android:background="@mipmap/ic_balance" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="18dp"
-                            android:layout_marginLeft="20dp"
-                            android:gravity="center"
-                            android:text="平衡性"
-                            android:textColor="#ff333333"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_circle4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginRight="22dp"
-                        android:layout_marginBottom="50dp"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/iv_circle4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@mipmap/ic_stability" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="18dp"
-                            android:gravity="center"
-                            android:text="稳定性"
-                            android:textColor="#ff333333"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/ll_circle5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="121dp"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/iv_circle5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@mipmap/ic_test_result6" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="18dp"
-                            android:gravity="center"
-                            android:text="稳定性"
-                            android:textColor="#ff333333"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_circle6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="27dp"
-                        android:layout_marginBottom="50dp"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:id="@+id/iv_circle6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@mipmap/ic_jumping_standard" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="18dp"
-                            android:gravity="center"
-                            android:text="跳跃标准"
-                            android:textColor="#ff333333"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                </RelativeLayout>
+                <com.habit.star.widget.RadarView
+                    android:id="@+id/radar_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"
+                    android:background="@color/white" />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="34dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="19dp">
@@ -408,6 +149,7 @@
                         </LinearLayout>
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/time_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="02'01''"
@@ -443,6 +185,7 @@
                         </LinearLayout>
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/skip_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="200"
@@ -477,6 +220,7 @@
                         </LinearLayout>
 
                         <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/break_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="06"
@@ -561,179 +305,20 @@
                     </LinearLayout>
                 </FrameLayout>
 
-                <LinearLayout
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="220dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="30dp" />
 
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="41dp"
-                            android:layout_height="64dp"
-                            android:layout_marginTop="16dp"
-                            android:background="@mipmap/ic_rec_value" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
-                            android:text="平均速度"
-                            android:textColor="#ffb9cae0"
-                            android:textSize="12sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:orientation="horizontal">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="120"
-                                android:textColor="#ffb9cae0"
-                                android:textSize="16sp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="个/分钟"
-                                android:textColor="#ffb9cae0"
-                                android:textSize="9sp" />
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="6dp"
-                                android:layout_height="8dp"
-                                android:layout_marginBottom="3dp"
-                                android:background="@mipmap/ic_fill_reduce" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="51dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="41dp"
-                            android:layout_height="80dp"
-                            android:background="@mipmap/ic_rec_value" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
-                            android:text="平均速度"
-                            android:textColor="#ffb9cae0"
-                            android:textSize="12sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:orientation="horizontal">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="160"
-                                android:textColor="#ffb9cae0"
-                                android:textSize="16sp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="个/分钟"
-                                android:textColor="#ffb9cae0"
-                                android:textSize="9sp" />
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="6dp"
-                                android:layout_height="8dp"
-                                android:layout_marginBottom="3dp"
-                                android:background="@mipmap/ic_fill_rise" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="41dp"
-                            android:layout_height="47dp"
-                            android:layout_marginTop="33dp"
-                            android:background="@mipmap/ic_rec_value" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="14dp"
-                            android:text="平均速度"
-                            android:textColor="#ffb9cae0"
-                            android:textSize="12sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:orientation="horizontal">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="100"
-                                android:textColor="#ffb9cae0"
-                                android:textSize="16sp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="个/分钟"
-                                android:textColor="#ffb9cae0"
-                                android:textSize="9sp" />
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="6dp"
-                                android:layout_height="8dp"
-                                android:layout_marginBottom="3dp"
-                                android:background="@mipmap/ic_fill_reduce" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="19dp">
@@ -768,10 +353,10 @@
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="74dp"
                         android:layout_height="202dp"
-                        android:layout_alignParentRight="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="5dp"
+                        android:layout_centerHorizontal="true"
                         android:background="@mipmap/ic_result_woman"
                         android:visibility="gone" />
 
@@ -943,7 +528,7 @@
         layout="@layout/layout_dialog_toast_share_success"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

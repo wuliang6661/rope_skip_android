@@ -166,14 +166,17 @@ public class MyPkFragment extends BaseFragment<MyPkPresenter> implements MyPkCon
      * 获取Pk记录
      */
     private void getDataPkList() {
+        showProgress(null);
         HttpServerImpl.getDataPkList().subscribe(new HttpResultSubscriber<List<PkJiLuBo>>() {
             @Override
             public void onSuccess(List<PkJiLuBo> s) {
+                stopProgress();
                 setDataAdapter(s);
             }
 
             @Override
             public void onFiled(String message) {
+                stopProgress();
                 showToast(message);
             }
         });
