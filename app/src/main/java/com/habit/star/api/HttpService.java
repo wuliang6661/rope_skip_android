@@ -633,12 +633,19 @@ public interface HttpService {
      * 添加训练结果
      */
     @POST("app/test/addTrain")
-    Observable<BaseResult<String>> addTrain(@Body Map<String,Object> params);
+    Observable<BaseResult<String>> addTrain(@Body Map<String, Object> params);
 
     /**
      * 获取训练结果
      */
     @GET("app/test/getTrain")
     Observable<BaseResult<TrainBO>> getTrain(@Query("id") String id);
+
+
+    /**
+     * 添加改良方案至训练计划
+     */
+    @POST("app/test/addImprovePlan")
+    Observable<BaseResult<String>> addImprovePlan(@Body Map<String, Object> params);
 
 }

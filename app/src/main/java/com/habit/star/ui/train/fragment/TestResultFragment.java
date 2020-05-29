@@ -27,6 +27,9 @@ import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
+import com.habit.star.app.App;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
 import com.habit.star.pojo.po.TestDetailsBO;
@@ -45,6 +48,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -87,9 +91,39 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     AppCompatTextView breakNum;
     @BindView(R.id.bar_chart)
     BarChart barChart;
+    @BindView(R.id.nv_img)
+    AppCompatImageView nvImg;
+    @BindView(R.id.nan_img)
+    AppCompatImageView nanImg;
+    @BindView(R.id.zuoshou_line)
+    AppCompatImageView zuoshouLine;
+    @BindView(R.id.youshou_line)
+    AppCompatImageView youshouLine;
+    @BindView(R.id.zuojiao_line)
+    AppCompatImageView zuojiaoLine;
+    @BindView(R.id.youjiao_line)
+    AppCompatImageView youjiaoLine;
+    @BindView(R.id.zuoshou_yuan)
+    AppCompatImageView zuoshouYuan;
+    @BindView(R.id.youshou_yuan)
+    AppCompatImageView youshouYuan;
+    @BindView(R.id.zuojiao_yuan)
+    AppCompatImageView zuojiaoYuan;
+    @BindView(R.id.youjiao_yuan)
+    AppCompatImageView youjiaoYuan;
+    @BindView(R.id.zuoshou_text)
+    AppCompatTextView zuoshouText;
+    @BindView(R.id.youshou_text)
+    AppCompatTextView youshouText;
+    @BindView(R.id.zuojiao_text)
+    AppCompatTextView zuojiaoText;
+    @BindView(R.id.youjiao_text)
+    AppCompatTextView youjiaoText;
+    Unbinder unbinder;
 
     private Dialog mBottomSheetDialog;
     private ImprovePlanListAdapter mPlanListAdapter;
+    private String testId;
 
     public static TestResultFragment newInstance(Bundle bundle) {
         TestResultFragment fragment = new TestResultFragment();
@@ -117,17 +151,18 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
 
     @Override
     protected void initEventAndData() {
-        String id = getArguments().getString(RouterConstants.KEY_STRING);
+        testId = getArguments().getString(RouterConstants.KEY_STRING);
         initDialog();
         initAdapter();
         initBar(barChart);
-        mPresenter.getTestData(id);
+        mPresenter.getTestData(testId);
     }
 
 
     private void initAdapter() {
         rcImprovementPlan.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider_test).colorResId(R.color.transparent).build());
         rcImprovementPlan.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rcImprovementPlan.setNestedScrollingEnabled(false);
         mPlanListAdapter = new ImprovePlanListAdapter(mContext);
         rcImprovementPlan.setAdapter(mPlanListAdapter);
         rcImprovementPlan.addOnItemTouchListener(new OnItemChildClickListener() {
@@ -141,7 +176,9 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
                         gotoActivity(VideoExplainActivity.class, bundle, false);
                         break;
                     case R.id.tv_state_name_layout_fragment_improve_plan_list_item:
-
+                        if (((TestDetailsBO.PlanListBean) adapter.getItem(position)).getStatus() == 0) {
+                            addImprovePlan(((TestDetailsBO.PlanListBean) adapter.getItem(position)).getId());
+                        }
                         break;
                 }
             }
@@ -199,6 +236,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
         skipNum.setText(data.getSkipNum() + "");
         timeText.setText(Utils.timeToString(data.getSkipTime()));
         setBarData(data, barChart);
+        showQustion(data);
         List<Double> radarData = new ArrayList<>();
         radarData.add((double) data.getActionScore());
         radarData.add((double) data.getCoordinateScore());
@@ -241,6 +279,52 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             case R.id.ll_share_fragment_test_result:
                 mBottomSheetDialog.show();
                 break;
+        }
+    }
+
+
+    /**
+     * 显示问题分析
+     */
+    private void showQustion(TestDetailsBO data) {
+        int sex = App.xIaoJiangBO.getSex();
+        if (sex == 0) {  //男
+            nanImg.setVisibility(View.VISIBLE);
+            nvImg.setVisibility(View.GONE);
+        } else {   //女
+            nanImg.setVisibility(View.GONE);
+            nvImg.setVisibility(View.VISIBLE);
+        }
+        if (data.getAnalysisList() == null) {
+            return;
+        }
+        for (TestDetailsBO.AnalysisListBean item : data.getAnalysisList()) {
+            switch (item.getFlag()) {
+                case 1:
+                    zuoshouLine.setVisibility(View.VISIBLE);
+                    zuoshouYuan.setVisibility(View.VISIBLE);
+                    zuoshouText.setVisibility(View.VISIBLE);
+                    zuoshouText.setText(item.getQuestionAnalysis());
+                    break;
+                case 2:
+                    youshouLine.setVisibility(View.VISIBLE);
+                    youshouYuan.setVisibility(View.VISIBLE);
+                    youshouText.setVisibility(View.VISIBLE);
+                    youshouText.setText(item.getQuestionAnalysis());
+                    break;
+                case 3:
+                    zuojiaoLine.setVisibility(View.VISIBLE);
+                    zuojiaoYuan.setVisibility(View.VISIBLE);
+                    zuojiaoText.setVisibility(View.VISIBLE);
+                    zuojiaoText.setText(item.getQuestionAnalysis());
+                    break;
+                case 4:
+                    youshouLine.setVisibility(View.VISIBLE);
+                    youjiaoYuan.setVisibility(View.VISIBLE);
+                    youjiaoText.setVisibility(View.VISIBLE);
+                    youjiaoText.setText(item.getQuestionAnalysis());
+                    break;
+            }
         }
     }
 
@@ -327,4 +411,24 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             chart.animateY(1000);
         }
     }
+
+
+    /**
+     * 添加训练计划
+     */
+    private void addImprovePlan(int id) {
+        HttpServerImpl.addImprovePlan(id).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                showToast("添加成功!");
+                mPresenter.getTestData(testId);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
 }

@@ -767,6 +767,15 @@ public class HttpServerImpl {
         return getService().getTrain(id).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 添加训练计划
+     */
+    public static Observable<String> addImprovePlan(int id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("improvePlanId", id);
+        return getService().addImprovePlan(params).compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 提交图片
