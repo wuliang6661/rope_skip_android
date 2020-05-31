@@ -13,12 +13,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.algorithm.skipevaluation.Evaluator;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.habit.commonlibrary.apt.SingleClick;
 import com.habit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
 import com.habit.star.app.App;
 import com.habit.star.app.RouterConstants;
 import com.habit.star.base.BaseFragment;
@@ -33,6 +36,7 @@ import com.habit.star.ui.train.adapter.TranRecordListAdapter;
 import com.habit.star.ui.train.contract.TranHomeContract;
 import com.habit.star.ui.train.presenter.TranHomePresenter;
 import com.habit.star.ui.young.fragment.StatisticsActivity;
+import com.habit.star.utils.Example;
 import com.habit.star.utils.ToastUtil;
 import com.habit.star.utils.Utils;
 import com.habit.star.utils.blue.cmd.BleCmd;
@@ -40,7 +44,9 @@ import com.habit.star.utils.blue.cmd.BleCmd;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -108,6 +114,17 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
      */
     private int firstTiaoShengNum = Integer.MAX_VALUE;
 
+    /**
+     * 是否填写过基本信息
+     */
+    public static boolean isEditMsg = false;
+
+    /**
+     * 跳绳次数
+     */
+    private int skipNum = 0;
+
+
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -116,7 +133,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     timeCount++;
                     String time = Utils.timeToString(timeCount);
                     tvTime.setText("时间  " + time);
-//                    tvTimeCount.setText(timeCount * 2 < 10 ? ("0" + timeCount * 2) : (timeCount * 2 + ""));
                     mPresenter.getTiaoshenCishu();
                     break;
                 default:
@@ -250,7 +266,8 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             if (firstTiaoShengNum == Integer.MAX_VALUE) {
                 firstTiaoShengNum = cishu;
             }
-            getDeviceCishu(String.valueOf(cishu - firstTiaoShengNum));
+            skipNum = cishu - firstTiaoShengNum;
+            getDeviceCishu(String.valueOf(skipNum));
         }
     }
 
@@ -302,11 +319,16 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     String time = Utils.timeToString(timeCount);
                     tvTime.setText("时间  " + time);
                     ivStartTest.setBackgroundResource(R.mipmap.ic_home8);
-                    intent = new Intent();
-                    intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
-                    intent.setClass(_mActivity, TainMainActivity.class);
-                    startActivity(intent);
+                    isEditMsg = false;
+                    addTest();
                 } else {//未开始
+                    if (!isEditMsg) {
+                        intent = new Intent();
+                        intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
+                        intent.setClass(_mActivity, TainMainActivity.class);
+                        startActivity(intent);
+                        return;
+                    }
                     testState = true;
                     ivStartTest.setBackgroundResource(R.mipmap.ic_finish_test);
                     if (timer == null) {
@@ -322,21 +344,57 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 }
                 break;
             case R.id.tv_tj_fragment_train_main:
-                gotoActivity(StatisticsActivity.class,false);
+                gotoActivity(StatisticsActivity.class, false);
                 break;
             case R.id.tv_battery_fragment_train_main:
                 break;
             case R.id.ll_sd_input_fragment_train_main:
-//                intent = new Intent();
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
-//                intent.setClass(_mActivity, TainMainActivity.class);
-//                startActivity(intent);
-                gotoActivity(InputActivity.class,false);
+                gotoActivity(InputActivity.class, false);
                 break;
             case R.id.iv_fresh_fragment_train_main:
                 break;
         }
     }
+
+
+    /**
+     * 添加测试结果
+     */
+    private void addTest() {
+        Example example = new Example(getActivity().getAssets(), 0, skipNum, timeCount);
+        Evaluator evaluator = example.getData();
+        Map<String, Object> params = new HashMap<>();
+        params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
+        params.put("breakNum", 0);   //断绳数量
+        params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
+        params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
+        params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
+        params.put("skipNum", skipNum);  //跳绳次数
+        params.put("skipTime", timeCount);
+        params.put("stableScore", evaluator.getPositionStabilityScore());
+        params.put("deviceId", null);  //todo 设备id，暂时缺失
+        showProgress(null);
+        HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                stopProgress();
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString(RouterConstants.KEY_STRING, s);
+                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
+                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
+                intent.setClass(_mActivity, TainMainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                stopProgress();
+                showToast(message);
+            }
+        });
+    }
+
 
     /**
      * 连接蓝牙
@@ -353,6 +411,9 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         mPresenter.getDeviceQC();
         mPresenter.getTestTotal();
         mPresenter.getTestList();
+        if (isEditMsg) {
+            ivStartTest.setBackgroundResource(R.mipmap.start_img);
+        }
     }
 
 }

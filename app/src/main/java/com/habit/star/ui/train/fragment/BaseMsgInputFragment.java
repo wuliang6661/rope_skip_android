@@ -7,10 +7,15 @@ import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.habit.commonlibrary.widget.ProgressbarLayout;
 import com.habit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.habit.star.R;
+import com.habit.star.api.HttpResultSubscriber;
+import com.habit.star.api.HttpServerImpl;
+import com.habit.star.app.App;
 import com.habit.star.base.BaseFragment;
+import com.habit.star.pojo.po.XIaoJiangBO;
 import com.habit.star.ui.train.contract.BaseMsgInputContract;
 import com.habit.star.ui.train.presenter.BaseMsgInputPresenter;
 import com.habit.star.utils.ToastUtil;
@@ -48,6 +53,10 @@ public class BaseMsgInputFragment extends BaseFragment<BaseMsgInputPresenter> im
     AppCompatEditText etWeight;
     @BindView(R.id.btn_start_test_fragment_base_msg_input)
     AppCompatButton btnStartTest;
+
+
+    private int sex;  //性别
+
     public static BaseMsgInputFragment newInstance(Bundle bundle) {
         BaseMsgInputFragment fragment = new BaseMsgInputFragment();
         if (bundle != null) {
@@ -81,6 +90,7 @@ public class BaseMsgInputFragment extends BaseFragment<BaseMsgInputPresenter> im
                 _mActivity.onBackPressedSupport();
             }
         });
+        getYoungGeneralInfo();
     }
 
     private void initDialog() {
@@ -122,8 +132,73 @@ public class BaseMsgInputFragment extends BaseFragment<BaseMsgInputPresenter> im
                 ivSexWoman.setVisibility(View.GONE);
                 break;
             case R.id.btn_start_test_fragment_base_msg_input:
-                start(TrainPlanFragment.newInstance(null));
+                saveGeneralInfo();
                 break;
         }
     }
+
+
+    /**
+     * 查询小将信息
+     */
+    private void getYoungGeneralInfo() {
+        HttpServerImpl.getYoungGeneralInfo().subscribe(new HttpResultSubscriber<XIaoJiangBO>() {
+            @Override
+            public void onSuccess(XIaoJiangBO s) {
+                App.xIaoJiangBO = s;
+//                etAge.setText(s.get);
+                etHeight.setText(s.getHeight() + "");
+                etWeight.setText(s.getWeight() + "");
+                sex = s.getSex();
+                if (s.getSex() == 0) {
+                    ivSexMan.setVisibility(View.VISIBLE);
+                    ivSexWoman.setVisibility(View.GONE);
+                } else {
+                    ivSexMan.setVisibility(View.GONE);
+                    ivSexWoman.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 填写基本信息
+     */
+    private void saveGeneralInfo() {
+        String age = etAge.getText().toString().trim();
+        String weight = etWeight.getText().toString().trim();
+        String height = etHeight.getText().toString().trim();
+        if(StringUtils.isEmpty(age)){
+            showToast("请输入年龄！");
+            return;
+        }
+        if(StringUtils.isEmpty(weight)){
+            showToast("请输入体重！");
+            return;
+        }
+        if(StringUtils.isEmpty(height)){
+            showToast("请输入身高！");
+            return;
+        }
+        HttpServerImpl.saveGeneralInfo(age, height, sex + "", weight).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                TranHomeFragment.isEditMsg = true;
+//                start(TrainPlanFragment.newInstance(null));
+                _mActivity.onBackPressedSupport();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
 }

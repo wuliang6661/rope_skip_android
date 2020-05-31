@@ -62,7 +62,6 @@ public class HttpServerImpl {
     /**
      * 获取代理对象
      *
-     * @return
      */
     public static HttpService getService() {
         if (service == null)
@@ -691,11 +690,7 @@ public class HttpServerImpl {
     /**
      * 添加测试记录
      */
-    public static Observable<String> addTest(String breakNum, String skipNum, String skipTime) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("breakNum", breakNum);
-        params.put("skipNum", skipNum);
-        params.put("skipTime", skipTime);
+    public static Observable<String> addTest(Map<String, Object> params) {
         return getService().addTest(params).compose(RxResultHelper.httpRusult());
     }
 
@@ -724,11 +719,7 @@ public class HttpServerImpl {
     /**
      * 提交手动
      */
-    public static Observable<String> input(String breakNum, String skipNum, String skipTime) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("breakNum", breakNum);
-        params.put("skipNum", skipNum);
-        params.put("skipTime", skipTime);
+    public static Observable<String> input(Map<String,Object> params) {
         return getService().input(params).compose(RxResultHelper.httpRusult());
     }
 
@@ -774,6 +765,18 @@ public class HttpServerImpl {
         Map<String, Object> params = new HashMap<>();
         params.put("improvePlanId", id);
         return getService().addImprovePlan(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 填写基本信息
+     */
+    public static Observable<String> saveGeneralInfo(String age, String height, String sex, String weight) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("age", age);
+        params.put("height", height);
+        params.put("sex", sex);
+        params.put("weight", weight);
+        return getService().saveGeneralInfo(params).compose(RxResultHelper.httpRusult());
     }
 
 

@@ -648,4 +648,11 @@ public interface HttpService {
     @POST("app/test/addImprovePlan")
     Observable<BaseResult<String>> addImprovePlan(@Body Map<String, Object> params);
 
+
+    /**
+     * 填写基础信息
+     */
+    @POST("app/test/saveGeneralInfo")
+    Observable<BaseResult<String>> saveGeneralInfo(@Body Map<String, Object> params);
+
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.algorithm.skipevaluation.Evaluator;
 import com.habit.star.R;
 import com.habit.star.api.HttpResultSubscriber;
 import com.habit.star.api.HttpServerImpl;
@@ -15,12 +16,16 @@ import com.habit.star.event.model.BlueDataEvent;
 import com.habit.star.event.model.BlueEvent;
 import com.habit.star.service.UartService;
 import com.habit.star.ui.SearchActivty;
+import com.habit.star.utils.Example;
 import com.habit.star.utils.StringUtils;
 import com.habit.star.utils.blue.cmd.BleCmd;
 import com.habit.star.utils.blue.cmd.RequstBleCmd;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -98,7 +103,6 @@ public class InputActivity extends BaseActivity {
     }
 
 
-
     @OnClick(R.id.btn_commit)
     public void commit() {
         String shichang = etShichang.getText().toString().trim();
@@ -116,15 +120,27 @@ public class InputActivity extends BaseActivity {
             showToast("请输入断绳次数！");
             return;
         }
-        HttpServerImpl.input(cishu,zongshu,shichang).subscribe(new HttpResultSubscriber<String>() {
+        Example example = new Example(getAssets(), Integer.parseInt(cishu), Integer.parseInt(zongshu), Integer.parseInt(shichang));
+        Evaluator evaluator = example.getData();
+        Map<String, Object> params = new HashMap<>();
+        params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
+        params.put("breakNum", cishu);   //断绳数量
+        params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
+        params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
+        params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
+        params.put("skipNum", zongshu);  //跳绳次数
+        params.put("skipTime", shichang);
+        params.put("stableScore", evaluator.getPositionStabilityScore());
+        params.put("deviceId", null);  //todo 设备id，暂时缺失
+        HttpServerImpl.input(params).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-                 showToast("提交成功！");
+                showToast("提交成功！");
             }
 
             @Override
             public void onFiled(String message) {
-               showToast(message);
+                showToast(message);
             }
         });
     }
