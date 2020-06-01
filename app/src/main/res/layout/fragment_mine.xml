@@ -20,7 +20,7 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+            <com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress
                 android:id="@+id/toolbar_layout_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_toolbar_default"
@@ -188,7 +188,7 @@
                 android:layout_marginTop="6dp"
                 android:background="@color/color_DEF3FF" />
 
-            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
                 android:id="@+id/item_device_fragment_mine"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
@@ -223,7 +223,7 @@
         </LinearLayout>
 
 
-        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+        <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
             android:id="@+id/item_jtcy_fragment_mine"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -237,7 +237,7 @@
             app:lichtd_top_divider_visibility="gone" />
 
 
-        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+        <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
             android:id="@+id/item_shdd_fragment_mine"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -328,7 +328,7 @@
 
         </LinearLayout>
 
-        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+        <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
             android:id="@+id/item_yqhy_fragment_mine"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -342,7 +342,7 @@
             app:lichtd_top_divider_visibility="gone" />
 
 
-        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+        <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
             android:id="@+id/my_shoucang"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -355,7 +355,7 @@
             app:lichtd_title="我的收藏"
             app:lichtd_top_divider_visibility="gone" />
 
-        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+        <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
             android:id="@+id/item_xtsz_fragment_mine"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -368,7 +368,7 @@
             app:lichtd_title="系统设置"
             app:lichtd_top_divider_visibility="gone" />
 
-        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+        <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
             android:id="@+id/item_bzzx_fragment_mine"
             android:layout_width="match_parent"
             android:layout_height="50dp"

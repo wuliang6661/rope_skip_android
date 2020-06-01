@@ -1,4 +1,4 @@
-package com.habit.commonlibrary;
+package com.tohabit.commonlibrary;
 
 import org.junit.Test;
 

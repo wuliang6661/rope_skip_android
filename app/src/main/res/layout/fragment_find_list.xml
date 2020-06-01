@@ -58,7 +58,7 @@
             android:layout_height="match_parent" />
 
 
-        <com.habit.commonlibrary.widget.ProgressbarLayout
+        <com.tohabit.commonlibrary.widget.ProgressbarLayout
             android:id="@+id/progress_fragment_fragment_find_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

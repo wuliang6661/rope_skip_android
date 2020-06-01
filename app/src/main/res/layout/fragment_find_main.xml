@@ -43,7 +43,7 @@
             <!--android:layout_height="1dp"-->
             <!--android:background="@color/colorDivider" />-->
 
-        <com.habit.commonlibrary.widget.HackyViewPager
+        <com.tohabit.commonlibrary.widget.HackyViewPager
             android:id="@+id/viewpager_fragment_my_achivement"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -51,7 +51,7 @@
 
     </LinearLayout>
 
-    <com.habit.commonlibrary.widget.ProgressbarLayout
+    <com.tohabit.commonlibrary.widget.ProgressbarLayout
         android:id="@+id/progress_fragment_my_achivement"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_F6F6F9"
@@ -190,8 +191,8 @@
                         android:layout_marginLeft="12dp"
                         android:ellipsize="marquee"
                         android:focusable="true"
-                        android:marqueeRepeatLimit="marquee_forever"
                         android:focusableInTouchMode="true"
+                        android:marqueeRepeatLimit="marquee_forever"
                         android:singleLine="true"
                         android:text="大萨达撒大所仨打仨的按谁仨"
                         android:textColor="@color/white"
@@ -210,18 +211,14 @@
                     <RelativeLayout
                         android:layout_width="194dp"
                         android:layout_height="194dp"
-                        android:layout_gravity="center"
-                        android:background="@mipmap/ic_circle_center_wb_pane">
-                        <!--<com.habit.commonlibrary.widget.CountDownProgressBar-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--app:countDown_centerTextSize="25dp"-->
-                        <!--app:countDown_circleWidth="4dp"-->
-                        <!--app:countDown_firstColor="@color/cpb_red"-->
-                        <!--app:countDown_secondColor="@color/colorText"-->
-                        <!--app:countDown_isShowGradient="true"-->
-                        <!--app:countDown_centerTextColor="#2395FF"-->
-                        <!--android:id="@+id/cd_process_fragment_train_plan"/>-->
+                        android:layout_gravity="center">
+
+                        <com.tohabit.skip.widget.CircleProgressbar
+                            android:id="@+id/countdown_bar"
+                            android:layout_width="190dp"
+                            android:layout_height="190dp"
+                            android:layout_centerInParent="true" />
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -314,7 +311,7 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <com.habit.commonlibrary.widget.ProgressbarLayout
+    <com.tohabit.commonlibrary.widget.ProgressbarLayout
         android:id="@+id/progress_fragment_common_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

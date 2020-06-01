@@ -46,7 +46,7 @@
         </LinearLayout>
 
 
-        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+        <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -60,7 +60,7 @@
             app:lichtd_title="我的昵称"
             app:lichtd_top_divider_visibility="gone" />
 
-        <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+        <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
             android:id="@+id/user_phone"
             android:layout_width="match_parent"
             android:layout_height="50dp"

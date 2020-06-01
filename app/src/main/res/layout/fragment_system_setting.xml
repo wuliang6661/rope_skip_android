@@ -7,7 +7,7 @@
     android:background="@color/color_F6F6F9"
     android:fitsSystemWindows="true">
 
-    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+    <com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress
         android:id="@+id/toolbar_layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar_default"
@@ -28,7 +28,7 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
                 android:id="@+id/item_question_fragment_system_setting"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -41,7 +41,7 @@
                 app:lichtd_title="常见问题"
                 app:lichtd_top_divider_visibility="gone" />
 
-            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
                 android:id="@+id/item_check_version_fragment_system_setting"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -54,7 +54,7 @@
                 app:lichtd_title="版本更新"
                 app:lichtd_top_divider_visibility="gone" />
 
-            <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
                 android:id="@+id/item_about_us_fragment_system_setting"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -71,7 +71,7 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <com.habit.commonlibrary.widget.ProgressbarLayout
+    <com.tohabit.commonlibrary.widget.ProgressbarLayout
         android:id="@+id/progress_fragment_system_setting"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

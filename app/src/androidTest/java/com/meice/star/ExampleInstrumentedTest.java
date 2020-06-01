@@ -1,4 +1,4 @@
-package com.habit.star;
+package com.tohabit.skip;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

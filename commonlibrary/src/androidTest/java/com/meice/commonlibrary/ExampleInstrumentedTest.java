@@ -1,4 +1,4 @@
-package com.habit.commonlibrary;
+package com.tohabit.commonlibrary;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -7,7 +7,7 @@
     android:background="@color/colorBackgroundGray"
     android:fitsSystemWindows="true">
 
-    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+    <com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress
         android:id="@+id/toolbar_layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar_default"
@@ -32,7 +32,7 @@
             android:layout_height="match_parent" />
 
 
-        <com.habit.commonlibrary.widget.ProgressbarLayout
+        <com.tohabit.commonlibrary.widget.ProgressbarLayout
             android:id="@+id/progress_fragment_my_task_order"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

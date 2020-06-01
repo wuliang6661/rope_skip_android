@@ -6,7 +6,7 @@
     android:background="@mipmap/ic_yong_home_bg"
     android:fitsSystemWindows="true">
 
-    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+    <com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress
         android:id="@+id/toolbar_layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar_default"
@@ -137,7 +137,7 @@
         android:src="@drawable/monkey" />
 
 
-    <com.habit.commonlibrary.widget.ProgressbarLayout
+    <com.tohabit.commonlibrary.widget.ProgressbarLayout
         android:id="@+id/progress_fragment_common_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -146,7 +146,7 @@
         android:visibility="gone" />
 
 
-    <com.habit.star.widget.waterview.WaterFlake
+    <com.tohabit.skip.widget.waterview.WaterFlake
         android:id="@+id/water_flake"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

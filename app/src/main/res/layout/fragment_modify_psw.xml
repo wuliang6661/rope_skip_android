@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/colorBackgroundGray">
 
-    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+    <com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress
         android:id="@+id/toolbar_fragment_modify_psw"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar_default"
@@ -53,7 +53,7 @@
         android:textColor="@color/color_0088cc"
         android:textSize="15dp" />
 
-    <com.habit.commonlibrary.widget.ProgressbarLayout
+    <com.tohabit.commonlibrary.widget.ProgressbarLayout
         android:id="@+id/progress_fragment_modify_psw"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

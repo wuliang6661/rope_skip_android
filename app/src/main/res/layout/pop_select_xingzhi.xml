@@ -57,7 +57,7 @@
         android:paddingRight="15dp">
 
 
-        <com.habit.star.widget.wheelview.WheelView
+        <com.tohabit.skip.widget.wheelview.WheelView
             android:id="@+id/select"
             android:layout_width="0dp"
             android:layout_height="match_parent"
