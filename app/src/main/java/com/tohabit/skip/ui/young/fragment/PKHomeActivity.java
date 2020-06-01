@@ -240,8 +240,10 @@ public class PKHomeActivity extends BaseActivity {
 //                if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
                 if (WebSocketUtils.getInstance().getState()) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id",pkChangCiBOS.get(position).getId());
-                    gotoActivity(PKStartActivity.class, bundle,false);
+                    bundle.putInt("id", pkChangCiBOS.get(position).getId());
+                    bundle.putInt("maxTime", pkChangCiBOS.get(position).getMaxTime());
+                    bundle.putString("title", pkChangCiBOS.get(position).getTitle());
+                    gotoActivity(PKStartActivity.class, bundle, false);
                 } else {
                     showToast("游戏服务器正在连接！");
                 }

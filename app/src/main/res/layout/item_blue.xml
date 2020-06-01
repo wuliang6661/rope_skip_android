@@ -30,7 +30,6 @@
         android:layout_width="68dp"
         android:layout_height="36dp"
         android:background="@drawable/bt_bangding_bg"
-        android:enabled="false"
         android:gravity="center"
         android:text="绑定"
         android:textColor="@color/white"

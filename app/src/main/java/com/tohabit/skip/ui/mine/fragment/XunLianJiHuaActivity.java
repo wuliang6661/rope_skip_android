@@ -184,7 +184,7 @@ public class XunLianJiHuaActivity extends BaseActivity {
                 if (type == 0) {
                     Bundle bundle = new Bundle();
                     bundle.putString("id", jiHuaBOS.get(position).getId() + "");
-                    bundle.putString("trainLength", jiHuaBOS.get(position).getTrainLength());
+                    bundle.putString("trainLength", Integer.parseInt(jiHuaBOS.get(position).getTrainLength()) * 60 + "");
                     Intent intent = new Intent();
                     intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
                     intent.putExtras(bundle);

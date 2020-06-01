@@ -318,13 +318,15 @@ public class CircleProgressbar extends TextView {
                     progress = (float) (shengyuTime * 1.0 / timeMillis * 100);
                     break;
             }
-            if (progress >= 0 && progress <= 100) {
+            if (shengyuTime <= timeMillis) {
                 if (mCountdownProgressListener != null)
                     mCountdownProgressListener.onProgress(listenerWhat, progress);
                 invalidate();
                 postDelayed(progressChangeTask, 1000);
-            } else
+            } else {
+                progress = 0;
                 progress = validateProgress(progress);
+            }
         }
     };
 

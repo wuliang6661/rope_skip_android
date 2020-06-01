@@ -96,4 +96,13 @@ public class App extends Application {
     }
 
 
+    /**
+     * 绳子是否连接上
+     */
+    public static boolean isConnect() {
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            return true;
+        }
+        return false;
+    }
 }

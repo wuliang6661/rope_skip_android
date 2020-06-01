@@ -248,6 +248,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <!--PK结果界面-->
+        <activity
+            android:name=".ui.young.fragment.PKResultActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <!--各种协议页面-->
         <activity

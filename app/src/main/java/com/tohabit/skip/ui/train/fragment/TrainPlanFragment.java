@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.algorithm.skipevaluation.Evaluator;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.skip.R;
@@ -18,12 +20,16 @@ import com.tohabit.skip.app.App;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
+import com.tohabit.skip.pojo.BaseResult;
 import com.tohabit.skip.pojo.po.MusicBO;
+import com.tohabit.skip.pojo.po.PkUserBO;
+import com.tohabit.skip.pojo.po.UserBO;
 import com.tohabit.skip.presenter.CommonPresenter;
 import com.tohabit.skip.presenter.contract.CommonContract;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.ui.train.music.Player;
+import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
 import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
@@ -83,6 +89,10 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     LinearLayout musicLayout;
     @BindView(R.id.countdown_bar)
     CircleProgressbar countdownBar;
+    @BindView(R.id.title_text)
+    AppCompatTextView titleText;
+
+
     /**
      * 播放的音乐
      */
@@ -111,9 +121,17 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     private int firstTiaoShengNum = Integer.MAX_VALUE;
 
     /**
-     * 倒计时时长
+     * 倒计时时长  (秒)
      */
     private int trainLength;
+
+    /**
+     * 从哪个页面跳转进来的
+     */
+    private int type = 0;  //0: 训练计划 1 首页训练  2  PK
+
+
+    private int  pkChangCiId;
 
 
     public static TrainPlanFragment newInstance(Bundle bundle) {
@@ -146,18 +164,36 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
 
         trainPlanId = getArguments().getString("id", "");
         trainLength = Integer.parseInt(getArguments().getString("trainLength", "0"));
-        timeCount = trainLength * 60;  //转换为秒数
+        type = getArguments().getInt("type", 0);
+        timeCount = trainLength;  //秒数
         tvTimeSecond.setText(Utils.timeToString(timeCount));
         countdownBar.setTimeMillis(timeCount * 1000);
         countdownBar.setCountdownProgressListener(0, new CircleProgressbar.OnCountdownProgressListener() {
             @Override
             public void onProgress(int what, float progress) {
-                timeCount--;
-                String time = Utils.timeToString(timeCount);
-                tvTimeSecond.setText(time);
-                Cishu();
+                if (progress == 0) {   //倒计时完
+                    countdownBar.stop();
+                    sendPk();
+                } else {
+                    timeCount--;
+                    String time = Utils.timeToString(timeCount);
+                    tvTimeSecond.setText(time);
+                    Cishu();
+                }
             }
         });
+        switch (type) {
+            case 1:
+                ivFreshFragmentTrainMain.setVisibility(View.VISIBLE);
+                break;
+            case 2:   //pk
+                String title = getArguments().getString("title");
+                titleText.setText(title + "PK");
+                pkChangCiId = getArguments().getInt("pkChangCiId");
+                notifi();
+                onViewClicked(rlStart);
+                break;
+        }
     }
 
     @Override
@@ -224,9 +260,19 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 break;
             case R.id.rl_start_fragment_train_plan:
                 if (testState) {//开始
-                    updateData();
+                    switch (type) {
+                        case 0:    //训练计划
+                            updateData();
+                            break;
+                        case 1:   //测试
+                            updateTest();
+                            break;
+                        case 2:   //PK
+                            sendPk();
+                            break;
+                    }
                     testState = false;
-                    timeCount = trainLength * 60;
+                    timeCount = trainLength;
                     countdownBar.stop();
                     String time = Utils.timeToString(timeCount);
                     tvTimeSecond.setText(time);
@@ -237,7 +283,6 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                     tvContral.setText("结束");
                     firstTiaoShengNum = Integer.MAX_VALUE;
                     countdownBar.start();
-
                 }
                 break;
         }
@@ -248,7 +293,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      * 上报训练结果，生成综合得分
      */
     private void updateData() {
-        Example example = new Example(getActivity().getAssets(), 0, skipNum, timeCount);
+        Example example = new Example(getActivity().getAssets(), 0, skipNum, trainLength - timeCount);
         Evaluator evaluator = example.getData();
         Map<String, Object> params = new HashMap<>();
         params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
@@ -257,7 +302,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
         params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
         params.put("skipNum", skipNum);  //跳绳次数
-        params.put("skipTime", timeCount);
+        params.put("skipTime", trainLength - timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("backgroundMusicId", musicBO == null ? null : musicBO.getId());
         params.put("beat", beat);
@@ -281,6 +326,104 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     }
 
 
+    /**
+     * 上报测试
+     */
+    private void updateTest() {
+        Example example = new Example(getActivity().getAssets(), 0, skipNum, trainLength - timeCount);
+        Evaluator evaluator = example.getData();
+        Map<String, Object> params = new HashMap<>();
+        params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
+        params.put("breakNum", 0);   //断绳数量
+        params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
+        params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
+        params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
+        params.put("skipNum", skipNum);  //跳绳次数
+        params.put("skipTime", trainLength - timeCount);
+        params.put("stableScore", evaluator.getPositionStabilityScore());
+        params.put("deviceId", null);  //todo 设备id，暂时缺失
+        showProgress(null);
+        HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                stopProgress();
+                showToast("已生成测试记录！");
+//                Intent intent = new Intent();
+//                Bundle bundle = new Bundle();
+//                bundle.putString(RouterConstants.KEY_STRING, s);
+//                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
+//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
+//                intent.setClass(_mActivity, TainMainActivity.class);
+//                startActivity(intent);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                stopProgress();
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 开始PK
+     */
+    private void sendPk() {
+        Map<String, String> params = new HashMap<>();
+        params.put("skipNum", skipNum + "");
+        params.put("skipTime", trainLength - timeCount + "");
+        params.put("breakNum", 0 + "");
+        WebSocketUtils utils = WebSocketUtils.getInstance();
+        utils.sendMsg(new Gson().toJson(params));
+
+        showToast("正在等待PK结果，请稍后...");
+    }
+
+
+    /**
+     * 设置长连接监听
+     */
+    private void notifi() {
+        WebSocketUtils.getInstance().setOnNotifiListener(new WebSocketUtils.onNotifiListener() {
+            @Override
+            public void onNotifi(String message) {
+                try {
+                    BaseResult<UserBO> userBO = new Gson().fromJson(message, new TypeToken<BaseResult<PkUserBO>>() {
+                    }.getType());
+                    if (userBO.getCode() == 300) {   //胜利
+                        showToast(userBO.getMsg());
+                        stopPk();
+//                        gotoActivity(PKResultActivity.class,true);
+
+                    }
+                    if (userBO.getCode() == 302) {   //失败
+                        stopPk();
+                        showToast(userBO.getMsg());
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 结束PK
+     */
+    private void stopPk(){
+        //开始匹配
+        Map<String, Object> params = new HashMap<>();
+        params.put("pkChallengeId", pkChangCiId);
+        params.put("contentText", 4);
+        WebSocketUtils utils = WebSocketUtils.getInstance();
+        utils.sendMsg(new Gson().toJson(params));
+    }
+
+
+
+
     Player player;
 
     /**
@@ -300,18 +443,18 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-        if (player != null) {
-            player.pause();
-        }
-        testState = false;
-        timeCount = trainLength * 60;
-        String time = Utils.timeToString(timeCount);
-        tvTimeSecond.setText(time);
-        if (countdownBar != null) {
-            countdownBar.setProgress(100);
-            countdownBar.stop();
-        }
-        tvContral.setText("开始");
+//        if (player != null) {
+//            player.pause();
+//        }
+//        testState = false;
+//        timeCount = trainLength;
+//        String time = Utils.timeToString(timeCount);
+//        tvTimeSecond.setText(time);
+//        if (countdownBar != null) {
+//            countdownBar.setProgress(100);
+//            countdownBar.stop();
+//        }
+//        tvContral.setText("开始");
     }
 
     @Override
@@ -324,6 +467,10 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         }
         if (countdownBar != null) {
             countdownBar.stop();
+        }
+        if(type == 2){   //pk
+
+            WebSocketUtils.getInstance().setOnNotifiListener(null);
         }
     }
 

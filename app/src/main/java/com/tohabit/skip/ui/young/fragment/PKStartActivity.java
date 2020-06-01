@@ -1,8 +1,11 @@
 package com.tohabit.skip.ui.young.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.skip.R;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.app.RouterConstants;
@@ -23,12 +27,12 @@ import com.tohabit.skip.pojo.BaseResult;
 import com.tohabit.skip.pojo.po.PkUserBO;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 开始pk界面
@@ -48,7 +52,7 @@ public class PKStartActivity extends BaseActivity {
     @BindView(R.id.user_name)
     TextView userName;
     @BindView(R.id.duanwei_text)
-    TextView duanweiText;
+    ImageView duanweiText;
     @BindView(R.id.duanwei_img)
     ImageView duanweiImg;
     @BindView(R.id.progress_bar)
@@ -57,8 +61,8 @@ public class PKStartActivity extends BaseActivity {
     RoundedImageView duishouUserImg;
     @BindView(R.id.duishou_user_name)
     TextView duishouUserName;
-    @BindView(R.id.duishou_duanwei_text)
-    TextView duishouDuanweiText;
+    @BindView(R.id.duishou_duanwei_img1)
+    ImageView duishouDuanweiText;
     @BindView(R.id.duishou_duanwei_img)
     ImageView duishouDuanweiImg;
     @BindView(R.id.duishou_duanwei)
@@ -71,11 +75,33 @@ public class PKStartActivity extends BaseActivity {
     TextView pkTimer;
     @BindView(R.id.start_bt)
     RelativeLayout startBt;
+    @BindView(R.id.back)
+    LinearLayout back;
 
     private int pkChangCiId;
 
     //是否去跳绳
     private boolean isGoTiaosheng = false;
+
+    /**
+     * 匹配到的用户信息
+     */
+    BaseResult<PkUserBO> userBO;
+
+    /**
+     * 匹配的场次跳绳时间
+     */
+    private int maxTime;
+
+    /**
+     * 场次标题
+     */
+    private String title;
+
+    /**
+     * 对方是否已准备
+     */
+    private boolean isZhunBei;
 
     @Override
     protected void initInject() {
@@ -100,9 +126,11 @@ public class PKStartActivity extends BaseActivity {
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
         userName.setText(App.xIaoJiangBO.getNickName());
         Glide.with(this).load(App.xIaoJiangBO.getIcon()).into(duanweiImg);
-        duanweiText.setText(App.xIaoJiangBO.getPkName());
+        Glide.with(this).load(App.xIaoJiangBO.getImage()).into(duanweiText);
 
         pkChangCiId = getIntent().getExtras().getInt("id");
+        maxTime = getIntent().getExtras().getInt("maxTime");
+        title = getIntent().getExtras().getString("title");
 
         //开始匹配
         Map<String, Object> params = new HashMap<>();
@@ -120,14 +148,20 @@ public class PKStartActivity extends BaseActivity {
             @Override
             public void onNotifi(String message) {
                 try {
-                    BaseResult<PkUserBO> userBO = new Gson().fromJson(message, new TypeToken<BaseResult<PkUserBO>>() {}.getType());
-                    if(userBO.surcess()){
-                        pkUser(userBO.getData());
-                    }else{
-                        showToast(userBO.getMsg());
-                        finish();
+                    userBO = new Gson().fromJson(message, new TypeToken<BaseResult<PkUserBO>>() {
+                    }.getType());
+                    if (userBO.surcess()) {
+                        if("PK进行中".equals(userBO.getMsg())){
+                            handler.sendEmptyMessage(0x33);
+                        }else if("对方已准备".equals(userBO.getMsg())){
+                            showToast(userBO.getMsg());
+                        }else{
+                            handler.sendEmptyMessage(0x11);
+                        }
+                    } else {
+                        handler.sendEmptyMessage(0x22);
                     }
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
@@ -136,17 +170,72 @@ public class PKStartActivity extends BaseActivity {
     }
 
 
+//    @OnClick(R.id.back)
+    public void back() {
+        if (userBO == null) {
+            //取消匹配
+            Map<String, Object> params = new HashMap<>();
+            params.put("pkChallengeId", pkChangCiId);
+            params.put("contentText", 1);
+            sendPk(new Gson().toJson(params));
+        } else {
+            //取消PK
+            Map<String, Object> params = new HashMap<>();
+            params.put("pkChallengeId", pkChangCiId);
+            params.put("contentText", 3);
+            sendPk(new Gson().toJson(params));
+        }
+    }
+
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0x11:
+                    pkUser(userBO.getData());
+                    break;
+                case 0x22:
+                    //取消PK
+                    Map<String, Object> params = new HashMap<>();
+                    params.put("pkChallengeId", pkChangCiId);
+                    params.put("contentText", 3);
+                    sendPk(new Gson().toJson(params));
+                    showToast(userBO.getMsg());
+                    finish();
+                    break;
+                case 0x33:
+                    isGoTiaosheng = true;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("trainLength", maxTime + "");
+                    bundle.putInt("type", 2);
+                    bundle.putString("title", title);
+                    bundle.putInt("pkChangCiId",pkChangCiId);
+                    Intent intent = new Intent();
+                    intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
+                    intent.putExtras(bundle);
+                    intent.setClass(PKStartActivity.this, TainMainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
+            }
+        }
+    };
+
+
     /**
      * 匹配到人，界面更新
      */
-    private void pkUser(PkUserBO userBO){
-       progressBar.setVisibility(View.GONE);
-       duishouLayout.setVisibility(View.VISIBLE);
-       duishouUserName.setText(userBO.getNickName());
-       Glide.with(this).load(userBO.getHeadImage()).into(duishouUserImg);
-       Glide.with(this).load(userBO.getIcon()).into(duishouDuanweiImg);
-       startBt.setVisibility(View.VISIBLE);
-//       duishouDuanweiText.setText(userBO.get);
+    private void pkUser(PkUserBO userBO) {
+        progressBar.setVisibility(View.GONE);
+        duishouLayout.setVisibility(View.VISIBLE);
+        duishouUserName.setText(userBO.getNickName());
+        Glide.with(this).load(userBO.getHeadImage()).into(duishouUserImg);
+        Glide.with(this).load(userBO.getIcon()).into(duishouDuanweiImg);
+        startBt.setVisibility(View.VISIBLE);
+        Glide.with(this).load(userBO.getImage()).into(duishouDuanweiText);
         timer.start();
     }
 
@@ -154,25 +243,28 @@ public class PKStartActivity extends BaseActivity {
     /**
      * 开始pk倒计时
      */
-    private CountDownTimer timer = new CountDownTimer(3000,1000) {
+    private CountDownTimer timer = new CountDownTimer(60000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            pkTimer.setText("（" + (millisUntilFinished/1000) + "S）");
+            pkTimer.setText("（" + (millisUntilFinished / 1000) + "S）");
         }
 
         @Override
         public void onFinish() {
-            isGoTiaosheng = true;
-            Bundle bundle = new Bundle();
-            bundle.putInt("id", 0);
-            Intent intent = new Intent();
-            intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
-            intent.putExtras(bundle);
-            intent.setClass(PKStartActivity.this, TainMainActivity.class);
-            startActivity(intent);
+            finish();
         }
     };
 
+
+    @OnClick(R.id.start_bt)
+    public void startPk(){
+        //开始PK
+        startBt.setEnabled(false);
+        Map<String, Object> params = new HashMap<>();
+        params.put("pkChallengeId", pkChangCiId);
+        params.put("contentText", 2);
+        sendPk(new Gson().toJson(params));
+    }
 
 
     @Override
@@ -200,14 +292,14 @@ public class PKStartActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         //如果不是去跳绳界面，则取消匹配断开连接
+        handler.removeCallbacksAndMessages(null);
+        WebSocketUtils.getInstance().setOnNotifiListener(null);
         if (!isGoTiaosheng) {
-            Map<String, Object> params = new HashMap<>();
-            params.put("pkChallengeId", pkChangCiId);
-            params.put("contentText", 1);
-            sendPk(new Gson().toJson(params));
+            back();
         }
-        if(timer != null){
+        if (timer != null) {
             timer.cancel();
         }
     }
+
 }

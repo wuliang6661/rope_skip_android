@@ -322,6 +322,10 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     isEditMsg = false;
                     addTest();
                 } else {//未开始
+                    if (!App.isConnect()) {
+                        showToast("请先连接跳绳！");
+                        return;
+                    }
                     if (!isEditMsg) {
                         intent = new Intent();
                         intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
@@ -352,6 +356,18 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 gotoActivity(InputActivity.class, false);
                 break;
             case R.id.iv_fresh_fragment_train_main:
+                if (testState) {
+                    showToast("正在跳绳中...");
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                bundle.putString("trainLength", "60");  //60秒
+                bundle.putInt("type", 1);
+                Intent intent1 = new Intent();
+                intent1.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
+                intent1.putExtras(bundle);
+                intent1.setClass(getActivity(), TainMainActivity.class);
+                startActivity(intent1);
                 break;
         }
     }
@@ -378,13 +394,14 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             @Override
             public void onSuccess(String s) {
                 stopProgress();
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString(RouterConstants.KEY_STRING, s);
-                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
-                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
-                intent.setClass(_mActivity, TainMainActivity.class);
-                startActivity(intent);
+                showToast("已生成测试记录！");
+//                Intent intent = new Intent();
+//                Bundle bundle = new Bundle();
+//                bundle.putString(RouterConstants.KEY_STRING, s);
+//                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
+//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
+//                intent.setClass(_mActivity, TainMainActivity.class);
+//                startActivity(intent);
             }
 
             @Override

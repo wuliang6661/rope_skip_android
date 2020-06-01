@@ -170,16 +170,16 @@ public class SearchActivty extends BaseActivity {
             @Override
             public void convert(LGViewHolder holder, BluetoothDevice result, int position) {
                 holder.setText(R.id.item_text, result.getName());
-                holder.getView(R.id.connect).setEnabled(false);
+//                holder.getView(R.id.connect).setEnabled(false);
                 if (App.connectDevice != null && App.connectDevice.getAddress().equals(result.getAddress())) {
                     holder.setText(R.id.connect, "已连接");
                 } else {
                     if (deviceBOS != null) {
-                        for (DeviceBO deviceBO : deviceBOS) {
-                            if (deviceBO.getMacAddress().equals(result.getAddress())) {
-                                holder.getView(R.id.connect).setEnabled(true);
-                            }
-                        }
+//                        for (DeviceBO deviceBO : deviceBOS) {
+//                            if (deviceBO.getMacAddress().equals(result.getAddress())) {
+//                                holder.getView(R.id.connect).setEnabled(true);
+//                            }
+//                        }
                     }
                 }
             }
