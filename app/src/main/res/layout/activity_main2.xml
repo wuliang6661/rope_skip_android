@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.habit.commonlibrary.widget.NoScrollViewPager
+    <com.tohabit.commonlibrary.widget.NoScrollViewPager
         android:id="@+id/fragment_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

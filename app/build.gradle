@@ -11,7 +11,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.habit.star"
+        applicationId "com.tohabit.skip"
         minSdkVersion 19
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion

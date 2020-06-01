@@ -10,7 +10,7 @@
     <include layout="@layout/layout_title" />
 
 
-    <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+    <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
         android:id="@+id/add_address"
         android:layout_width="match_parent"
         android:layout_height="60dp"

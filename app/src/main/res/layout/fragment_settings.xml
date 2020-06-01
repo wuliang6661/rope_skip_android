@@ -7,7 +7,7 @@
     android:background="@color/colorBackgroundGray"
     android:fitsSystemWindows="true">
 
-    <com.habit.commonlibrary.widget.ToolbarWithBackRightProgress
+    <com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress
         android:id="@+id/toolbar_layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar_default"
@@ -20,7 +20,7 @@
         app:tl_brp_title="@string/setting"
         app:tl_brp_title_text_color="@color/colorText" />
 
-    <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+    <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
         android:id="@+id/item_my_msg_fragment_settings"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_item_common"
@@ -31,7 +31,7 @@
         app:lichtd_top_divider_visibility="gone" />
 
 
-    <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+    <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
         android:id="@+id/item_address_fragment_settings"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_item_common"
@@ -42,7 +42,7 @@
         android:visibility="gone"
         app:lichtd_top_divider_visibility="gone" />
 
-    <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+    <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
         android:id="@+id/item_modify_psw_fragment_settings"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_item_common"
@@ -62,7 +62,7 @@
         <!--app:lichtd_title="@string/tool_setting"-->
         <!--app:lichtd_top_divider_visibility="gone" />-->
 
-    <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+    <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
         android:id="@+id/item_clear_cache_fragment_settings"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_item_common"
@@ -73,7 +73,7 @@
         app:lichtd_title="@string/clear_cache"
         app:lichtd_top_divider_visibility="gone" />
 
-    <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+    <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
         android:id="@+id/item_chech_version_fragment_settings"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_item_common"
@@ -83,7 +83,7 @@
         app:lichtd_title="@string/check_version"
         app:lichtd_top_divider_visibility="gone" />
 
-    <com.habit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+    <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
         android:id="@+id/item_about_fragment_settings"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_item_common"
@@ -106,7 +106,7 @@
         android:textSize="15dp" />
 
 
-    <com.habit.commonlibrary.widget.ProgressbarLayout
+    <com.tohabit.commonlibrary.widget.ProgressbarLayout
         android:id="@+id/progress_fragment_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

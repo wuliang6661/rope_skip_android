@@ -22,7 +22,7 @@
                 android:layout_gravity="center"
                 android:background="#60000000" />
 
-            <com.habit.star.zxing.view.ViewfinderView
+            <com.tohabit.skip.zxing.view.ViewfinderView
                 android:id="@+id/viewfinder_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

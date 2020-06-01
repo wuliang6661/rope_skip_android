@@ -213,7 +213,7 @@
                         android:layout_height="194dp"
                         android:layout_gravity="center">
 
-                        <com.habit.star.widget.CircleProgressbar
+                        <com.tohabit.skip.widget.CircleProgressbar
                             android:id="@+id/countdown_bar"
                             android:layout_width="190dp"
                             android:layout_height="190dp"
@@ -311,7 +311,7 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <com.habit.commonlibrary.widget.ProgressbarLayout
+    <com.tohabit.commonlibrary.widget.ProgressbarLayout
         android:id="@+id/progress_fragment_common_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

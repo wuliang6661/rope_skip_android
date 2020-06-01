@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.habit.star">
+    package="com.tohabit.skip">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -22,7 +22,7 @@
      
 
     <application
-        android:name=".app.App"
+        android:name="com.tohabit.skip.app.App"
         android:allowBackup="true"
         android:appComponentFactory="11"
         android:icon="@mipmap/ic_launcher_logo"
@@ -35,7 +35,7 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="m">
         <activity
-            android:name=".ui.login.activity.LoginActivity"
+            android:name="com.tohabit.skip.ui.login.activity.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +46,7 @@
 
 
         <activity
-            android:name=".ui.mine.activity.MineMainActivity"
+            android:name="com.tohabit.skip.ui.mine.activity.MineMainActivity"
             android:screenOrientation="portrait" />
 
         <!-- 解决 Android N 7.0 上 报错：android.os.FileUriExposedException -->
@@ -62,218 +62,218 @@
         </provider>
 
         <activity
-            android:name=".ui.train.activity.TainMainActivity"
+            android:name="com.tohabit.skip.ui.train.activity.TainMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.tohabit.skip.ui.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.SearchActivty"
+            android:name="com.tohabit.skip.ui.SearchActivty"
             android:screenOrientation="portrait" />
 
         <!--设备列表页面-->
         <activity
-            android:name=".ui.devicemanager.DeviceManagerActivity"
+            android:name="com.tohabit.skip.ui.devicemanager.DeviceManagerActivity"
             android:screenOrientation="portrait" />
 
         <!--设备修改页面-->
         <activity
-            android:name=".ui.devicemanager.DevecesUpdateActivty"
+            android:name="com.tohabit.skip.ui.devicemanager.DevecesUpdateActivty"
             android:screenOrientation="portrait" />
 
         <!--我的二维码页面-->
         <activity
-            android:name=".ui.mine.fragment.MyQrCodeActivity"
+            android:name="com.tohabit.skip.ui.mine.fragment.MyQrCodeActivity"
             android:screenOrientation="portrait" />
 
         <!--扫一扫界面-->
         <activity
-            android:name=".zxing.activity.CaptureActivity"
+            android:name="com.tohabit.skip.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait" />
 
         <!--扫码失败界面-->
         <activity
-            android:name=".ui.mine.fragment.QrCodeErrorActivty"
+            android:name="com.tohabit.skip.ui.mine.fragment.QrCodeErrorActivty"
             android:screenOrientation="portrait" />
 
         <!--扫码成功页面-->
         <activity
-            android:name=".ui.mine.fragment.QrCodeSourcessActivity"
+            android:name="com.tohabit.skip.ui.mine.fragment.QrCodeSourcessActivity"
             android:screenOrientation="portrait" />
 
         <!--常见问题页面-->
         <activity
-            android:name=".ui.mine.fragment.FrequentlyActivty"
+            android:name="com.tohabit.skip.ui.mine.fragment.FrequentlyActivty"
             android:screenOrientation="portrait" />
 
         <!--我的收藏-->
         <activity
-            android:name=".ui.mine.fragment.MyShouCangActivity"
+            android:name="com.tohabit.skip.ui.mine.fragment.MyShouCangActivity"
             android:screenOrientation="portrait" />
 
         <!--活动详情界面-->
         <activity
-            android:name=".ui.find.fragment.HuodongDetailsActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.HuodongDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--课程详情界面-->
         <activity
-            android:name=".ui.find.fragment.KeChengDetailsActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.KeChengDetailsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--视频全屏界面-->
         <activity
-            android:name=".ui.find.fragment.FullVideoActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.FullVideoActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:launchMode="singleTop"
             android:screenOrientation="landscape" />
 
         <!--知识详情界面-->
         <activity
-            android:name=".ui.find.fragment.ZhiShiDetailsActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.ZhiShiDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--商品详情界面-->
         <activity
-            android:name=".ui.find.fragment.ShopDetailsActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.ShopDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--商品兑换界面-->
         <activity
-            android:name=".ui.find.fragment.ExChangeShopActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.ExChangeShopActivity"
             android:screenOrientation="portrait" />
 
         <!--收货地址列表界面-->
         <activity
-            android:name=".ui.mine.fragment.MyAddressListFragment"
+            android:name="com.tohabit.skip.ui.mine.fragment.MyAddressListFragment"
             android:screenOrientation="portrait" />
 
         <!--地址编辑页面-->
         <activity
-            android:name=".ui.mine.fragment.AddAddressFragment"
+            android:name="com.tohabit.skip.ui.mine.fragment.AddAddressFragment"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--搜索问答界面-->
         <activity
-            android:name=".ui.find.fragment.SearchQuestionsActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.SearchQuestionsActivity"
             android:screenOrientation="portrait" />
 
         <!--增加问答界面-->
         <activity
-            android:name=".ui.find.fragment.QuestionAddActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.QuestionAddActivity"
             android:screenOrientation="portrait" />
 
         <!--问答详情页面-->
         <activity
-            android:name=".ui.find.fragment.QuestionDetailsActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.QuestionDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--二级评论-->
         <activity
-            android:name=".ui.find.fragment.TwoPingLunActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.TwoPingLunActivity"
             android:screenOrientation="portrait" />
 
         <!--增加评论-->
         <activity
-            android:name=".ui.find.fragment.AddPingLunActivity"
+            android:name="com.tohabit.skip.ui.find.fragment.AddPingLunActivity"
             android:screenOrientation="portrait" />
 
 
         <!--成就分享详情页面-->
         <activity
-            android:name=".ui.mine.fragment.ShapeChengJiuActivity"
+            android:name="com.tohabit.skip.ui.mine.fragment.ShapeChengJiuActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--训练计划列表页面-->
         <activity
-            android:name=".ui.mine.fragment.XunLianJiHuaActivity"
+            android:name="com.tohabit.skip.ui.mine.fragment.XunLianJiHuaActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--跳绳页面-->
         <activity
-            android:name=".ui.mine.fragment.TakeRopeSkipActivty"
+            android:name="com.tohabit.skip.ui.mine.fragment.TakeRopeSkipActivty"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--pk大厅页面-->
         <activity
-            android:name=".ui.young.fragment.PKHomeActivity"
+            android:name="com.tohabit.skip.ui.young.fragment.PKHomeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--开始PK页面-->
         <activity
-            android:name=".ui.young.fragment.PKStartActivity"
+            android:name="com.tohabit.skip.ui.young.fragment.PKStartActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--统计分析页面-->
         <activity
-            android:name=".ui.young.fragment.StatisticsActivity"
+            android:name="com.tohabit.skip.ui.young.fragment.StatisticsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--数据报告详情页面-->
         <activity
-            android:name=".ui.young.fragment.DataDetailsActivity"
+            android:name="com.tohabit.skip.ui.young.fragment.DataDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--手动输入页面-->
         <activity
-            android:name=".ui.train.fragment.InputActivity"
+            android:name="com.tohabit.skip.ui.train.fragment.InputActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--视频讲解页面-->
         <activity
-            android:name=".ui.young.fragment.VideoExplainActivity"
+            android:name="com.tohabit.skip.ui.young.fragment.VideoExplainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--讲解详情页面-->
         <activity
-            android:name=".ui.young.fragment.ExplainDetailsActivity"
+            android:name="com.tohabit.skip.ui.young.fragment.ExplainDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
 
         <!--各种协议页面-->
         <activity
-            android:name=".ui.XieYiActivity"
+            android:name="com.tohabit.skip.ui.XieYiActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--关于我们-->
         <activity
-            android:name=".ui.AboutActivity"
+            android:name="com.tohabit.skip.ui.AboutActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--查看大图-->
         <activity
-            android:name=".ui.BigPicutreActivity"
+            android:name="com.tohabit.skip.ui.BigPicutreActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".utils.blue.btutil.PairingReceiver">
+        <receiver android:name="com.tohabit.skip.utils.blue.btutil.PairingReceiver">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.PAIRING_REQUEST" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".service.UartService" />
+        <service android:name="com.tohabit.skip.service.UartService" />
     </application>
 
 </manifest>

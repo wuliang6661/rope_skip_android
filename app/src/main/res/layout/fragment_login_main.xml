@@ -56,7 +56,7 @@
         <!--android:layout_height="1dp"-->
         <!--android:background="@color/colorPrimary"/>-->
 
-    <com.habit.commonlibrary.widget.HackyViewPager
+    <com.tohabit.commonlibrary.widget.HackyViewPager
         android:id="@+id/viewpager_fragment_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

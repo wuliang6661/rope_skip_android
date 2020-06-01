@@ -127,7 +127,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/sliding_tablayout"
         />-->
-    <com.habit.commonlibrary.widget.ProgressbarLayout
+    <com.tohabit.commonlibrary.widget.ProgressbarLayout
         android:id="@+id/progress_fragment_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
