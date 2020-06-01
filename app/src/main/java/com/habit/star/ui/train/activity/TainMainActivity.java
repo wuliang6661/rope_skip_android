@@ -75,6 +75,7 @@ public class TainMainActivity extends BaseActivity<MineMainPresenter> implements
                 loadRootFragment(R.id.frame_container_activity_mine_main, TrainingPlanMainFragment.newInstance(null));
                 break;
             default:
+                
 //                loadRootFragment(R.id.frame_container_activity_mine_main, PerfectInformationFragment.newInstance(null));
                 break;
         }
