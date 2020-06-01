@@ -76,7 +76,7 @@
                 <com.habit.star.widget.RadarView
                     android:id="@+id/radar_view"
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"
+                    android:layout_height="290dp"
                     android:background="@color/white" />
 
 

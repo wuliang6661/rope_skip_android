@@ -27,7 +27,6 @@
     </declare-styleable>
 
 
-
     <declare-styleable name="ToolbarWithBackRightProgress">
         <attr name="tl_brp_title" format="string" />
         <attr name="tl_brp_title_text_color" format="color" />
@@ -141,6 +140,10 @@
             <enum name="right" value="894" />
         </attr>
 
+    </declare-styleable>
+
+    <declare-styleable name="CircleProgressbar">
+        <attr name="in_circle_color" format="color"/>
     </declare-styleable>
 
 </resources>

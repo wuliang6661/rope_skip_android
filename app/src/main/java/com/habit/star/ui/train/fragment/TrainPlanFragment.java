@@ -1,8 +1,6 @@
 package com.habit.star.ui.train.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
@@ -31,14 +29,13 @@ import com.habit.star.utils.ToastUtil;
 import com.habit.star.utils.Utils;
 import com.habit.star.utils.blue.cmd.BleCmd;
 import com.habit.star.utils.blue.cmd.RequstBleCmd;
+import com.habit.star.widget.CircleProgressbar;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -46,10 +43,7 @@ import butterknife.OnClick;
 
 /**
  * @version V1.0
- * @date: 2020-02-11 12:25
- * @ClassName: TrainPlanFragment.java
- * @Description:训练计划页面
- * @author: sundongdong
+ * 训练计划页面
  */
 public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements CommonContract.View {
 
@@ -87,7 +81,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     AppCompatTextView musicText;
     @BindView(R.id.music_layout)
     LinearLayout musicLayout;
-
+    @BindView(R.id.countdown_bar)
+    CircleProgressbar countdownBar;
     /**
      * 播放的音乐
      */
@@ -98,11 +93,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      */
     public static String beat;
 
-    private final static int COUNT = 1;
-
     private boolean connectState;
     private boolean testState;
-    Timer timer;
     private int timeCount;
 
     //训练id
@@ -110,7 +102,6 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
 
     /**
      * 跳绳次数
-     *
      */
     private int skipNum = 0;
 
@@ -119,23 +110,10 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      */
     private int firstTiaoShengNum = Integer.MAX_VALUE;
 
-
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case COUNT:
-                    timeCount++;
-                    String time = Utils.timeToString(timeCount);
-                    tvTimeSecond.setText(time);
-                    Cishu();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        ;
-    };
+    /**
+     * 倒计时时长
+     */
+    private int trainLength;
 
 
     public static TrainPlanFragment newInstance(Bundle bundle) {
@@ -167,7 +145,19 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         tvTimeCountFragmentTrainMain.setTypeface(App.getInstance().tf);
 
         trainPlanId = getArguments().getString("id", "");
-
+        trainLength = Integer.parseInt(getArguments().getString("trainLength", "0"));
+        timeCount = trainLength * 60;  //转换为秒数
+        tvTimeSecond.setText(Utils.timeToString(timeCount));
+        countdownBar.setTimeMillis(timeCount * 1000);
+        countdownBar.setCountdownProgressListener(0, new CircleProgressbar.OnCountdownProgressListener() {
+            @Override
+            public void onProgress(int what, int progress) {
+                timeCount--;
+                String time = Utils.timeToString(timeCount);
+                tvTimeSecond.setText(time);
+                Cishu();
+            }
+        });
     }
 
     @Override
@@ -236,11 +226,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 if (testState) {//开始
                     updateData();
                     testState = false;
-                    timeCount = 0;
-                    if (timer != null) {
-                        timer.cancel();
-                        timer = null;
-                    }
+                    timeCount = trainLength * 60;
+                    countdownBar.stop();
                     String time = Utils.timeToString(timeCount);
                     tvTimeSecond.setText(time);
                     tvContral.setText("开始");
@@ -248,16 +235,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                     startMusic();
                     testState = true;
                     tvContral.setText("结束");
-                    if (timer == null) {
-                        timer = new Timer();
-                    }
                     firstTiaoShengNum = Integer.MAX_VALUE;
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            handler.sendEmptyMessage(COUNT);
-                        }
-                    }, 0, 1000);
+                    countdownBar.start();
 
                 }
                 break;
@@ -289,7 +268,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             public void onSuccess(String s) {
                 stopProgress();
                 Bundle bundle = new Bundle();
-                bundle.putString("id",trainPlanId);
+                bundle.putString("id", trainPlanId);
                 start(RopeSkipResultFragment.newInstance(bundle));
             }
 
@@ -325,13 +304,13 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             player.pause();
         }
         testState = false;
-        timeCount = 0;
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
+        timeCount = trainLength * 60;
         String time = Utils.timeToString(timeCount);
         tvTimeSecond.setText(time);
+        if (countdownBar != null) {
+            countdownBar.setProgress(100);
+            countdownBar.stop();
+        }
         tvContral.setText("开始");
     }
 
@@ -340,12 +319,11 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         super.onDestroyView();
         musicBO = null;
         beat = null;
-        if (timer != null) {
-            timer.cancel();
-            handler.removeCallbacksAndMessages(null);
-        }
         if (player != null) {
             player.stop();
+        }
+        if (countdownBar != null) {
+            countdownBar.stop();
         }
     }
 
@@ -399,7 +377,9 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     public void onEvent(BlueDataEvent event) {
         BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
         if (UartService.COUNT_OPENTION == 0x11) {  //电量
-            getDeviceQcAndType(String.valueOf(builder.getDataBody()[0]), String.valueOf(builder.getDataBody()[1]));
+            //String.valueOf(builder.getDataBody()[1]
+            String dianliang = String.valueOf(builder.getDataBody()[0]);
+            tvBattery.setText(dianliang + "%");
         }
         if (UartService.COUNT_OPENTION == 0x22) { //跳绳次数
             int cishu = Math.abs(builder.getDataBody()[builder.getDataBody().length - 1]);
@@ -407,27 +387,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 firstTiaoShengNum = cishu;
             }
             skipNum = cishu - firstTiaoShengNum;
-            getDeviceCishu(String.valueOf(skipNum));
-        }
-    }
-
-
-    public void getDeviceQcAndType(String dianliang, String type) {
-        tvBattery.setText(dianliang + "%");
-    }
-
-
-    public void getDeviceCishu(String cichu) {
-        tvTimeCountFragmentTrainMain.setText(cichu);
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
+            tvTimeCountFragmentTrainMain.setText(skipNum + "");
         }
     }
 

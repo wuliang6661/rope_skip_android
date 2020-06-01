@@ -2,8 +2,11 @@ package com.habit.star.widget;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.support.annotation.Nullable;
@@ -11,6 +14,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.habit.star.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +48,14 @@ public class RadarView extends View {
     private List<String> titles;
     //各维度分值
     private List<Double> data;
+    //各维度图标
+    private List<Integer> images;
     //数据最大值
     private double maxValue = 5;
     //弧度
     private float angle;
+
+    private Matrix matrix;
 
 
     public RadarView(Context context) {
@@ -83,6 +91,8 @@ public class RadarView extends View {
         valuePaint.setAntiAlias(true);
         valuePaint.setStyle(Paint.Style.FILL);
 
+        matrix = new Matrix();
+        matrix.postScale(0.5f, 0.5f);
         titles = new ArrayList<>();
         titles.add("动作标准度");
         titles.add("协调性");
@@ -98,11 +108,18 @@ public class RadarView extends View {
         data.add(0d);
         data.add(0d);
         data.add(0d);
+
+        images = new ArrayList<>();
+        images.add(R.mipmap.ic_test_result8);
+        images.add(R.mipmap.ic_test_result6);
+        images.add(R.mipmap.ic_stability);
+        images.add(R.mipmap.ic_jumping_standard);
+        images.add(R.mipmap.ic_test_result3);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        radius = Math.min(w, h) / 2 * 0.7f;
+        radius = Math.min(w, h) / 2 * 0.6f;
         centerX = w / 2;
         centerY = h / 2 + 30;
         //一旦size发生改变，重新绘制
@@ -214,25 +231,48 @@ public class RadarView extends View {
         //绘制文字1
         float x1 = centerX;
         float y1 = centerY - radius;
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), images.get(0));
+        canvas.drawBitmap(bitmap, x1 - SizeUtils.dp2px(18), y1 - fontHeight / 5 - bitmap.getHeight() -
+                SizeUtils.dp2px(18), textPaint);
         canvas.drawText(titles.get(0), x1, y1 - fontHeight / 5 - 20, textPaint);
+        canvas.drawText(data.get(0) + "", x1, y1 + 10, textPaint);
         //绘制文字2
-        float x2 = (float) (centerX + radius * Math.sin(angle));
+        float x2 = (float) (centerX + radius * Math.sin(angle)) - 20;
         float y2 = (float) (centerY - radius * Math.cos(angle));
         float dis = textPaint.measureText(titles.get(1));//标题一半的宽度
+        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), images.get(1));
+        canvas.drawBitmap(bitmap1, x2 + dis - SizeUtils.dp2px(18), y2 + fontHeight / 5 - bitmap.getHeight() -
+                SizeUtils.dp2px(12), textPaint);
         canvas.drawText(titles.get(1), x2 + dis, y2 + fontHeight / 5, textPaint);
+        canvas.drawText(data.get(1) + "", x2 + dis, y2 + fontHeight + 10, textPaint);
         //绘制文字3
         float x3 = (float) (centerX + radius * Math.sin(angle / 2));
-        float y3 = (float) (centerY + radius * Math.cos(angle / 2));
+        float y3 = (float) (centerY + radius * Math.cos(angle / 2)) + SizeUtils.dp2px(30);
+
+        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), images.get(2));
+        canvas.drawBitmap(bitmap2, x3 - SizeUtils.dp2px(18), y3 + fontHeight - bitmap.getHeight() -
+                SizeUtils.dp2px(12), textPaint);
         canvas.drawText(titles.get(2), x3, y3 + fontHeight, textPaint);
+        canvas.drawText(data.get(2) + "", x3, y3 + fontHeight + 50, textPaint);
         //绘制文字4
         float x4 = (float) (centerX - radius * Math.sin(angle / 2));
-        float y4 = (float) (centerY + radius * Math.cos(angle / 2));
+        float y4 = (float) (centerY + radius * Math.cos(angle / 2)) + SizeUtils.dp2px(30);
+
+        Bitmap bitmap3 = BitmapFactory.decodeResource(getResources(), images.get(3));
+        canvas.drawBitmap(bitmap3, x4 - SizeUtils.dp2px(18), y4 + fontHeight - bitmap.getHeight() -
+                SizeUtils.dp2px(12), textPaint);
         canvas.drawText(titles.get(3), x4, y4 + fontHeight, textPaint);
+        canvas.drawText(data.get(3) + "", x4, y4 + fontHeight + 50, textPaint);
         //绘制文字5
-        float x5 = (float) (centerX - radius * Math.sin(angle));
+        float x5 = (float) (centerX - radius * Math.sin(angle)) + 20;
         float y5 = (float) (centerY - radius * Math.cos(angle));
         float dis5 = textPaint.measureText(titles.get(1));//标题的宽度
-        canvas.drawText(titles.get(4), x5 - dis5, y5 - fontHeight / 5, textPaint);
+
+        Bitmap bitmap4 = BitmapFactory.decodeResource(getResources(), images.get(4));
+        canvas.drawBitmap(bitmap4, x5 - dis5 - SizeUtils.dp2px(18), y5 + fontHeight / 5 - bitmap.getHeight() -
+                SizeUtils.dp2px(12), textPaint);
+        canvas.drawText(titles.get(4), x5 - dis5, y5 + fontHeight / 5, textPaint);
+        canvas.drawText(data.get(4) + "", x5 - dis5, y5 + fontHeight + 10, textPaint);
     }
 
     /**
@@ -254,7 +294,7 @@ public class RadarView extends View {
         float y1 = (float) (centerY - radius * percent);
         path.moveTo(x1, y1);
         valuePaint.setColor(Color.parseColor("#D37B75"));
-        canvas.drawCircle(x1, y1, valueRadius, valuePaint);
+//        canvas.drawCircle(x1, y1, valueRadius, valuePaint);
         //绘制圆点2
         dataValue = data.get(1);
         if (dataValue != maxValue) {
@@ -266,7 +306,7 @@ public class RadarView extends View {
         float y2 = (float) (centerY - radius * percent * Math.cos(angle));
         path.lineTo(x2, y2);
         valuePaint.setColor(Color.parseColor("#7C9BC1"));
-        canvas.drawCircle(x2, y2, valueRadius, valuePaint);
+//        canvas.drawCircle(x2, y2, valueRadius, valuePaint);
         //绘制圆点3
         dataValue = data.get(2);
         if (dataValue != maxValue) {
@@ -278,7 +318,7 @@ public class RadarView extends View {
         float y3 = (float) (centerY + radius * percent * Math.cos(angle / 2));
         path.lineTo(x3, y3);
         valuePaint.setColor(Color.parseColor("#7163A0"));
-        canvas.drawCircle(x3, y3, valueRadius, valuePaint);
+//        canvas.drawCircle(x3, y3, valueRadius, valuePaint);
         //绘制圆点4
         dataValue = data.get(3);
         if (dataValue != maxValue) {
@@ -290,7 +330,7 @@ public class RadarView extends View {
         float y4 = (float) (centerY + radius * percent * Math.cos(angle / 2));
         path.lineTo(x4, y4);
         valuePaint.setColor(Color.parseColor("#6AA5D1"));
-        canvas.drawCircle(x4, y4, valueRadius, valuePaint);
+//        canvas.drawCircle(x4, y4, valueRadius, valuePaint);
         //绘制圆点5
         dataValue = data.get(3);
         if (dataValue != maxValue) {
@@ -302,7 +342,7 @@ public class RadarView extends View {
         float y5 = (float) (centerY - radius * percent * Math.cos(angle));
         path.lineTo(x5, y5);
         valuePaint.setColor(Color.parseColor("#5CACAF"));
-        canvas.drawCircle(x5, y5, valueRadius, valuePaint);
+//        canvas.drawCircle(x5, y5, valueRadius, valuePaint);
         valuePaint.setColor(Color.parseColor("#908ACCF6"));
         path.close();
         valuePaint.setStyle(Paint.Style.STROKE);

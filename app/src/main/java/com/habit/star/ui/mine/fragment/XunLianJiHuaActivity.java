@@ -181,9 +181,10 @@ public class XunLianJiHuaActivity extends BaseActivity {
         adapter.setOnItemClickListener(R.id.tv_state_name_layout_fragment_improve_plan_list_item, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                if(type == 0){
+                if (type == 0) {
                     Bundle bundle = new Bundle();
                     bundle.putString("id", jiHuaBOS.get(position).getId() + "");
+                    bundle.putString("trainLength", jiHuaBOS.get(position).getTrainLength());
                     Intent intent = new Intent();
                     intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
                     intent.putExtras(bundle);
@@ -196,8 +197,8 @@ public class XunLianJiHuaActivity extends BaseActivity {
             @Override
             public void onItemClicked(View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("id",jiHuaBOS.get(position).getImprovePlanId());
-                gotoActivity(VideoExplainActivity.class,bundle,false);
+                bundle.putInt("id", jiHuaBOS.get(position).getImprovePlanId());
+                gotoActivity(VideoExplainActivity.class, bundle, false);
             }
         });
         recycleView.setAdapter(adapter);
