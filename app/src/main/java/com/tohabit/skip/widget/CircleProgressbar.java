@@ -52,13 +52,16 @@ public class CircleProgressbar extends TextView {
     private RectF mArcRect = new RectF();
 
     //进度
-    private int progress = 100;
+    private float progress = 100;
 
     //进度条类型
     private ProgressType mProgressType = ProgressType.COUNT_BACK;
 
     //进度倒计时时间
     private long timeMillis = 3000;
+
+    //倒计时剩余时间
+    private long shengyuTime;
 
     //View的显示区域。
     final Rect bounds = new Rect();
@@ -149,13 +152,13 @@ public class CircleProgressbar extends TextView {
     /**
      * 设置进度条值
      */
-    public void setProgress(int progress) {
+    public void setProgress(float progress) {
         this.progress = validateProgress(progress);
         invalidate();
     }
 
 
-    private int validateProgress(int progress) {
+    private float validateProgress(float progress) {
         if (progress > 100)
             progress = 100;
         else if (progress < 0)
@@ -166,7 +169,7 @@ public class CircleProgressbar extends TextView {
     /**
      * 获取进度值
      */
-    public int getProgress() {
+    public float getProgress() {
         return progress;
     }
 
@@ -304,10 +307,15 @@ public class CircleProgressbar extends TextView {
             switch (mProgressType) {
                 //判断是顺数进度条还是倒数进度条
                 case COUNT:
-                    progress += 1;
+                    shengyuTime = shengyuTime + 1000;
+                    progress = (float) (shengyuTime * 1.0 / timeMillis * 100);
                     break;
                 case COUNT_BACK:
-                    progress -= 1;
+                    if (shengyuTime == 0) {
+                        shengyuTime = timeMillis;
+                    }
+                    shengyuTime = shengyuTime - 1000;
+                    progress = (float) (shengyuTime * 1.0 / timeMillis * 100);
                     break;
             }
             if (progress >= 0 && progress <= 100) {
@@ -334,6 +342,6 @@ public class CircleProgressbar extends TextView {
     }
 
     public interface OnCountdownProgressListener {
-        void onProgress(int what, int progress);
+        void onProgress(int what, float progress);
     }
 }

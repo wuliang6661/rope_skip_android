@@ -151,7 +151,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         countdownBar.setTimeMillis(timeCount * 1000);
         countdownBar.setCountdownProgressListener(0, new CircleProgressbar.OnCountdownProgressListener() {
             @Override
-            public void onProgress(int what, int progress) {
+            public void onProgress(int what, float progress) {
                 timeCount--;
                 String time = Utils.timeToString(timeCount);
                 tvTimeSecond.setText(time);
