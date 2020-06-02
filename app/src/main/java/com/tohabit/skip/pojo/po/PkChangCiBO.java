@@ -26,6 +26,15 @@ public class PkChangCiBO {
     private int maxTime;
     private int maxNum;
     private int id;
+    private String icon;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public String getTitle() {
         return title;

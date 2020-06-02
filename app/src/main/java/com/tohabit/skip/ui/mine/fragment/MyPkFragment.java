@@ -81,6 +81,7 @@ public class MyPkFragment extends BaseFragment<MyPkPresenter> implements MyPkCon
 
     @Override
     protected void initEventAndData() {
+        toolbar.setTitle("我的PK");
         toolbar.setBackIBClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +157,7 @@ public class MyPkFragment extends BaseFragment<MyPkPresenter> implements MyPkCon
             public void convert(LGViewHolder holder, PkChangCiBO pkChangCiBO, int position) {
                 holder.setText(R.id.item_pk_num, pkChangCiBO.getValue() + "PK");
                 holder.setText(R.id.item_pk_name, pkChangCiBO.getTitle());
+                holder.setImageUrl(getActivity(), R.id.item_pk_img, pkChangCiBO.getIcon());
             }
         };
         pkRecycle.setAdapter(adapter);
@@ -197,7 +199,7 @@ public class MyPkFragment extends BaseFragment<MyPkPresenter> implements MyPkCon
             public void convert(LGViewHolder holder, PkJiLuBo pkJiLuBo, int position) {
                 holder.setText(R.id.pk_title, pkJiLuBo.getTitle());
                 holder.setText(R.id.pk_vaule, "+" + pkJiLuBo.getValue() + "  PK值");
-                holder.setText(R.id.pk_date, pkJiLuBo.getCreateDate());
+                holder.setText(R.id.pk_date, pkJiLuBo.getCreateDate().split(" ")[0]);
             }
         };
         rvPkList.setAdapter(adapter);
