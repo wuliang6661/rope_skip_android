@@ -57,9 +57,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 /*
  * 创建日期：2020-01-21 17:04
@@ -173,6 +175,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         });
         initDialog();
         chikcBlue();
+        registerPush();
+    }
+
+    /**
+     * 注册极光
+     */
+    private void registerPush() {
+        JPushInterface.setAlias(this, 1, App.userBO.getPhone());
+        TreeSet<String> treeSet = new TreeSet<>();
+        treeSet.add(App.userBO.getPhone());
+        JPushInterface.setTags(this, 1, treeSet);
     }
 
 

@@ -14,13 +14,14 @@ import com.tohabit.skip.di.component.DaggerAppComponent;
 import com.tohabit.skip.di.module.AppModule;
 import com.tohabit.skip.pojo.po.UserBO;
 import com.tohabit.skip.pojo.po.XIaoJiangBO;
-import com.tohabit.skip.ui.login.bean.LoginBean;
-import com.tohabit.skip.ui.mine.bean.UserInfoMode;
 import com.tohabit.skip.service.UartService;
-//import com.sdwfqin.cbt.CbtManager;
+import com.tohabit.skip.ui.mine.bean.UserInfoMode;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
+import cn.jpush.android.api.JPushInterface;
 import id.zelory.compressor.Compressor;
+
+//import com.sdwfqin.cbt.CbtManager;
 
 /**
  * Author:sundongdong
@@ -33,7 +34,6 @@ public class App extends Application {
     private static App instance;
     public static AppComponent appComponent;
     public Context context;
-    public LoginBean loginBean;
     public UserInfoMode userInfoMode;
     public Compressor imageCompressor = null;
     public Typeface tf;
@@ -46,6 +46,8 @@ public class App extends Application {
     public static XIaoJiangBO xIaoJiangBO;
     public static UartService blueService;
     public static BluetoothDevice connectDevice;
+
+    public static boolean AppInBack = false;  //App 是否在后台
 
     public static synchronized App getInstance() {
         return instance;
@@ -79,13 +81,10 @@ public class App extends Application {
         tf = Typeface.createFromAsset(assetManager, "fonts/DS-DIGI-1.ttf");
         CustomActivityOnCrash.install(this);
 
-        //初始化经典蓝牙
-//        CbtManager
-//                .getInstance()
-//                // 初始化
-//                .init(this)
-//                // 是否打印相关日志
-//                .enableLog(true);
+        JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);            // 初始化 JPush
+
+        registerActivityLifecycleCallbacks(new AppLifecycleHandler());
     }
 
 

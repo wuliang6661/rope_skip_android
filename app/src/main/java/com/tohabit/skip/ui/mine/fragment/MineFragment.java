@@ -38,6 +38,7 @@ import com.tohabit.skip.utils.ToastUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -193,6 +194,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 //                        mPresenter.logout();
                         PrefUtils.setPrefString(mContext, Constants.PREF_KEY_TOKEN, "");
+                        JPushInterface.deleteAlias(getActivity(), 1);
+                        JPushInterface.cleanTags(getActivity(), 1);
 //                        PrefUtils.clearPreference(mContext);
                         Intent intent = new Intent();
                         intent.putExtra(RouterConstants.ARG_MODE, LoginActivity.FLAG_LOGIN_TAG);
