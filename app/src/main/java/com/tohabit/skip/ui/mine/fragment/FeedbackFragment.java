@@ -226,7 +226,7 @@ public class FeedbackFragment extends BaseFragment<FeedBackPresenter> implements
     private void goCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(getActivity(), "com.habit.star.fileprovider", cameraSavePath);
+            uri = FileProvider.getUriForFile(getActivity(), "com.tohabit.skip.fileprovider", cameraSavePath);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
             uri = Uri.fromFile(cameraSavePath);

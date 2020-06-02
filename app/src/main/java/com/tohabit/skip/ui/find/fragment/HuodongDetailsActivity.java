@@ -19,6 +19,7 @@ import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.HuodongBO;
+import com.tohabit.skip.utils.ImageGetterUtils;
 import com.tohabit.skip.widget.PopXingZhi;
 
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class HuodongDetailsActivity extends BaseActivity {
         Glide.with(this).load(huodongBO.getImage()).into(huodongImg);
         huodongTitle.setText(huodongBO.getTitle());
         huodongTime.setText("报名时间： " + huodongBO.getTimeBucket());
-        huodongMessage.setText(Html.fromHtml(huodongBO.getContent()));
+        huodongMessage.setText(Html.fromHtml(huodongBO.getContent(), new ImageGetterUtils.MyImageGetter(this, huodongMessage), null));
         if (huodongStatus == 0) {
             btCommit.setEnabled(true);
             btCommit.setText("马上报名");

@@ -1,9 +1,6 @@
 package com.tohabit.skip.ui.find.fragment;
 
-import android.os.Build;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +9,7 @@ import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.ZhiShiBO;
+import com.tohabit.skip.utils.ImageGetterUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,8 +25,8 @@ public class ZhiShiDetailsActivity extends BaseActivity {
     TextView zhishiPerson;
     @BindView(R.id.shoucang_img)
     ImageView shoucangImg;
-    @BindView(R.id.web_view)
-    WebView webView;
+    @BindView(R.id.html_text)
+    TextView htmlText;
 
     private int id;
     private ZhiShiBO zhiShiBO;
@@ -53,42 +51,11 @@ public class ZhiShiDetailsActivity extends BaseActivity {
         goBack();
         setTitleText("跳绳知识");
 
-        initWeb();
         id = getIntent().getExtras().getInt("Id");
         getClassDetails(id);
     }
 
 
-    private void initWeb() {
-        WebSettings webSettings = webView.getSettings();
-        /*与js交互*/
-        webSettings.setJavaScriptEnabled(true);
-        /*自适应屏幕*/
-        webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-        webSettings.setBlockNetworkImage(false);
-//        /*细节操作*/
-//        webSettings.setBuiltInZoomControls(true);
-//        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持js弹窗
-//        webSettings.setBlockNetworkImage(false);
-//        webSettings.setDomStorageEnabled(true);
-//        //设置支持自动加载图片
-//        if (Build.VERSION.SDK_INT >= 19) {
-//            webSettings.setLoadsImagesAutomatically(true);
-//        } else {
-//            webSettings.setLoadsImagesAutomatically(false);
-//        }
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-    }
 
     @Override
     public void showProgress() {
@@ -138,8 +105,8 @@ public class ZhiShiDetailsActivity extends BaseActivity {
         } else {
             shoucangImg.setImageResource(R.mipmap.shoucang);
         }
-        webView.loadDataWithBaseURL(null, zhiShiBO.getContent().replaceAll("\\\\", ""),
-                "text/html", "utf-8", null);
+        htmlText.setText(Html.fromHtml(zhiShiBO.getContent(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
+
     }
 
 

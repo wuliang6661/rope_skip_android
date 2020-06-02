@@ -1,15 +1,15 @@
 package com.tohabit.skip.ui.mine.fragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
+import com.tohabit.skip.api.HttpResultSubscriber;
+import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.ui.XieYiActivity;
 import com.tohabit.skip.ui.mine.contract.HelpCenterContract;
@@ -18,9 +18,7 @@ import com.tohabit.skip.utils.SystemUtil;
 import com.tohabit.skip.utils.ToastUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /*
  * 创建日期：2020-01-21 19:07
@@ -123,12 +121,30 @@ public class HelpCenterFragment extends BaseFragment<HelpCenterPresenter> implem
                 gotoActivity(XieYiActivity.class, bundle1, false);
                 break;
             case R.id.item_kfrx_fragment_help_center:
-                SystemUtil.startPhoneDial(_mActivity, "40000885");
+                getKefu();
                 break;
             case R.id.item_yjfk_fragment_help_center:
                 start(FeedbackFragment.newInstance(null));
                 break;
         }
     }
+
+
+
+    private void getKefu(){
+        HttpServerImpl.getTelephone().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                SystemUtil.startPhoneDial(_mActivity, s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+
 
 }

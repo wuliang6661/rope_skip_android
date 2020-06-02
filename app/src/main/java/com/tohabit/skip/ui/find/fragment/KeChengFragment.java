@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -23,7 +24,6 @@ import com.tohabit.skip.common.adapter.BaseRvAdapter;
 import com.tohabit.skip.pojo.po.FenLeiBO;
 import com.tohabit.skip.pojo.po.KechengBO;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -193,6 +193,7 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
             }
         });
         fenleiRecycle.setAdapter(fenLeiAdapter);
+        fenLeiAdapter.setSelectFenLei(selectFeiLei);
         if (!s.isEmpty()) {
             getHuoDongList(s.get(selectFeiLei).getId());
         }

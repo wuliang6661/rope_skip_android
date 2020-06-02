@@ -2,20 +2,18 @@ package com.tohabit.skip.ui.find.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -25,9 +23,9 @@ import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.OnePingLunBO;
 import com.tohabit.skip.pojo.po.QuestionsBO;
 import com.tohabit.skip.ui.BigPicutreActivity;
+import com.tohabit.skip.utils.ImageGetterUtils;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +46,8 @@ public class QuestionDetailsActivity extends BaseActivity {
     TextView wendaTitle;
     @BindView(R.id.wenda_person_message)
     TextView wendaPersonMessage;
-    @BindView(R.id.web_view)
-    WebView webView;
+    @BindView(R.id.html_text)
+    TextView htmlText;
     @BindView(R.id.pinglun_num)
     TextView pinglunNum;
     @BindView(R.id.recycle_view)
@@ -87,7 +85,6 @@ public class QuestionDetailsActivity extends BaseActivity {
         recycleView.setNestedScrollingEnabled(false);
         recycleView.setLayoutManager(manager);
 
-        initWeb();
         id = getIntent().getExtras().getInt("Id");
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
         getQuestionAnswerInfo();
@@ -100,36 +97,6 @@ public class QuestionDetailsActivity extends BaseActivity {
         getOneCommentList();
     }
 
-    private void initWeb() {
-        WebSettings webSettings = webView.getSettings();
-        /*与js交互*/
-        webSettings.setJavaScriptEnabled(true);
-        /*自适应屏幕*/
-        webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-        webSettings.setBlockNetworkImage(false);
-//        /*细节操作*/
-//        webSettings.setBuiltInZoomControls(true);
-//        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持js弹窗
-//        webSettings.setBlockNetworkImage(false);
-//        webSettings.setDomStorageEnabled(true);
-//        //设置支持自动加载图片
-//        if (Build.VERSION.SDK_INT >= 19) {
-//            webSettings.setLoadsImagesAutomatically(true);
-//        } else {
-//            webSettings.setLoadsImagesAutomatically(false);
-//        }
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-    }
 
     @Override
     public void showProgress() {
@@ -173,8 +140,7 @@ public class QuestionDetailsActivity extends BaseActivity {
     private void showData() {
         wendaTitle.setText(questionsBO.getTitle());
         wendaPersonMessage.setText("发布人  " + questionsBO.getUserName() + "     发布时间   " + questionsBO.getFriendDate());
-        webView.loadDataWithBaseURL(null, questionsBO.getContent().replaceAll("\\\\", ""),
-                "text/html", "utf-8", null);
+        htmlText.setText(Html.fromHtml(questionsBO.getContent(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
     }
 
 

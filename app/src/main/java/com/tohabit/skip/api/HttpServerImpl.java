@@ -779,6 +779,20 @@ public class HttpServerImpl {
         return getService().saveGeneralInfo(params).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 查询客服号码
+     */
+    public static Observable<String> getTelephone() {
+        return getService().getTelephone().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 检查更新
+     */
+    public static Observable<String> getVersion() {
+        return getService().getVersion().compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 提交图片

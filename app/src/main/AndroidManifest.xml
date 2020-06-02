@@ -332,7 +332,7 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
-                <category android:name="com.article.oa_article" />
+                <category android:name="com.tohabit.skip" />
             </intent-filter>
         </receiver>
     </application>

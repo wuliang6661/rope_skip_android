@@ -217,10 +217,14 @@
                     android:textSize="12sp" />
 
 
-                <WebView
-                    android:id="@+id/web_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/html_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginRight="26dp"
+                    android:layout_marginBottom="20dp"
+                    android:lineSpacingExtra="4dp" />
 
 
             </LinearLayout>

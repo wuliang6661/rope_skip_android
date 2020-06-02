@@ -52,6 +52,8 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
 
     FenLeiAdapter fenLeiAdapter;
 
+    private int selectFeiLei = 0;
+
     @Override
     protected void initInject() {
 
@@ -171,13 +173,15 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
         fenLeiAdapter.setOnItemClickListener(R.id.fenlei_text, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
+                selectFeiLei = position;
                 getHuoDongList(s.get(position).getId());
                 fenLeiAdapter.setSelectFenLei(position);
             }
         });
         fenleiRecycle.setAdapter(fenLeiAdapter);
+        fenLeiAdapter.setSelectFenLei(selectFeiLei);
         if (!s.isEmpty()) {
-            getHuoDongList(s.get(0).getId());
+            getHuoDongList(s.get(selectFeiLei).getId());
         }
     }
 

@@ -655,4 +655,18 @@ public interface HttpService {
     @POST("app/test/saveGeneralInfo")
     Observable<BaseResult<String>> saveGeneralInfo(@Body Map<String, Object> params);
 
+
+    /**
+     * 查询客服号码
+     */
+    @GET("app/my/feedback/getTelephone")
+    Observable<BaseResult<String>> getTelephone();
+
+
+    /**
+     * 检查更新
+     */
+    @GET("app/my/version/getVersion")
+    Observable<BaseResult<String>> getVersion();
+
 }

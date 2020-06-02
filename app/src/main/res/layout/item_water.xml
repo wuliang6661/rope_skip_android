@@ -32,8 +32,7 @@
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/nengliang_img"
             android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:background="@mipmap/icon_js_pk5" />
+            android:layout_height="10dp" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/nengliang_text"

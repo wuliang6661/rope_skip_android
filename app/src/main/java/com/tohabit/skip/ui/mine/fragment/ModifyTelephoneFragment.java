@@ -22,6 +22,7 @@ import com.tohabit.skip.ui.login.contract.ModifyTelephoneContract;
 import com.tohabit.skip.ui.mine.presenter.ModifyTelephonePresenter;
 import com.tohabit.skip.utils.AppManager;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -98,8 +99,7 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
                 _mActivity.onBackPressedSupport();
             }
         });
-        etTel.setText(App.userBO.getPhone());
-        etTel.setEnabled(false);
+        etTel.setHint("当前手机号码" + Utils.settingphone(App.userBO.getPhone()));
     }
 
 
@@ -177,8 +177,8 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
 
     @Override
     public void getYZMSuccess() {
-        if(timer != null){
-           timer.cancel();
+        if (timer != null) {
+            timer.cancel();
         }
         timer.start();
     }

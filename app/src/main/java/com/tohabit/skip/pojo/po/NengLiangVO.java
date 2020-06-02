@@ -1,5 +1,7 @@
 package com.tohabit.skip.pojo.po;
 
+import android.widget.ScrollView;
+
 public class NengLiangVO {
 
 
@@ -18,6 +20,25 @@ public class NengLiangVO {
     private String title;
     private String content;
     private String createDate;
+    private String color;
+    private String icon;
+
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public int getId() {
         return id;

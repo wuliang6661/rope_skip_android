@@ -1,11 +1,8 @@
 package com.tohabit.skip.ui.find.fragment;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +12,7 @@ import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.ShopDetailsBO;
+import com.tohabit.skip.utils.ImageGetterUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -41,8 +39,8 @@ public class ShopDetailsActivity extends BaseActivity {
     TextView shopPrice;
     @BindView(R.id.shop_nengliang)
     TextView shopNengliang;
-    @BindView(R.id.web_view)
-    WebView webView;
+    @BindView(R.id.html_text)
+    TextView htmlText;
 
     private int id;
     private ShopDetailsBO detailsBO;
@@ -67,41 +65,10 @@ public class ShopDetailsActivity extends BaseActivity {
         goBack();
         setTitleText("商品详情");
 
-        initWeb();
         id = getIntent().getExtras().getInt("Id");
         getShopDetails();
     }
 
-    private void initWeb() {
-        WebSettings webSettings = webView.getSettings();
-        /*与js交互*/
-        webSettings.setJavaScriptEnabled(true);
-        /*自适应屏幕*/
-        webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-        webSettings.setBlockNetworkImage(false);
-//        /*细节操作*/
-//        webSettings.setBuiltInZoomControls(true);
-//        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持js弹窗
-//        webSettings.setBlockNetworkImage(false);
-//        webSettings.setDomStorageEnabled(true);
-//        //设置支持自动加载图片
-//        if (Build.VERSION.SDK_INT >= 19) {
-//            webSettings.setLoadsImagesAutomatically(true);
-//        } else {
-//            webSettings.setLoadsImagesAutomatically(false);
-//        }
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-    }
 
     @Override
     public void showProgress() {
@@ -152,8 +119,8 @@ public class ShopDetailsActivity extends BaseActivity {
         shopMiaoshu.setText("近30天已兑 " + detailsBO.getExchangeNum() + "个");
         shopPrice.setText(detailsBO.getPrice() + "");
         shopNengliang.setText(detailsBO.getExchangeEnergy() + "");
-        webView.loadDataWithBaseURL(null, detailsBO.getContent().replaceAll("\\\\", ""),
-                "text/html", "utf-8", null);
+        htmlText.setText(Html.fromHtml(detailsBO.getContent(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
+
     }
 
     @OnClick(R.id.duihuan_button)

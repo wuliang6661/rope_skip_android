@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 
+import com.bumptech.glide.Glide;
 import com.tohabit.skip.R;
 import com.tohabit.skip.pojo.po.NengLiangVO;
 
@@ -184,36 +185,8 @@ public class WaterFlake extends FrameLayout {
 
         num.setText("+" + nengLiangVO.getEnergyValue());
         nengliang_text.setText(nengLiangVO.getTitle());
-        switch (nengLiangVO.getCode()) {
-            case "01":
-                nengliang_text.setTextColor(Color.parseColor("#d3a4f8"));
-                nengliang_img.setBackgroundResource(R.mipmap.icon_js_pk6);
-                break;
-            case "02":
-                nengliang_text.setTextColor(Color.parseColor("#ea2f44"));
-                nengliang_img.setBackgroundResource(R.mipmap.icon_js_pk7);
-                break;
-            case "03":
-                nengliang_text.setTextColor(Color.parseColor("#ffc844"));
-                nengliang_img.setBackgroundResource(R.mipmap.icon_js_pk1);
-                break;
-            case "04":
-                nengliang_text.setTextColor(Color.parseColor("#fd6b4d"));
-                nengliang_img.setBackgroundResource(R.mipmap.icon_js_pk2);
-                break;
-            case "05":
-                nengliang_text.setTextColor(Color.parseColor("#59b2ff"));
-                nengliang_img.setBackgroundResource(R.mipmap.icon_js_pk3);
-                break;
-            case "06":
-                nengliang_text.setTextColor(Color.parseColor("#3ee5bd"));
-                nengliang_img.setBackgroundResource(R.mipmap.icon_js_pk4);
-                break;
-            default:
-                nengliang_text.setTextColor(Color.parseColor("#6be363"));
-                nengliang_img.setBackgroundResource(R.mipmap.icon_js_pk5);
-                break;
-        }
+        nengliang_text.setTextColor(Color.parseColor(nengLiangVO.getColor()));
+        Glide.with(getContext()).load(nengLiangVO.getIcon()).into(nengliang_img);
     }
 
 

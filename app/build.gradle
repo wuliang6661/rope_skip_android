@@ -6,9 +6,9 @@ android {
 
     signingConfigs {
         signConfig {
-            keyAlias 'key0'
+            keyAlias 'rope_skip'
             keyPassword '123456'
-            storeFile file('../keystore/keystore.jks')
+            storeFile file('../keystore/rope_skip.jks')
             storePassword '123456'
         }
     }

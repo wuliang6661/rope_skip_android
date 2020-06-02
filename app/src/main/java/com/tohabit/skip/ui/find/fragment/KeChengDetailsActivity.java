@@ -3,15 +3,11 @@ package com.tohabit.skip.ui.find.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -19,17 +15,18 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.KechengBO;
 import com.tohabit.skip.pojo.po.VideoBO;
+import com.tohabit.skip.utils.ImageGetterUtils;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
-import com.shuyu.gsyvideoplayer.GSYVideoManager;
-import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import java.net.URL;
 import java.util.List;
@@ -74,7 +71,7 @@ public class KeChengDetailsActivity extends BaseActivity {
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
     @BindView(R.id.html_text)
-    WebView htmlText;
+    TextView htmlText;
     @BindView(R.id.jianjie_layout)
     ScrollView jianjieLayout;
     @BindView(R.id.video_player)
@@ -110,9 +107,6 @@ public class KeChengDetailsActivity extends BaseActivity {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recycleView.setLayoutManager(manager);
 
-        initWeb();
-//        videoPlayer = new VideoPlayView(this);
-//        fullScreen.addView(videoPlayer);
         id = getIntent().getExtras().getInt("kechengId");
         //增加title
         videoPlayer.getTitleTextView().setVisibility(View.GONE);
@@ -146,36 +140,6 @@ public class KeChengDetailsActivity extends BaseActivity {
     }
 
 
-    private void initWeb() {
-        WebSettings webSettings = htmlText.getSettings();
-        /*与js交互*/
-        webSettings.setJavaScriptEnabled(true);
-        /*自适应屏幕*/
-        webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-        webSettings.setBlockNetworkImage(false);
-//        /*细节操作*/
-//        webSettings.setBuiltInZoomControls(true);
-//        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持js弹窗
-//        webSettings.setBlockNetworkImage(false);
-//        webSettings.setDomStorageEnabled(true);
-//        //设置支持自动加载图片
-//        if (Build.VERSION.SDK_INT >= 19) {
-//            webSettings.setLoadsImagesAutomatically(true);
-//        } else {
-//            webSettings.setLoadsImagesAutomatically(false);
-//        }
-        htmlText.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-    }
 
     @Override
     public void showProgress() {
@@ -260,9 +224,8 @@ public class KeChengDetailsActivity extends BaseActivity {
         } else {
             shoucangImg.setImageResource(R.mipmap.shoucang);
         }
-//        htmlText.setText(Html.fromHtml(kechengBO.getIntroduction(), imgGetter, null));
-        htmlText.loadDataWithBaseURL(null, kechengBO.getIntroduction().replaceAll("\\\\", ""),
-                "text/html", "utf-8", null);
+        htmlText.setText(Html.fromHtml(kechengBO.getIntroduction(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
+
         getVideoList();
     }
 
