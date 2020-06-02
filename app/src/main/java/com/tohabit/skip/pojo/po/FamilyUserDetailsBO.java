@@ -24,8 +24,8 @@ public class FamilyUserDetailsBO {
     private String image;
     private String nickName;
     private int sex;
-    private double height;
-    private double weight;
+    private int height;
+    private int weight;
     private int age;
     private List<SkipDataListBean> skipDataList;
 
@@ -77,19 +77,19 @@ public class FamilyUserDetailsBO {
         this.sex = sex;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public double getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 

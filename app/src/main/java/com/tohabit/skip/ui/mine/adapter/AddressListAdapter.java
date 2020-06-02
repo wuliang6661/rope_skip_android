@@ -1,11 +1,13 @@
 package com.tohabit.skip.ui.mine.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tohabit.skip.R;
 import com.tohabit.skip.common.adapter.BaseRvAdapter;
 import com.tohabit.skip.pojo.po.AddressBO;
+import com.tohabit.skip.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -30,16 +32,18 @@ public class AddressListAdapter extends BaseRvAdapter<AddressBO, BaseViewHolder>
                 .addOnClickListener(R.id.ll_delete_layout_fragment_address_list_item)
                 .addOnClickListener(R.id.address_layout)
                 .setText(R.id.tv_title_layout_fragment_address_list_item, item.getName())
-                .setText(R.id.tv_tel_layout_fragment_address_list_item, item.getPhone())
+                .setText(R.id.tv_tel_layout_fragment_address_list_item, Utils.settingphone(item.getPhone()))
                 .setText(R.id.tv_address_name_layout_fragment_address_list_item, item.getAddress());
-        if (item.getIsDefault() == 1){
+        if (item.getIsDefault() == 1) {
 //            helper.setBackgroundRes(R.id.iv_select_layout_fragment_address_list_item,R.mipmap.ic_address_pre);
-            helper.setVisible(R.id.tv_mr_layout_fragment_address_list_item,true);
-            helper.setVisible(R.id.iv_select_layout_fragment_address_list_item,true);
-        }else {
+            helper.setVisible(R.id.tv_mr_layout_fragment_address_list_item, true);
+            helper.setVisible(R.id.iv_select_layout_fragment_address_list_item, true);
+            helper.setTextColor(R.id.moren_text, Color.parseColor("#7EC7F5"));
+        } else {
 //            helper.setBackgroundRes(R.id.iv_select_layout_fragment_address_list_item,R.mipmap.ic_address_nor);
-            helper.setVisible(R.id.tv_mr_layout_fragment_address_list_item,false);
-            helper.setVisible(R.id.iv_select_layout_fragment_address_list_item,false);
+            helper.setVisible(R.id.tv_mr_layout_fragment_address_list_item, false);
+            helper.setVisible(R.id.iv_select_layout_fragment_address_list_item, false);
+            helper.setTextColor(R.id.moren_text, Color.parseColor("#ff888888"));
         }
     }
 

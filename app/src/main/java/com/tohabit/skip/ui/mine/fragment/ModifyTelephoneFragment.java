@@ -177,6 +177,9 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
 
     @Override
     public void getYZMSuccess() {
+        if(timer != null){
+           timer.cancel();
+        }
         timer.start();
     }
 

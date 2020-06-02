@@ -204,21 +204,31 @@
                 app:lichtd_title_text_size="12sp"
                 app:lichtd_top_divider_visibility="gone" />
 
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="7dp"
-                android:background="@mipmap/ic_add" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <LinearLayout
+                android:id="@+id/add_device_layout"
                 android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:layout_marginTop="3dp"
-                android:gravity="center"
-                android:text="添加新设备"
-                android:textColor="@color/color_888888"
-                android:textSize="12sp" />
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="7dp"
+                    android:background="@mipmap/ic_add" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:text="添加新设备"
+                    android:textColor="@color/color_888888"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -296,7 +306,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="YES"
-                    android:textColor="@color/cpb_red"
+                    android:textColor="#7EC7F5"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -350,7 +360,7 @@
             android:background="@color/white"
             app:lichtd_bottom_divider_visibility="gone"
             app:lichtd_content_text_color="@color/color_888888"
-            app:lichtd_head_icon="@mipmap/ic_ts4"
+            app:lichtd_head_icon="@mipmap/shoucang"
             app:lichtd_iv_detail_visibility="visible"
             app:lichtd_title="我的收藏"
             app:lichtd_top_divider_visibility="gone" />

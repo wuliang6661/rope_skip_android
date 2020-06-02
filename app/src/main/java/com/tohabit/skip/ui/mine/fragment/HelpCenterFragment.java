@@ -1,7 +1,9 @@
 package com.tohabit.skip.ui.mine.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
@@ -16,7 +18,9 @@ import com.tohabit.skip.utils.SystemUtil;
 import com.tohabit.skip.utils.ToastUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /*
  * 创建日期：2020-01-21 19:07
@@ -38,6 +42,8 @@ public class HelpCenterFragment extends BaseFragment<HelpCenterPresenter> implem
     LilayItemClickableWithHeadImageTopDivider mItemKfrx;
     @BindView(R.id.item_yjfk_fragment_help_center)
     LilayItemClickableWithHeadImageTopDivider mItemYjfk;
+    @BindView(R.id.yingsizhengce)
+    LilayItemClickableWithHeadImageTopDivider yingsizhengce;
 
 
     public static HelpCenterFragment newInstance(Bundle bundle) {
@@ -102,20 +108,27 @@ public class HelpCenterFragment extends BaseFragment<HelpCenterPresenter> implem
     }
 
     @SingleClick
-    @OnClick({R.id.item_xytk_fragment_help_center, R.id.item_kfrx_fragment_help_center, R.id.item_yjfk_fragment_help_center})
+    @OnClick({R.id.item_xytk_fragment_help_center, R.id.item_kfrx_fragment_help_center,
+            R.id.item_yjfk_fragment_help_center,R.id.yingsizhengce})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.item_xytk_fragment_help_center:
                 Bundle bundle = new Bundle();
-                bundle.putInt("type",2);
-                gotoActivity(XieYiActivity.class,bundle,false);
+                bundle.putInt("type", 0);
+                gotoActivity(XieYiActivity.class, bundle, false);
+                break;
+            case R.id.yingsizhengce:
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("type", 1);
+                gotoActivity(XieYiActivity.class, bundle1, false);
                 break;
             case R.id.item_kfrx_fragment_help_center:
-                SystemUtil.startPhoneDial(_mActivity,"40000885");
+                SystemUtil.startPhoneDial(_mActivity, "40000885");
                 break;
             case R.id.item_yjfk_fragment_help_center:
                 start(FeedbackFragment.newInstance(null));
                 break;
         }
     }
+
 }

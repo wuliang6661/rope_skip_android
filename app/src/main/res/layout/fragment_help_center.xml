@@ -18,10 +18,12 @@
         app:tl_brp_right_text_color="@color/colorText"
         app:tl_brp_title="帮助中心"
         app:tl_brp_title_text_color="@color/colorText" />
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_layout_toolbar">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -38,7 +40,21 @@
                 app:lichtd_content_text_color="@color/color_888888"
                 app:lichtd_head_icon="@mipmap/ic_ts7"
                 app:lichtd_iv_detail_visibility="visible"
-                app:lichtd_title="协议与条款"
+                app:lichtd_title="服务协议"
+                app:lichtd_top_divider_visibility="gone" />
+
+
+            <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+                android:id="@+id/yingsizhengce"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:lichtd_bottom_divider_visibility="gone"
+                app:lichtd_content_text_color="@color/color_888888"
+                app:lichtd_head_icon="@mipmap/ic_ts9"
+                app:lichtd_iv_detail_visibility="visible"
+                app:lichtd_title="隐私政策"
                 app:lichtd_top_divider_visibility="gone" />
 
             <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
@@ -48,9 +64,9 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
                 app:lichtd_bottom_divider_visibility="gone"
+                app:lichtd_content="9:00 - 18:00"
                 app:lichtd_content_text_color="@color/color_888888"
                 app:lichtd_head_icon="@mipmap/ic_ts8"
-                app:lichtd_content="9:00 - 18:00"
                 app:lichtd_iv_detail_visibility="visible"
                 app:lichtd_title="客服热线"
                 app:lichtd_top_divider_visibility="gone" />

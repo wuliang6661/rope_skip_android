@@ -7,13 +7,11 @@
     android:fitsSystemWindows="true">
 
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
         android:layout_marginHorizontal="20dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
 
@@ -22,16 +20,15 @@
             android:layout_height="87dp"
             android:layout_marginTop="80dp"
             android:background="@mipmap/ic_launcher_logo"
-            android:scaleType="centerInside"/>
-
+            android:scaleType="centerInside" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:layout_marginTop="49dp"
-            android:gravity="center_vertical"
             android:background="@drawable/input_bottom_line"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingTop="15dp">
 
@@ -39,31 +36,34 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@mipmap/ic_shoujihaoma"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside" />
+
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_tel_fragment_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:hint="@string/please_input_phone"
-                android:textSize="16sp"
-                android:textColorHint="@color/color_C3C3C3"
                 android:background="@null"
-                android:inputType="number" />
+                android:hint="@string/please_input_phone"
+                android:inputType="number"
+                android:textColorHint="@color/color_C3C3C3"
+                android:textSize="16sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="49dp"
-            android:orientation="horizontal"
             android:background="@drawable/input_bottom_line"
             android:gravity="start"
+            android:orientation="horizontal"
             android:paddingTop="15dp">
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@mipmap/ic_suo"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside" />
+
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_password_fragment_login"
                 android:layout_width="0dp"
@@ -71,104 +71,107 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_weight="1"
                 android:background="@null"
-                android:textSize="16sp"
-                android:textColorHint="@color/color_C3C3C3"
                 android:digits="@string/accepted_char"
                 android:hint="@string/please_input_password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColorHint="@color/color_C3C3C3"
+                android:textSize="16sp" />
 
 
             <LinearLayout
-                android:layout_width="60dp"
-                android:layout_height="28dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@mipmap/ic_rect"
-                android:padding="2dp"
                 android:id="@+id/ll_taggle_close_fragment_login"
-                >
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@mipmap/ic_ps_open"
-                    android:scaleType="centerInside"/>
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="20dp"
-                    android:layout_height="10dp"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@mipmap/ic_bukejian"
-                    android:scaleType="centerInside"/>
-            </LinearLayout>
-            <LinearLayout
                 android:layout_width="60dp"
                 android:layout_height="28dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:background="@mipmap/ic_rect"
-                android:padding="2dp"
-                android:visibility="gone"
-                android:id="@+id/ll_taggle_open_fragment_login"
-                >
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@mipmap/ic_ps_open"
+                    android:scaleType="centerInside" />
+
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="20dp"
                     android:layout_height="10dp"
                     android:layout_marginHorizontal="6dp"
                     android:background="@mipmap/ic_bukejian"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="centerInside" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_taggle_open_fragment_login"
+                android:layout_width="60dp"
+                android:layout_height="28dp"
+                android:background="@mipmap/ic_rect"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:visibility="gone">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="6dp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text="ON"
+                    android:textColor="@color/color_7EC7F5"
+                    android:textSize="14sp" />
+
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:background="@mipmap/ic_ps_open"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="centerInside" />
             </LinearLayout>
         </LinearLayout>
-
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:layout_marginTop="15dp"
+            android:gravity="end"
             android:orientation="horizontal">
 
 
-
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/tv_forget_password_fragment_login"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/forget_password"
-                android:id="@+id/tv_forget_password_fragment_login"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:padding="5dp"
-                android:textSize="14sp"
-                style="?android:attr/borderlessButtonStyle"
                 android:background="@color/white"
-                android:textColor="@color/color_878787" />
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="5dp"
+                android:text="@string/forget_password"
+                android:textColor="@color/color_878787"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_submit_fragment_login"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_btn_bottom"
-            android:layout_marginTop="40dp"
             android:layout_marginHorizontal="@dimen/marginright_btn_submit_fragment_login"
+            android:layout_marginTop="40dp"
             android:adjustViewBounds="true"
             android:background="@drawable/selector_common_btn"
-            android:textColor="@color/white"
             android:text="@string/login"
-            style="?android:attr/borderlessButtonStyle"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_regist_new_user_fragment_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:id="@+id/tv_regist_new_user_fragment_login"
-            android:textSize="14sp"
+            android:text="@string/regist_new_user"
             android:textColor="@color/color_7EC7F5"
-            android:text="@string/regist_new_user"/>
+            android:textSize="14sp" />
     </LinearLayout>
 
 

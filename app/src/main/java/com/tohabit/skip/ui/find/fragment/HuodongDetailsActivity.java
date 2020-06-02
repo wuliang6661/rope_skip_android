@@ -144,7 +144,7 @@ public class HuodongDetailsActivity extends BaseActivity {
         //设置PopupWindow弹出窗体可点击
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
-        popupWindow.showAtLocation(getWindow().getDecorView(),Gravity.CENTER,0,0);
+        popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
         backgroundAlpha(0.5f);
         popupWindow.setOnDismissListener(() -> backgroundAlpha(1f));
     }
@@ -184,7 +184,7 @@ public class HuodongDetailsActivity extends BaseActivity {
      * 报名
      */
     private void baoming(String name, String age, String phone) {
-        HttpServerImpl.joinActivity(name, age, selctSex, huodongBO.getId()).subscribe(new HttpResultSubscriber<String>() {
+        HttpServerImpl.joinActivity(name, age, selctSex, huodongBO.getId(), phone).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
                 btCommit.setEnabled(false);

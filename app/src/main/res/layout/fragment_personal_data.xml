@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_F6F6F9"
@@ -72,33 +71,114 @@
             </LinearLayout>
 
 
-            <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+            <LinearLayout
                 android:id="@+id/item_tz_fragment_perfect_information"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:background="@color/white"
-                app:lichtd_bottom_divider_visibility="gone"
-                app:lichtd_content="可爱的小兔子"
-                app:lichtd_content_text_color="@color/color_888888"
-                app:lichtd_head_icon="@mipmap/nicheng"
-                app:lichtd_iv_detail_visibility="visible"
-                app:lichtd_title="我的昵称"
-                app:lichtd_top_divider_visibility="gone" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
-            <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/nicheng" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="我的昵称"
+                    android:textColor="#888888"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/nike_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_weight="1"
+                    android:text="名字"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="修改"
+                    android:textColor="#C3C3C3"
+                    android:textSize="12sp" />
+
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="8dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/item_arrowright" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:id="@+id/item_shoujihaoma_fragment_perfect_information"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/white"
-                app:lichtd_bottom_divider_visibility="gone"
-                app:lichtd_content="18888888888"
-                app:lichtd_content_text_color="@color/color_888888"
-                app:lichtd_head_icon="@mipmap/shoujihaoma"
-                app:lichtd_iv_detail_visibility="visible"
-                app:lichtd_title="手机号码"
-                app:lichtd_top_divider_visibility="gone" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/shoujihaoma" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="手机号码"
+                    android:textColor="#888888"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/phone_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_weight="1"
+                    android:text="名字"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="修改"
+                    android:textColor="#C3C3C3"
+                    android:textSize="12sp" />
+
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="8dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/item_arrowright" />
+
+
+            </LinearLayout>
 
 
             <android.support.v7.widget.AppCompatButton
@@ -112,9 +192,9 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/selector_common_btn"
                 android:text="领取"
-                android:visibility="gone"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

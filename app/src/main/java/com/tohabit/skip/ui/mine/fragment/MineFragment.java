@@ -254,7 +254,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             R.id.item_xtsz_fragment_mine,
             R.id.item_bzzx_fragment_mine,
             R.id.btn_exit_login_fragment_mine,
-            R.id.my_shoucang})
+            R.id.my_shoucang,
+            R.id.add_device_layout})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -265,6 +266,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
 //                startActivity(intent);
 //                break;
                 break;
+            case R.id.add_device_layout:
             case R.id.item_device_fragment_mine:
                 gotoActivity(DeviceManagerActivity.class, false);
                 break;
@@ -323,6 +325,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
 
     @Override
     public void getDeviceData(DeviceLinkBO linkBO) {
+        if(linkBO == null){
+
+        }
         deviceZongshu.setText(linkBO.getTotal() + "");
         deviceZaixian.setText(linkBO.getOnline() + "");
         deviceLixian.setText(linkBO.getOffline() + "");

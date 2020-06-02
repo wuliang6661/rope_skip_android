@@ -61,7 +61,6 @@ public class HttpServerImpl {
 
     /**
      * 获取代理对象
-     *
      */
     public static HttpService getService() {
         if (service == null)
@@ -361,11 +360,12 @@ public class HttpServerImpl {
     /**
      * 报名活动
      */
-    public static Observable<String> joinActivity(String name, String age, int sex, int selectActivityId) {
+    public static Observable<String> joinActivity(String name, String age, int sex, int selectActivityId, String phone) {
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
         params.put("age", age);
         params.put("sex", sex);
+        params.put("phone", phone);
         params.put("selectActivityId", selectActivityId);
         return getService().joinActivity(params).compose(RxResultHelper.httpRusult());
     }
@@ -719,7 +719,7 @@ public class HttpServerImpl {
     /**
      * 提交手动
      */
-    public static Observable<String> input(Map<String,Object> params) {
+    public static Observable<String> input(Map<String, Object> params) {
         return getService().input(params).compose(RxResultHelper.httpRusult());
     }
 

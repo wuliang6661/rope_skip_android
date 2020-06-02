@@ -13,15 +13,18 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.guoqi.actionsheet.ActionSheet;
-import com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
@@ -39,7 +42,9 @@ import java.io.File;
 import java.util.Objects;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -57,9 +62,9 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
     @BindView(R.id.progress_fragment_personal_data)
     ProgressbarLayout progress;
     @BindView(R.id.item_tz_fragment_perfect_information)
-    LilayItemClickableWithHeadImageTopDivider person_name;
+    LinearLayout person_name;
     @BindView(R.id.item_shoujihaoma_fragment_perfect_information)
-    LilayItemClickableWithHeadImageTopDivider person_phone;
+    LinearLayout person_phone;
     @BindView(R.id.btn_submit_fragment_feed_back)
     AppCompatButton btnSubmitFragmentFeedBack;
     @BindView(R.id.iv_head_fragment_personal_data)
@@ -68,6 +73,10 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
     AppCompatTextView tvTitleFragmentPersonalData;
     @BindView(R.id.ll_head_layout_fragment_personal_data)
     LinearLayout llHeadLayoutFragmentPersonalData;
+    @BindView(R.id.nike_name)
+    TextView nikeName;
+    @BindView(R.id.phone_num)
+    TextView phoneNum;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -140,8 +149,8 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
     public void getUserInfo(UserBO userBO) {
         App.userBO = userBO;
         Glide.with(getActivity()).load(userBO.getImage()).into(ivHeadFragmentPersonalData);
-        person_name.setItemContent(userBO.getNickName());
-        person_phone.setItemContent(userBO.getPhone());
+        nikeName.setText(userBO.getNickName());
+        phoneNum.setText(userBO.getPhone());
         tvTitleFragmentPersonalData.setText("ID " + userBO.getUserCode());
     }
 
@@ -218,7 +227,7 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
      * Denied camera permissions
      */
     public void onPermissionRefused() {
-        new android.support.v7.app.AlertDialog.Builder(getActivity()).setMessage("请去设置开启相关权限！").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(getActivity()).setMessage("请去设置开启相关权限！").setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

@@ -115,6 +115,7 @@ public class MyAddressListFragment extends BaseActivity<MyAddressListPresenter> 
 
         rvAddressContent.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider_address).colorResId(R.color.transparent).build());
         rvAddressContent.setLayoutManager(new LinearLayoutManager(this));
+        rvAddressContent.setNestedScrollingEnabled(false);
         mListAdapter = new AddressListAdapter(mContext);
         rvAddressContent.setAdapter(mListAdapter);
         rvAddressContent.addOnItemTouchListener(new OnItemChildClickListener() {
@@ -128,7 +129,7 @@ public class MyAddressListFragment extends BaseActivity<MyAddressListPresenter> 
                     case R.id.ll_bianji_layout_fragment_address_list_item:
                         Bundle bundle = new Bundle();
                         bundle.putSerializable(RouterConstants.ARG_BEAN, mListAdapter.getItem(position));
-                        gotoActivity(AddAddressFragment.class,bundle,false);
+                        gotoActivity(AddAddressFragment.class, bundle, false);
                         break;
                     case R.id.ll_delete_layout_fragment_address_list_item:
                         MyAddressListFragment.this.position = position;

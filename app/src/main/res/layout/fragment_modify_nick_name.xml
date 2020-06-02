@@ -64,7 +64,8 @@
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:background="@mipmap/ic_check_selected"/>
+                    android:background="@mipmap/duihao" />
+
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

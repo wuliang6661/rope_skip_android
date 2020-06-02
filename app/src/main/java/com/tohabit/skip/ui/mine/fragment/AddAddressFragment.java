@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
@@ -193,11 +194,15 @@ public class AddAddressFragment extends BaseActivity<AddAddressPresenter> implem
             return;
         }
         if (StringUtils.isEmpty(area)) {
-            showError("请填写收货人联系方式！");
+            showError("请选择所在区域！");
+            return;
+        }
+        if (!RegexUtils.isMobileExact(phone)) {
+            showToast("请填写正确的联系方式！");
             return;
         }
         if (StringUtils.isEmpty(address)) {
-            showError("请选择所在省份城市区县信息！");
+            showError("请填写详细地址！");
             return;
         }
         Map<String, Object> params = new HashMap<>();

@@ -61,4 +61,16 @@ public class Utils {
     public static String numToString(int count){
         return count<10?"0"+count+"''":count+"''";
     }
+
+
+    /**
+     * 手机号用****号隐藏中间数字
+     *
+     * @param phone
+     * @return
+     */
+    public static String settingphone(String phone) {
+        String phone_s = phone.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+        return phone_s;
+    }
 }

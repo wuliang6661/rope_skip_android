@@ -95,6 +95,7 @@
             </RelativeLayout>
 
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/moren_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
