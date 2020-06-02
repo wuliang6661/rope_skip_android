@@ -131,7 +131,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     private int type = 0;  //0: 训练计划 1 首页训练  2  PK
 
 
-    private int  pkChangCiId;
+    private int pkChangCiId;
 
 
     public static TrainPlanFragment newInstance(Bundle bundle) {
@@ -171,9 +171,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         countdownBar.setCountdownProgressListener(0, new CircleProgressbar.OnCountdownProgressListener() {
             @Override
             public void onProgress(int what, float progress) {
-                if (progress == 0) {   //倒计时完
-                    countdownBar.stop();
-                    sendPk();
+                if (progress == 100) {   //倒计时完
+                    onViewClicked(rlStart);
                 } else {
                     timeCount--;
                     String time = Utils.timeToString(timeCount);
@@ -244,7 +243,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             R.id.ll_setting_fragment_train_plan,
             R.id.ll_record_model_fragment_train_plan,
             R.id.rl_start_fragment_train_plan,
-            R.id.music_layout})
+            R.id.music_layout,
+            R.id.iv_fresh_fragment_train_main})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_back_fragment_train_plan:
@@ -282,8 +282,15 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                     testState = true;
                     tvContral.setText("结束");
                     firstTiaoShengNum = Integer.MAX_VALUE;
-                    countdownBar.start();
+                    countdownBar.reStart();
                 }
+                break;
+            case R.id.iv_fresh_fragment_train_main:
+                if (testState) {
+                    showToast("正在跳绳中...");
+                    return;
+                }
+                getActivity().finish();
                 break;
         }
     }
@@ -412,7 +419,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     /**
      * 结束PK
      */
-    private void stopPk(){
+    private void stopPk() {
         //开始匹配
         Map<String, Object> params = new HashMap<>();
         params.put("pkChallengeId", pkChangCiId);
@@ -420,8 +427,6 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         WebSocketUtils utils = WebSocketUtils.getInstance();
         utils.sendMsg(new Gson().toJson(params));
     }
-
-
 
 
     Player player;
@@ -459,19 +464,19 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         musicBO = null;
         beat = null;
         if (player != null) {
             player.stop();
         }
         if (countdownBar != null) {
+            countdownBar.setCountdownProgressListener(0, null);
             countdownBar.stop();
         }
-        if(type == 2){   //pk
-
+        if (type == 2) {   //pk
             WebSocketUtils.getInstance().setOnNotifiListener(null);
         }
+        super.onDestroyView();
     }
 
     /**

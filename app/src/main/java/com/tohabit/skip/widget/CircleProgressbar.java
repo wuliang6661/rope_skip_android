@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.SweepGradient;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
@@ -48,14 +49,17 @@ public class CircleProgressbar extends TextView {
     //画笔
     private Paint mPaint = new Paint();
 
+    //进度条画笔
+    private Paint progressPoint = new Paint();
+
     //进度条的矩形区域
     private RectF mArcRect = new RectF();
 
     //进度
-    private float progress = 100;
+    private float progress = 0;
 
     //进度条类型
-    private ProgressType mProgressType = ProgressType.COUNT_BACK;
+    private ProgressType mProgressType = ProgressType.COUNT;
 
     //进度倒计时时间
     private long timeMillis = 3000;
@@ -199,6 +203,7 @@ public class CircleProgressbar extends TextView {
 
 
     private void resetProgress() {
+        shengyuTime = 0;
         switch (mProgressType) {
             case COUNT:
                 progress = 0;
@@ -241,6 +246,7 @@ public class CircleProgressbar extends TextView {
 
     public void stop() {
         removeCallbacks(progressChangeTask);
+//        resetProgress();
     }
 
     @Override
@@ -272,15 +278,19 @@ public class CircleProgressbar extends TextView {
         canvas.drawText(getText().toString(), bounds.centerX(), textY, paint);
 
         //画进度条
-        mPaint.setColor(progressLineColor);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(progressLineWidth);
-        // mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setAntiAlias(true);
+        progressPoint.setColor(progressLineColor);
+        progressPoint.setStyle(Paint.Style.STROKE);
+        progressPoint.setStrokeWidth(progressLineWidth);
+        progressPoint.setStrokeCap(Paint.Cap.ROUND);   //绘制圆角
+        //绘制渐变色
+        SweepGradient sweepGradient = new SweepGradient(bounds.centerX(),bounds.centerY(),
+                Color.parseColor("#ABBBF8"),Color.parseColor("#97D6F8"));
+        progressPoint.setShader(sweepGradient);
+        progressPoint.setAntiAlias(true);
         int deleteWidth = outLineWidth / 2;
         mArcRect.set(deleteWidth, deleteWidth, bounds.right - deleteWidth, bounds.bottom - deleteWidth);
 
-        canvas.drawArc(mArcRect, -270, 360 * progress / 100, false, mPaint);
+        canvas.drawArc(mArcRect, -270, 360 * progress / 100, false, progressPoint);
     }
 
     @Override
@@ -324,7 +334,7 @@ public class CircleProgressbar extends TextView {
                 invalidate();
                 postDelayed(progressChangeTask, 1000);
             } else {
-                progress = 0;
+                progress = 100;
                 progress = validateProgress(progress);
             }
         }

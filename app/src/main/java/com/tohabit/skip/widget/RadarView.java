@@ -30,6 +30,8 @@ public class RadarView extends View {
 
     //数据个数
     private int count = 5;
+    //网格层数
+    private int cengshu = 6;
     //成绩圆点半径
     private int valueRadius = 8;
     //网格最大半径
@@ -146,9 +148,9 @@ public class RadarView extends View {
         //中心与相邻两个内角相连的夹角角度
         angle = (float) (2 * Math.PI / count);
         //每个蛛丝之间的间距
-        float r = radius / (count - 1);
+        float r = radius / (cengshu - 1);
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < cengshu; i++) {
             //当前半径
             float curR = r * i;
             path.reset();
@@ -179,6 +181,90 @@ public class RadarView extends View {
             path.close();
             canvas.drawPath(path, mainPaint);
         }
+    }
+
+
+    /**
+     * 绘制覆盖区域
+     */
+    private void drawRegion(Canvas canvas) {
+        valuePaint.setAlpha(255);
+        //每个蛛丝之间的间距
+        float r = radius / (cengshu - 1);
+
+        Path path = new Path();
+        double dataValue;
+        double percent;
+        //绘制圆点1
+        dataValue = data.get(0);
+        if (dataValue != maxValue) {
+            percent = dataValue / maxValue;
+        } else {
+            percent = 1;
+        }
+        float x1 = centerX;
+        float y1 = (float) (centerY - r * dataValue);
+        path.moveTo(x1, y1);
+        valuePaint.setColor(Color.parseColor("#D37B75"));
+//        canvas.drawCircle(x1, y1, valueRadius, valuePaint);
+        //绘制圆点2
+        dataValue = data.get(1);
+        if (dataValue != maxValue) {
+            percent = dataValue / maxValue;
+        } else {
+            percent = 1;
+        }
+        float x2 = (float) (centerX + r * dataValue * Math.sin(angle));
+        float y2 = (float) (centerY - r * dataValue * Math.cos(angle));
+        path.lineTo(x2, y2);
+        valuePaint.setColor(Color.parseColor("#7C9BC1"));
+//        canvas.drawCircle(x2, y2, valueRadius, valuePaint);
+        //绘制圆点3
+        dataValue = data.get(2);
+        if (dataValue != maxValue) {
+            percent = dataValue / maxValue;
+        } else {
+            percent = 1;
+        }
+        float x3 = (float) (centerX + r * dataValue * Math.sin(angle / 2));
+        float y3 = (float) (centerY + r * dataValue * Math.cos(angle / 2));
+        path.lineTo(x3, y3);
+        valuePaint.setColor(Color.parseColor("#7163A0"));
+//        canvas.drawCircle(x3, y3, valueRadius, valuePaint);
+        //绘制圆点4
+        dataValue = data.get(3);
+        if (dataValue != maxValue) {
+            percent = dataValue / maxValue;
+        } else {
+            percent = 1;
+        }
+        float x4 = (float) (centerX - r * dataValue * Math.sin(angle / 2));
+        float y4 = (float) (centerY + r * dataValue * Math.cos(angle / 2));
+        path.lineTo(x4, y4);
+        valuePaint.setColor(Color.parseColor("#6AA5D1"));
+//        canvas.drawCircle(x4, y4, valueRadius, valuePaint);
+        //绘制圆点5
+        dataValue = data.get(4);
+        if (dataValue != maxValue) {
+            percent = dataValue / maxValue;
+        } else {
+            percent = 1;
+        }
+        float x5 = (float) (centerX - r * dataValue * Math.sin(angle));
+        float y5 = (float) (centerY - r * dataValue * Math.cos(angle));
+
+        path.lineTo(x5, y5);
+        valuePaint.setColor(Color.parseColor("#5CACAF"));
+//        canvas.drawCircle(x5, y5, valueRadius, valuePaint);
+        valuePaint.setColor(Color.parseColor("#8ACCF6"));
+        path.close();
+        valuePaint.setStyle(Paint.Style.STROKE);
+        //绘制覆盖区域外的连线
+        canvas.drawPath(path, valuePaint);
+        //填充覆盖区域
+        valuePaint.setAlpha(160);
+        valuePaint.setStyle(Paint.Style.FILL);
+        canvas.drawPath(path, valuePaint);
     }
 
 
@@ -273,85 +359,6 @@ public class RadarView extends View {
                 SizeUtils.dp2px(12), textPaint);
         canvas.drawText(titles.get(4), x5 - dis5, y5 + fontHeight / 5, textPaint);
         canvas.drawText(data.get(4) + "", x5 - dis5, y5 + fontHeight + 10, textPaint);
-    }
-
-    /**
-     * 绘制覆盖区域
-     */
-    private void drawRegion(Canvas canvas) {
-        valuePaint.setAlpha(255);
-        Path path = new Path();
-        double dataValue;
-        double percent;
-        //绘制圆点1
-        dataValue = data.get(0);
-        if (dataValue != maxValue) {
-            percent = dataValue / maxValue;
-        } else {
-            percent = 1;
-        }
-        float x1 = centerX;
-        float y1 = (float) (centerY - radius * percent);
-        path.moveTo(x1, y1);
-        valuePaint.setColor(Color.parseColor("#D37B75"));
-//        canvas.drawCircle(x1, y1, valueRadius, valuePaint);
-        //绘制圆点2
-        dataValue = data.get(1);
-        if (dataValue != maxValue) {
-            percent = dataValue / maxValue;
-        } else {
-            percent = 1;
-        }
-        float x2 = (float) (centerX + radius * percent * Math.sin(angle));
-        float y2 = (float) (centerY - radius * percent * Math.cos(angle));
-        path.lineTo(x2, y2);
-        valuePaint.setColor(Color.parseColor("#7C9BC1"));
-//        canvas.drawCircle(x2, y2, valueRadius, valuePaint);
-        //绘制圆点3
-        dataValue = data.get(2);
-        if (dataValue != maxValue) {
-            percent = dataValue / maxValue;
-        } else {
-            percent = 1;
-        }
-        float x3 = (float) (centerX + radius * percent * Math.sin(angle / 2));
-        float y3 = (float) (centerY + radius * percent * Math.cos(angle / 2));
-        path.lineTo(x3, y3);
-        valuePaint.setColor(Color.parseColor("#7163A0"));
-//        canvas.drawCircle(x3, y3, valueRadius, valuePaint);
-        //绘制圆点4
-        dataValue = data.get(3);
-        if (dataValue != maxValue) {
-            percent = dataValue / maxValue;
-        } else {
-            percent = 1;
-        }
-        float x4 = (float) (centerX - radius * percent * Math.sin(angle / 2));
-        float y4 = (float) (centerY + radius * percent * Math.cos(angle / 2));
-        path.lineTo(x4, y4);
-        valuePaint.setColor(Color.parseColor("#6AA5D1"));
-//        canvas.drawCircle(x4, y4, valueRadius, valuePaint);
-        //绘制圆点5
-        dataValue = data.get(3);
-        if (dataValue != maxValue) {
-            percent = dataValue / maxValue;
-        } else {
-            percent = 1;
-        }
-        float x5 = (float) (centerX - radius * percent * Math.sin(angle));
-        float y5 = (float) (centerY - radius * percent * Math.cos(angle));
-        path.lineTo(x5, y5);
-        valuePaint.setColor(Color.parseColor("#5CACAF"));
-//        canvas.drawCircle(x5, y5, valueRadius, valuePaint);
-        valuePaint.setColor(Color.parseColor("#908ACCF6"));
-        path.close();
-        valuePaint.setStyle(Paint.Style.STROKE);
-        //绘制覆盖区域外的连线
-        canvas.drawPath(path, valuePaint);
-        //填充覆盖区域
-        valuePaint.setAlpha(128);
-        valuePaint.setStyle(Paint.Style.FILL);
-        canvas.drawPath(path, valuePaint);
     }
 
 
