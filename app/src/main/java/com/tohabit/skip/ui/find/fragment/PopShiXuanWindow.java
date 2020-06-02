@@ -2,7 +2,9 @@ package com.tohabit.skip.ui.find.fragment;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -182,4 +184,15 @@ public class PopShiXuanWindow extends PopupWindow {
         void onSelect(int isSelectNianling, int isSelectShengao, int isSelectTizhong);
     }
 
+
+    @Override
+    public void showAsDropDown(View anchor) {//为了适配android 7.0以上的showAsDropDown失效的问题
+        if (Build.VERSION.SDK_INT >= 24) {
+            Rect rect = new Rect();
+            anchor.getGlobalVisibleRect(rect);
+            int h = anchor.getResources().getDisplayMetrics().heightPixels - rect.bottom;
+            setHeight(h);
+        }
+        super.showAsDropDown(anchor);
+    }
 }
