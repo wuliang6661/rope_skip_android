@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.tohabit.skip.R;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -68,7 +69,7 @@ public class PopShiXuanWindow extends PopupWindow {
         //设置PopupWindow弹出窗体的宽
         this.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
         //设置PopupWindow弹出窗体的高
-        this.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        this.setHeight(SizeUtils.dp2px(350));
         //设置PopupWindow弹出窗体可点击
         this.setFocusable(true);
         this.setOutsideTouchable(true);
@@ -84,8 +85,8 @@ public class PopShiXuanWindow extends PopupWindow {
             @Override
             public void onClick(View v) {
                 dismiss();
-                if(listener != null){
-                    listener.onSelect(PopShiXuanWindow.this.isSelectNianling,PopShiXuanWindow.this.isSelectShengao,PopShiXuanWindow.this.isSelectTizhong);
+                if (listener != null) {
+                    listener.onSelect(PopShiXuanWindow.this.isSelectNianling, PopShiXuanWindow.this.isSelectShengao, PopShiXuanWindow.this.isSelectTizhong);
                 }
             }
         });
