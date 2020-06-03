@@ -13,6 +13,7 @@ import com.tohabit.skip.ui.AboutActivity;
 import com.tohabit.skip.ui.mine.contract.SystemSettingContract;
 import com.tohabit.skip.ui.mine.presenter.SystemSettingPresenter;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.utils.UpdateUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -107,12 +108,18 @@ public class SystemSettingFragment extends BaseFragment<SystemSettingPresenter> 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.item_question_fragment_system_setting:
-                gotoActivity(FrequentlyActivty.class,false);
+                gotoActivity(FrequentlyActivty.class, false);
                 break;
             case R.id.item_check_version_fragment_system_setting:
+                new UpdateUtils().checkUpdate(getActivity(), new UpdateUtils.onUpdateListener() {
+                    @Override
+                    public void noUpdate() {
+                        showToast("当前已是最新版本！");
+                    }
+                });
                 break;
             case R.id.item_about_us_fragment_system_setting:
-                gotoActivity(AboutActivity.class,false);
+                gotoActivity(AboutActivity.class, false);
                 break;
         }
     }

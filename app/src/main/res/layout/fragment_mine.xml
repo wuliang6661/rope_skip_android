@@ -171,6 +171,7 @@
             android:layout_height="148dp"
             android:layout_marginTop="27dp"
             android:background="@mipmap/ic_device_bg"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingHorizontal="20dp">
 
@@ -207,7 +208,7 @@
 
             <LinearLayout
                 android:id="@+id/add_device_layout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -220,7 +221,7 @@
                     android:background="@mipmap/ic_add" />
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="18dp"
                     android:layout_marginTop="3dp"
                     android:gravity="center"

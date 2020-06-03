@@ -94,6 +94,7 @@ public class EnergyDetailFragment extends BaseFragment<EnergyDetailPresenter> im
     private void initAdapter() {
         rvNlzDetailListFragmentEnergyDetail.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider_address).colorResId(R.color.transparent).build());
         rvNlzDetailListFragmentEnergyDetail.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvNlzDetailListFragmentEnergyDetail.setNestedScrollingEnabled(false);
         mListAdapter = new EnergyRewardListAdapter(mContext);
         rvNlzDetailListFragmentEnergyDetail.setAdapter(mListAdapter);
     }

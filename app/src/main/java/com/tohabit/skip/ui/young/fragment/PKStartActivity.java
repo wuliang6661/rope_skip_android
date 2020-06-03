@@ -9,9 +9,11 @@ import android.os.Message;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -56,7 +58,7 @@ public class PKStartActivity extends BaseActivity {
     @BindView(R.id.duanwei_img)
     ImageView duanweiImg;
     @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
+    LinearLayout progressBar;
     @BindView(R.id.duishou_user_img)
     RoundedImageView duishouUserImg;
     @BindView(R.id.duishou_user_name)
@@ -77,6 +79,8 @@ public class PKStartActivity extends BaseActivity {
     RelativeLayout startBt;
     @BindView(R.id.back)
     LinearLayout back;
+    @BindView(R.id.progress_img)
+    ImageView progressImg;
 
     private int pkChangCiId;
 
@@ -132,6 +136,23 @@ public class PKStartActivity extends BaseActivity {
         maxTime = getIntent().getExtras().getInt("maxTime");
         title = getIntent().getExtras().getString("title");
 
+//        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);
+//        progressImg.startAnimation(rotate);
+        RotateAnimation animation;
+        int magnify = 10000;
+        int toDegrees = 360;
+        int duration = 1000;
+        toDegrees *= magnify;
+        duration *= magnify;
+        animation = new RotateAnimation(0,toDegrees,
+                Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+        animation.setDuration(duration);
+        LinearInterpolator lir = new LinearInterpolator();
+        animation.setInterpolator(lir);
+        animation.setRepeatCount(Animation.INFINITE);
+        animation.setRepeatMode(Animation.RESTART);
+        progressImg.startAnimation(animation);
+
         //开始匹配
         Map<String, Object> params = new HashMap<>();
         params.put("pkChallengeId", pkChangCiId);
@@ -151,11 +172,11 @@ public class PKStartActivity extends BaseActivity {
                     userBO = new Gson().fromJson(message, new TypeToken<BaseResult<PkUserBO>>() {
                     }.getType());
                     if (userBO.surcess()) {
-                        if("PK进行中".equals(userBO.getMsg())){
+                        if ("PK进行中".equals(userBO.getMsg())) {
                             handler.sendEmptyMessage(0x33);
-                        }else if("对方已准备".equals(userBO.getMsg())){
+                        } else if ("对方已准备".equals(userBO.getMsg())) {
                             showToast(userBO.getMsg());
-                        }else{
+                        } else {
                             handler.sendEmptyMessage(0x11);
                         }
                     } else {
@@ -170,7 +191,7 @@ public class PKStartActivity extends BaseActivity {
     }
 
 
-//    @OnClick(R.id.back)
+    //    @OnClick(R.id.back)
     public void back() {
         if (userBO == null) {
             //取消匹配
@@ -212,7 +233,7 @@ public class PKStartActivity extends BaseActivity {
                     bundle.putString("trainLength", maxTime + "");
                     bundle.putInt("type", 2);
                     bundle.putString("title", title);
-                    bundle.putInt("pkChangCiId",pkChangCiId);
+                    bundle.putInt("pkChangCiId", pkChangCiId);
                     Intent intent = new Intent();
                     intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
                     intent.putExtras(bundle);
@@ -236,7 +257,7 @@ public class PKStartActivity extends BaseActivity {
         Glide.with(this).load(userBO.getIcon()).into(duishouDuanweiImg);
         startBt.setVisibility(View.VISIBLE);
         Glide.with(this).load(userBO.getImage()).into(duishouDuanweiText);
-         timer.start();
+        timer.start();
     }
 
 
@@ -257,7 +278,7 @@ public class PKStartActivity extends BaseActivity {
 
 
     @OnClick(R.id.start_bt)
-    public void startPk(){
+    public void startPk() {
         //开始PK
         startBt.setEnabled(false);
         Map<String, Object> params = new HashMap<>();

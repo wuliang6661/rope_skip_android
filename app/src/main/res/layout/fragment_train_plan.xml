@@ -1,317 +1,303 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_F6F6F9"
     android:fitsSystemWindows="true">
 
-    <!--<com.habit.commonlibrary.widget.ToolbarWithBackRightProgress-->
-    <!--android:id="@+id/toolbar_layout_toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/height_toolbar_default"-->
-    <!--android:background="#8FC7F3"-->
-    <!--app:tl_brp_bottom_divider_visibility="gone"-->
-    <!--app:tl_brp_title="计数模式"-->
-    <!--app:tl_brp_title_text_color="@color/white" />-->
-
-
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:background="@mipmap/ic_train_plan_title_bg">
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/toolbar_layout_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/ic_train_plan_title_bg">
+                android:layout_height="44dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp">
+
 
                 <LinearLayout
-                    android:id="@+id/toolbar_layout_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical"
+                    android:id="@+id/ll_back_fragment_train_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="10dp">
-
-
-                    <LinearLayout
-                        android:id="@+id/ll_back_fragment_train_plan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@mipmap/fanhui_white"
-                            android:scaleType="centerInside" />
-                    </LinearLayout>
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/title_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="跳绳"
-                        android:textColor="@color/white"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:id="@+id/ll_setting_fragment_train_plan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.AppCompatImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@mipmap/ic_shezhi"
-                            android:scaleType="centerInside" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="设置"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_battery_fragment_train_plan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/toolbar_layout_toolbar"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="26dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:paddingRight="20dp">
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/ic_home20" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_battery_fragment_train_plan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center"
-                        android:text="--"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:background="@mipmap/fanhui_white"
+                        android:scaleType="centerInside" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/blue_status_layout"
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/ll_battery_fragment_train_plan"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/iv_connnet_state_fragment_train_plan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_connect_state_fragment_train_plan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center_vertical"
-                        android:text="已连接"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/ll_record_model_fragment_train_plan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/toolbar_layout_toolbar"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="26dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="计时模式"
-                        android:textColor="#ffffffff"
-                        android:textSize="14sp" />
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/iv_fresh_fragment_train_main"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:visibility="gone"
-                        android:background="@mipmap/ic_home11" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/music_layout"
-                    android:layout_width="125dp"
-                    android:layout_height="36dp"
-                    android:layout_below="@id/toolbar_layout_toolbar"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="31dp"
-                    android:background="@mipmap/ic_home6"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:text="跳绳"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@mipmap/yinyueclick" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/music_text"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:ellipsize="marquee"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:singleLine="true"
-                        android:text="大萨达撒大所仨打仨的按谁仨"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <FrameLayout
-                    android:id="@+id/rl_count_fragment_train_main"
+                <LinearLayout
+                    android:id="@+id/ll_setting_fragment_train_plan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_record_model_fragment_train_plan"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="31dp"
-                    android:background="@mipmap/ic_rec_center_wb_pane">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="194dp"
-                        android:layout_height="194dp"
-                        android:layout_gravity="center">
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_shezhi"
+                        android:scaleType="centerInside" />
 
-                        <com.tohabit.skip.widget.CircleProgressbar
-                            android:id="@+id/countdown_bar"
-                            android:layout_width="190dp"
-                            android:layout_height="190dp"
-                            android:layout_centerInParent="true" />
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="设置"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_battery_fragment_train_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbar_layout_toolbar"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="26dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/ic_home20" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_battery_fragment_train_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="--"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/blue_status_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_battery_fragment_train_plan"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_connnet_state_fragment_train_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_connect_state_fragment_train_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="已连接"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_record_model_fragment_train_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/toolbar_layout_toolbar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="26dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="计时模式"
+                    android:textColor="#ffffffff"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_fresh_fragment_train_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@mipmap/ic_home11"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/music_layout"
+                android:layout_width="125dp"
+                android:layout_height="36dp"
+                android:layout_below="@id/toolbar_layout_toolbar"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="31dp"
+                android:background="@mipmap/ic_home6"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@mipmap/yinyueclick" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/music_text"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:text="大萨达撒大所仨打仨的按谁仨"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/rl_count_fragment_train_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_record_model_fragment_train_plan"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="31dp"
+                android:background="@mipmap/ic_rec_center_wb_pane">
+
+                <RelativeLayout
+                    android:layout_width="194dp"
+                    android:layout_height="194dp"
+                    android:layout_gravity="center">
+
+                    <com.tohabit.skip.widget.CircleProgressbar
+                        android:id="@+id/countdown_bar"
+                        android:layout_width="190dp"
+                        android:layout_height="190dp"
+                        android:layout_centerInParent="true" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                            <LinearLayout
+                            <android.support.v7.widget.AppCompatImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@mipmap/xitong_miaobiao" />
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:text="时间"
-                                    android:textColor="@color/white"
-                                    android:textSize="16sp" />
-                            </LinearLayout>
+                                android:background="@mipmap/xitong_miaobiao" />
 
                             <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/tv_time_second_fragment_train_plan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="7dp"
-                                android:text="00''00''"
+                                android:layout_marginLeft="5dp"
+                                android:text="时间"
                                 android:textColor="@color/white"
-                                android:textSize="20sp" />
-
+                                android:textSize="16sp" />
                         </LinearLayout>
-                    </RelativeLayout>
 
-                </FrameLayout>
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/tv_time_second_fragment_train_plan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:text="00''00''"
+                            android:textColor="@color/white"
+                            android:textSize="20sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_count_fragment_train_main"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="29dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    </LinearLayout>
+                </RelativeLayout>
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_time_count_fragment_train_main"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" 00 "
-                        android:textColor="@color/white"
-                        android:textSize="40sp"
-                        android:textStyle="bold" />
+            </FrameLayout>
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:text="数量"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_start_fragment_train_plan"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:background="@mipmap/ic_ty_plan">
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="50dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tv_contral_fragment_train_plan"
+                    android:id="@+id/tv_time_count_fragment_train_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="开始"
-                    android:textColor="#ffffffff"
-                    android:textSize="18sp" />
-            </RelativeLayout>
+                    android:text=" 00 "
+                    android:textColor="@color/white"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="数量"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_start_fragment_train_plan"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_contral_fragment_train_plan"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/ic_ty_plan"
+                android:gravity="center"
+                android:text="开始"
+                android:textColor="#ffffffff"
+                android:textSize="18sp" />
+        </RelativeLayout>
 
 
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
 
     <com.tohabit.commonlibrary.widget.ProgressbarLayout
         android:id="@+id/progress_fragment_common_view"

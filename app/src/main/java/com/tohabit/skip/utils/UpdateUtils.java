@@ -1,13 +1,12 @@
 package com.tohabit.skip.utils;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnKeyListener;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.view.KeyEvent;
-import android.view.View;
+import android.support.v7.widget.AppCompatButton;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.AppUtils;
@@ -20,7 +19,6 @@ import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseDialog;
 import com.tohabit.skip.pojo.po.VersionBO;
 import com.tohabit.skip.ui.activity.MainActivity;
-import com.tohabit.skip.widget.HorizontalProgressBar;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,45 +35,37 @@ import java.net.URL;
  */
 public class UpdateUtils {
 
+    private Context context;
+
     private boolean mIsCancel = false;
     private String version = "rope_skip.apk";
 
-    public void checkUpdate(onSourssListener listener) {
+    public void checkUpdate(Context context, onUpdateListener listener) {
+        this.context = context;
         HttpServerImpl.getVersion().subscribe(new HttpResultSubscriber<VersionBO>() {
             @Override
             public void onSuccess(VersionBO s) {
-                if (listener != null) {
-                    listener.onComplan();
-                }
                 if (s == null) {
-                    return;
-                }
-                String replace = AppUtils.getAppVersionName().replace(".", "");
-                int version = 0;
-                try {
-                    version = Integer.parseInt(replace);
-                } catch (Exception e) {
-                    ToastUtils.showShort("版本解析有误");
-                    return;
-                }
-
-                if (Integer.parseInt(s.getVersionCode()) > version) {
                     if (listener != null) {
-                        listener.isHaveNewVersion();
+                        listener.noUpdate();
                     }
-                    createCustomDialogTwo(s, listener);
+                    return;
+                }
+                if (s.getVersionCode() > AppUtils.getAppVersionCode()) {
+                    if (s.getForceUpdate() == 1) { //强制更新
+                        downloadAPK(s.getVersionUrl());
+                    } else {
+                        createCustomDialogTwo(s);
+                    }
                 } else {
                     if (listener != null) {
-                        listener.nowIsNew();
+                        listener.noUpdate();
                     }
                 }
             }
 
             @Override
             public void onFiled(String message) {
-                if (listener != null) {
-                    listener.onComplan();
-                }
                 // 首页不显示异常弹窗，只有检测更新时弹出
                 if (StringUtils.isEmpty(message) || AppManager.getAppManager().curremtActivity()
                         instanceof MainActivity) {
@@ -87,59 +77,38 @@ public class UpdateUtils {
     }
 
 
-    /**
-     * 检测进度回调
-     */
-    public interface onSourssListener {
-
-        void onComplan();
-
-        void isHaveNewVersion();
-
-        void nowIsNew();
-
-        void update(File file);
+    public interface onUpdateListener {
+        void noUpdate();
     }
 
-    HorizontalProgressBar progress;
 
-    private void createCustomDialogTwo(VersionBO versionBO, onSourssListener listener) {
+    private ProgressDialog progressDialog;
+
+    /*
+     * 显示正在下载对话框
+     */
+    private void showDownloadDialog(String url) {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setMessage("正在下载...");
+        progressDialog.setCancelable(false);//不能手动取消下载进度对话框
+        progressDialog.setProgressNumberFormat("");
+        progressDialog.show();
+
+        // 下载文件
+        downloadAPK(url);
+    }
+
+
+    private void createCustomDialogTwo(VersionBO versionBO) {
         BaseDialog baseDialog = new BaseDialog(AppManager.getAppManager().curremtActivity(), R.style.BaseDialog, R.layout.custom_dialog_two_layout);
-
-        baseDialog.setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-                    if ("1".equals(versionBO.getAppIsUpdate())) { //需要强制更新
-                        return true;
-                    }
-                    return false;
-                } else {
-                    return false;
-                }
-            }
-        });
-        TextView textView = baseDialog.findViewById(R.id.tv_msg);
-        TextView title = baseDialog.findViewById(R.id.tv_title);
         TextView cancle = baseDialog.findViewById(R.id.cancle);
-        View line = baseDialog.findViewById(R.id.line);
-        title.setText(versionBO.getVersionName() + "版本更新");
-        HorizontalProgressBar progress = baseDialog.findViewById(R.id.progress);
-
-        TextView upup = baseDialog.findViewById(R.id.commit);
-
-        upup.setOnClickListener(v -> downloadAPK(versionBO.getDownLoadUrl()));
-
-        textView.setText(versionBO.getUpdateText());
-        if ("1".equals(versionBO.getAppIsUpdate())) {   //需要强制更新
-            textView.setVisibility(View.VISIBLE);
-            baseDialog.setCanceledOnTouchOutside(false);
-            cancle.setVisibility(View.GONE);
-            line.setVisibility(View.GONE);
-        } else {
-            baseDialog.setCanceledOnTouchOutside(true);
-            textView.setVisibility(View.GONE);
-        }
+        AppCompatButton upup = baseDialog.findViewById(R.id.commit);
+        upup.setOnClickListener(v -> {
+                    baseDialog.dismiss();
+                    downloadAPK(versionBO.getVersionUrl());
+                }
+        );
         cancle.setOnClickListener(view -> {
             baseDialog.dismiss();
         });
@@ -202,7 +171,6 @@ public class UpdateUtils {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             LogUtils.e(Thread.currentThread().getName(), "2");
-            progress.setCurrentProgress((Float) msg.obj);
         }
     };
 

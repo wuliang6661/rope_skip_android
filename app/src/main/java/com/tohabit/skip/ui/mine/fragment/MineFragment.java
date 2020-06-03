@@ -325,8 +325,10 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
 
     @Override
     public void getDeviceData(DeviceLinkBO linkBO) {
-        if(linkBO == null){
-
+        if (linkBO == null) {
+            mItemDevice.setVisibility(View.GONE);
+        } else {
+            mItemDevice.setVisibility(View.VISIBLE);
         }
         deviceZongshu.setText(linkBO.getTotal() + "");
         deviceZaixian.setText(linkBO.getOnline() + "");

@@ -186,7 +186,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="YES"
-                            android:textColor="@color/cpb_red"
+                            android:textColor="@color/color_7EC7F5"
                             android:textSize="14sp" />
                     </LinearLayout>
 

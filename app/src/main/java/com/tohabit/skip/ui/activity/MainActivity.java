@@ -36,6 +36,7 @@ import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.event.model.SwitchMainEvent;
 import com.tohabit.skip.presenter.MainPresenter;
 import com.tohabit.skip.presenter.contract.MainContract;
+import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.find.fragment.FindMainFragment;
 import com.tohabit.skip.ui.mine.activity.MineMainActivity;
 import com.tohabit.skip.ui.mine.fragment.MineFragment;
@@ -44,8 +45,8 @@ import com.tohabit.skip.ui.young.fragment.YoungHomeFragment;
 import com.tohabit.skip.utils.AppManager;
 import com.tohabit.skip.utils.DensityUtil;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.utils.UpdateUtils;
 import com.tohabit.skip.utils.blue.bleutils.BlueUtils;
-import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.utils.blue.btutil.BlueDeviceUtils;
 import com.tohabit.skip.utils.blue.btutil.BluetoothChatService;
 
@@ -176,7 +177,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         initDialog();
         chikcBlue();
         registerPush();
+        checkUpdate();
     }
+
+
+    /**
+     * 检查更新
+     */
+    private void checkUpdate(){
+        new UpdateUtils().checkUpdate(this, new UpdateUtils.onUpdateListener() {
+            @Override
+            public void noUpdate() {
+            }
+        });
+    }
+
+
 
     /**
      * 注册极光

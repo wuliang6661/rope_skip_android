@@ -11,65 +11,96 @@ public class VersionBO {
 
 
     /**
-     * downLoadUrl : D:/SynServer/tomcat7.0.57/SynWay/OSCService/APK开启活体的包.apk
-     * appName : 开启活体的包.apk
-     * updateText : 我是描述
-     * versionName : v2.0.1
-     * versionCode : 20
+     * createDate :
+     * forceUpdate : 0
+     * id : 0
+     * remark :
+     * updateDate :
+     * versionCode : 0
+     * versionContent :
+     * versionNum :
+     * versionUrl :
      */
 
-    private String downLoadUrl;
-    private String appName;
-    private String updateText;
-    private String versionName;
-    private String versionCode;
-    private String appIsUpdate;
+    private String createDate;
+    private int forceUpdate;
+    private int id;
+    private String remark;
+    private String updateDate;
+    private int versionCode;
+    private String versionContent;
+    private String versionNum;
+    private String versionUrl;
 
-    public String getAppIsUpdate() {
-        return appIsUpdate;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setAppIsUpdate(String appIsUpdate) {
-        this.appIsUpdate = appIsUpdate;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
-    public String getDownLoadUrl() {
-        return downLoadUrl;
+    public int getForceUpdate() {
+        return forceUpdate;
     }
 
-    public void setDownLoadUrl(String downLoadUrl) {
-        this.downLoadUrl = downLoadUrl;
+    public void setForceUpdate(int forceUpdate) {
+        this.forceUpdate = forceUpdate;
     }
 
-    public String getAppName() {
-        return appName;
+    public int getId() {
+        return id;
     }
 
-    public void setAppName(String appName) {
-        this.appName = appName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getUpdateText() {
-        return updateText;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setUpdateText(String updateText) {
-        this.updateText = updateText;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
-    public String getVersionName() {
-        return versionName;
+    public String getUpdateDate() {
+        return updateDate;
     }
 
-    public void setVersionName(String versionName) {
-        this.versionName = versionName;
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 
-    public String getVersionCode() {
+    public int getVersionCode() {
         return versionCode;
     }
 
-    public void setVersionCode(String versionCode) {
+    public void setVersionCode(int versionCode) {
         this.versionCode = versionCode;
+    }
+
+    public String getVersionContent() {
+        return versionContent;
+    }
+
+    public void setVersionContent(String versionContent) {
+        this.versionContent = versionContent;
+    }
+
+    public String getVersionNum() {
+        return versionNum;
+    }
+
+    public void setVersionNum(String versionNum) {
+        this.versionNum = versionNum;
+    }
+
+    public String getVersionUrl() {
+        return versionUrl;
+    }
+
+    public void setVersionUrl(String versionUrl) {
+        this.versionUrl = versionUrl;
     }
 }

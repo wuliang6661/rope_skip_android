@@ -37,6 +37,7 @@ import com.tohabit.skip.ui.mine.contract.PersonalDataContract;
 import com.tohabit.skip.ui.mine.presenter.PersonalDataPresenter;
 import com.tohabit.skip.utils.PhotoFromPhotoAlbum;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.utils.Utils;
 
 import java.io.File;
 import java.util.Objects;
@@ -150,7 +151,7 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
         App.userBO = userBO;
         Glide.with(getActivity()).load(userBO.getImage()).into(ivHeadFragmentPersonalData);
         nikeName.setText(userBO.getNickName());
-        phoneNum.setText(userBO.getPhone());
+        phoneNum.setText(Utils.settingphone(userBO.getPhone()));
         tvTitleFragmentPersonalData.setText("ID " + userBO.getUserCode());
     }
 

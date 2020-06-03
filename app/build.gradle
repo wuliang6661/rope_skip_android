@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.mob.sdk'
 android {
 
     compileSdkVersion rootProject.compileSdkVersion
@@ -187,4 +188,27 @@ dependencies {
     api 'cn.jiguang.sdk:jpush:3.3.2'  // 此处以JPush 3.3.2 版本为例。
     api 'cn.jiguang.sdk:jcore:2.0.1'  // 此处以JCore 2.0.1 版本为例。
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+}
+
+
+MobSDK {
+    appKey "2f83a87df01a0"
+    appSecret "e3f435624fbd7355dd15859533e59725"
+    ShareSDK {
+        loopShare false
+        devInfo {
+            Wechat {
+                appId "wx4868b35061f87885"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                userName "gh_afb25ac019c9"
+                path "pages/index/index.html?id=1"
+                withShareTicket true
+                miniprogramType 2
+            }
+            WechatMoments {
+                appId "wx4868b35061f87885"
+                appSecret "64020361b8ec4c99936c0e3999a9f249"
+            }
+        }
+    }
 }

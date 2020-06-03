@@ -6,7 +6,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.algorithm.skipevaluation.Evaluator;
 import com.google.gson.Gson;
@@ -29,6 +28,7 @@ import com.tohabit.skip.presenter.contract.CommonContract;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.ui.train.music.Player;
+import com.tohabit.skip.ui.young.fragment.PKResultActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
 import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.ToastUtil;
@@ -79,8 +79,6 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     AppCompatTextView tvTimeCountFragmentTrainMain;
     @BindView(R.id.tv_contral_fragment_train_plan)
     AppCompatTextView tvContral;
-    @BindView(R.id.rl_start_fragment_train_plan)
-    RelativeLayout rlStart;
     @BindView(R.id.iv_connnet_state_fragment_train_plan)
     AppCompatImageView ivConnnetState;
     @BindView(R.id.music_text)
@@ -172,7 +170,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             @Override
             public void onProgress(int what, float progress) {
                 if (progress == 100) {   //倒计时完
-                    onViewClicked(rlStart);
+                    onViewClicked(tvContral);
                 } else {
                     timeCount--;
                     String time = Utils.timeToString(timeCount);
@@ -190,7 +188,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 titleText.setText(title + "PK");
                 pkChangCiId = getArguments().getInt("pkChangCiId");
                 notifi();
-                onViewClicked(rlStart);
+                onViewClicked(tvContral);
                 break;
         }
     }
@@ -242,7 +240,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     @OnClick({R.id.ll_back_fragment_train_plan,
             R.id.ll_setting_fragment_train_plan,
             R.id.ll_record_model_fragment_train_plan,
-            R.id.rl_start_fragment_train_plan,
+            R.id.tv_contral_fragment_train_plan,
             R.id.music_layout,
             R.id.iv_fresh_fragment_train_main})
     public void onViewClicked(View view) {
@@ -258,7 +256,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 connectState = !connectState;
                 freshView();
                 break;
-            case R.id.rl_start_fragment_train_plan:
+            case R.id.tv_contral_fragment_train_plan:
                 if (testState) {//开始
                     switch (type) {
                         case 0:    //训练计划
@@ -272,14 +270,14 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                             break;
                     }
                     testState = false;
-                    timeCount = trainLength;
                     countdownBar.stop();
-                    String time = Utils.timeToString(timeCount);
-                    tvTimeSecond.setText(time);
                     tvContral.setText("开始");
                 } else {//未开始
                     startMusic();
                     testState = true;
+                    timeCount = trainLength;
+                    String time = Utils.timeToString(timeCount);
+                    tvTimeSecond.setText(time);
                     tvContral.setText("结束");
                     firstTiaoShengNum = Integer.MAX_VALUE;
                     countdownBar.reStart();
@@ -381,6 +379,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         params.put("skipNum", skipNum + "");
         params.put("skipTime", trainLength - timeCount + "");
         params.put("breakNum", 0 + "");
+        params.put("finishStatus", 1 + "");
         WebSocketUtils utils = WebSocketUtils.getInstance();
         utils.sendMsg(new Gson().toJson(params));
 
@@ -401,8 +400,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                     if (userBO.getCode() == 300) {   //胜利
                         showToast(userBO.getMsg());
                         stopPk();
-//                        gotoActivity(PKResultActivity.class,true);
-
+                        gotoActivity(PKResultActivity.class, true);
                     }
                     if (userBO.getCode() == 302) {   //失败
                         stopPk();
