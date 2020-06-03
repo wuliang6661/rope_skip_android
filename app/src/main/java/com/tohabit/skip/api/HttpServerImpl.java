@@ -38,6 +38,7 @@ import com.tohabit.skip.pojo.po.TestDetailsBO;
 import com.tohabit.skip.pojo.po.TrainBO;
 import com.tohabit.skip.pojo.po.TwoPingLunBO;
 import com.tohabit.skip.pojo.po.UserBO;
+import com.tohabit.skip.pojo.po.VersionBO;
 import com.tohabit.skip.pojo.po.VideoBO;
 import com.tohabit.skip.pojo.po.WenDaBO;
 import com.tohabit.skip.pojo.po.XIaoJiangBO;
@@ -789,7 +790,7 @@ public class HttpServerImpl {
     /**
      * 检查更新
      */
-    public static Observable<String> getVersion() {
+    public static Observable<VersionBO> getVersion() {
         return getService().getVersion().compose(RxResultHelper.httpRusult());
     }
 
