@@ -236,7 +236,7 @@ public class PKStartActivity extends BaseActivity {
         Glide.with(this).load(userBO.getIcon()).into(duishouDuanweiImg);
         startBt.setVisibility(View.VISIBLE);
         Glide.with(this).load(userBO.getImage()).into(duishouDuanweiText);
-        timer.start();
+         timer.start();
     }
 
 
