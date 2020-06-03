@@ -37,6 +37,7 @@ import com.tohabit.skip.pojo.po.TestDetailsBO;
 import com.tohabit.skip.pojo.po.TrainBO;
 import com.tohabit.skip.pojo.po.TwoPingLunBO;
 import com.tohabit.skip.pojo.po.UserBO;
+import com.tohabit.skip.pojo.po.VersionBO;
 import com.tohabit.skip.pojo.po.VideoBO;
 import com.tohabit.skip.pojo.po.WenDaBO;
 import com.tohabit.skip.pojo.po.XIaoJiangBO;
@@ -667,6 +668,6 @@ public interface HttpService {
      * 检查更新
      */
     @GET("app/my/version/getVersion")
-    Observable<BaseResult<String>> getVersion();
+    Observable<BaseResult<VersionBO>> getVersion();
 
 }
