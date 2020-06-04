@@ -195,17 +195,17 @@ public class HuodongFragment extends BaseFragment implements SwipeRefreshLayout.
      * 根据活动分类查询活动列表
      */
     private void getHuoDongList(int type) {
-        showProgress(null);
+//        showProgress(null);
         HttpServerImpl.getActivityList(type).subscribe(new HttpResultSubscriber<List<HuodongBO>>() {
             @Override
             public void onSuccess(List<HuodongBO> s) {
-                stopProgress();
+//                stopProgress();
                 adapter.setNewData(s);
             }
 
             @Override
             public void onFiled(String message) {
-                stopProgress();
+//                stopProgress();
                 showToast(message);
             }
         });

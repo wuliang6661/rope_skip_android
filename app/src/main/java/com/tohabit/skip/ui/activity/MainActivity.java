@@ -33,6 +33,7 @@ import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.common.adapter.CommonFragmentAdapter;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
+import com.tohabit.skip.event.model.HideDialogEvent;
 import com.tohabit.skip.event.model.SwitchMainEvent;
 import com.tohabit.skip.presenter.MainPresenter;
 import com.tohabit.skip.presenter.contract.MainContract;
@@ -184,14 +185,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     /**
      * 检查更新
      */
-    private void checkUpdate(){
+    private void checkUpdate() {
         new UpdateUtils().checkUpdate(this, new UpdateUtils.onUpdateListener() {
             @Override
             public void noUpdate() {
             }
         });
     }
-
 
 
     /**
@@ -270,7 +270,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         receiveYoungDialogView.findViewById(R.id.tv_create_monkey).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createDialog.hide();
                 Intent intent = new Intent();
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_PERFECT_INFORMATION);
                 intent.setClass(MainActivity.this, MineMainActivity.class);
@@ -280,6 +279,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         createDialog = new Dialog(this, R.style.MaterialDialogSheet);
         createDialog.setContentView(receiveYoungDialogView);
         createDialog.setCancelable(false);
+        createDialog.setCanceledOnTouchOutside(false);
         createDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
@@ -292,6 +292,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         paramsWindow.height = window.getWindowManager().getDefaultDisplay().getHeight() - DensityUtil.dp2px(mContext, 80);
         window.setAttributes(paramsWindow);
         createDialog.show();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(HideDialogEvent event) {
+        if (createDialog != null)
+            createDialog.hide();
     }
 
 

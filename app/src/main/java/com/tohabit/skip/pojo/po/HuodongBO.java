@@ -18,6 +18,15 @@ public class HuodongBO implements Serializable {
     private String title;
     private String content;
     private String timeBucket;
+    private  int joinStatus;
+
+    public int getJoinStatus() {
+        return joinStatus;
+    }
+
+    public void setJoinStatus(int joinStatus) {
+        this.joinStatus = joinStatus;
+    }
 
     public int getId() {
         return id;

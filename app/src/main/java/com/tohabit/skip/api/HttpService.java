@@ -308,6 +308,12 @@ public interface HttpService {
                                                             @Query("pageSize") String pageSize);
 
     /**
+     * 查询精选活动详情
+     */
+    @GET("app/find/activity/getActivity")
+    Observable<BaseResult<HuodongBO>> getActivity(@Query("id") String id);
+
+    /**
      * 报名活动
      */
     @POST("app/find/activity/joinActivity")

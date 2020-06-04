@@ -52,4 +52,16 @@ public class ScreenShotUtils {
         }
         return false;
     }
+
+
+    /**
+     * 获取当前截图
+     */
+    public static Bitmap getBitMap(Activity activity){
+        //获取屏幕截图
+        View view = activity.getWindow().getDecorView();
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();
+        return view.getDrawingCache();
+    }
 }

@@ -358,6 +358,14 @@ public class HttpServerImpl {
         return getService().getActivityList(type, "1", "20000").compose(RxResultHelper.httpRusult());
     }
 
+
+    /**
+     * 获取活动详情
+     */
+    public static Observable<HuodongBO> getActivity(String id){
+        return getService().getActivity(id).compose(RxResultHelper.httpRusult());
+    }
+
     /**
      * 报名活动
      */

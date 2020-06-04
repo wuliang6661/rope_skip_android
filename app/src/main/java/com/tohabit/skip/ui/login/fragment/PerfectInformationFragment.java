@@ -12,11 +12,14 @@ import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseFragment;
+import com.tohabit.skip.event.model.HideDialogEvent;
 import com.tohabit.skip.ui.login.contract.PerfectInformationContract;
 import com.tohabit.skip.ui.login.presenter.PerfectInformationPresenter;
 import com.tohabit.skip.utils.StringUtils;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.widget.PopXingZhi;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,6 +137,7 @@ public class PerfectInformationFragment extends BaseFragment<PerfectInformationP
             @Override
             public void onSuccess(String s) {
                 showError("创建成功");
+                EventBus.getDefault().post(new HideDialogEvent());
                 _mActivity.onBackPressedSupport();
             }
 

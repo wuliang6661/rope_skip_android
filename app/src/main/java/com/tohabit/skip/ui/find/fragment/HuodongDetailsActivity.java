@@ -46,7 +46,6 @@ public class HuodongDetailsActivity extends BaseActivity {
 
     private HuodongBO huodongBO;
 
-    private int huodongStatus = 0;  //默认进行中
 
     @Override
     protected void initInject() {
@@ -68,15 +67,35 @@ public class HuodongDetailsActivity extends BaseActivity {
         goBack();
         setTitleText("精选活动");
         huodongBO = (HuodongBO) getIntent().getExtras().getSerializable("huodong");
-        huodongStatus = getIntent().getExtras().getInt("huodongStatus");
+        getActivity();
+    }
+
+
+    private void getActivity(){
+        HttpServerImpl.getActivity(huodongBO.getId() + "").subscribe(new HttpResultSubscriber<HuodongBO>() {
+            @Override
+            public void onSuccess(HuodongBO ss) {
+                huodongBO = ss;
+                showData();
+            }
+
+            @Override
+            public void onFiled(String message) {
+              showToast(message);
+            }
+        });
+    }
+
+
+    private void showData(){
         Glide.with(this).load(huodongBO.getImage()).into(huodongImg);
         huodongTitle.setText(huodongBO.getTitle());
         huodongTime.setText("报名时间： " + huodongBO.getTimeBucket());
         huodongMessage.setText(Html.fromHtml(huodongBO.getContent(), new ImageGetterUtils.MyImageGetter(this, huodongMessage), null));
-        if (huodongStatus == 0) {
+        if (huodongBO.getJoinStatus() == 0) {
             btCommit.setEnabled(true);
             btCommit.setText("马上报名");
-        } else if (huodongStatus == 1) {
+        } else if (huodongBO.getJoinStatus() == 1) {
             btCommit.setEnabled(false);
             btCommit.setText("活动已报名");
         } else {
@@ -84,6 +103,7 @@ public class HuodongDetailsActivity extends BaseActivity {
             btCommit.setText("活动已结束");
         }
     }
+
 
     @Override
     public void showProgress() {
