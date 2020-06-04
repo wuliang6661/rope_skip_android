@@ -168,9 +168,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="148dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
-            android:background="@mipmap/ic_device_bg"
+            android:background="@drawable/mine_device_bg"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingHorizontal="20dp">
@@ -224,6 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="18dp"
                     android:layout_marginTop="3dp"
+                    android:layout_marginBottom="12dp"
                     android:gravity="center"
                     android:text="添加新设备"
                     android:textColor="@color/color_888888"

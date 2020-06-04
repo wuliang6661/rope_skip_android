@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -22,14 +22,11 @@ import com.tohabit.skip.common.adapter.BaseRvAdapter;
 import com.tohabit.skip.pojo.po.FenLeiBO;
 import com.tohabit.skip.pojo.po.HuodongBO;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * 活动
@@ -47,9 +44,10 @@ public class HuodongFragment extends BaseFragment implements SwipeRefreshLayout.
     RecyclerView fenleiRecycle;
 
     BaseRvAdapter<HuodongBO, BaseViewHolder> adapter;
-    Unbinder unbinder;
 
     private FenLeiAdapter fenLeiAdapter;
+
+    private int selectFeiLei = 0;
 
     public static HuodongFragment newInstance(Bundle bundle) {
         HuodongFragment fragment = new HuodongFragment();
@@ -182,11 +180,13 @@ public class HuodongFragment extends BaseFragment implements SwipeRefreshLayout.
             public void onItemClicked(View view, int position) {
                 getHuoDongList(s.get(position).getType());
                 fenLeiAdapter.setSelectFenLei(position);
+                selectFeiLei = position;
             }
         });
+        fenLeiAdapter.setSelectFenLei(selectFeiLei);
         fenleiRecycle.setAdapter(fenLeiAdapter);
         if (!s.isEmpty()) {
-            getHuoDongList(s.get(0).getType());
+            getHuoDongList(s.get(selectFeiLei).getType());
         }
     }
 
@@ -212,17 +212,4 @@ public class HuodongFragment extends BaseFragment implements SwipeRefreshLayout.
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 }

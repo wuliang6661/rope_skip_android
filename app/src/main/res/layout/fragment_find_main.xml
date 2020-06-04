@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="53dp"
         android:layout_below="@+id/toolbar_layout_toolbar"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="53dp">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar_fragment_my_achivement"
@@ -29,19 +29,21 @@
                 android:background="@android:color/transparent"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/color_7EC7F5"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="1dp"
                 app:tabMode="fixed"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp"
                 app:tabSelectedTextColor="@color/color_7EC7F5"
                 app:tabTextAppearance="@style/CustomTabTextAppearance"
-                app:tabTextColor="@color/colorTextLighter"
-                app:tabIndicatorHeight="1dp"
-                app:tabIndicatorFullWidth="false"/>
+                app:tabTextColor="@color/colorTextLighter" />
         </android.support.design.widget.AppBarLayout>
 
 
         <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="@color/colorDivider" />-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/colorDivider" />-->
 
         <com.tohabit.commonlibrary.widget.HackyViewPager
             android:id="@+id/viewpager_fragment_my_achivement"

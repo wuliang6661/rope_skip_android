@@ -100,6 +100,7 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
             }
         });
         etTel.setHint("当前手机号码" + Utils.settingphone(App.userBO.getPhone()));
+        etTel.setEnabled(false);
     }
 
 

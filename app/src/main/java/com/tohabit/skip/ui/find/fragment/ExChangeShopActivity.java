@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -17,8 +18,6 @@ import com.tohabit.skip.pojo.po.AddressBO;
 import com.tohabit.skip.pojo.po.ShopDetailsBO;
 import com.tohabit.skip.ui.mine.fragment.MyAddressListFragment;
 import com.tohabit.skip.utils.AppManager;
-import com.tohabit.skip.widget.AlertDialog;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -167,9 +166,10 @@ public class ExChangeShopActivity extends BaseActivity {
             showToast("请选择收货地址！");
             return;
         }
-        new AlertDialog(this).builder().setGone().setMsg("是否确认兑换？")
-                .setNegativeButton("取消", null)
-                .setPositiveButton("确定", v -> syncDuiHuan()).show();
+        syncDuiHuan();
+//        new AlertDialog(this).builder().setGone().setMsg("是否确认兑换？")
+//                .setNegativeButton("取消", null)
+//                .setPositiveButton("确定", v -> syncDuiHuan()).show();
     }
 
 

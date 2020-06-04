@@ -63,7 +63,7 @@ public class MinePresenter extends RxPresenter<MineContract.View> implements Min
             @Override
             public void onFiled(String message) {
                 if (mView != null) {
-                    mView.showError(message);
+                    mView.getLinkDevice(null);
                 }
             }
         });

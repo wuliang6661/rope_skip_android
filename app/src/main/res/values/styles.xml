@@ -62,8 +62,8 @@
     </style>
 
     <style name="CustomTabTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">@dimen/text_size_tablayout_custom</item>
-        <item name="android:textColor">@color/color_C3C3C3</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#888888</item>
     </style>
     <style name="BannerDefaultStyle">
         <item name="android:layout_width">match_parent</item>

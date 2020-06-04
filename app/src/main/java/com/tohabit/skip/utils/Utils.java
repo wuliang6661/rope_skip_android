@@ -43,23 +43,23 @@ public class Utils {
 //        fragment.start(ImageDetailFragment.newInstance(bundle));
 //    }
 
-    public static String timeToString(int seconds){
-        if (seconds<60){
-            return "00''"+numToString(seconds);
-        }else if (seconds<3600){
-            int munite = seconds/60;
-            int second = seconds%60;
-            return numToString(munite)+numToString(second);
-        }else {
-            int hour = seconds/3600;
-            int munite = seconds%3600/60;
-            int second = seconds%3600%60;
-            return numToString(hour)+numToString(munite)+numToString(second);
+    public static String timeToString(int seconds) {
+        if (seconds < 60) {
+            return "00'" + numToString(seconds) + "''";
+        } else if (seconds < 3600) {
+            int munite = seconds / 60;
+            int second = seconds % 60;
+            return numToString(munite) + "'" + numToString(second) + "''";
+        } else {
+            int hour = seconds / 3600;
+            int munite = seconds % 3600 / 60;
+            int second = seconds % 3600 % 60;
+            return numToString(hour) + "'" + numToString(munite) + "'" + numToString(second) + "''";
         }
     }
 
-    public static String numToString(int count){
-        return count<10?"0"+count+"''":count+"''";
+    public static String numToString(int count) {
+        return count < 10 ? "0" + count : count + "";
     }
 
 
