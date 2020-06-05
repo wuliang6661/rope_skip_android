@@ -167,7 +167,7 @@ public class PerfectInformationFragment extends BaseFragment<PerfectInformationP
             @Override
             public void commit(int position, String item) {
                 sex = position;
-                selectSex.setRemindContent(item);
+                selectSex.setItemContent(item);
             }
         });
         popXingZhi.setSelectPosition(sex);
