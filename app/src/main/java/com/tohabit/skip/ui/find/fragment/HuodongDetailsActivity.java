@@ -208,8 +208,7 @@ public class HuodongDetailsActivity extends BaseActivity {
         HttpServerImpl.joinActivity(name, age, selctSex, huodongBO.getId(), phone).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-                btCommit.setEnabled(false);
-                btCommit.setText("活动已报名");
+                getActivity();
                 popupWindow.dismiss();
             }
 
