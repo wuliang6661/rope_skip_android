@@ -125,11 +125,9 @@ public class ShapeChengJiuActivity extends BaseActivity {
                 title_layout.setVisibility(View.GONE);
                 btnCommit.setVisibility(View.GONE);
                 buttom_layout.setVisibility(View.VISIBLE);
-                showProgress(null);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        stopProgress();
                         Bitmap bitmap = ScreenShotUtils.getBitMap(ShapeChengJiuActivity.this);
                         ShareUtils.shareImage(0,bitmap);
                         title_layout.setVisibility(View.VISIBLE);
@@ -146,11 +144,9 @@ public class ShapeChengJiuActivity extends BaseActivity {
                 title_layout.setVisibility(View.GONE);
                 btnCommit.setVisibility(View.GONE);
                 buttom_layout.setVisibility(View.VISIBLE);
-                showProgress(null);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        stopProgress();
                         Bitmap bitmap = ScreenShotUtils.getBitMap(ShapeChengJiuActivity.this);
                         ShareUtils.shareImage(1,bitmap);
                         title_layout.setVisibility(View.VISIBLE);
@@ -167,11 +163,9 @@ public class ShapeChengJiuActivity extends BaseActivity {
                 title_layout.setVisibility(View.GONE);
                 btnCommit.setVisibility(View.GONE);
                 buttom_layout.setVisibility(View.VISIBLE);
-                showProgress(null);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        stopProgress();
                         boolean isSave = ScreenShotUtils.shotScreen(ShapeChengJiuActivity.this);
                         if (isSave) {
                             showToast("保存成功！");
