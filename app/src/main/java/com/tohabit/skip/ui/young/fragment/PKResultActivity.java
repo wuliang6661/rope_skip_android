@@ -1,5 +1,6 @@
 package com.tohabit.skip.ui.young.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.utils.ScreenShotUtils;
+import com.tohabit.skip.utils.ShareUtils;
 import com.tohabit.skip.widget.ShapeDialog;
 
 import java.text.SimpleDateFormat;
@@ -113,17 +115,17 @@ public class PKResultActivity extends BaseActivity {
         shapeDialog.setListener(new ShapeDialog.onSelectListener() {
             @Override
             public void clickWeiXin() {
-
+                shareImage(0);
             }
 
             @Override
             public void clickPYQ() {
-
+                shareImage(1);
             }
 
             @Override
             public void saveImg() {
-              saveImgs();
+                saveImgs();
             }
         });
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
@@ -186,7 +188,7 @@ public class PKResultActivity extends BaseActivity {
     /**
      * 保存图片
      */
-    private void saveImgs(){
+    private void saveImgs() {
         titleLayout.setVisibility(View.GONE);
         restart.setVisibility(View.GONE);
         shareMsg.setVisibility(View.GONE);
@@ -207,6 +209,29 @@ public class PKResultActivity extends BaseActivity {
                 shareMsg.setVisibility(View.VISIBLE);
                 buttomLayout.setVisibility(View.GONE);
             }
-        },500);
+        }, 500);
     }
+
+
+    /**
+     * 分享图片
+     */
+    private void shareImage(int flags) {
+        titleLayout.setVisibility(View.GONE);
+        restart.setVisibility(View.GONE);
+        shareMsg.setVisibility(View.GONE);
+        buttomLayout.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = ScreenShotUtils.getBitMap(PKResultActivity.this);
+                ShareUtils.shareImage(flags, bitmap);
+                titleLayout.setVisibility(View.VISIBLE);
+                restart.setVisibility(View.VISIBLE);
+                shareMsg.setVisibility(View.VISIBLE);
+                buttomLayout.setVisibility(View.GONE);
+            }
+        }, 500);
+    }
+
 }

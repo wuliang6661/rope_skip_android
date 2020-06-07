@@ -137,8 +137,6 @@ public class PKStartActivity extends BaseActivity {
         maxTime = getIntent().getExtras().getInt("maxTime");
         title = getIntent().getExtras().getString("title");
 
-//        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);
-//        progressImg.startAnimation(rotate);
         RotateAnimation animation;
         int magnify = 10000;
         int toDegrees = 360;

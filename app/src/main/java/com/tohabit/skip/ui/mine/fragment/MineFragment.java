@@ -18,12 +18,15 @@ import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
+import com.tohabit.skip.api.HttpResultSubscriber;
+import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.app.Constants;
 import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.pojo.po.DeviceBO;
 import com.tohabit.skip.pojo.po.DeviceLinkBO;
+import com.tohabit.skip.pojo.po.ShareBO;
 import com.tohabit.skip.pojo.po.UserBO;
 import com.tohabit.skip.ui.activity.MainActivity;
 import com.tohabit.skip.ui.devicemanager.DeviceManagerActivity;
@@ -33,6 +36,7 @@ import com.tohabit.skip.ui.mine.contract.MineContract;
 import com.tohabit.skip.ui.mine.presenter.MinePresenter;
 import com.tohabit.skip.utils.DensityUtil;
 import com.tohabit.skip.utils.PrefUtils;
+import com.tohabit.skip.utils.ShareUtils;
 import com.tohabit.skip.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -166,6 +170,20 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.hide();
+            }
+        });
+        view.findViewById(R.id.wx_frient).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetDialog.hide();
+                shareWx(0);
+            }
+        });
+        view.findViewById(R.id.wechat_moment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetDialog.hide();
+                shareWx(1);
             }
         });
         mBottomSheetDialog = new Dialog(getActivity(), R.style.MaterialDialogSheet);
@@ -333,6 +351,24 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         deviceZongshu.setText(linkBO.getTotal() + "");
         deviceZaixian.setText(linkBO.getOnline() + "");
         deviceLixian.setText(linkBO.getOffline() + "");
+    }
+
+
+    /**
+     * 分享到微信
+     */
+    private void shareWx(int flag) {
+        HttpServerImpl.getWxShareMessage().subscribe(new HttpResultSubscriber<ShareBO>() {
+            @Override
+            public void onSuccess(ShareBO s) {
+                ShareUtils.shareApp(flag, s);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
 
 
