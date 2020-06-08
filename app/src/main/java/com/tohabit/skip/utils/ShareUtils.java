@@ -3,6 +3,7 @@ package com.tohabit.skip.utils;
 import android.graphics.Bitmap;
 
 import com.mob.MobSDK;
+import com.tohabit.skip.pojo.po.ShareBO;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
@@ -82,6 +83,33 @@ public class ShareUtils {
             pla = ShareSDK.getPlatform(WechatMoments.NAME);
         }
         // 执行图文分享
+        pla.share(oks);
+    }
+
+
+    /**
+     * 分享应用
+     */
+    public static void shareApp(int flag, ShareBO shareBO){
+        Platform.ShareParams oks = new Platform.ShareParams();
+        oks.setShareType(Platform.SHARE_WEBPAGE);
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle(shareBO.getTitle());
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText(shareBO.getContent());
+        //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
+//        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl(shareBO.getUrl());
+        //启动分享
+        //指定分享的平台，如果为空，还是会调用九宫格的平台列表界面
+        Platform pla;
+        if (flag == 0) {   //微信好友
+            pla = ShareSDK.getPlatform(Wechat.NAME);
+        }else{
+            pla = ShareSDK.getPlatform(WechatMoments.NAME);
+        }
+        // 执行应用分享
         pla.share(oks);
     }
 

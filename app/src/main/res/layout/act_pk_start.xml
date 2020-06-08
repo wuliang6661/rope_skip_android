@@ -259,7 +259,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/shape_bt_bg"
+                android:background="@drawable/pk_bt"
                 android:visibility="gone">
 
                 <TextView
@@ -268,7 +268,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="立即PK"
-                    android:textColor="@color/white"
+                    android:textColor="#7EC7F5"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -280,7 +280,7 @@
                     android:layout_alignBottom="@+id/bt_text"
                     android:layout_toRightOf="@+id/bt_text"
                     android:text="（3S）"
-                    android:textColor="@color/white"
+                    android:textColor="#7EC7F5"
                     android:textSize="14sp" />
 
 

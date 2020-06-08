@@ -2,6 +2,7 @@ package com.tohabit.skip.ui.young.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -136,8 +137,6 @@ public class PKStartActivity extends BaseActivity {
         maxTime = getIntent().getExtras().getInt("maxTime");
         title = getIntent().getExtras().getString("title");
 
-//        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);
-//        progressImg.startAnimation(rotate);
         RotateAnimation animation;
         int magnify = 10000;
         int toDegrees = 360;
@@ -281,6 +280,8 @@ public class PKStartActivity extends BaseActivity {
     public void startPk() {
         //开始PK
         startBt.setEnabled(false);
+        btText.setTextColor(Color.parseColor("#ffffff"));
+        pkTimer.setTextColor(Color.parseColor("#ffffff"));
         Map<String, Object> params = new HashMap<>();
         params.put("pkChallengeId", pkChangCiId);
         params.put("contentText", 2);

@@ -47,7 +47,7 @@ public class MyPkFragment extends BaseFragment<MyPkPresenter> implements MyPkCon
     @BindView(R.id.pk_num)
     AppCompatTextView pkNum;
     @BindView(R.id.chenghao_name)
-    AppCompatTextView chenghaoName;
+    AppCompatImageView chenghaoName;
     @BindView(R.id.pk_recycle)
     RecyclerView pkRecycle;
     @BindView(R.id.rv_pk_list)
@@ -90,7 +90,8 @@ public class MyPkFragment extends BaseFragment<MyPkPresenter> implements MyPkCon
         });
         Glide.with(getActivity()).load(App.xIaoJiangBO.getIcon()).into(ivIcNlMk);
         pkNum.setText(App.xIaoJiangBO.getPkValue());
-        chenghaoName.setText(App.xIaoJiangBO.getPkName());
+        Glide.with(this).load(App.xIaoJiangBO.getImage()).into(chenghaoName);
+//        chenghaoName.setText(App.xIaoJiangBO.getPkName());
 
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);

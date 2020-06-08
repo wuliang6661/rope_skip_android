@@ -81,15 +81,12 @@
             android:textColor="@color/white"
             android:textSize="12sp" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/chenghao_name"
             android:layout_width="68dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
-            android:background="@mipmap/ic_pk_bt_bg"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:gravity="center" />
     </LinearLayout>
 
 

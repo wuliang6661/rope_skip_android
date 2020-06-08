@@ -1,6 +1,7 @@
 package com.tohabit.skip.ui.mine.fragment;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.AppCompatButton;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
@@ -25,7 +27,7 @@ import com.tohabit.skip.pojo.po.ChengJiuBo;
 import com.tohabit.skip.pojo.po.RongYuBO;
 import com.tohabit.skip.utils.DensityUtil;
 import com.tohabit.skip.utils.ScreenShotUtils;
-import com.makeramen.roundedimageview.RoundedImageView;
+import com.tohabit.skip.utils.ShareUtils;
 
 import java.text.SimpleDateFormat;
 
@@ -120,14 +122,38 @@ public class ShapeChengJiuActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.hide();
-                handler.sendEmptyMessageDelayed(0, 1000);
+                title_layout.setVisibility(View.GONE);
+                btnCommit.setVisibility(View.GONE);
+                buttom_layout.setVisibility(View.VISIBLE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bitmap bitmap = ScreenShotUtils.getBitMap(ShapeChengJiuActivity.this);
+                        ShareUtils.shareImage(0,bitmap);
+                        title_layout.setVisibility(View.VISIBLE);
+                        btnCommit.setVisibility(View.VISIBLE);
+                        buttom_layout.setVisibility(View.GONE);
+                    }
+                },500);
             }
         });
         view.findViewById(R.id.ll_pyq_dialog_invitation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.hide();
-                handler.sendEmptyMessageDelayed(0, 1000);
+                title_layout.setVisibility(View.GONE);
+                btnCommit.setVisibility(View.GONE);
+                buttom_layout.setVisibility(View.VISIBLE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bitmap bitmap = ScreenShotUtils.getBitMap(ShapeChengJiuActivity.this);
+                        ShareUtils.shareImage(1,bitmap);
+                        title_layout.setVisibility(View.VISIBLE);
+                        btnCommit.setVisibility(View.VISIBLE);
+                        buttom_layout.setVisibility(View.GONE);
+                    }
+                },500);
             }
         });
         view.findViewById(R.id.ll_save_picture_dialog_invitation).setOnClickListener(new View.OnClickListener() {
@@ -137,11 +163,9 @@ public class ShapeChengJiuActivity extends BaseActivity {
                 title_layout.setVisibility(View.GONE);
                 btnCommit.setVisibility(View.GONE);
                 buttom_layout.setVisibility(View.VISIBLE);
-                showProgress(null);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        stopProgress();
                         boolean isSave = ScreenShotUtils.shotScreen(ShapeChengJiuActivity.this);
                         if (isSave) {
                             showToast("保存成功！");

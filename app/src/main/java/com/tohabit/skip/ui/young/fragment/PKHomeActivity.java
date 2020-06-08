@@ -237,19 +237,23 @@ public class PKHomeActivity extends BaseActivity {
         adapter.setOnItemClickListener(R.id.bt_tiaozhan, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-//                if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
-                if (WebSocketUtils.getInstance().getState()) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("id", pkChangCiBOS.get(position).getId());
-                    bundle.putInt("maxTime", pkChangCiBOS.get(position).getMaxTime());
-                    bundle.putString("title", pkChangCiBOS.get(position).getTitle());
-                    gotoActivity(PKStartActivity.class, bundle, false);
-                } else {
-                    showToast("游戏服务器正在连接！");
+                if (pkChangCiBOS.get(position).getValue() > Integer.parseInt(App.xIaoJiangBO.getPkValue())) {
+                    showToast("您的PK值不足!");
+                    return;
                 }
-//                } else {
-//                    showToast("请先连接跳绳设备！");
-//                }
+                if (App.isConnect()) {
+                    if (WebSocketUtils.getInstance().getState()) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("id", pkChangCiBOS.get(position).getId());
+                        bundle.putInt("maxTime", pkChangCiBOS.get(position).getMaxTime());
+                        bundle.putString("title", pkChangCiBOS.get(position).getTitle());
+                        gotoActivity(PKStartActivity.class, bundle, false);
+                    } else {
+                        showToast("游戏服务器正在连接！");
+                    }
+                } else {
+                    showToast("请先连接跳绳设备！");
+                }
             }
         });
         pkRecycle.setAdapter(adapter);

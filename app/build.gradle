@@ -7,7 +7,7 @@ android {
 
     signingConfigs {
         signConfig {
-            keyAlias 'rope_skip'
+            keyAlias 'ropo_skip'
             keyPassword '123456'
             storeFile file('../keystore/rope_skip.jks')
             storePassword '123456'
@@ -54,15 +54,14 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.signConfig
+            signingConfig signingConfigs.signConfig
         }
-//        debug {
-//            ndk {
-//                abiFilters "armeabi-v7a"
-//            }
-//            signingConfig signingConfigs.signConfig
-//            jniDebuggable true
-//        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signConfig
+        }
     }
 
     packagingOptions {
@@ -198,16 +197,16 @@ MobSDK {
         loopShare false
         devInfo {
             Wechat {
-                appId "wx4868b35061f87885"
-                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                appId "wxf7385fed18d14157"
+                appSecret "2e67e083a229cc1c1e45ff83a815030f"
                 userName "gh_afb25ac019c9"
                 path "pages/index/index.html?id=1"
                 withShareTicket true
                 miniprogramType 2
             }
             WechatMoments {
-                appId "wx4868b35061f87885"
-                appSecret "64020361b8ec4c99936c0e3999a9f249"
+                appId "wxf7385fed18d14157"
+                appSecret "2e67e083a229cc1c1e45ff83a815030f"
             }
         }
     }

@@ -221,6 +221,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     private void showDialogManager() {
+        if (App.userBO == null) {
+            return;
+        }
         if (App.userBO.getYoungGeneralCount() == 0) {  //未拥有小将，创建
             showCreateYoung();
         } else {

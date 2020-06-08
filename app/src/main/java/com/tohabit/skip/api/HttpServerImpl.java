@@ -27,6 +27,7 @@ import com.tohabit.skip.pojo.po.PkChangCiBO;
 import com.tohabit.skip.pojo.po.PkJiLuBo;
 import com.tohabit.skip.pojo.po.QuestionsBO;
 import com.tohabit.skip.pojo.po.RongYuBO;
+import com.tohabit.skip.pojo.po.ShareBO;
 import com.tohabit.skip.pojo.po.ShopBO;
 import com.tohabit.skip.pojo.po.ShopDetailsBO;
 import com.tohabit.skip.pojo.po.ShouCangBO;
@@ -362,7 +363,7 @@ public class HttpServerImpl {
     /**
      * 获取活动详情
      */
-    public static Observable<HuodongBO> getActivity(String id){
+    public static Observable<HuodongBO> getActivity(String id) {
         return getService().getActivity(id).compose(RxResultHelper.httpRusult());
     }
 
@@ -800,6 +801,13 @@ public class HttpServerImpl {
      */
     public static Observable<VersionBO> getVersion() {
         return getService().getVersion().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取邀请好友的内容
+     */
+    public static Observable<ShareBO> getWxShareMessage() {
+        return getService().getWxShareMessage().compose(RxResultHelper.httpRusult());
     }
 
 

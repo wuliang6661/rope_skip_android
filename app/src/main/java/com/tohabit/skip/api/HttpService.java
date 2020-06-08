@@ -26,6 +26,7 @@ import com.tohabit.skip.pojo.po.PkChangCiBO;
 import com.tohabit.skip.pojo.po.PkJiLuBo;
 import com.tohabit.skip.pojo.po.QuestionsBO;
 import com.tohabit.skip.pojo.po.RongYuBO;
+import com.tohabit.skip.pojo.po.ShareBO;
 import com.tohabit.skip.pojo.po.ShopBO;
 import com.tohabit.skip.pojo.po.ShopDetailsBO;
 import com.tohabit.skip.pojo.po.ShouCangBO;
@@ -675,5 +676,12 @@ public interface HttpService {
      */
     @GET("app/my/version/getVersion")
     Observable<BaseResult<VersionBO>> getVersion();
+
+
+    /**
+     * 获取邀请好友的规则
+     */
+    @POST("app/share/getWxShareMessage")
+    Observable<BaseResult<ShareBO>> getWxShareMessage();
 
 }

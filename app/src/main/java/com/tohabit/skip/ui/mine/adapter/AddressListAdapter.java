@@ -39,11 +39,13 @@ public class AddressListAdapter extends BaseRvAdapter<AddressBO, BaseViewHolder>
             helper.setVisible(R.id.tv_mr_layout_fragment_address_list_item, true);
             helper.setVisible(R.id.iv_select_layout_fragment_address_list_item, true);
             helper.setTextColor(R.id.moren_text, Color.parseColor("#7EC7F5"));
+            helper.setText(R.id.moren_text,"默认地址");
         } else {
 //            helper.setBackgroundRes(R.id.iv_select_layout_fragment_address_list_item,R.mipmap.ic_address_nor);
             helper.setVisible(R.id.tv_mr_layout_fragment_address_list_item, false);
             helper.setVisible(R.id.iv_select_layout_fragment_address_list_item, false);
             helper.setTextColor(R.id.moren_text, Color.parseColor("#ff888888"));
+            helper.setText(R.id.moren_text,"设为默认");
         }
     }
 
