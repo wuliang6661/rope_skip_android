@@ -1,8 +1,11 @@
 package com.tohabit.skip.ui.train.fragment;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,8 +14,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.github.mikephil.charting.charts.BarChart;
@@ -23,6 +30,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
@@ -38,18 +46,19 @@ import com.tohabit.skip.ui.train.contract.TestResultContract;
 import com.tohabit.skip.ui.train.presenter.TestResultPresenter;
 import com.tohabit.skip.ui.young.fragment.VideoExplainActivity;
 import com.tohabit.skip.utils.DensityUtil;
+import com.tohabit.skip.utils.ScreenShotUtils;
+import com.tohabit.skip.utils.ShareUtils;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
-import com.tohabit.skip.widget.CutRelativeLayout;
 import com.tohabit.skip.widget.RadarView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -71,16 +80,6 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     LinearLayout toolbarLayoutToolbar;
     @BindView(R.id.rc_improvement_plan_fragment_test_result)
     RecyclerView rcImprovementPlan;
-    @BindView(R.id.iv_user_header_layout_dialog_toast_share_success)
-    CircleImageView ivUserHeaderLayoutDialogToastShareSuccess;
-    @BindView(R.id.tv_name_layout_dialog_toast_share_success)
-    AppCompatTextView tvNameLayoutDialogToastShareSuccess;
-    @BindView(R.id.tv_time_layout_dialog_toast_share_success)
-    AppCompatTextView tvTimeLayoutDialogToastShareSuccess;
-    @BindView(R.id.iv_qr_code_layout_dialog_toast_share_success)
-    AppCompatImageView ivQrCodeLayoutDialogToastShareSuccess;
-    @BindView(R.id.cr_full_screen_fragment_test_result)
-    CutRelativeLayout crFullScreen;
     @BindView(R.id.radar_view)
     RadarView radarView;
     @BindView(R.id.time_text)
@@ -119,6 +118,20 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     AppCompatTextView zuojiaoText;
     @BindView(R.id.youjiao_text)
     AppCompatTextView youjiaoText;
+    @BindView(R.id.user_img)
+    RoundedImageView userImg;
+    @BindView(R.id.user_name)
+    TextView userName;
+    @BindView(R.id.shape_date)
+    TextView shapeDate;
+    @BindView(R.id.user_qr_code)
+    ImageView userQrCode;
+    @BindView(R.id.buttom_layout)
+    LinearLayout buttomLayout;
+    @BindView(R.id.no_share_layout)
+    LinearLayout noShareLayout;
+    @BindView(R.id.scroll_view)
+    NestedScrollView scrollView;
     Unbinder unbinder;
 
     private Dialog mBottomSheetDialog;
@@ -156,6 +169,11 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
         initAdapter();
         initBar(barChart);
         mPresenter.getTestData(testId);
+
+        Glide.with(this).load(App.userBO.getImage()).into(userImg);
+        userName.setText(App.userBO.getNickName());
+        shapeDate.setText(TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd")));
+        getQrCode();
     }
 
 
@@ -198,22 +216,21 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.hide();
-                start(TestResultShareSuccessFragment.newInstance(null));
-
+                shareImage(0);
             }
         });
         view.findViewById(R.id.ll_pyq_dialog_invitation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.hide();
-                start(TestResultShareSuccessFragment.newInstance(null));
+                shareImage(1);
             }
         });
         view.findViewById(R.id.ll_save_picture_dialog_invitation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBottomSheetDialog.hide();
-                start(TestResultShareSuccessFragment.newInstance(null));
+                saveImgs();
             }
         });
 
@@ -429,6 +446,70 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
                 showToast(message);
             }
         });
+    }
+
+
+    private void getQrCode() {
+        HttpServerImpl.getQrCode().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                stopProgress();
+                Glide.with(getActivity()).load(s).into(userQrCode);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                stopProgress();
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 保存图片
+     */
+    private void saveImgs() {
+        toolbarLayoutToolbar.setVisibility(View.GONE);
+        noShareLayout.setVisibility(View.GONE);
+        buttomLayout.setVisibility(View.VISIBLE);
+        showProgress(null);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                stopProgress();
+                Bitmap bitmap = ScreenShotUtils.getScrollViewBitmap(scrollView);
+                boolean isSave = ScreenShotUtils.saveChangBit(getActivity(), bitmap);
+                if (isSave) {
+                    showToast("保存成功！");
+                } else {
+                    showToast("保存失败！");
+                }
+                toolbarLayoutToolbar.setVisibility(View.VISIBLE);
+                noShareLayout.setVisibility(View.VISIBLE);
+                buttomLayout.setVisibility(View.GONE);
+            }
+        }, 500);
+    }
+
+
+    /**
+     * 分享图片
+     */
+    private void shareImage(int flags) {
+        toolbarLayoutToolbar.setVisibility(View.GONE);
+        noShareLayout.setVisibility(View.GONE);
+        buttomLayout.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = ScreenShotUtils.getScrollViewBitmap(scrollView);
+                ShareUtils.shareImage(flags, bitmap);
+                toolbarLayoutToolbar.setVisibility(View.VISIBLE);
+                noShareLayout.setVisibility(View.VISIBLE);
+                buttomLayout.setVisibility(View.GONE);
+            }
+        }, 500);
     }
 
 }
