@@ -35,6 +35,8 @@ import java.net.URL;
  */
 public class UpdateUtils {
 
+
+
     private Context context;
 
     private boolean mIsCancel = false;
