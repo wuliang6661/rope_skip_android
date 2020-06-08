@@ -21,8 +21,7 @@ import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.pojo.BaseResult;
 import com.tohabit.skip.pojo.po.MusicBO;
-import com.tohabit.skip.pojo.po.PkUserBO;
-import com.tohabit.skip.pojo.po.UserBO;
+import com.tohabit.skip.pojo.po.PkResultBO;
 import com.tohabit.skip.presenter.CommonPresenter;
 import com.tohabit.skip.presenter.contract.CommonContract;
 import com.tohabit.skip.service.UartService;
@@ -395,16 +394,21 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             @Override
             public void onNotifi(String message) {
                 try {
-                    BaseResult<UserBO> userBO = new Gson().fromJson(message, new TypeToken<BaseResult<PkUserBO>>() {
+                    BaseResult<PkResultBO> userBO = new Gson().fromJson(message, new TypeToken<BaseResult<PkResultBO>>() {
                     }.getType());
                     if (userBO.getCode() == 300) {   //胜利
-                        showToast(userBO.getMsg());
                         stopPk();
-                        gotoActivity(PKResultActivity.class, true);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("type", 0);
+                        bundle.putSerializable("data", userBO.getData());
+                        gotoActivity(PKResultActivity.class, bundle, true);
                     }
                     if (userBO.getCode() == 302) {   //失败
                         stopPk();
-                        showToast(userBO.getMsg());
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("type", 1);
+                        bundle.putSerializable("data", userBO.getData());
+                        gotoActivity(PKResultActivity.class, bundle, true);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
