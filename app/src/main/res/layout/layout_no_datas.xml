@@ -12,15 +12,19 @@
         android:id="@+id/iv_no_data_layout_no_datas"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@mipmap/ic_not_task_remind1" />
+        android:src="@mipmap/ic_not_task_remind1"
+        android:visibility="gone" />
+
     <TextView
+        android:id="@+id/tv_no_data_table_layout_no_datas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_no_data_table_layout_no_datas"
         android:layout_marginTop="25dp"
         android:text="@string/get_no_data_remind"
         android:textColor="@color/color_302C48"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/tv_no_data_layout_no_datas"
         android:layout_width="wrap_content"
@@ -28,17 +32,24 @@
         android:layout_marginTop="11dp"
         android:text="@string/get_data_finish_remind"
         android:textColor="@color/colorTextLight"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:visibility="gone" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_refresh"
         android:layout_width="116dp"
         android:layout_height="42dp"
+        android:layout_marginTop="33dp"
+        android:background="@drawable/selector_refresh_btn"
         android:text="@string/refresh"
         android:textColor="@color/colorTextWhite"
         android:textSize="16sp"
-        android:layout_marginTop="33dp"
-        android:background="@drawable/selector_refresh_btn"/>
+        android:visibility="gone" />
 
+
+    <ImageView
+        android:layout_width="161dp"
+        android:layout_height="195dp"
+        android:src="@mipmap/no_data" />
 
 </LinearLayout>
