@@ -810,8 +810,6 @@ public class HttpServerImpl {
         return getService().getWxShareMessage().compose(RxResultHelper.httpRusult());
     }
 
-
-
     /**
      * 提交图片
      */
