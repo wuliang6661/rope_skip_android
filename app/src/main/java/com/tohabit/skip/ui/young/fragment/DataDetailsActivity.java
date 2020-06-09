@@ -1,11 +1,19 @@
 package com.tohabit.skip.ui.young.fragment;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -15,20 +23,25 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.BaoGaoDetailsBO;
+import com.tohabit.skip.utils.ScreenShotUtils;
+import com.tohabit.skip.utils.ShareUtils;
+import com.tohabit.skip.widget.ShapeDialog;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
-import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * author : wuliang
@@ -57,8 +70,22 @@ public class DataDetailsActivity extends BaseActivity {
     RecyclerView taskRecycle;
     @BindView(R.id.line_chart)
     LineChart chart;
+    @BindView(R.id.title_layout)
+    RelativeLayout titleLayout;
+    @BindView(R.id.user_name)
+    TextView userName;
+    @BindView(R.id.shape_date)
+    TextView shapeDate;
+    @BindView(R.id.user_qr_code)
+    ImageView userQrCode;
+    @BindView(R.id.buttom_layout)
+    LinearLayout buttomLayout;
+    @BindView(R.id.scroll_view)
+    NestedScrollView scrollView;
 
     private BaoGaoDetailsBO detailsBO;
+
+    ShapeDialog shapeDialog;
 
     @Override
     protected void initInject() {
@@ -89,6 +116,11 @@ public class DataDetailsActivity extends BaseActivity {
         Glide.with(this).load(App.xIaoJiangBO.getIcon()).into(userPkIcon);
         initChart();
         getDataMsg(id);
+
+        Glide.with(this).load(App.userBO.getImage()).into(userImg);
+        userName.setText(App.userBO.getNickName());
+        shapeDate.setText(TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd")));
+        getQrCode();
     }
 
     @Override
@@ -128,6 +160,32 @@ public class DataDetailsActivity extends BaseActivity {
                 showToast(message);
             }
         });
+    }
+
+
+    /**
+     * 分享
+     */
+    @OnClick(R.id.bt_share_pk)
+    public void sharePK() {
+        shapeDialog = ShapeDialog.getInatance(this);
+        shapeDialog.setListener(new ShapeDialog.onSelectListener() {
+            @Override
+            public void clickWeiXin() {
+                shareImage(0);
+            }
+
+            @Override
+            public void clickPYQ() {
+                shareImage(1);
+            }
+
+            @Override
+            public void saveImg() {
+                saveImgs();
+            }
+        });
+        shapeDialog.show();
     }
 
 
@@ -277,4 +335,64 @@ public class DataDetailsActivity extends BaseActivity {
                 };
         taskRecycle.setAdapter(adapter);
     }
+
+    private void getQrCode() {
+        HttpServerImpl.getQrCode().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                stopProgress();
+                Glide.with(DataDetailsActivity.this).load(s).into(userQrCode);
+            }
+
+            @Override
+            public void onFiled(String message) {
+                stopProgress();
+                showToast(message);
+            }
+        });
+    }
+
+
+    /**
+     * 保存图片
+     */
+    private void saveImgs() {
+        titleLayout.setVisibility(View.GONE);
+        buttomLayout.setVisibility(View.VISIBLE);
+        showProgress(null);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                stopProgress();
+                Bitmap bitmap = ScreenShotUtils.getScrollViewBitmap(scrollView);
+                boolean isSave = ScreenShotUtils.saveChangBit(DataDetailsActivity.this, bitmap);
+                if (isSave) {
+                    showToast("保存成功！");
+                } else {
+                    showToast("保存失败！");
+                }
+                titleLayout.setVisibility(View.VISIBLE);
+                buttomLayout.setVisibility(View.GONE);
+            }
+        }, 500);
+    }
+
+
+    /**
+     * 分享图片
+     */
+    private void shareImage(int flags) {
+        titleLayout.setVisibility(View.GONE);
+        buttomLayout.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = ScreenShotUtils.getScrollViewBitmap(scrollView);
+                ShareUtils.shareImage(flags, bitmap);
+                titleLayout.setVisibility(View.VISIBLE);
+                buttomLayout.setVisibility(View.GONE);
+            }
+        }, 500);
+    }
+
 }

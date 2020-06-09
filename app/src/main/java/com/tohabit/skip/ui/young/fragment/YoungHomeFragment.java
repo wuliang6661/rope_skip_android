@@ -74,10 +74,8 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
     WaterFlake waterFlake;
     @BindView(R.id.chenghao_img)
     AppCompatImageView chenghaoImg;
-    Unbinder unbinder;
     @BindView(R.id.xiaojiang_layout)
     LinearLayout xiaojiangLayout;
-    Unbinder unbinder1;
 
     public static YoungHomeFragment newInstance(Bundle bundle) {
         YoungHomeFragment fragment = new YoungHomeFragment();

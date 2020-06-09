@@ -1,8 +1,10 @@
 package com.tohabit.skip.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.mob.MobSDK;
+import com.tohabit.skip.R;
 import com.tohabit.skip.pojo.po.ShareBO;
 
 import cn.sharesdk.framework.Platform;
@@ -99,6 +101,8 @@ public class ShareUtils {
         oks.setText(shareBO.getContent());
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
 //        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+        oks.setImageData(BitmapFactory.decodeResource(AppManager.getAppManager().curremtActivity().getResources(),
+                R.mipmap.ic_launcher_logo));
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl(shareBO.getUrl());
         //启动分享

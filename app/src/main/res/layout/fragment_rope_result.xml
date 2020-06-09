@@ -146,7 +146,7 @@
                             android:id="@+id/tv_time_fragment_rope_result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="00'24''"
+                            android:text="00'00''"
                             android:textColor="#fff5b68f"
                             android:textSize="16sp" />
 
@@ -183,7 +183,7 @@
                             android:id="@+id/tv_number_fragment_rope_result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="125"
+                            android:text="00"
                             android:textColor="#ffb9cae0"
                             android:textSize="16sp" />
 
@@ -220,7 +220,7 @@
                             android:id="@+id/tv_break_number_fragment_rope_result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="05"
+                            android:text="00"
                             android:textColor="#fffdc0bb"
                             android:textSize="16sp" />
 
@@ -310,7 +310,7 @@
                                     android:id="@+id/tv_average_number_fragment_rope_result"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:text="111"
+                                    android:text="0"
                                     android:textColor="#fff5b68f"
                                     android:textSize="16sp" />
 
@@ -364,7 +364,7 @@
                                     android:id="@+id/tv_access_fragment_rope_result"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:text="111"
+                                    android:text="0"
                                     android:textColor="#ffb9cae0"
                                     android:textSize="16sp" />
 
@@ -462,6 +462,7 @@
                 android:textSize="16sp" />
 
             <LinearLayout
+                android:id="@+id/no_share_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -523,11 +524,16 @@
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
-    <include
-        layout="@layout/layout_dialog_toast_share_success"
+    <LinearLayout
+        android:id="@+id/buttom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:visibility="gone" />
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include layout="@layout/shape_buttom_bg" />
+
+    </LinearLayout>
 
 </RelativeLayout>

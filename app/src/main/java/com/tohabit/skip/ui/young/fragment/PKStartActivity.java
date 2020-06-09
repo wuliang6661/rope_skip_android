@@ -311,11 +311,16 @@ public class PKStartActivity extends BaseActivity {
 
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        WebSocketUtils.getInstance().setOnNotifiListener(null);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         //如果不是去跳绳界面，则取消匹配断开连接
         handler.removeCallbacksAndMessages(null);
-        WebSocketUtils.getInstance().setOnNotifiListener(null);
         if (!isGoTiaosheng) {
             back();
         }

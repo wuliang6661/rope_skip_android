@@ -56,263 +56,280 @@
 
     </LinearLayout>
 
-    <com.tohabit.skip.widget.CutRelativeLayout
-        android:id="@+id/cr_full_screen_fragment_test_result"
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_layout_toolbar">
 
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <com.tohabit.skip.widget.RadarView
+                android:id="@+id/radar_view"
+                android:layout_width="match_parent"
+                android:layout_height="290dp"
+                android:background="@color/white" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-
-                <com.tohabit.skip.widget.RadarView
-                    android:id="@+id/radar_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="290dp"
-                    android:background="@color/white" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="19dp">
-
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="20dp"
-                        android:background="#B9CAE0" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="基础数据"
-                        android:textColor="#ffb9cae0"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="19dp">
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="9dp"
-                    android:background="#F8F8F8" />
+                    android:layout_width="3dp"
+                    android:layout_height="20dp"
+                    android:background="#B9CAE0" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="20dp">
+                    android:layout_marginLeft="10dp"
+                    android:text="基础数据"
+                    android:textColor="#ffb9cae0"
+                    android:textSize="14sp" />
 
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:background="#F8F8F8" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@mipmap/icon_mk1" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:text="时间"
-                                android:textColor="#ffb9cae0"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/time_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="02'01''"
-                            android:textColor="#ffb9cae0"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="66dp"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@mipmap/icon_mk2" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:text="数量"
-                                android:textColor="#fff5b68f"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/skip_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="200"
-                            android:textColor="#fff5b68f"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:background="@mipmap/icon_mk3" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:text="断绳"
-                                android:textColor="#ffd8d4e5"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/break_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="06"
-                            android:textColor="#ffd8d4e5"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="19dp">
-
-                    <View
-                        android:layout_width="3dp"
-                        android:layout_height="20dp"
-                        android:background="#B9CAE0" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="测试数据"
-                        android:textColor="#ffb9cae0"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="20dp">
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="1dp"
-                    android:layout_marginTop="9dp"
-                    android:background="#F8F8F8" />
+                    android:layout_weight="1" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="27dp">
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="140dp"
-                        android:layout_height="27dp"
-                        android:background="@mipmap/ic_nomal_left" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:gravity="center_vertical"
-                            android:text="正常值"
-                            android:textColor="#ffffffff"
-                            android:textSize="12sp" />
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@mipmap/icon_mk1" />
 
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:gravity="center_vertical"
-                            android:text="120"
-                            android:textColor="#ffffffff"
+                            android:layout_marginLeft="3dp"
+                            android:text="时间"
+                            android:textColor="#ffb9cae0"
                             android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/time_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="02'01''"
+                        android:textColor="#ffb9cae0"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="66dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@mipmap/icon_mk2" />
 
                         <android.support.v7.widget.AppCompatTextView
                             android:layout_width="wrap_content"
-                            android:layout_height="17dp"
-                            android:gravity="bottom"
-                            android:text="个/分钟"
-                            android:textColor="#ffffffff"
-                            android:textSize="9sp" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:text="数量"
+                            android:textColor="#fff5b68f"
+                            android:textSize="14sp" />
                     </LinearLayout>
-                </FrameLayout>
 
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/skip_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="200"
+                        android:textColor="#fff5b68f"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/bar_chart"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@mipmap/icon_mk3" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:text="断绳"
+                            android:textColor="#ffd8d4e5"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/break_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="06"
+                        android:textColor="#ffd8d4e5"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="19dp">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="20dp"
+                    android:background="#B9CAE0" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="测试数据"
+                    android:textColor="#ffb9cae0"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:background="#F8F8F8" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="27dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="140dp"
+                    android:layout_height="27dp"
+                    android:background="@mipmap/ic_nomal_left" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp" />
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:gravity="center_vertical"
+                        android:text="正常值"
+                        android:textColor="#ffffffff"
+                        android:textSize="12sp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:text="120"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="17dp"
+                        android:gravity="bottom"
+                        android:text="个/分钟"
+                        android:textColor="#ffffffff"
+                        android:textSize="9sp" />
+                </LinearLayout>
+            </FrameLayout>
+
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/bar_chart"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp" />
+
+
+            <LinearLayout
+                android:id="@+id/buttom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include layout="@layout/shape_buttom_bg" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/no_share_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
 
                 <LinearLayout
@@ -534,12 +551,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="14dp"
-                    android:layout_marginTop="9dp">
+                    android:layout_marginTop="9dp" />
 
-                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </com.tohabit.skip.widget.CutRelativeLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 
     <com.tohabit.commonlibrary.widget.ProgressbarLayout
@@ -550,12 +567,5 @@
         android:layout_centerInParent="true"
         android:visibility="gone" />
 
-
-    <include
-        layout="@layout/layout_dialog_toast_share_success"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone" />
 
 </RelativeLayout>

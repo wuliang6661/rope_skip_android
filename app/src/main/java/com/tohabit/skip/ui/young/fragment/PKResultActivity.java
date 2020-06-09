@@ -17,6 +17,7 @@ import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.base.BaseActivity;
+import com.tohabit.skip.pojo.po.PkResultBO;
 import com.tohabit.skip.utils.ScreenShotUtils;
 import com.tohabit.skip.utils.ShareUtils;
 import com.tohabit.skip.widget.ShapeDialog;
@@ -92,16 +93,20 @@ public class PKResultActivity extends BaseActivity {
         } else {
             baseLayout.setBackgroundResource(R.mipmap.pk_nv_bg);
         }
+        type = getIntent().getExtras().getInt("type");
+        PkResultBO resultBO = (PkResultBO) getIntent().getExtras().getSerializable("data");
         if (type == 0) {   //成功
             jieguoImg.setImageResource(R.mipmap.pk_chenggong);
             valueMiaoshu.setText("本场胜利获得PK值");
             jieguoMiaoshu.setText("距下下级称号又近了一步！");
             jieguoText.setText("新手挑战成功");
+            value.setText("+" + resultBO.getPkChallengeValue());
         } else {
             guangmang.setVisibility(View.GONE);
             valueMiaoshu.setText("本场失败消耗PK值");
             jieguoMiaoshu.setText("亲，继续加油哦~");
             jieguoText.setText("新手挑战失败");
+            value.setText("-" + resultBO.getPkChallengeValue());
             switch (App.xIaoJiangBO.getSex()) {
                 case 0:
                     jieguoImg.setImageResource(R.mipmap.pk_shibai);
