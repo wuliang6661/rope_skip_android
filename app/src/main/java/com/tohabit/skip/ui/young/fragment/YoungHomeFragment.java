@@ -32,7 +32,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
@@ -120,8 +119,8 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
 
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onSupportVisible() {
+        super.onSupportVisible();
         getEnergies();
         getYoungGeneralInfo();
     }

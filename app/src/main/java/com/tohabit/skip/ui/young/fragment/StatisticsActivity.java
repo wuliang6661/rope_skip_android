@@ -232,7 +232,7 @@ public class StatisticsActivity extends BaseActivity {
             set1 = new LineDataSet(datas, "");
             set1.setDrawFilled(true);
             set1.setFillDrawable(ContextCompat.getDrawable(this, R.drawable.chart_fill_bg));
-            set1.setColor(Color.parseColor("#ECD1FC"));
+            set1.setColor(Color.parseColor("#00000000"));
             set1.setCircleColor(Color.parseColor("#CEC3F9"));
             set1.setCircleHoleColor(Color.parseColor("#CEC3F9"));
             set1.setLineWidth(2f);

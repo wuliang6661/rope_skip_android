@@ -204,7 +204,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="6dp"
                             android:layout_marginLeft="@dimen/dp_10"
-                            android:text="ON"
+                            android:text="NO"
                             android:textColor="@color/color_7EC7F5"
                             android:textSize="14sp" />
 
