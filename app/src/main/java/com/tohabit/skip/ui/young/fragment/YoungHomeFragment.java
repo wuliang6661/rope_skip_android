@@ -106,7 +106,6 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
         gifDrawable = (GifDrawable) giViewMonkeyFragmentYoungHome.getDrawable();
         gifDrawable.start();
         Glide.with(getActivity()).load(App.userBO.getImage()).into(ivUserHeaderFragmentYoungHome);
-        getEnergies();
     }
 
 
@@ -123,6 +122,7 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
     @Override
     public void onResume() {
         super.onResume();
+        getEnergies();
         getYoungGeneralInfo();
     }
 
