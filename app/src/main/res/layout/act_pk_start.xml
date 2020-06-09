@@ -261,7 +261,7 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:background="@drawable/pk_bt"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/bt_text"
