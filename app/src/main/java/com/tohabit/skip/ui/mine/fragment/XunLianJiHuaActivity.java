@@ -43,6 +43,8 @@ public class XunLianJiHuaActivity extends BaseActivity {
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
 
+    private int selectMenu = 0;
+
     @Override
     protected void initInject() {
 
@@ -67,7 +69,13 @@ public class XunLianJiHuaActivity extends BaseActivity {
         recycleView.setLayoutManager(manager);
         recycleView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
                 .sizeResId(R.dimen.size_list_item_divider_test).colorResId(R.color.transparent).build());
-        getData(0);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData(selectMenu);
     }
 
     @Override
@@ -96,10 +104,12 @@ public class XunLianJiHuaActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.weiwancheng:
                 setTitleStyle(0);
+                selectMenu = 0;
                 getData(0);
                 break;
             case R.id.yiwancheng:
                 setTitleStyle(1);
+                selectMenu = 1;
                 getData(1);
                 break;
         }
