@@ -120,8 +120,6 @@ public class RopeSkipResultFragment extends BaseFragment<RopeSkipResultPresenter
     @Override
     protected void initEventAndData() {
         initDialog();
-        id = getArguments().getString("id");
-        mPresenter.getTrain(id);
 
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
         userName.setText(App.userBO.getNickName());
@@ -130,8 +128,15 @@ public class RopeSkipResultFragment extends BaseFragment<RopeSkipResultPresenter
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        id = getArguments().getString("id");
+        mPresenter.getTrain(id);
+    }
+
+    @Override
     public void getData(TrainBO data) {
-        if(data == null){
+        if (data == null) {
             return;
         }
         String time = Utils.timeToString(data.getSkipTime());

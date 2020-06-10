@@ -172,6 +172,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             @Override
             public void onProgress(int what, float progress) {
                 if (progress == 100) {   //倒计时完
+                    timeCount--;
                     onViewClicked(tvContral);
                 } else {
                     timeCount--;
@@ -320,7 +321,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             public void onSuccess(String s) {
                 stopProgress();
                 Bundle bundle = new Bundle();
-                bundle.putString("id", trainPlanId);
+                bundle.putString("id", s);
                 start(RopeSkipResultFragment.newInstance(bundle));
             }
 
