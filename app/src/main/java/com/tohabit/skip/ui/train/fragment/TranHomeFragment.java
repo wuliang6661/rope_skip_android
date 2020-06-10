@@ -267,7 +267,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 firstTiaoShengNum = cishu;
             }
             skipNum = cishu - firstTiaoShengNum;
-            getDeviceCishu(String.valueOf(skipNum));
+            getDeviceCishu(String.valueOf(Math.abs(skipNum)));
         }
     }
 

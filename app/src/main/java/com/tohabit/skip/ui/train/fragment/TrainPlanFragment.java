@@ -545,7 +545,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 firstTiaoShengNum = cishu;
             }
             skipNum = cishu - firstTiaoShengNum;
-            tvTimeCountFragmentTrainMain.setText(skipNum + "");
+            tvTimeCountFragmentTrainMain.setText(Math.abs(skipNum) + "");
         }
     }
 
