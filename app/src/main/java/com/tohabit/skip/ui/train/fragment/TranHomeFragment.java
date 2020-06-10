@@ -324,6 +324,9 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     isEditMsg = false;
                     addTest();
                 } else {//未开始
+//                    byte[] aa = new byte[]{0x00, 0x00, 0x00, 0x24};
+//                    int cishu = Math.abs(ByteUtils.bytesToInt2(aa, 0));
+//                    showToast(cishu + "");
                     if (!App.isConnect()) {
                         showToast("请先连接跳绳！");
                         return;
