@@ -34,7 +34,7 @@ import butterknife.OnClick;
 /**
  * 知识Fragment
  */
-public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
     @BindView(R.id.fenlei_recycle)
@@ -103,7 +103,10 @@ public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.O
                 helper.setText(R.id.zhishi_title, item.getTitle());
                 helper.setText(R.id.tizhong, item.getWeight() + "kg");
                 helper.setText(R.id.shengao, item.getHeight() + "cm");
-                helper.setText(R.id.shijian, item.getAge());
+                helper.getView(R.id.kecheng_img).setVisibility(View.GONE);
+                helper.getView(R.id.shijian).setVisibility(View.GONE);
+                helper.getView(R.id.shiyongnianling).setVisibility(View.VISIBLE);
+                helper.setText(R.id.shiyongnianling, item.getAge() + "岁");
                 helper.setText(R.id.beizhu_text, "作者  " + item.getReleaseName() + "  " + item.getReleaseDate());
             }
         };
@@ -218,8 +221,8 @@ public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.O
 
 
     @OnClick(R.id.shaixuan_layout)
-    public void clickShaiXuan(){
-        PopShiXuanWindow popShiXuanWindow = new PopShiXuanWindow(getActivity(),isSelectNianLing,isSelectShengao,isSelectTizhong);
+    public void clickShaiXuan() {
+        PopShiXuanWindow popShiXuanWindow = new PopShiXuanWindow(getActivity(), isSelectNianLing, isSelectShengao, isSelectTizhong);
         popShiXuanWindow.setListener(new PopShiXuanWindow.onSelectListener() {
             @Override
             public void onSelect(int Nianling, int Shengao, int Tizhong) {

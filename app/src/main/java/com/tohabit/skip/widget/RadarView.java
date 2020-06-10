@@ -44,6 +44,8 @@ public class RadarView extends View {
     private Paint mainPaint;
     //文本画笔
     private Paint textPaint;
+    //分数画笔
+    private Paint fenshuPaint;
     //数据区画笔
     private Paint valuePaint;
     //标题文字
@@ -87,6 +89,13 @@ public class RadarView extends View {
         textPaint.setTextSize(SizeUtils.sp2px(12));
         textPaint.setStrokeWidth(1);
         textPaint.setAntiAlias(true);
+        //分数画笔初始化
+        fenshuPaint = new Paint();
+        fenshuPaint.setColor(Color.parseColor("#333333"));
+        fenshuPaint.setTextAlign(Paint.Align.CENTER);
+        fenshuPaint.setTextSize(SizeUtils.sp2px(12));
+        fenshuPaint.setStrokeWidth(1);
+        fenshuPaint.setAntiAlias(true);
         //数据区（分数）画笔初始化
         valuePaint = new Paint();
         valuePaint.setColor(Color.parseColor("#908ACCF6"));
@@ -321,7 +330,7 @@ public class RadarView extends View {
         canvas.drawBitmap(bitmap, x1 - SizeUtils.dp2px(18), y1 - fontHeight / 5 - bitmap.getHeight() -
                 SizeUtils.dp2px(18), textPaint);
         canvas.drawText(titles.get(0), x1, y1 - fontHeight / 5 - 20, textPaint);
-        canvas.drawText(data.get(0) + "", x1, y1 + 10, textPaint);
+        canvas.drawText(data.get(0) + "", x1, y1 + SizeUtils.dp2px(5), fenshuPaint);
         //绘制文字2
         float x2 = (float) (centerX + radius * Math.sin(angle)) - 20;
         float y2 = (float) (centerY - radius * Math.cos(angle));
@@ -330,7 +339,7 @@ public class RadarView extends View {
         canvas.drawBitmap(bitmap1, x2 + dis - SizeUtils.dp2px(18), y2 + fontHeight / 5 - bitmap.getHeight() -
                 SizeUtils.dp2px(12), textPaint);
         canvas.drawText(titles.get(1), x2 + dis, y2 + fontHeight / 5, textPaint);
-        canvas.drawText(data.get(1) + "", x2 + dis, y2 + fontHeight + 10, textPaint);
+        canvas.drawText(data.get(1) + "", x2 + dis, y2 + fontHeight + SizeUtils.dp2px(5), fenshuPaint);
         //绘制文字3
         float x3 = (float) (centerX + radius * Math.sin(angle / 2));
         float y3 = (float) (centerY + radius * Math.cos(angle / 2)) + SizeUtils.dp2px(30);
@@ -339,7 +348,7 @@ public class RadarView extends View {
         canvas.drawBitmap(bitmap2, x3 - SizeUtils.dp2px(18), y3 + fontHeight - bitmap.getHeight() -
                 SizeUtils.dp2px(12), textPaint);
         canvas.drawText(titles.get(2), x3, y3 + fontHeight, textPaint);
-        canvas.drawText(data.get(2) + "", x3, y3 + fontHeight + 50, textPaint);
+        canvas.drawText(data.get(2) + "", x3, y3 + fontHeight + SizeUtils.dp2px(12), fenshuPaint);
         //绘制文字4
         float x4 = (float) (centerX - radius * Math.sin(angle / 2));
         float y4 = (float) (centerY + radius * Math.cos(angle / 2)) + SizeUtils.dp2px(30);
@@ -348,7 +357,7 @@ public class RadarView extends View {
         canvas.drawBitmap(bitmap3, x4 - SizeUtils.dp2px(18), y4 + fontHeight - bitmap.getHeight() -
                 SizeUtils.dp2px(12), textPaint);
         canvas.drawText(titles.get(3), x4, y4 + fontHeight, textPaint);
-        canvas.drawText(data.get(3) + "", x4, y4 + fontHeight + 50, textPaint);
+        canvas.drawText(data.get(3) + "", x4, y4 + fontHeight + SizeUtils.dp2px(12), fenshuPaint);
         //绘制文字5
         float x5 = (float) (centerX - radius * Math.sin(angle)) + 20;
         float y5 = (float) (centerY - radius * Math.cos(angle));
@@ -358,7 +367,7 @@ public class RadarView extends View {
         canvas.drawBitmap(bitmap4, x5 - dis5 - SizeUtils.dp2px(18), y5 + fontHeight / 5 - bitmap.getHeight() -
                 SizeUtils.dp2px(12), textPaint);
         canvas.drawText(titles.get(4), x5 - dis5, y5 + fontHeight / 5, textPaint);
-        canvas.drawText(data.get(4) + "", x5 - dis5, y5 + fontHeight + 10, textPaint);
+        canvas.drawText(data.get(4) + "", x5 - dis5, y5 + fontHeight + SizeUtils.dp2px(5), fenshuPaint);
     }
 
 

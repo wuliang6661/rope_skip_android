@@ -87,12 +87,6 @@ public final class SplashFragment extends BaseFragment<SplashPresenter> implemen
     protected void initEventAndData() {
         _mActivity.setFragmentAnimator(new DefaultNoAnimator());
         mHandler = new Handler();
-    }
-
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
         boolean isFirst = App.spUtils.getBoolean("isFirst", true);   //默认第一次登陆
         if (isFirst) {
             new Handler().postDelayed(new Runnable() {
@@ -104,6 +98,12 @@ public final class SplashFragment extends BaseFragment<SplashPresenter> implemen
         } else {
             mHandler.postDelayed(runnable, splashTime);
         }
+    }
+
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
     }
 
     @Override

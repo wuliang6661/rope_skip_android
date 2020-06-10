@@ -58,7 +58,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 
 /**
@@ -132,7 +131,14 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     LinearLayout noShareLayout;
     @BindView(R.id.scroll_view)
     NestedScrollView scrollView;
-    Unbinder unbinder;
+    @BindView(R.id.pingjunsudu)
+    TextView pingjunsudu;
+    @BindView(R.id.pingjunsudu_img)
+    ImageView pingjunsuduImg;
+    @BindView(R.id.jiasudu)
+    TextView jiasudu;
+    @BindView(R.id.jiasudu_img)
+    ImageView jiasuduImg;
 
     private Dialog mBottomSheetDialog;
     private ImprovePlanListAdapter mPlanListAdapter;
@@ -336,7 +342,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
                     zuojiaoText.setText(item.getQuestionAnalysis());
                     break;
                 case 4:
-                    youshouLine.setVisibility(View.VISIBLE);
+                    youjiaoLine.setVisibility(View.VISIBLE);
                     youjiaoYuan.setVisibility(View.VISIBLE);
                     youjiaoText.setVisibility(View.VISIBLE);
                     youjiaoText.setText(item.getQuestionAnalysis());
@@ -397,13 +403,25 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             public String getFormattedValue(float value) {
                 switch ((int) value) {
                     case 0:
-                        return "平均速度\n" + detailsBO.getAverageVelocity() + "个/分钟";
+                        return "平均速度";
                     case 1:
-                        return "加速度\n" + detailsBO.getAccelerateVelocity() + "个/分钟";
+                        return "加速度";
                 }
                 return value + "";
             }
         });
+        if (detailsBO.getAverageVelocity() > 0) {
+            pingjunsuduImg.setImageResource(R.mipmap.xiangshang);
+        } else {
+            pingjunsuduImg.setImageResource(R.mipmap.xiangxia);
+        }
+        if (detailsBO.getAccelerateVelocity() > 0) {
+            jiasuduImg.setImageResource(R.mipmap.xiangshang);
+        } else {
+            jiasuduImg.setImageResource(R.mipmap.xiangxia);
+        }
+        pingjunsudu.setText(detailsBO.getAverageVelocity() + "");
+        jiasudu.setText(detailsBO.getAccelerateVelocity() + "");
         BarDataSet set1;
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
@@ -416,12 +434,12 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
         } else {
             set1 = new BarDataSet(barData, "");
             set1.setDrawIcons(false);
-            set1.setDrawValues(true);
+            set1.setDrawValues(false);
             set1.setValueTextColor(Color.parseColor("#7EC7F5"));
             set1.setValueTextSize(14f);
-            set1.setGradientColor(Color.parseColor("#CFECFC"), Color.parseColor("#ECD1FC"));
+            set1.setGradientColor(Color.parseColor("#ECD1FC"), Color.parseColor("#CFECFC"));
             BarData data = new BarData(set1);
-            data.setBarWidth(0.4f);
+            data.setBarWidth(0.3f);
             chart.setData(data);
 
             chart.invalidate();
@@ -511,5 +529,4 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             }
         }, 500);
     }
-
 }

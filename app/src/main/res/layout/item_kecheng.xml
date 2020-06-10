@@ -66,7 +66,7 @@
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@mipmap/zhishi_shengao" />
+                    android:src="@mipmap/tizhong_img" />
 
 
                 <TextView
@@ -108,7 +108,7 @@
                 <ImageView
                     android:layout_width="14dp"
                     android:layout_height="14dp"
-                    android:src="@mipmap/zhishi_shengao" />
+                    android:src="@mipmap/kecheng_img" />
 
 
                 <TextView

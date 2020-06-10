@@ -66,8 +66,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
             android:background="@color/white"
+            android:clipChildren="false"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
 
@@ -307,10 +308,90 @@
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/bar_chart"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="35dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|bottom"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/pingjunsudu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="#B9CAE0"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个/分钟"
+                        android:textColor="#B9CAE0"
+                        android:textSize="10sp" />
+
+
+                    <ImageView
+                        android:id="@+id/pingjunsudu_img"
+                        android:layout_width="6dp"
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:src="@mipmap/xiangshang" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|bottom"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/jiasudu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="#B9CAE0"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个/分钟"
+                        android:textColor="#B9CAE0"
+                        android:textSize="10sp" />
+
+
+                    <ImageView
+                        android:id="@+id/jiasudu_img"
+                        android:layout_width="6dp"
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:src="@mipmap/xiangshang" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
 
             <LinearLayout
@@ -375,7 +456,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
                         android:background="@mipmap/ic_result_woman"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/nan_img"
@@ -384,7 +465,7 @@
                         android:layout_marginLeft="144dp"
                         android:layout_marginTop="14dp"
                         android:background="@mipmap/ic_result_man"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
 
                     <android.support.v7.widget.AppCompatImageView
@@ -442,6 +523,7 @@
                         android:visibility="gone" />
 
                     <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/youjiao_yuan"
                         android:layout_width="10dp"
                         android:layout_height="10dp"
                         android:layout_marginLeft="180dp"
@@ -451,15 +533,6 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/zuojiao_yuan"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_marginLeft="162dp"
-                        android:layout_marginTop="173dp"
-                        android:background="@mipmap/ic_result_poit"
-                        android:visibility="gone" />
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/youjiao_yuan"
                         android:layout_width="10dp"
                         android:layout_height="10dp"
                         android:layout_marginLeft="162dp"
