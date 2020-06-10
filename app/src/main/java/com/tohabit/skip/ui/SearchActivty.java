@@ -125,41 +125,6 @@ public class SearchActivty extends BaseActivity {
     }
 
 
-//    /**
-//     * 蓝牙连接并获取数据
-//     */
-//    private void initBlue() {
-//        BlueUtils blueUtils = BlueUtils.getInstance();
-//        blueUtils.setListener(new BlueUtils.onBlueListener() {
-//            @Override
-//            public void onConnect(boolean isConnect) {
-//                stopProgress();
-//                if (isConnect) {
-//                    showToast("蓝牙连接成功！");
-//                } else {
-//                    showToast("蓝牙连接成功！");
-//                }
-//            }
-//
-//            @Override
-//            public void searchStart() {
-//
-//            }
-//
-//            @Override
-//            public void searchStop() {
-//                stopProgress();
-//            }
-//
-//            @Override
-//            public void searchMacs(SearchResult devices) {
-//                setAdapter();
-//            }
-//        });
-//        blueUtils.searchMac();
-//    }
-
-
     private void setAdapter() {
         LGRecycleViewAdapter<BluetoothDevice> adapter = new LGRecycleViewAdapter<BluetoothDevice>(devices) {
             @Override
@@ -170,9 +135,9 @@ public class SearchActivty extends BaseActivity {
             @Override
             public void convert(LGViewHolder holder, BluetoothDevice result, int position) {
                 holder.setText(R.id.item_text, result.getName());
-//                holder.getView(R.id.connect).setEnabled(false);
                 if (App.connectDevice != null && App.connectDevice.getAddress().equals(result.getAddress())) {
-                    holder.setText(R.id.connect, "已连接");
+                    holder.getView(R.id.connect).setEnabled(false);
+                    holder.setText(R.id.connect, "已绑定");
                 } else {
                     if (deviceBOS != null) {
 //                        for (DeviceBO deviceBO : deviceBOS) {
@@ -200,6 +165,7 @@ public class SearchActivty extends BaseActivity {
     public void onEvent(BlueEvent event) {
         stopProgress();
         if (event.isConnect == UartService.STATE_CONNECTED) {
+            setAdapter();
         } else if (event.isConnect == UartService.STATE_CONNECTING) {
         } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
         } else {
