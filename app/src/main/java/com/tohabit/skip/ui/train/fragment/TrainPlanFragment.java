@@ -32,6 +32,7 @@ import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.train.music.Player;
 import com.tohabit.skip.ui.young.fragment.PKResultActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
+import com.tohabit.skip.utils.ByteUtils;
 import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
@@ -540,7 +541,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             tvBattery.setText(dianliang + "%");
         }
         if (UartService.COUNT_OPENTION == 0x22) { //跳绳次数
-            int cishu = Math.abs(builder.getDataBody()[builder.getDataBody().length - 1]);
+            int cishu = Math.abs(ByteUtils.bytesToInt2(builder.getDataBody(), 0));
+//            int cishu = Math.abs(builder.getDataBody()[builder.getDataBody().length - 1]);
             if (firstTiaoShengNum == Integer.MAX_VALUE) {
                 firstTiaoShengNum = cishu;
             }

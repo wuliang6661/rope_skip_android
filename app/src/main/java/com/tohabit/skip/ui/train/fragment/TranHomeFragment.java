@@ -36,6 +36,7 @@ import com.tohabit.skip.ui.train.adapter.TranRecordListAdapter;
 import com.tohabit.skip.ui.train.contract.TranHomeContract;
 import com.tohabit.skip.ui.train.presenter.TranHomePresenter;
 import com.tohabit.skip.ui.young.fragment.StatisticsActivity;
+import com.tohabit.skip.utils.ByteUtils;
 import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
@@ -262,7 +263,8 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             getDeviceQcAndType(String.valueOf(builder.getDataBody()[0]), String.valueOf(builder.getDataBody()[1]));
         }
         if (UartService.COUNT_OPENTION == 0x22) { //跳绳次数
-            int cishu = Math.abs(builder.getDataBody()[builder.getDataBody().length - 1]);
+//            int cishu = Math.abs(builder.getDataBody()[builder.getDataBody().length - 1]);
+            int cishu = Math.abs(ByteUtils.bytesToInt2(builder.getDataBody(), 0));
             if (firstTiaoShengNum == Integer.MAX_VALUE) {
                 firstTiaoShengNum = cishu;
             }
