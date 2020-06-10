@@ -152,6 +152,7 @@ public class BaseMsgInputFragment extends BaseFragment<BaseMsgInputPresenter> im
 //                etAge.setText(s.get);
                 etHeight.setText(s.getHeight() + "");
                 etWeight.setText(s.getWeight() + "");
+                etAge.setText(s.getAge());
                 sex = s.getSex();
                 if (s.getSex() == 0) {
                     ivSexMan.setVisibility(View.VISIBLE);

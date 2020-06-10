@@ -30,6 +30,15 @@ public class XIaoJiangBO implements Serializable {
     private String pkValue;
     private String image;
     private String icon;
+    private String age;
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public int getId() {
         return id;
