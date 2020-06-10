@@ -1,5 +1,7 @@
 package com.tohabit.skip.ui.train.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -11,11 +13,13 @@ import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
+import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
+import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.StringUtils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
@@ -132,10 +136,20 @@ public class InputActivity extends BaseActivity {
         params.put("skipTime", shichang);
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("deviceId", null);  //todo 设备id，暂时缺失
-        HttpServerImpl.input(params).subscribe(new HttpResultSubscriber<String>() {
+        HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-                showToast("提交成功！");
+                if (StringUtils.isEmpty(s)) {
+                    showToast("提交成功！");
+                    return;
+                }
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString(RouterConstants.KEY_STRING, s);
+                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
+                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
+                intent.setClass(InputActivity.this, TainMainActivity.class);
+                startActivity(intent);
             }
 
             @Override

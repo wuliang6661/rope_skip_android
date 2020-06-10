@@ -21,8 +21,8 @@ public class XIaoJiangBO implements Serializable {
 
     private int id;
     private String nickName;
-    private double height;
-    private double weight;
+    private String height;
+    private String weight;
     private int sex;
     private int challengeSuccessNum;
     private String energyValue;
@@ -47,19 +47,19 @@ public class XIaoJiangBO implements Serializable {
         this.nickName = nickName;
     }
 
-    public double getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 

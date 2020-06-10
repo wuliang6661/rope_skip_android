@@ -1,5 +1,6 @@
 package com.tohabit.skip.ui.train.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -16,6 +17,7 @@ import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
+import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
@@ -26,6 +28,7 @@ import com.tohabit.skip.presenter.CommonPresenter;
 import com.tohabit.skip.presenter.contract.CommonContract;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
+import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.train.music.Player;
 import com.tohabit.skip.ui.young.fragment.PKResultActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
@@ -351,14 +354,14 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             @Override
             public void onSuccess(String s) {
                 stopProgress();
-                showToast("已生成测试记录！");
-//                Intent intent = new Intent();
-//                Bundle bundle = new Bundle();
-//                bundle.putString(RouterConstants.KEY_STRING, s);
-//                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
-//                intent.setClass(_mActivity, TainMainActivity.class);
-//                startActivity(intent);
+//                showToast("已生成测试记录！");
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString(RouterConstants.KEY_STRING, s);
+                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
+                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
+                intent.setClass(_mActivity, TainMainActivity.class);
+                startActivity(intent);
             }
 
             @Override

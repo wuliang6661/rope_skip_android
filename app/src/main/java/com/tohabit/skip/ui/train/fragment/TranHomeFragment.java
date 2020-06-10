@@ -395,13 +395,13 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             public void onSuccess(String s) {
                 stopProgress();
                 showToast("已生成测试记录！");
-//                Intent intent = new Intent();
-//                Bundle bundle = new Bundle();
-//                bundle.putString(RouterConstants.KEY_STRING, s);
-//                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
-//                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
-//                intent.setClass(_mActivity, TainMainActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString(RouterConstants.KEY_STRING, s);
+                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
+                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
+                intent.setClass(_mActivity, TainMainActivity.class);
+                startActivity(intent);
             }
 
             @Override

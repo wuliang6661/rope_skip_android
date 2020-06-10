@@ -127,7 +127,7 @@
                         android:id="@+id/tv_pay_time_table_layout_fragment_train_record_list_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="分钟"
+                        android:text="秒"
                         android:textColor="#ff888888"
                         android:textSize="8sp" />
                 </LinearLayout>

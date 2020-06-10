@@ -185,6 +185,7 @@
                     android:background="@color/white"
                     android:hint="点击输入文本"
                     android:inputType="number"
+                    android:digits="0123456789."
                     android:textColor="@color/colorText"
                     android:textColorHint="@color/color_C3C3C3"
                     android:textSize="14sp" />
@@ -220,7 +221,7 @@
                     android:layout_marginLeft="60dp"
                     android:background="@color/white"
                     android:hint="点击输入文本"
-                    android:inputType="number"
+                    android:digits="0123456789."
                     android:textColor="@color/colorText"
                     android:textColorHint="@color/color_C3C3C3"
                     android:textSize="14sp" />

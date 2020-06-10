@@ -1,5 +1,6 @@
 package com.tohabit.skip.ui.train.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
@@ -14,8 +15,10 @@ import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
+import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.pojo.po.XIaoJiangBO;
+import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.train.contract.BaseMsgInputContract;
 import com.tohabit.skip.ui.train.presenter.BaseMsgInputPresenter;
 import com.tohabit.skip.utils.ToastUtil;
@@ -174,15 +177,15 @@ public class BaseMsgInputFragment extends BaseFragment<BaseMsgInputPresenter> im
         String age = etAge.getText().toString().trim();
         String weight = etWeight.getText().toString().trim();
         String height = etHeight.getText().toString().trim();
-        if(StringUtils.isEmpty(age)){
+        if (StringUtils.isEmpty(age)) {
             showToast("请输入年龄！");
             return;
         }
-        if(StringUtils.isEmpty(weight)){
+        if (StringUtils.isEmpty(weight)) {
             showToast("请输入体重！");
             return;
         }
-        if(StringUtils.isEmpty(height)){
+        if (StringUtils.isEmpty(height)) {
             showToast("请输入身高！");
             return;
         }
@@ -190,7 +193,6 @@ public class BaseMsgInputFragment extends BaseFragment<BaseMsgInputPresenter> im
             @Override
             public void onSuccess(String s) {
                 TranHomeFragment.isEditMsg = true;
-//                start(TrainPlanFragment.newInstance(null));
                 _mActivity.onBackPressedSupport();
             }
 
