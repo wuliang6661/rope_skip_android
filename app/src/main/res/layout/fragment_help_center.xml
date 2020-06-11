@@ -52,7 +52,7 @@
                 android:background="@color/white"
                 app:lichtd_bottom_divider_visibility="gone"
                 app:lichtd_content_text_color="@color/color_888888"
-                app:lichtd_head_icon="@mipmap/ic_ts9"
+                app:lichtd_head_icon="@mipmap/yinsizhengce"
                 app:lichtd_iv_detail_visibility="visible"
                 app:lichtd_title="隐私政策"
                 app:lichtd_top_divider_visibility="gone" />

@@ -88,7 +88,7 @@ public class PopYoungHomeDialog extends PopupWindow {
                     case 1:   //幸运兑换
                         item_layout.setBackgroundResource(R.mipmap.ic_xydh_bg);
                         holder.setImageResurce(R.id.task_img, R.mipmap.ic_js_pk2);
-                        goPk.setText("去浏览");
+                        goPk.setText("去兑换");
                         break;
                     case 2:   //课程学习
                         item_layout.setBackgroundResource(R.mipmap.ic_kcxx_bg);
@@ -98,7 +98,7 @@ public class PopYoungHomeDialog extends PopupWindow {
                     case 3:   //知识学习
                         item_layout.setBackgroundResource(R.mipmap.ic_zsxx_bg);
                         holder.setImageResurce(R.id.task_img, R.mipmap.ic_js_pk4);
-                        goPk.setText("去完成");
+                        goPk.setText("去浏览");
 //                        goPk.setBackgroundResource(R.mipmap.ic_to_finish_bg);
                         break;
                     case 4:   //参与问答

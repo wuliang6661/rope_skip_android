@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
@@ -78,14 +79,15 @@ public class FrequentlyActivty extends BaseActivity implements SwipeRefreshLayou
 
     private void initAdapter() {
         swipeRefreshLayout.setOnRefreshListener(this);
-        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider_test).colorResId(R.color.transparent).build());
+        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE)
+                .margin(SizeUtils.dp2px(15)).build());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mListAdapter = new BaseRvAdapter<WenDaBO, BaseViewHolder>(R.layout.item_question, new ArrayList<>()) {
 
             @Override
             protected void convert(BaseViewHolder helper, WenDaBO item) {
-                helper.setText(R.id.question_title, item.getQuestion());
-                helper.setText(R.id.question_message, item.getAnswer());
+                helper.setText(R.id.question_title, "Q：" + item.getQuestion());
+                helper.setText(R.id.question_message, "A：" + item.getAnswer());
             }
         };
         mListAdapter.setEmptyView(this.getLayoutInflater().inflate(R.layout.layout_no_datas, (ViewGroup) recyclerView.getParent(), false));

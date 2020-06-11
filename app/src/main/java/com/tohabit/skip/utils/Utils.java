@@ -2,7 +2,11 @@ package com.tohabit.skip.utils;
 
 import android.content.Context;
 import android.location.LocationManager;
+import android.util.Log;
 import android.view.View;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
     public static boolean isGPSOpen(Context context) {
@@ -70,7 +74,24 @@ public class Utils {
      * @return
      */
     public static String settingphone(String phone) {
-        String phone_s = phone.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+        String phone_s = phone.replaceAll("(\\d{3})\\d{5}(\\d{3})", "$1*****$2");
         return phone_s;
+    }
+
+
+
+    /**
+     * 判断是否包含特殊字符
+     * @return  false:未包含 true：包含
+     */
+    public static boolean inputJudge(String editText) {
+        String speChat = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+        Pattern pattern = Pattern.compile(speChat);
+        Matcher matcher = pattern.matcher(editText);
+        if (matcher.find()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -16,6 +16,7 @@ import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.presenter.CommonPresenter;
 import com.tohabit.skip.presenter.contract.CommonContract;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -107,7 +108,15 @@ public class ModifyNickNameFragment extends BaseFragment<CommonPresenter> implem
     public void onViewClicked() {
         String name = etNickName.getText().toString().trim();
         if (StringUtils.isEmpty(name)) {
-            showError(name);
+            showError("昵称不能为空！");
+            return;
+        }
+        if (name.length() < 4 || name.length() > 10) {
+            showError("昵称长度应为4-10位！");
+            return;
+        }
+        if (Utils.inputJudge(name.substring(0, 1))) {
+            showError("昵称首位不能是符号！");
             return;
         }
         showProgress(null);

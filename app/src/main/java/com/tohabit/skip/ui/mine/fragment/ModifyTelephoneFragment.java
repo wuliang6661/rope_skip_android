@@ -136,10 +136,10 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_next_fragment_register:
-                if (TextUtils.isEmpty(etTel.getText().toString())) {
-                    showError("请输入手机号码");
-                    return;
-                }
+//                if (TextUtils.isEmpty(etTel.getText().toString())) {
+//                    showError("请输入手机号码");
+//                    return;
+//                }
                 if (TextUtils.isEmpty(etPleaseInputMsgCode.getText().toString())) {
                     showError("请输入短信验证");
                     return;
@@ -209,10 +209,10 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
         public void onTick(long millisUntilFinished) {
             if (selectSend == 0) {
                 btnSendCode.setEnabled(false);
-                btnSendCode.setText((millisUntilFinished / 1000) + "S");
+                btnSendCode.setText("重新发送" + (millisUntilFinished / 1000));
             } else {
                 btn2SendCode.setEnabled(false);
-                btn2SendCode.setText((millisUntilFinished / 1000) + "S");
+                btn2SendCode.setText("重新发送" + (millisUntilFinished / 1000));
             }
         }
 
@@ -220,10 +220,10 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
         public void onFinish() {
             if (selectSend == 0) {
                 btnSendCode.setEnabled(true);
-                btnSendCode.setText("重新获取");
+                btnSendCode.setText("重新发送");
             } else {
                 btn2SendCode.setEnabled(true);
-                btn2SendCode.setText("重新获取");
+                btn2SendCode.setText("重新发送");
             }
         }
     };

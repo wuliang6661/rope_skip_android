@@ -2,14 +2,15 @@ package com.tohabit.skip.ui.mine.fragment;
 
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.UserBO;
+import com.tohabit.skip.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,9 +23,9 @@ public class QrCodeSourcessActivity extends BaseActivity {
     @BindView(R.id.tv_title_fragment_personal_data)
     AppCompatTextView tvTitleFragmentPersonalData;
     @BindView(R.id.user_name)
-    LilayItemClickableWithHeadImageTopDivider userName;
+    TextView userName;
     @BindView(R.id.user_phone)
-    LilayItemClickableWithHeadImageTopDivider userPhone;
+    TextView userPhone;
     @BindView(R.id.btn_commit)
     AppCompatButton btnCommit;
 
@@ -52,8 +53,8 @@ public class QrCodeSourcessActivity extends BaseActivity {
         userBO = (UserBO) getIntent().getExtras().getSerializable("user");
         Glide.with(this).load(userBO.getImage()).into(ivHeadFragmentPersonalData);
         tvTitleFragmentPersonalData.setText("ID " + userBO.getUserCode());
-        userName.setItemContent(userBO.getNickName());
-        userPhone.setItemContent(userBO.getPhone());
+        userName.setText(userBO.getNickName());
+        userPhone.setText(Utils.settingphone(userBO.getPhone()));
     }
 
     @Override

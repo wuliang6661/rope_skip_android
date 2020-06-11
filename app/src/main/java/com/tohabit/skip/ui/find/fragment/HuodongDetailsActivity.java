@@ -96,7 +96,7 @@ public class HuodongDetailsActivity extends BaseActivity {
             btCommit.setEnabled(true);
             btCommit.setText("马上报名");
         } else if (huodongBO.getJoinStatus() == 1) {
-            btCommit.setEnabled(false);
+//            btCommit.setEnabled(false);
             btCommit.setText("活动已报名");
         } else {
             btCommit.setEnabled(false);
@@ -131,6 +131,9 @@ public class HuodongDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.bt_commit)
     public void commit() {
+        if(huodongBO.getJoinStatus() != 0){
+            return;
+        }
         View dialogView = getLayoutInflater().inflate(R.layout.pop_baoming, null);
         EditText editName = dialogView.findViewById(R.id.edit_name);
         EditText etAge = dialogView.findViewById(R.id.edit_age);
