@@ -209,10 +209,10 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
         public void onTick(long millisUntilFinished) {
             if (selectSend == 0) {
                 btnSendCode.setEnabled(false);
-                btnSendCode.setText("重新发送" + (millisUntilFinished / 1000));
+                btnSendCode.setText("重新发送" + (millisUntilFinished / 1000) + "S");
             } else {
                 btn2SendCode.setEnabled(false);
-                btn2SendCode.setText("重新发送" + (millisUntilFinished / 1000));
+                btn2SendCode.setText("重新发送" + (millisUntilFinished / 1000) + "S");
             }
         }
 

@@ -195,7 +195,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
         @Override
         public void onTick(long millisUntilFinished) {
             mBtnSendCodeFragmentRegister.setEnabled(false);
-            mBtnSendCodeFragmentRegister.setText((millisUntilFinished / 1000) + "S");
+            mBtnSendCodeFragmentRegister.setText("重新获取" + (millisUntilFinished / 1000) + "S");
         }
 
         @Override

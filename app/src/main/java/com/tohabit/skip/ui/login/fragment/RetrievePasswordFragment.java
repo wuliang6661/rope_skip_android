@@ -193,7 +193,7 @@ public class RetrievePasswordFragment extends BaseFragment<RetrievePasswordPrese
         @Override
         public void onTick(long millisUntilFinished) {
             btnSendCode.setEnabled(false);
-            btnSendCode.setText("重新发送" + (millisUntilFinished / 1000));
+            btnSendCode.setText("重新发送" + (millisUntilFinished / 1000) + "S");
         }
 
         @Override
