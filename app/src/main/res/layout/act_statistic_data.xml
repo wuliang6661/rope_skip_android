@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="跳绳数据 "
+                    android:text="跳绳个数 "
                     android:textColor="#333333"
                     android:textSize="14sp" />
 
@@ -172,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="断绳次数 "
+                    android:text="跳绳时长 "
                     android:textColor="#333333"
                     android:textSize="14sp" />
 
@@ -268,7 +268,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="加速度 "
+                    android:text="断绳个数 "
                     android:textColor="#333333"
                     android:textSize="14sp" />
 

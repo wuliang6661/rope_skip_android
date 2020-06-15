@@ -260,12 +260,12 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
         timeText.setText(Utils.timeToString(data.getSkipTime()));
         setBarData(data, barChart);
         showQustion(data);
-        List<Double> radarData = new ArrayList<>();
-        radarData.add((double) data.getActionScore());
-        radarData.add((double) data.getCoordinateScore());
-        radarData.add((double) data.getStableScore());
-        radarData.add((double) data.getRhythmScore());
-        radarData.add((double) data.getEnduranceScore());
+        List<Integer> radarData = new ArrayList<>();
+        radarData.add(data.getActionScore());
+        radarData.add(data.getCoordinateScore());
+        radarData.add(data.getStableScore());
+        radarData.add(data.getRhythmScore());
+        radarData.add(data.getEnduranceScore());
         radarView.setData(radarData);
         mPlanListAdapter.setNewData(data.getPlanList());
     }

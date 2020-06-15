@@ -18,7 +18,7 @@ public class PkJiLuBo {
     private String code;
     private String title;
     private String content;
-    private int value;
+    private String value;
     private String createDate;
 
     public int getId() {
@@ -61,11 +61,11 @@ public class PkJiLuBo {
         this.content = content;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(String value) {
         this.value = value;
     }
 

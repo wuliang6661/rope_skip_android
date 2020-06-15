@@ -167,6 +167,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/item_device_fragment_mine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -189,21 +190,11 @@
                 android:layout_marginTop="6dp"
                 android:background="@color/color_DEF3FF" />
 
-            <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
-                android:id="@+id/item_device_fragment_mine"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/devices"
                 android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:background="@color/transparent"
-                app:lichtd_bottom_divider_visibility="gone"
-                app:lichtd_content="已连接"
-                app:lichtd_content_text_color="@color/color_888888"
-                app:lichtd_content_text_size="12sp"
-                app:lichtd_head_icon="@mipmap/ic_ts1"
-                app:lichtd_iv_detail_visibility="visible"
-                app:lichtd_title="跳绳设备1"
-                app:lichtd_title_text_color="#333333"
-                app:lichtd_title_text_size="12sp"
-                app:lichtd_top_divider_visibility="gone" />
+                android:layout_height="wrap_content"/>
+
 
 
             <LinearLayout

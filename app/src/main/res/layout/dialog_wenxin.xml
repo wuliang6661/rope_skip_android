@@ -16,23 +16,17 @@
         android:textSize="18sp" />
 
 
-    <android.support.v4.widget.NestedScrollView
+    <TextView
+        android:id="@+id/tishi_msg"
         android:layout_width="match_parent"
-        android:layout_height="210dp">
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:text="@string/xieyiandtiaokuan"
-            android:textColor="#888888"
-            android:textSize="14sp" />
-
-
-    </android.support.v4.widget.NestedScrollView>
+        android:layout_height="210dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="@string/xieyiandtiaokuan"
+        android:textColor="#888888"
+        android:textSize="14sp" />
 
 
     <View

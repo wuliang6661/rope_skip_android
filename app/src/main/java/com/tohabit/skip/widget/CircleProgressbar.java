@@ -290,7 +290,7 @@ public class CircleProgressbar extends TextView {
         int deleteWidth = outLineWidth / 2;
         mArcRect.set(deleteWidth, deleteWidth, bounds.right - deleteWidth, bounds.bottom - deleteWidth);
 
-        canvas.drawArc(mArcRect, -270, 360 * progress / 100, false, progressPoint);
+        canvas.drawArc(mArcRect, 270, 360 * progress / 100, false, progressPoint);
     }
 
     @Override

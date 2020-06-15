@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
 
     <LinearLayout
@@ -47,74 +47,64 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/wenti_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:lineSpacingExtra="3dp"
-        android:text="我有一个问题想要请教大家,孩子跳绳老是分我有一个问题想要请教大家,孩子跳绳老是分"
-        android:textColor="#333333"
-        android:textSize="14sp" />
-
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
 
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/wenti_img"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:scaleType="fitXY"
             android:layout_alignParentRight="true"
+            android:scaleType="fitXY"
             app:riv_corner_radius="8dp" />
 
 
-        <TextView
-            android:id="@+id/wenti_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/wenti_img"
-            android:lineSpacingExtra="3dp"
-            android:lines="4"
-            android:ellipsize="end"
-            android:text="@string/accepted_char_fraction"
-            android:textColor="#888888"
-            android:textSize="12sp" />
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/wenti_message"
-            android:layout_alignRight="@+id/wenti_message"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@mipmap/wenda" />
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/huifu_num"
+                android:id="@+id/wenti_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="3 回复"
-                android:textColor="#888888"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+                android:lineSpacingExtra="3dp"
+                android:maxLines="2"
+                android:text="我有一个问题想要请教大家,孩子跳绳老是分我有一个问题想要请教大家,孩子跳绳老是分"
+                android:textColor="#333333"
+                android:textSize="14sp" />
 
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@mipmap/wenda" />
+
+                <TextView
+                    android:id="@+id/huifu_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="3 回复"
+                    android:textColor="#888888"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

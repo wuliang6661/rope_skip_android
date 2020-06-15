@@ -6,6 +6,8 @@ import com.tohabit.skip.pojo.po.DeviceBO;
 import com.tohabit.skip.pojo.po.DeviceLinkBO;
 import com.tohabit.skip.pojo.po.UserBO;
 
+import java.util.List;
+
 /**
  * 创建日期：2018/6/1 9:20
  *
@@ -20,7 +22,7 @@ public interface MineContract {
 
         void getUserInfo(UserBO userBO);
 
-        void getLinkDevice(DeviceBO deviceBO);
+        void getLinkDevice(List<DeviceBO> deviceBO);
 
         void getDeviceData(DeviceLinkBO linkBO);
     }

@@ -158,6 +158,7 @@ public class XunLianJiHuaActivity extends BaseActivity {
             public void convert(LGViewHolder holder, JiHuaBO jiHuaBO, int position) {
                 holder.setText(R.id.tv_content_layout_fragment_improve_plan_list_item, jiHuaBO.getVideoTitle());
                 holder.setText(R.id.tv_train_time_layout_fragment_improve_plan_list_item, jiHuaBO.getTrainLength());
+//                holder.getView(R.id.tv_state_name_layout_fragment_improve_plan_list_item).setVisibility(View.GONE);
                 if (type == 0) {  //未完成
                     holder.setTextColor(R.id.title, "#333333");
                     holder.setTextColor(R.id.item_num, "#333333");
@@ -188,21 +189,21 @@ public class XunLianJiHuaActivity extends BaseActivity {
             }
 
         };
-        adapter.setOnItemClickListener(R.id.tv_state_name_layout_fragment_improve_plan_list_item, new LGRecycleViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClicked(View view, int position) {
-                if (type == 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("id", jiHuaBOS.get(position).getId() + "");
-                    bundle.putString("trainLength", Integer.parseInt(jiHuaBOS.get(position).getTrainLength()) * 60 + "");
-                    Intent intent = new Intent();
-                    intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
-                    intent.putExtras(bundle);
-                    intent.setClass(XunLianJiHuaActivity.this, TainMainActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
+//        adapter.setOnItemClickListener(R.id.ll_content_layout_fragment_improve_plan_list_item, new LGRecycleViewAdapter.ItemClickListener() {
+//            @Override
+//            public void onItemClicked(View view, int position) {
+//                if (type == 0) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("id", jiHuaBOS.get(position).getId() + "");
+//                    bundle.putString("trainLength", Integer.parseInt(jiHuaBOS.get(position).getTrainLength()) * 60 + "");
+//                    Intent intent = new Intent();
+//                    intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
+//                    intent.putExtras(bundle);
+//                    intent.setClass(XunLianJiHuaActivity.this, TainMainActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
         adapter.setOnItemClickListener(R.id.tv_look_layout_fragment_improve_plan_list_item, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {

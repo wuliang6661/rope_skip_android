@@ -1,8 +1,12 @@
 package com.tohabit.skip.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
-import android.util.Log;
+import android.net.Uri;
 import android.view.View;
 
 import java.util.regex.Matcher;
@@ -93,5 +97,43 @@ public class Utils {
         } else {
             return false;
         }
+    }
+
+
+    /**
+     * 跳转至商铺
+     *
+     * @param activity Activity
+     * @param url      商铺地址
+     */
+    public static void gotoShop(Activity activity, String url) {
+        try {
+            Intent intent = new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            intent.setData(Uri.parse(url));
+            activity.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     * 检查手机上是否安装了指定的软件
+     *
+     * @param context context
+     * @param pkgName 应用包名
+     * @return true:已安装；false：未安装
+     */
+    public static boolean isPkgInstalled(Context context, String pkgName) {
+        PackageInfo packageInfo;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(pkgName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            packageInfo = null;
+            e.printStackTrace();
+        }
+        return packageInfo != null;
     }
 }

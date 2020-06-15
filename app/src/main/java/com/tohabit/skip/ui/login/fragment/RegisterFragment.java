@@ -14,6 +14,8 @@ import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
+import com.tohabit.skip.app.App;
+import com.tohabit.skip.app.Constants;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.ui.XieYiActivity;
 import com.tohabit.skip.ui.login.contract.RegisterContract;
@@ -182,6 +184,8 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
 
     @Override
     public void registerSuccess() {
+        App.spUtils.put(Constants.PREF_KEY_USER, mEtTelFragmentRegister.getText().toString());
+        App.spUtils.put(Constants.PREF_KEY_PASSWORD, mEtPasswordFragmentRegister.getText().toString());
         ToastUtil.show("注册成功");
         _mActivity.onBackPressedSupport();
     }

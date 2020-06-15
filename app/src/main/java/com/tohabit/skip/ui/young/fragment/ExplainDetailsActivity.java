@@ -1,5 +1,6 @@
 package com.tohabit.skip.ui.young.fragment;
 
+import android.content.Intent;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import com.tohabit.skip.R;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.ExplainDetailsBO;
+import com.tohabit.skip.ui.find.fragment.FullVideoActivity;
 import com.tohabit.skip.utils.ImageGetterUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
@@ -73,7 +75,19 @@ public class ExplainDetailsActivity extends BaseActivity {
         videoPlayer.getBackButton().setVisibility(View.GONE);
         //是否可以滑动调整
         videoPlayer.setIsTouchWiget(false);
-        videoPlayer.getFullscreenButton().setVisibility(View.GONE);
+        videoPlayer.getFullscreenButton().setEnabled(true);
+        videoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (detailsBO == null) {
+                    return;
+                }
+                Intent intent = new Intent(ExplainDetailsActivity.this, FullVideoActivity.class);
+                intent.putExtra("url", detailsBO.getVideoUrl());
+                intent.putExtra("startTime", videoPlayer.getCurrentPositionWhenPlaying());
+                startActivityForResult(intent, 0X22);
+            }
+        });
         videoPlayer.setNeedLockFull(true);
         videoPlayer.setHideKey(false);
     }
@@ -125,6 +139,23 @@ public class ExplainDetailsActivity extends BaseActivity {
             return videoPlayer.getFullWindowPlayer();
         }
         return videoPlayer;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        switch (resultCode) {
+            case 1:
+                long startTime = data.getIntExtra("startTime", 0);
+                videoPlayer.setUp(detailsBO.getVideoUrl(), true, "");
+                videoPlayer.startPlayLogic();
+                videoPlayer.setSeekOnStart(startTime);
+                break;
+        }
     }
 
 }

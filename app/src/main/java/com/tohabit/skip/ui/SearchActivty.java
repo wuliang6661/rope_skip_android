@@ -110,10 +110,10 @@ public class SearchActivty extends BaseActivity {
                         return;
                     }
                 }
-//                if (device.getName().startsWith("TH")) {
-                devices.add(device);
-                setAdapter();
-//                }
+                if (device.getName().startsWith("TH")) {
+                    devices.add(device);
+                    setAdapter();
+                }
             }
 
             @Override
@@ -135,6 +135,7 @@ public class SearchActivty extends BaseActivity {
             @Override
             public void convert(LGViewHolder holder, BluetoothDevice result, int position) {
                 holder.setText(R.id.item_text, result.getName());
+                holder.setText(R.id.mac_text, result.getAddress());
                 if (App.connectDevice != null && App.connectDevice.getAddress().equals(result.getAddress())) {
                     holder.getView(R.id.connect).setEnabled(false);
                     holder.setText(R.id.connect, "已绑定");
@@ -166,12 +167,30 @@ public class SearchActivty extends BaseActivity {
         stopProgress();
         if (event.isConnect == UartService.STATE_CONNECTED) {
             setAdapter();
+            saveDevices();
         } else if (event.isConnect == UartService.STATE_CONNECTING) {
         } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
         } else {
         }
     }
 
+
+
+    /**
+     * 保存设备
+     */
+    private void saveDevices() {
+        HttpServerImpl.saveDevices(0, App.connectDevice.getName(), App.connectDevice.getAddress()).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
 
     @Override
     protected void onDestroy() {

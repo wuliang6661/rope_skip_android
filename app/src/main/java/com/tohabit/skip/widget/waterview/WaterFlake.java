@@ -9,7 +9,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -18,6 +17,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 
 import com.bumptech.glide.Glide;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.skip.R;
 import com.tohabit.skip.pojo.po.NengLiangVO;
 
@@ -180,7 +180,7 @@ public class WaterFlake extends FrameLayout {
      */
     private void setWaterView(NengLiangVO nengLiangVO, View view) {
         AppCompatTextView num = view.findViewById(R.id.nengliang_num);
-        AppCompatImageView nengliang_img = view.findViewById(R.id.nengliang_img);
+        RoundedImageView nengliang_img = view.findViewById(R.id.nengliang_img);
         AppCompatTextView nengliang_text = view.findViewById(R.id.nengliang_text);
 
         num.setText("+" + nengLiangVO.getEnergyValue());

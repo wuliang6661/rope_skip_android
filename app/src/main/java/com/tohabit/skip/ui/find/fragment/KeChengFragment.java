@@ -82,7 +82,7 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                shaixuanLayout.setVisibility(View.VISIBLE);
+//                shaixuanLayout.setVisibility(View.VISIBLE);
                 mSwipeRefreshLayout.setOnRefreshListener(KeChengFragment.this);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -113,10 +113,10 @@ public class KeChengFragment extends BaseFragment implements SwipeRefreshLayout.
                 RoundedImageView imageView = helper.getView(R.id.kecheng_img);
                 Glide.with(getActivity()).load(item.getImage()).into(imageView);
                 helper.setText(R.id.zhishi_title, item.getTitle());
-                helper.setText(R.id.tizhong, item.getWeight() + "kg");
-                helper.setText(R.id.shengao, item.getHeight() + "cm");
+//                helper.setText(R.id.tizhong, item.getWeight() + "kg");
+//                helper.setText(R.id.shengao, item.getHeight() + "cm");
                 helper.setText(R.id.shijian, item.getCourseNum() + "节课");
-                helper.setText(R.id.shiyongnianling, item.getAge() + "岁");
+//                helper.setText(R.id.shiyongnianling, item.getAge() + "岁");
             }
         };
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE).build());

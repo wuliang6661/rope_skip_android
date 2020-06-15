@@ -1,5 +1,6 @@
 package com.tohabit.skip.ui.young.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,14 +8,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
+import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.ExplainDetailsBO;
-import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
-import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
+import com.tohabit.skip.ui.find.fragment.FullVideoActivity;
 
 import java.text.SimpleDateFormat;
 
@@ -84,7 +86,19 @@ public class VideoExplainActivity extends BaseActivity {
         videoPlayer.getBackButton().setVisibility(View.GONE);
         //是否可以滑动调整
         videoPlayer.setIsTouchWiget(false);
-        videoPlayer.getFullscreenButton().setVisibility(View.GONE);
+        videoPlayer.getFullscreenButton().setEnabled(true);
+        videoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (detailsBO == null) {
+                    return;
+                }
+                Intent intent = new Intent(VideoExplainActivity.this, FullVideoActivity.class);
+                intent.putExtra("url", detailsBO.getVideoUrl());
+                intent.putExtra("startTime", videoPlayer.getCurrentPositionWhenPlaying());
+                startActivityForResult(intent, 1);
+            }
+        });
         videoPlayer.setNeedLockFull(true);
         videoPlayer.setHideKey(false);
 
@@ -202,5 +216,23 @@ public class VideoExplainActivity extends BaseActivity {
                 break;
         }
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        switch (resultCode) {
+            case 1:
+                long startTime = data.getIntExtra("startTime", 0);
+                videoPlayer.setUp(detailsBO.getVideoUrl(), true, "");
+                videoPlayer.startPlayLogic();
+                videoPlayer.setSeekOnStart(startTime);
+                break;
+        }
+    }
+
 
 }

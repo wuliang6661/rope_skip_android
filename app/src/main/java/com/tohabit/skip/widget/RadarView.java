@@ -51,7 +51,7 @@ public class RadarView extends View {
     //标题文字
     private List<String> titles;
     //各维度分值
-    private List<Double> data;
+    private List<Integer> data;
     //各维度图标
     private List<Integer> images;
     //数据最大值
@@ -114,11 +114,11 @@ public class RadarView extends View {
 
         //默认分数
         data = new ArrayList<>(count);
-        data.add(0d);
-        data.add(0d);
-        data.add(0d);
-        data.add(0d);
-        data.add(0d);
+        data.add(0);
+        data.add(0);
+        data.add(0);
+        data.add(0);
+        data.add(0);
 
         images = new ArrayList<>();
         images.add(R.mipmap.ic_test_result8);
@@ -389,7 +389,7 @@ public class RadarView extends View {
     }
 
     //设置各门得分
-    public void setData(List<Double> data) {
+    public void setData(List<Integer> data) {
         this.data = data;
         postInvalidate();
     }

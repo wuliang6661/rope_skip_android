@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rc_content_layout_fragment_dialog_buy"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/dp_40"
-    android:id="@+id/rc_content_layout_fragment_dialog_buy">
+    android:layout_marginBottom="@dimen/dp_40">
 
     <RelativeLayout
         android:layout_width="288dp"
@@ -15,36 +15,37 @@
             android:layout_width="match_parent"
             android:layout_height="309dp"
             android:layout_margin="10dp"
-            android:background="@mipmap/ic_buy_bg_dialog"/>
+            android:background="@mipmap/ic_buy_bg_dialog" />
 
         <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:id="@+id/iv_close"
-            android:background="@mipmap/ic_close"/>
+            android:background="@mipmap/ic_close" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:paddingHorizontal="10dp"
+            android:gravity="center_vertical"
             android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:paddingHorizontal="10dp">
+
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="164dp"
                 android:layout_marginTop="13dp"
-                android:background="@mipmap/ic_goods"/>
+                android:background="@mipmap/ic_goods" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:text="智能跳绳"
                 android:textColor="#ff60b4e8"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,20 +53,19 @@
                 android:layout_marginTop="5dp"
                 android:text="记录每一次成长 正品保证 两年退换"
                 android:textColor="#ff888888"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
 
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_buy_btn_device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_buy_btn_device"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:background="@mipmap/ic_btn_bg"
-                android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:text="立即购买"
                 android:textColor="#ffffffff"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
     </RelativeLayout>

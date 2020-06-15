@@ -1,8 +1,16 @@
 package com.tohabit.skip.ui.login.fragment;
 
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +25,7 @@ import com.tohabit.skip.app.App;
 import com.tohabit.skip.app.Constants;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.pojo.po.UserBO;
+import com.tohabit.skip.ui.XieYiActivity;
 import com.tohabit.skip.ui.activity.MainActivity;
 import com.tohabit.skip.ui.login.contract.SplashContract;
 import com.tohabit.skip.ui.login.presenter.SplashPresenter;
@@ -94,7 +103,7 @@ public final class SplashFragment extends BaseFragment<SplashPresenter> implemen
                 public void run() {
                     showDialog();
                 }
-            },500);
+            }, 500);
         } else {
             mHandler.postDelayed(runnable, splashTime);
         }
@@ -159,15 +168,51 @@ public final class SplashFragment extends BaseFragment<SplashPresenter> implemen
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_wenxin, null);
         TextView cancle = dialogView.findViewById(R.id.cancle);
         TextView commit = dialogView.findViewById(R.id.commit);
+        TextView tishi_msg = dialogView.findViewById(R.id.tishi_msg);
         cancle.setOnClickListener(v -> System.exit(0));
         commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
-                App.spUtils.put("isFirst",false);
+                App.spUtils.put("isFirst", false);
                 startJump();
             }
         });
+
+        SpannableString spannableString = new SpannableString(getString(R.string.xieyiandtiaokuan));
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("type", 0);
+                gotoActivity(XieYiActivity.class, bundle, false);
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+                ds.setColor(Color.parseColor("#7EC7F5"));
+            }
+        }, 227, 235, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("type", 1);
+                gotoActivity(XieYiActivity.class, bundle1, false);
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.parseColor("#7EC7F5"));
+                ds.setUnderlineText(false);
+            }
+        }, 236, 242, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        tishi_msg.setText(spannableString);
+        tishi_msg.setMovementMethod(LinkMovementMethod.getInstance());
+        tishi_msg.setHighlightColor(ContextCompat.getColor(getActivity(), R.color.transparent));
         popupWindow = new PopupWindow();
         popupWindow.setBackgroundDrawable(new ColorDrawable(0));
         popupWindow.setContentView(dialogView);

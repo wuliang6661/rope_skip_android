@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -38,6 +40,10 @@ import com.tohabit.skip.utils.DensityUtil;
 import com.tohabit.skip.utils.PrefUtils;
 import com.tohabit.skip.utils.ShareUtils;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -60,8 +66,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     ToolbarWithBackRightProgress toolbar;
     @BindView(R.id.iv_user_header_fragment_mine)
     CircleImageView mIvUserHeader;
-    @BindView(R.id.item_device_fragment_mine)
-    LilayItemClickableWithHeadImageTopDivider mItemDevice;
     @BindView(R.id.item_jtcy_fragment_mine)
     LilayItemClickableWithHeadImageTopDivider mItemJtcy;
     @BindView(R.id.item_shdd_fragment_mine)
@@ -88,7 +92,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     Unbinder unbinder;
     @BindView(R.id.my_shoucang)
     LilayItemClickableWithHeadImageTopDivider myShoucang;
-    Unbinder unbinder1;
+    @BindView(R.id.devices)
+    RecyclerView devices;
 
     ///退出登录对话框
     private MaterialDialog exitDialog;
@@ -138,6 +143,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 startActivity(intent);
             }
         });
+        devices.setLayoutManager(new LinearLayoutManager(getActivity()));
+        devices.setNestedScrollingEnabled(false);
         kaiguan();
     }
 
@@ -161,7 +168,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         super.onSupportVisible();
         mPresenter.getUserInfo();
         mPresenter.getDeviceData();
-        mPresenter.getLinkDevice();
+        mPresenter.getData();
     }
 
     private void initDialog() {
@@ -337,14 +344,28 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     }
 
     @Override
-    public void getLinkDevice(DeviceBO deviceBO) {
+    public void getLinkDevice(List<DeviceBO> deviceBO) {
         if (deviceBO == null) {
-            mItemDevice.setVisibility(View.GONE);
+            devices.setVisibility(View.GONE);
         } else {
-            mItemDevice.setVisibility(View.VISIBLE);
-            mItemDevice.setItemNameText(deviceBO.getName());
+            devices.setVisibility(View.VISIBLE);
+            LGRecycleViewAdapter<DeviceBO> adapter = new LGRecycleViewAdapter<DeviceBO>(deviceBO) {
+                @Override
+                public int getLayoutId(int viewType) {
+                    return R.layout.item_mine_devices;
+                }
+
+                @Override
+                public void convert(LGViewHolder holder, DeviceBO deviceBO, int position) {
+                    holder.setText(R.id.device_name, deviceBO.getName());
+                    holder.setText(R.id.device_status, deviceBO.getLinkStatus() == 0 ? "未连接" : "已连接");
+                }
+            };
+            devices.setAdapter(adapter);
+//            mItemDevice.setItemNameText(deviceBO.getName());
         }
     }
+
 
     @Override
     public void getDeviceData(DeviceLinkBO linkBO) {

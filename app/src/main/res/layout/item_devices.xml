@@ -19,15 +19,36 @@
             android:src="@mipmap/device_img" />
 
 
-        <TextView
-            android:id="@+id/device_name"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="38dp"
-            android:singleLine="true"
-            android:text="名字"
-            android:textColor="#333333"
-            android:textSize="14sp" />
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/device_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="名字"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/device_mac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:text="名字"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
 

@@ -13,6 +13,7 @@ import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.mvp.MVPBaseActivity;
 import com.tohabit.skip.pojo.po.DeviceBO;
+import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.widget.AlertDialog;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
@@ -117,9 +118,10 @@ public class DeviceManagerActivity extends MVPBaseActivity<DeviceManagerContract
 
     @OnClick(R.id.add_devices)
     public void addDevices() {
-        Bundle bundle = new Bundle();
-        bundle.putInt("type", 0);
-        gotoActivity(DevecesUpdateActivty.class, bundle, false);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("type", 0);
+//        gotoActivity(DevecesUpdateActivty.class, bundle, false);
+        gotoActivity(SearchActivty.class, false);
     }
 
     /**
@@ -154,6 +156,7 @@ public class DeviceManagerActivity extends MVPBaseActivity<DeviceManagerContract
             @Override
             public void convert(LGViewHolder holder, DeviceBO s, int position) {
                 holder.setText(R.id.device_name, s.getName());
+                holder.setText(R.id.device_mac, s.getMacAddress());
             }
         };
         recycleView.setAdapter(adapter);

@@ -18,6 +18,7 @@
         app:tl_brp_title="领取小将"
         app:tl_brp_title_text_color="@color/colorText" />
 
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,10 +30,21 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="#FEFCEB"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="领取小将请先输入以下信息"
+                android:textColor="#FFB34E"
+                android:textSize="14sp" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="17dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -49,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="小将昵称"
+                    android:text="昵称"
                     android:textColor="#333333"
                     android:textSize="14sp" />
 
@@ -57,15 +69,117 @@
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="43dp"
+                    android:layout_marginLeft="60dp"
                     android:background="@null"
                     android:hint="请输入小将昵称"
-                    android:textColor="#888888"
+                    android:textColor="#333333"
                     android:textColorHint="#999999"
                     android:textSize="14sp" />
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/select_date"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@mipmap/shengri" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="生日"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/birth_day"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="60dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请选择生日"
+                    android:textColor="#333333"
+                    android:textColorHint="#999999"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="15dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/item_arrowright" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/select_sex"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@mipmap/xingbie" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="性别"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/sex_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="60dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请选择性别"
+                    android:text="男"
+                    android:textColor="#333333"
+                    android:textColorHint="#999999"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="15dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/item_arrowright" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,19 +201,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="小将身高"
+                    android:text="身高"
                     android:textColor="#333333"
                     android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/edit_height"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="43dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_weight="1"
                     android:background="@null"
                     android:hint="请输入小将身高"
-                    android:textColor="#888888"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:textColor="#333333"
                     android:textColorHint="#999999"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="cm"
+                    android:textColor="#999999"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -125,37 +251,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="小将体重"
+                    android:text="体重"
                     android:textColor="#333333"
                     android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/edit_weight"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="43dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_weight="1"
                     android:background="@null"
                     android:hint="请输入小将体重"
-                    android:textColor="#888888"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:textColor="#333333"
                     android:textColorHint="#999999"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="kg"
+                    android:textColor="#999999"
                     android:textSize="14sp" />
 
             </LinearLayout>
 
-
-            <com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider
-                android:id="@+id/select_sex"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                app:lichtd_bottom_divider_visibility="gone"
-                app:lichtd_content="男"
-                app:lichtd_content_text_color="@color/color_888888"
-                app:lichtd_head_icon="@mipmap/ic_ts9"
-                app:lichtd_iv_detail_visibility="visible"
-                app:lichtd_title="小将性别"
-                app:lichtd_top_divider_visibility="gone" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_submit_fragment_feed_back"

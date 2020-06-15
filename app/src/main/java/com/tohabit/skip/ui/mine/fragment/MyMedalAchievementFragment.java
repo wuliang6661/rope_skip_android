@@ -127,11 +127,12 @@ public class MyMedalAchievementFragment extends BaseFragment<MyMedalAchievementP
         adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                if(type == 1){
-                    return;
-                }
+//                if(type == 1){
+//                    return;
+//                }
                 Bundle bundle = new Bundle();
                 bundle.putInt("type", 1);   //成就勋章
+                bundle.putInt("status", type);  //是否获得
                 bundle.putSerializable("xunzhang", listBeans.get(position));
                 gotoActivity(ShapeChengJiuActivity.class, bundle, false);
             }

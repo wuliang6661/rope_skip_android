@@ -199,7 +199,7 @@ public class MyPkFragment extends BaseFragment<MyPkPresenter> implements MyPkCon
             @Override
             public void convert(LGViewHolder holder, PkJiLuBo pkJiLuBo, int position) {
                 holder.setText(R.id.pk_title, pkJiLuBo.getTitle());
-                holder.setText(R.id.pk_vaule, "+" + pkJiLuBo.getValue() + "  PK值");
+                holder.setText(R.id.pk_vaule, pkJiLuBo.getValue() + "  PK值");
                 holder.setText(R.id.pk_date, pkJiLuBo.getCreateDate().split(" ")[0]);
             }
         };

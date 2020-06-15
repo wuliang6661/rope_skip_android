@@ -16,7 +16,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingRight="15dp"
+        android:visibility="gone">
 
 
         <LinearLayout
@@ -110,9 +111,10 @@
 
         <EditText
             android:id="@+id/et_shichang"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="44dp"
+            android:layout_weight="1"
             android:background="@null"
             android:hint="点击输入文本"
             android:inputType="number"
@@ -120,6 +122,15 @@
             android:textColor="#333333"
             android:textColorHint="#C3C3C3"
             android:textSize="14sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分钟"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
 
     </LinearLayout>
 
@@ -152,15 +163,24 @@
 
         <EditText
             android:id="@+id/et_zongshu"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="44dp"
+            android:layout_weight="1"
             android:background="@null"
             android:hint="点击输入文本"
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#333333"
             android:textColorHint="#C3C3C3"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个"
+            android:textColor="#333333"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -194,15 +214,24 @@
 
         <EditText
             android:id="@+id/et_cishu"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="44dp"
+            android:layout_weight="1"
             android:background="@null"
             android:hint="点击输入文本"
             android:inputType="number"
             android:singleLine="true"
             android:textColor="#333333"
             android:textColorHint="#C3C3C3"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个"
+            android:textColor="#333333"
             android:textSize="14sp" />
 
     </LinearLayout>

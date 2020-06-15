@@ -173,20 +173,20 @@ public class StatisticsActivity extends BaseActivity {
         float maxaverage = 0;
         float maxaccelerate = 0;
         for (int i = 0; i < s.size(); i++) {
-            nums.add(new Entry(i, s.get(i).getSkipTime()));
-            cishus.add(new BarEntry(i, s.get(i).getBreakNum()));
+            nums.add(new Entry(i, s.get(i).getSkipNum()));
+            cishus.add(new BarEntry(i, s.get(i).getSkipTime()));
             sudus.add(new Entry(i, (float) s.get(i).getAverageVelocity()));
-            jiasudus.add(new BarEntry(i, (float) s.get(i).getAccelerateVelocity()));
-            if (s.get(i).getSkipTime() > maxskip) {
+            jiasudus.add(new BarEntry(i, (float) s.get(i).getBreakNum()));
+            if (s.get(i).getSkipNum() > maxskip) {
                 maxskip = s.get(i).getSkipTime();
             }
-            if (s.get(i).getBreakNum() > maxbresk) {
+            if (s.get(i).getSkipTime() > maxbresk) {
                 maxbresk = s.get(i).getBreakNum();
             }
             if (s.get(i).getAverageVelocity() > maxaverage) {
                 maxaverage = (float) s.get(i).getAverageVelocity();
             }
-            if (s.get(i).getAccelerateVelocity() > maxaccelerate) {
+            if (s.get(i).getBreakNum() > maxaccelerate) {
                 maxaccelerate = (float) s.get(i).getAccelerateVelocity();
             }
 //            float val = (float) Math.random();
@@ -201,7 +201,7 @@ public class StatisticsActivity extends BaseActivity {
         bar2.getAxisLeft().setAxisMinimum(0);
         chart1.getAxisLeft().setAxisMaximum(maxskip + 10);
         chart2.getAxisLeft().setAxisMaximum(maxaverage + 10);
-        bar1.getAxisLeft().setAxisMaximum(maxbresk + 10);
+        bar1.getAxisLeft().setAxisMaximum(maxbresk + 20);
         bar2.getAxisLeft().setAxisMaximum(maxaccelerate + 10);
         setNumData(nums, chart1, 0);
         setNumData(sudus, chart2, 1);

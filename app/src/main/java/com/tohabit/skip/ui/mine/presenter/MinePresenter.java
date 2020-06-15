@@ -9,6 +9,8 @@ import com.tohabit.skip.pojo.po.DeviceLinkBO;
 import com.tohabit.skip.pojo.po.UserBO;
 import com.tohabit.skip.ui.mine.contract.MineContract;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -55,8 +57,27 @@ public class MinePresenter extends RxPresenter<MineContract.View> implements Min
         HttpServerImpl.getLinkDevice().subscribe(new HttpResultSubscriber<DeviceBO>() {
             @Override
             public void onSuccess(DeviceBO deviceBO) {
+//                if (mView != null) {
+//                    mView.getLinkDevice(deviceBO);
+//                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+//                if (mView != null) {
+//                    mView.getLinkDevice(null);
+//                }
+            }
+        });
+    }
+
+
+    public void getData() {
+        HttpServerImpl.getDeviceList().subscribe(new HttpResultSubscriber<List<DeviceBO>>() {
+            @Override
+            public void onSuccess(List<DeviceBO> s) {
                 if (mView != null) {
-                    mView.getLinkDevice(deviceBO);
+                    mView.getLinkDevice(s);
                 }
             }
 
@@ -68,6 +89,7 @@ public class MinePresenter extends RxPresenter<MineContract.View> implements Min
             }
         });
     }
+
 
 
     /**

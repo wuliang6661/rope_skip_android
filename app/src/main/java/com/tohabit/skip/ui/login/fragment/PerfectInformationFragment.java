@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.tohabit.commonlibrary.widget.LilayItemClickableWithHeadImageTopDivider;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
@@ -17,6 +18,7 @@ import com.tohabit.skip.ui.login.contract.PerfectInformationContract;
 import com.tohabit.skip.ui.login.presenter.PerfectInformationPresenter;
 import com.tohabit.skip.utils.StringUtils;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.widget.DateDialog;
 import com.tohabit.skip.widget.PopXingZhi;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,7 +52,13 @@ public class PerfectInformationFragment extends BaseFragment<PerfectInformationP
     @BindView(R.id.edit_weight)
     EditText editWeight;
     @BindView(R.id.select_sex)
-    LilayItemClickableWithHeadImageTopDivider selectSex;
+    LinearLayout selectSex;
+    @BindView(R.id.birth_day)
+    TextView birthDay;
+    @BindView(R.id.select_date)
+    LinearLayout selectDate;
+    @BindView(R.id.sex_text)
+    TextView sexText;
 
 
     private int sex = 0;   //默认男
@@ -121,19 +129,24 @@ public class PerfectInformationFragment extends BaseFragment<PerfectInformationP
         String nikeName = editName.getText().toString().trim();
         String height = editHeight.getText().toString().trim();
         String weight = editWeight.getText().toString().trim();
-        if(StringUtils.isEmpty(nikeName)){
+        String age = birthDay.getText().toString().trim();
+        if (StringUtils.isEmpty(nikeName)) {
             showToast("请输入昵称！");
             return;
         }
-        if(StringUtils.isEmpty(height)){
+        if (StringUtils.isEmpty(age)) {
+            showToast("请选择生日！");
+            return;
+        }
+        if (StringUtils.isEmpty(height)) {
             showToast("请输入身高！");
             return;
         }
-        if(StringUtils.isEmpty(weight)){
+        if (StringUtils.isEmpty(weight)) {
             showToast("请输入体重！");
             return;
         }
-        HttpServerImpl.addGeneralInfo(nikeName,null,sex+"",height,weight).subscribe(new HttpResultSubscriber<String>() {
+        HttpServerImpl.addGeneralInfo(nikeName, age, sex + "", height, weight).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
                 showError("创建成功");
@@ -150,7 +163,7 @@ public class PerfectInformationFragment extends BaseFragment<PerfectInformationP
 
 
     @OnClick(R.id.select_sex)
-    public void selectSex(){
+    public void selectSex() {
         showSexDialog();
     }
 
@@ -167,11 +180,16 @@ public class PerfectInformationFragment extends BaseFragment<PerfectInformationP
             @Override
             public void commit(int position, String item) {
                 sex = position;
-                selectSex.setItemContent(   item);
+                sexText.setText(item);
             }
         });
         popXingZhi.setSelectPosition(sex);
         popXingZhi.showAtLocation(getActivity().getWindow().getDecorView());
     }
 
+
+    @OnClick(R.id.select_date)
+    public void selectDate() {
+        DateDialog.show(getActivity(), birthDay);
+    }
 }

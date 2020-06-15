@@ -89,6 +89,10 @@ public class ShapeChengJiuActivity extends BaseActivity {
         setTitleText("我的成就");
 
         int type = getIntent().getExtras().getInt("type");
+        int status = getIntent().getExtras().getInt("status");
+        if (status == 1) {
+            xunzhang_miaoshu.setVisibility(View.GONE);
+        }
         if (type == 1) {  //成就
             ChengJiuBo.AcquireMedalListBean chengjiu = (ChengJiuBo.AcquireMedalListBean) getIntent().getExtras().getSerializable("xunzhang");
             Glide.with(this).load(chengjiu.getImage()).into(xunzhangImg);
@@ -129,12 +133,12 @@ public class ShapeChengJiuActivity extends BaseActivity {
                     @Override
                     public void run() {
                         Bitmap bitmap = ScreenShotUtils.getBitMap(ShapeChengJiuActivity.this);
-                        ShareUtils.shareImage(0,bitmap);
+                        ShareUtils.shareImage(0, bitmap);
                         title_layout.setVisibility(View.VISIBLE);
                         btnCommit.setVisibility(View.VISIBLE);
                         buttom_layout.setVisibility(View.GONE);
                     }
-                },500);
+                }, 500);
             }
         });
         view.findViewById(R.id.ll_pyq_dialog_invitation).setOnClickListener(new View.OnClickListener() {
@@ -148,12 +152,12 @@ public class ShapeChengJiuActivity extends BaseActivity {
                     @Override
                     public void run() {
                         Bitmap bitmap = ScreenShotUtils.getBitMap(ShapeChengJiuActivity.this);
-                        ShareUtils.shareImage(1,bitmap);
+                        ShareUtils.shareImage(1, bitmap);
                         title_layout.setVisibility(View.VISIBLE);
                         btnCommit.setVisibility(View.VISIBLE);
                         buttom_layout.setVisibility(View.GONE);
                     }
-                },500);
+                }, 500);
             }
         });
         view.findViewById(R.id.ll_save_picture_dialog_invitation).setOnClickListener(new View.OnClickListener() {
@@ -176,7 +180,7 @@ public class ShapeChengJiuActivity extends BaseActivity {
                         btnCommit.setVisibility(View.VISIBLE);
                         buttom_layout.setVisibility(View.GONE);
                     }
-                },500);
+                }, 500);
             }
         });
         mBottomSheetDialog = new Dialog(this, R.style.MaterialDialogSheet);

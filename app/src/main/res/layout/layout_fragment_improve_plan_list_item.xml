@@ -18,8 +18,9 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/title"
-            android:layout_width="113dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="高度训练"
             android:textColor="#ff333333"
             android:textSize="14sp"
@@ -38,7 +39,6 @@
             android:id="@+id/tv_state_name_layout_fragment_improve_plan_list_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="right"
             android:text="添加计划"
             android:textColor="#fff5b68f"

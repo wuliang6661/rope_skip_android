@@ -125,11 +125,12 @@ public class MyHonorCertificateFragment extends BaseFragment<MyHonorCertificateP
         adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                if (type == 1) {
-                    return;
-                }
+//                if (type == 1) {
+//                    return;
+//                }
                 Bundle bundle = new Bundle();
                 bundle.putInt("type", 2);   //证书
+                bundle.putInt("status", type);  //是否获得
                 bundle.putSerializable("zhengshu", listBeans.get(position));
                 gotoActivity(ShapeChengJiuActivity.class, bundle, false);
             }

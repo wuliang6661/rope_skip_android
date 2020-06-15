@@ -92,7 +92,7 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
                 helper.setText(R.id.user_name, item.getUserName());
                 helper.setText(R.id.user_time,item.getCreateDate());
                 helper.setText(R.id.wenti_name,item.getTitle());
-                helper.setText(R.id.wenti_message,item.getContent());
+//                helper.setText(R.id.wenti_message,item.getContent());
                 helper.setText(R.id.huifu_num,item.getCommentNum() + "回复");
             }
         };

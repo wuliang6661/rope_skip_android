@@ -76,7 +76,7 @@ public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.O
 
     @Override
     protected void initEventAndData() {
-        shaixuanLayout.setVisibility(View.VISIBLE);
+//        shaixuanLayout.setVisibility(View.VISIBLE);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

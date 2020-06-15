@@ -72,6 +72,36 @@
             android:orientation="vertical">
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="19dp">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="20dp"
+                    android:background="#B9CAE0" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="跳绳评分"
+                    android:textColor="#ffb9cae0"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="9dp"
+                android:background="#F8F8F8" />
+
+
             <com.tohabit.skip.widget.RadarView
                 android:id="@+id/radar_view"
                 android:layout_width="match_parent"
@@ -395,18 +425,6 @@
 
 
             <LinearLayout
-                android:id="@+id/buttom_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <include layout="@layout/shape_buttom_bg" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/no_share_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -625,6 +643,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="14dp"
                     android:layout_marginTop="9dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/buttom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include layout="@layout/shape_buttom_bg" />
 
             </LinearLayout>
 

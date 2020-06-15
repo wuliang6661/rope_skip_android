@@ -83,6 +83,13 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
 
     @Override
     protected void initEventAndData() {
+
+    }
+
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
         String userName = App.spUtils.getString(Constants.PREF_KEY_USER, "");
         String passWord = App.spUtils.getString(Constants.PREF_KEY_PASSWORD, "");
         mEtTel.setText(userName);

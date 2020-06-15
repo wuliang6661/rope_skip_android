@@ -47,6 +47,7 @@ import com.tohabit.skip.utils.AppManager;
 import com.tohabit.skip.utils.DensityUtil;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.UpdateUtils;
+import com.tohabit.skip.utils.Utils;
 import com.tohabit.skip.utils.blue.bleutils.BlueUtils;
 import com.tohabit.skip.utils.blue.btutil.BlueDeviceUtils;
 import com.tohabit.skip.utils.blue.btutil.BluetoothChatService;
@@ -323,6 +324,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onClick(View v) {
                 buyDialog.hide();
+                if (Utils.isPkgInstalled(MainActivity.this, "com.taobao.taobao")) {
+                    Utils.gotoShop(MainActivity.this, "taobao://shop.m.taobao.com/shop/shop_index.htm?shop_id=185441148");
+                } else {
+                    showToast("您还没有安装淘宝客户端！");
+                }
             }
         });
         buyDialog = new Dialog(this, R.style.MaterialDialogSheet);
