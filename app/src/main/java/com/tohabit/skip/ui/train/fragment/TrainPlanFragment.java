@@ -379,6 +379,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      * 开始PK
      */
     private void sendPk() {
+        tvContral.setEnabled(false);
         Map<String, String> params = new HashMap<>();
         params.put("skipNum", skipNum + "");
         params.put("skipTime", trainLength - timeCount + "");
