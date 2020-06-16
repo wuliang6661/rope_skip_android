@@ -48,9 +48,16 @@ public class TestBO {
     private String updateDate;
     private String remark;
     private int id;
-
+    private String skipDate;
     private String skipGrade;
 
+    public String getSkipDate() {
+        return skipDate;
+    }
+
+    public void setSkipDate(String skipDate) {
+        this.skipDate = skipDate;
+    }
 
     public int getUserId() {
         return userId;

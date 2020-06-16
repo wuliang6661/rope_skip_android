@@ -1,12 +1,12 @@
 package com.tohabit.skip.ui.train.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
@@ -15,13 +15,12 @@ import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
-import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.pojo.po.XIaoJiangBO;
-import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.train.contract.BaseMsgInputContract;
 import com.tohabit.skip.ui.train.presenter.BaseMsgInputPresenter;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.widget.DateDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,7 +40,7 @@ public class BaseMsgInputFragment extends BaseFragment<BaseMsgInputPresenter> im
     @BindView(R.id.progress_fragment_common_view)
     ProgressbarLayout progress;
     @BindView(R.id.et_age_fragment_base_msg_input)
-    AppCompatEditText etAge;
+    TextView etAge;
     @BindView(R.id.iv_sex_woman_fragment_base_msg_input)
     AppCompatImageView ivSexWoman;
     @BindView(R.id.ll_sex_woman_fragment_base_msg_input)
@@ -152,7 +151,7 @@ public class BaseMsgInputFragment extends BaseFragment<BaseMsgInputPresenter> im
 //                etAge.setText(s.get);
                 etHeight.setText(s.getHeight() + "");
                 etWeight.setText(s.getWeight() + "");
-                etAge.setText(s.getAge());
+                etAge.setText(s.getBirthDate());
                 sex = s.getSex();
                 if (s.getSex() == 0) {
                     ivSexMan.setVisibility(View.VISIBLE);
@@ -202,6 +201,12 @@ public class BaseMsgInputFragment extends BaseFragment<BaseMsgInputPresenter> im
                 showToast(message);
             }
         });
+    }
+
+
+    @OnClick(R.id.select_birthday)
+    public void selectAge(){
+        DateDialog.show(getActivity(), etAge);
     }
 
 }

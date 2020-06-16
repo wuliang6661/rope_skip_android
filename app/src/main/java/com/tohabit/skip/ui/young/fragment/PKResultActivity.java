@@ -3,6 +3,7 @@ package com.tohabit.skip.ui.young.fragment;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v7.widget.AppCompatButton;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
+import com.google.zxing.WriterException;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -21,6 +23,7 @@ import com.tohabit.skip.pojo.po.PkResultBO;
 import com.tohabit.skip.utils.ScreenShotUtils;
 import com.tohabit.skip.utils.ShareUtils;
 import com.tohabit.skip.widget.ShapeDialog;
+import com.tohabit.skip.zxing.encoding.EncodingHandler;
 
 import java.text.SimpleDateFormat;
 
@@ -136,7 +139,15 @@ public class PKResultActivity extends BaseActivity {
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
         userName.setText(App.userBO.getNickName());
         shapeDate.setText(TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd")));
-        getQrCode();
+        if (!TextUtils.isEmpty(App.userBO.getDownloadUrl())) {
+            // 根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
+            try {
+                Bitmap bitmap = EncodingHandler.createQRCode(App.userBO.getDownloadUrl(), 300);
+                userQrCode.setImageBitmap(bitmap);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

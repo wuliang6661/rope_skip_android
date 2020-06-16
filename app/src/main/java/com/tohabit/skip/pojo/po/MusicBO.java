@@ -1,5 +1,7 @@
 package com.tohabit.skip.pojo.po;
 
+import java.io.Serializable;
+
 /**
  * author : wuliang
  * e-mail : wuliang6661@163.com
@@ -7,7 +9,7 @@ package com.tohabit.skip.pojo.po;
  * desc   :
  * version: 1.0
  */
-public class MusicBO {
+public class MusicBO implements Serializable {
 
 
     /**

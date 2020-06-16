@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.algorithm.skipevaluation.Evaluator;
+import com.blankj.utilcode.util.TimeUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tohabit.commonlibrary.apt.SingleClick;
@@ -22,7 +23,6 @@ import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.pojo.BaseResult;
-import com.tohabit.skip.pojo.po.MusicBO;
 import com.tohabit.skip.pojo.po.PkResultBO;
 import com.tohabit.skip.presenter.CommonPresenter;
 import com.tohabit.skip.presenter.contract.CommonContract;
@@ -93,16 +93,6 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     @BindView(R.id.title_text)
     AppCompatTextView titleText;
 
-
-    /**
-     * 播放的音乐
-     */
-    public static MusicBO musicBO;
-
-    /**
-     * 使用的节拍
-     */
-    public static String beat;
 
     private boolean connectState;
     private boolean testState;
@@ -202,9 +192,9 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         super.onSupportVisible();
         freshView();
         getDeviceQc();
-        if (musicBO != null) {
+        if (App.musicBO != null) {
             musicLayout.setVisibility(View.VISIBLE);
-            musicText.setText(musicBO.getName());
+            musicText.setText(App.musicBO .getName());
         }
     }
 
@@ -261,6 +251,10 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 freshView();
                 break;
             case R.id.tv_contral_fragment_train_plan:
+                if (!App.isConnect()) {
+                    showToast("请先连接跳绳设备！");
+                    return;
+                }
                 if (testState) {//开始
                     switch (type) {
                         case 0:    //训练计划
@@ -313,8 +307,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         params.put("skipNum", skipNum);  //跳绳次数
         params.put("skipTime", trainLength - timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
-        params.put("backgroundMusicId", musicBO == null ? null : musicBO.getId());
-        params.put("beat", beat);
+        params.put("backgroundMusicId", App.musicBO  == null ? null : App.musicBO .getId());
+        params.put("beat", App.beat );
         params.put("trainPlanId", trainPlanId);   //训练id
         showProgress(null);
         HttpServerImpl.addTrain(params).subscribe(new HttpResultSubscriber<String>() {
@@ -351,6 +345,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         params.put("skipTime", trainLength - timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("deviceId", null);  //todo 设备id，暂时缺失
+        params.put("skipDate",TimeUtils.getNowString());
         showProgress(null);
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override
@@ -443,13 +438,13 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      * 播放音乐
      */
     private void startMusic() {
-        if (musicBO != null) {
+        if (App.musicBO  != null) {
             if (player != null) {
                 player.stop();
                 player = null;
             }
             player = new Player();
-            player.playUrl(musicBO.getUrl());
+            player.playUrl(App.musicBO .getUrl());
         }
     }
 
@@ -472,8 +467,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
 
     @Override
     public void onDestroyView() {
-        musicBO = null;
-        beat = null;
+        App.musicBO  = null;
+        App.beat = null;
         if (player != null) {
             player.stop();
         }

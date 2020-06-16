@@ -26,6 +26,20 @@ public class UserBO implements Serializable {
     private int isBuy;
     private int isDayPush;
     private int youngGeneralCount;
+    /**
+     * birthDate :
+     * downloadUrl :
+     * height : 0
+     * sex : 0
+     * weight : 0
+     */
+
+    private String birthDate;
+    private String downloadUrl;
+    private String height;
+    private int sex;
+    private String weight;
+
 
     public int getId() {
         return id;
@@ -97,5 +111,45 @@ public class UserBO implements Serializable {
 
     public void setYoungGeneralCount(int youngGeneralCount) {
         this.youngGeneralCount = youngGeneralCount;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 }

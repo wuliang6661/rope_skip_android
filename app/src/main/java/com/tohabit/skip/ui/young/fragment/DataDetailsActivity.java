@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.zxing.WriterException;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -35,6 +37,7 @@ import com.tohabit.skip.utils.ShareUtils;
 import com.tohabit.skip.widget.ShapeDialog;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
+import com.tohabit.skip.zxing.encoding.EncodingHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -120,7 +123,15 @@ public class DataDetailsActivity extends BaseActivity {
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
         userName.setText(App.userBO.getNickName());
         shapeDate.setText(TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd")));
-        getQrCode();
+        if (!TextUtils.isEmpty(App.userBO.getDownloadUrl())) {
+            // 根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
+            try {
+                Bitmap bitmap = EncodingHandler.createQRCode(App.userBO.getDownloadUrl(), 300);
+                userQrCode.setImageBitmap(bitmap);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

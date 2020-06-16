@@ -106,7 +106,7 @@ public class SearchActivty extends BaseActivity {
             @Override
             public void searchDevices(BluetoothDevice device) {
                 for (BluetoothDevice item : devices) {   //避免搜索到重复的设备
-                    if (item.getName().equals(device.getName())) {
+                    if (item.getAddress().equals(device.getAddress())) {
                         return;
                     }
                 }
@@ -134,8 +134,8 @@ public class SearchActivty extends BaseActivity {
 
             @Override
             public void convert(LGViewHolder holder, BluetoothDevice result, int position) {
-                holder.setText(R.id.item_text, result.getName());
-                holder.setText(R.id.mac_text, result.getAddress());
+                holder.setText(R.id.item_text, "绳柄名称：" + result.getName());
+                holder.setText(R.id.mac_text, "蓝牙名称：" + result.getAddress());
                 if (App.connectDevice != null && App.connectDevice.getAddress().equals(result.getAddress())) {
                     holder.getView(R.id.connect).setEnabled(false);
                     holder.setText(R.id.connect, "已绑定");
@@ -173,7 +173,6 @@ public class SearchActivty extends BaseActivity {
         } else {
         }
     }
-
 
 
     /**

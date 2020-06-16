@@ -20,7 +20,9 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:singleLine="true"
             android:text="高度训练"
             android:textColor="#ff333333"
             android:textSize="14sp"
@@ -70,7 +72,7 @@
                 android:id="@+id/neirong"
                 android:layout_width="113dp"
                 android:layout_height="wrap_content"
-                android:text="内容"
+                android:text="方案名称"
                 android:textColor="#ff7ec7f5"
                 android:textSize="14sp" />
 

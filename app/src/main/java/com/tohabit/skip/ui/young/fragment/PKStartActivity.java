@@ -26,10 +26,18 @@ import com.tohabit.skip.R;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseActivity;
+import com.tohabit.skip.event.model.BlueDataEvent;
+import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.pojo.BaseResult;
 import com.tohabit.skip.pojo.po.PkUserBO;
+import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
+import com.tohabit.skip.utils.blue.cmd.BleCmd;
+import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,9 +53,9 @@ public class PKStartActivity extends BaseActivity {
     @BindView(R.id.tv_battery_fragment_train_main)
     AppCompatTextView tvBatteryFragmentTrainMain;
     @BindView(R.id.blue_state_img)
-    AppCompatImageView blueStateImg;
+    AppCompatImageView ivConnnetState;
     @BindView(R.id.tv_blue_connect_statusfragment_train_main)
-    AppCompatTextView tvBlueConnectStatusfragmentTrainMain;
+    AppCompatTextView tvConnectState;
     @BindView(R.id.blue_layout)
     LinearLayout blueLayout;
     @BindView(R.id.user_img)
@@ -327,6 +335,65 @@ public class PKStartActivity extends BaseActivity {
         if (timer != null) {
             timer.cancel();
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        freshView();
+        getDeviceQc();
+    }
+
+
+    private void freshView() {
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            tvConnectState.setText("已连接");
+            ivConnnetState.setBackgroundResource(R.mipmap.ic_home19);
+        } else {
+            tvConnectState.setText("已断开");
+            ivConnnetState.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(BlueEvent event) {
+        if (event.isConnect == UartService.STATE_CONNECTED) {
+            tvConnectState.setText("已连接");
+            ivConnnetState.setBackgroundResource(R.mipmap.ic_home19);
+        } else if (event.isConnect == UartService.STATE_CONNECTING) {
+            tvConnectState.setText("设备连接中...");
+            ivConnnetState.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
+        } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
+            getDeviceQc();
+        } else {
+            tvConnectState.setText("已断开");
+        }
+    }
+
+
+    /**
+     * 获取电量
+     */
+    private void getDeviceQc() {
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            UartService.COUNT_OPENTION = 0x11;
+            App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetEQCmd().getCmdByte());
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(BlueDataEvent event) {
+        BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
+        if (UartService.COUNT_OPENTION == 0x11) {  //电量
+            getDeviceQcAndType(String.valueOf(builder.getDataBody()[0]), String.valueOf(builder.getDataBody()[1]));
+        }
+    }
+
+    public void getDeviceQcAndType(String dianliang, String type) {
+        tvBatteryFragmentTrainMain.setText(dianliang + "%");
     }
 
 }

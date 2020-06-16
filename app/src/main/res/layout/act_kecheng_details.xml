@@ -11,115 +11,130 @@
     <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:id="@+id/video_player"
         android:layout_width="match_parent"
-        android:hardwareAccelerated="true"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:hardwareAccelerated="true" />
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:minHeight="100dp"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-
-        <TextView
-            android:id="@+id/zhishi_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="3dp"
-            android:text="标题"
-            android:textColor="#333333"
-            android:textSize="14sp" />
-
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:minHeight="100dp"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="50dp">
 
 
             <TextView
-                android:id="@+id/shiyongnianling"
+                android:id="@+id/zhishi_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="适用: 6-15 岁"
+                android:lineSpacingExtra="3dp"
+                android:text="标题"
                 android:textColor="#333333"
                 android:textSize="14sp" />
 
 
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginLeft="10dp"
-                android:src="@mipmap/zhishi_shengao" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
 
-            <TextView
-                android:id="@+id/tizhong"
+                <TextView
+                    android:id="@+id/shiyongnianling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="适用: 6-15 岁"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:visibility="invisible" />
+
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/zhishi_shengao"
+                    android:visibility="invisible" />
+
+
+                <TextView
+                    android:id="@+id/tizhong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="20-40kg"
+                    android:textColor="#86A7C8"
+                    android:textSize="12sp"
+                    android:visibility="invisible" />
+
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@mipmap/zhishi_shengao"
+                    android:visibility="invisible" />
+
+
+                <TextView
+                    android:id="@+id/shengao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:text="20-40kg"
+                    android:textColor="#FFD6A0"
+                    android:textSize="12sp"
+                    android:visibility="invisible" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="20-40kg"
-                android:textColor="#86A7C8"
-                android:textSize="12sp" />
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@mipmap/kecheng_img" />
 
 
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginLeft="15dp"
-                android:src="@mipmap/zhishi_shengao" />
+                <TextView
+                    android:id="@+id/shijian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="20-40kg"
+                    android:textColor="#A1E7E9"
+                    android:textSize="12sp" />
 
-
-            <TextView
-                android:id="@+id/shengao"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:text="20-40kg"
-                android:textColor="#FFD6A0"
-                android:textSize="12sp" />
-
-
-            <ImageView
-                android:id="@+id/shoucang_img"
-                android:layout_width="20dp"
-                android:layout_height="18dp"
-                android:src="@mipmap/shoucang" />
-
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:src="@mipmap/zhishi_shengao" />
-
-
-            <TextView
-                android:id="@+id/shijian"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="20-40kg"
-                android:textColor="#A1E7E9"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/shoucang_img"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/shoucang" />
+    </RelativeLayout>
 
 
     <LinearLayout
@@ -195,25 +210,33 @@
         android:layout_height="match_parent" />
 
 
-    <ScrollView
-        android:id="@+id/jianjie_layout"
+    <WebView
+        android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:visibility="gone">
+        android:visibility="gone" />
 
 
-        <TextView
-            android:id="@+id/html_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginRight="26dp"
-            android:layout_marginBottom="20dp"
-            android:lineSpacingExtra="4dp" />
+    <!--    <ScrollView
+            android:id="@+id/jianjie_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="gone">
 
 
-    </ScrollView>
+            <TextView
+                android:id="@+id/html_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="26dp"
+                android:layout_marginBottom="20dp"
+                android:lineSpacingExtra="4dp" />
+
+
+        </ScrollView>-->
 
 </LinearLayout>

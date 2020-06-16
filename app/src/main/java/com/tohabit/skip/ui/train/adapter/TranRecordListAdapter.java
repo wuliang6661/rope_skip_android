@@ -26,7 +26,7 @@ public class TranRecordListAdapter extends BaseRvAdapter<TestBO, BaseViewHolder>
     @Override
     protected void convert(BaseViewHolder helper, TestBO item) {
         helper.addOnClickListener(R.id.tv_look_layout_fragment_train_record_list_item)
-                .setText(R.id.tv_time_layout_fragment_train_record_list_item, item.getCreateDate())
+                .setText(R.id.tv_time_layout_fragment_train_record_list_item, item.getSkipDate())
                 .setText(R.id.tv_jb_layout_fragment_train_record_list_item, item.getSkipNum() + "")
                 .setText(R.id.tv_pay_time_layout_fragment_train_record_list_item, item.getSkipTime() + "");
     }

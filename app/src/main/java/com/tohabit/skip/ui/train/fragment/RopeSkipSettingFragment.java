@@ -1,5 +1,6 @@
 package com.tohabit.skip.ui.train.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
@@ -10,15 +11,14 @@ import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
+import com.tohabit.skip.app.App;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.pojo.po.BeatsBO;
 import com.tohabit.skip.pojo.po.MusicBO;
 import com.tohabit.skip.ui.train.contract.RopeSkipSettingContract;
 import com.tohabit.skip.ui.train.presenter.RoseSkipSettingPresenter;
 import com.tohabit.skip.utils.ToastUtil;
-import com.tohabit.skip.widget.PopXingZhi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,11 +50,9 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
     AppCompatButton btnSave;
 
 
-    private List<BeatsBO> beatsBOS;
-    private List<MusicBO> musicBOS;
 
-    private int selectBeat = 0;
-    private int selectMusic = 0;
+    private BeatsBO selectBeat;
+    private MusicBO selectMusic;
 
     public static RopeSkipSettingFragment newInstance(Bundle bundle) {
         RopeSkipSettingFragment fragment = new RopeSkipSettingFragment();
@@ -127,14 +125,20 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_bg_music_fragment_rope_skip_setting:
-                showMusic();
+//                showMusic();
+                Intent intent = new Intent(getActivity(), SettingMusicActivity.class);
+                intent.putExtra("type", 0);
+                startActivityForResult(intent, 0x11);
                 break;
             case R.id.ll_jz_fragment_rope_skip_setting:
-                showBeats();
+//                showBeats();
+                Intent intent1 = new Intent(getActivity(), SettingMusicActivity.class);
+                intent1.putExtra("type", 1);
+                startActivityForResult(intent1, 0x22);
                 break;
             case R.id.btn_save_fragment_rope_skip_setting:
-                TrainPlanFragment.musicBO = musicBOS.get(selectMusic);
-                TrainPlanFragment.beat = beatsBOS.get(selectBeat).getBeat() + "";
+                App.musicBO = selectMusic;
+                App.beat = selectBeat.getBeat() + "";
                 ToastUtil.show("保存成功");
                 _mActivity.onBackPressedSupport();
                 break;
@@ -143,53 +147,40 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
 
     @Override
     public void getBeats(List<BeatsBO> beatsBOS) {
-        this.beatsBOS = beatsBOS;
         if (!beatsBOS.isEmpty()) {
             tvJzName.setText(beatsBOS.get(0).getBeat() + "下/秒");
+            selectBeat = beatsBOS.get(0);
         }
     }
 
     @Override
     public void getMusics(List<MusicBO> musicBOS) {
-        this.musicBOS = musicBOS;
         if (!musicBOS.isEmpty()) {
             tvBgMusicName.setText(musicBOS.get(0).getName());
+            selectMusic = musicBOS.get(0);
         }
     }
 
 
-    private void showBeats() {
-        List<String> beat = new ArrayList<>();
-        for (BeatsBO beatsBO : beatsBOS) {
-            beat.add(beatsBO.getBeat() + "下/秒");
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case 0x11:
+                MusicBO musicBO = (MusicBO) data.getSerializableExtra("music");
+                if (musicBO != null) {
+                    selectMusic = musicBO;
+                    tvBgMusicName.setText(selectMusic.getName());
+                }
+                break;
+            case 0x22:
+                BeatsBO beatsBO = (BeatsBO) data.getSerializableExtra("beat");
+                if (beatsBO != null) {
+                    selectBeat = beatsBO;
+                    tvJzName.setText(selectBeat.getBeat() + "下/秒");
+                }
+                break;
         }
-        PopXingZhi popXingZhi = new PopXingZhi(getActivity(), "", beat);
-        popXingZhi.setListener(new PopXingZhi.onSelectListener() {
-            @Override
-            public void commit(int position, String item) {
-                selectBeat = position;
-                tvJzName.setText(item);
-            }
-        });
-        popXingZhi.setSelectPosition(selectBeat);
-        popXingZhi.showAtLocation(getActivity().getWindow().getDecorView());
     }
 
-
-    private void showMusic() {
-        List<String> beat = new ArrayList<>();
-        for (MusicBO beatsBO : musicBOS) {
-            beat.add(beatsBO.getName());
-        }
-        PopXingZhi popXingZhi = new PopXingZhi(getActivity(), "", beat);
-        popXingZhi.setListener(new PopXingZhi.onSelectListener() {
-            @Override
-            public void commit(int position, String item) {
-                tvBgMusicName.setText(item);
-                selectMusic = position;
-            }
-        });
-        popXingZhi.setSelectPosition(selectMusic);
-        popXingZhi.showAtLocation(getActivity().getWindow().getDecorView());
-    }
 }

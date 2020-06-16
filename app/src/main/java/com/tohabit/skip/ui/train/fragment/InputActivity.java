@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.algorithm.skipevaluation.Evaluator;
+import com.blankj.utilcode.util.TimeUtils;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
@@ -136,6 +137,7 @@ public class InputActivity extends BaseActivity {
         params.put("skipTime", shichang);
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("deviceId", null);  //todo 设备id，暂时缺失
+        params.put("skipDate",TimeUtils.getNowString());
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {

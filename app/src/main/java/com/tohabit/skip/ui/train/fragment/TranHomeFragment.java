@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.algorithm.skipevaluation.Evaluator;
+import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.tohabit.commonlibrary.apt.SingleClick;
@@ -312,6 +313,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         switch (view.getId()) {
             case R.id.iv_start_test_fragment_train_main:
                 if (testState) {//开始
+                    addTest();
                     testState = false;
                     timeCount = 0;
                     if (timer != null) {
@@ -322,11 +324,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     tvTime.setText("时间  " + time);
                     ivStartTest.setBackgroundResource(R.mipmap.ic_home8);
                     isEditMsg = false;
-                    addTest();
                 } else {//未开始
-//                    byte[] aa = new byte[]{0x00, 0x00, 0x00, 0x24};
-//                    int cishu = Math.abs(ByteUtils.bytesToInt2(aa, 0));
-//                    showToast(cishu + "");
                     if (!App.isConnect()) {
                         showToast("请先连接跳绳！");
                         return;
@@ -394,6 +392,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         params.put("skipTime", timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("deviceId", null);  //todo 设备id，暂时缺失
+        params.put("skipDate",TimeUtils.getNowString());
         showProgress(null);
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override

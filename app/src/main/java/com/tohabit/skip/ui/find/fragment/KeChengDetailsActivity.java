@@ -2,18 +2,14 @@ package com.tohabit.skip.ui.find.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
@@ -24,11 +20,10 @@ import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.KechengBO;
 import com.tohabit.skip.pojo.po.VideoBO;
-import com.tohabit.skip.utils.ImageGetterUtils;
+import com.tohabit.skip.widget.WebUtils;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
 
-import java.net.URL;
 import java.util.List;
 
 import butterknife.BindView;
@@ -70,12 +65,14 @@ public class KeChengDetailsActivity extends BaseActivity {
     RelativeLayout myKecheng;
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
-    @BindView(R.id.html_text)
-    TextView htmlText;
-    @BindView(R.id.jianjie_layout)
-    ScrollView jianjieLayout;
+    //    @BindView(R.id.html_text)
+//    TextView htmlText;
+//    @BindView(R.id.jianjie_layout)
+//    ScrollView jianjieLayout;
     @BindView(R.id.video_player)
     StandardGSYVideoPlayer videoPlayer;
+    @BindView(R.id.web_view)
+    WebView webView;
 
     private KechengBO kechengBO;
     private int id;
@@ -112,6 +109,7 @@ public class KeChengDetailsActivity extends BaseActivity {
         videoPlayer.getTitleTextView().setVisibility(View.GONE);
         videoPlayer.getBackButton().setVisibility(View.GONE);
         inviVideo();
+        WebUtils.initWeb(webView);
         getClassDetails(id);
     }
 
@@ -138,7 +136,6 @@ public class KeChengDetailsActivity extends BaseActivity {
             }
         });
     }
-
 
 
     @Override
@@ -181,14 +178,16 @@ public class KeChengDetailsActivity extends BaseActivity {
             kechengList.setTextColor(Color.parseColor("#7EC7F5"));
             zhishiView.setVisibility(View.VISIBLE);
             recycleView.setVisibility(View.VISIBLE);
-            jianjieLayout.setVisibility(View.GONE);
+//            jianjieLayout.setVisibility(View.GONE);
+            webView.setVisibility(View.GONE);
         } else {
             kechengList.setTextColor(Color.parseColor("#AAAAAA"));
             zhishiView.setVisibility(View.GONE);
             kechengText.setTextColor(Color.parseColor("#7EC7F5"));
             kechengView.setVisibility(View.VISIBLE);
             recycleView.setVisibility(View.GONE);
-            jianjieLayout.setVisibility(View.VISIBLE);
+//            jianjieLayout.setVisibility(View.VISIBLE);
+            webView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -224,29 +223,12 @@ public class KeChengDetailsActivity extends BaseActivity {
         } else {
             shoucangImg.setImageResource(R.mipmap.shoucang);
         }
-        htmlText.setText(Html.fromHtml(kechengBO.getIntroduction(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
-
+//        htmlText.setText(Html.fromHtml(kechengBO.getIntroduction(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
+        webView.loadDataWithBaseURL(null, kechengBO.getIntroduction(), "text/html", "utf-8", null);
         getVideoList();
     }
 
 
-    Html.ImageGetter imgGetter = source -> {
-        LogUtils.e("RG", "source---?>>>" + source);
-        Drawable drawable = null;
-        URL url;
-        try {
-            url = new URL(source);
-            Log.i("RG", "url---?>>>" + url);
-            drawable = Drawable.createFromStream(url.openStream(), ""); // 获取网路图片
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight());
-        Log.i("RG", "url---?>>>" + url);
-        return drawable;
-    };
 
 
     /**
