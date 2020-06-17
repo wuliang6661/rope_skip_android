@@ -280,7 +280,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             R.id.item_bzzx_fragment_mine,
             R.id.btn_exit_login_fragment_mine,
             R.id.my_shoucang,
-            R.id.add_device_layout})
+            R.id.add_device_layout,
+    R.id.item_select_music})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -331,6 +332,12 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 break;
             case R.id.my_shoucang:
                 gotoActivity(MyShouCangActivity.class, false);
+                break;
+            case R.id.item_select_music:
+                intent = new Intent();
+                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.SHOW_MUSIC_SETTING);
+                intent.setClass(_mActivity, MineMainActivity.class);
+                startActivity(intent);
                 break;
         }
     }

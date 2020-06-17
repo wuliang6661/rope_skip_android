@@ -30,6 +30,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/select_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginTop="25dp"
@@ -41,34 +42,44 @@
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/nianlingyixuan" />
+                    android:background="@mipmap/shengri" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="年龄"
+                    android:text="生日"
                     android:textColor="@color/colorText"
                     android:textSize="14sp" />
 
-                <android.support.v7.widget.AppCompatEditText
+                <TextView
                     android:id="@+id/et_age_fragment_base_msg_input"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_weight="1"
                     android:background="@color/white"
-                    android:hint="点击输入文本"
+                    android:hint="请选择生日"
                     android:inputType="number"
                     android:textColor="@color/colorText"
                     android:textColorHint="@color/color_C3C3C3"
                     android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/item_arrowright" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/input_bottom_line"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -91,7 +102,7 @@
                     android:id="@+id/ll_sex_woman_fragment_base_msg_input"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginLeft="50dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -181,11 +192,11 @@
                     android:id="@+id/et_height_fragment_base_msg_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginLeft="50dp"
                     android:background="@color/white"
+                    android:digits="0123456789."
                     android:hint="点击输入文本"
                     android:inputType="number"
-                    android:digits="0123456789."
                     android:textColor="@color/colorText"
                     android:textColorHint="@color/color_C3C3C3"
                     android:textSize="14sp" />
@@ -218,10 +229,10 @@
                     android:id="@+id/et_weight_fragment_base_msg_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginLeft="50dp"
                     android:background="@color/white"
-                    android:hint="点击输入文本"
                     android:digits="0123456789."
+                    android:hint="点击输入文本"
                     android:textColor="@color/colorText"
                     android:textColorHint="@color/color_C3C3C3"
                     android:textSize="14sp" />

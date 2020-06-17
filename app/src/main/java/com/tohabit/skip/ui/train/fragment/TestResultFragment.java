@@ -10,6 +10,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -30,6 +31,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.zxing.WriterException;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
@@ -51,6 +53,7 @@ import com.tohabit.skip.utils.ShareUtils;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
 import com.tohabit.skip.widget.RadarView;
+import com.tohabit.skip.zxing.encoding.EncodingHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -179,7 +182,15 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
         userName.setText(App.userBO.getNickName());
         shapeDate.setText(TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd")));
-        getQrCode();
+        if (!TextUtils.isEmpty(App.userBO.getDownloadUrl())) {
+            // 根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
+            try {
+                Bitmap bitmap = EncodingHandler.createQRCode(App.userBO.getDownloadUrl(), 300);
+                userQrCode.setImageBitmap(bitmap);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

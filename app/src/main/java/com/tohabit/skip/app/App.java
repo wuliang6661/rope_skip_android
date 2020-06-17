@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.Utils;
 import com.tohabit.skip.di.component.AppComponent;
 import com.tohabit.skip.di.component.DaggerAppComponent;
 import com.tohabit.skip.di.module.AppModule;
+import com.tohabit.skip.pojo.po.MusicBO;
 import com.tohabit.skip.pojo.po.UserBO;
 import com.tohabit.skip.pojo.po.XIaoJiangBO;
 import com.tohabit.skip.service.UartService;
@@ -48,6 +49,15 @@ public class App extends Application {
     public static BluetoothDevice connectDevice;
 
     public static boolean AppInBack = false;  //App 是否在后台
+    /**
+     * 播放的音乐
+     */
+    public static MusicBO musicBO;
+
+    /**
+     * 使用的节拍
+     */
+    public static String beat;
 
     public static synchronized App getInstance() {
         return instance;

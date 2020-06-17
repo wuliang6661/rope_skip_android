@@ -48,6 +48,7 @@ public class RouterConstants {
     public static final int SHOW_MY_PK = 10;
     public static final int SHOW_PERSONAL_DATA = 11;
     public static final int SHOW_MESSAGE_LIST = 12;
+    public static final int SHOW_MUSIC_SETTING = 13;
 
     //训练
     public static final int BASE_MSG_INPUT = 11;
@@ -55,6 +56,7 @@ public class RouterConstants {
     public static final int ENERGY_VALUE = 13;
     public static final int ROPE_SKIP_RESULTS = 14;
     public static final int ROPE_PLAN_MAIN = 15;
+
 
 
 

@@ -28,6 +28,7 @@ public class ImprovePlanListAdapter extends BaseRvAdapter<TestDetailsBO.PlanList
     protected void convert(BaseViewHolder helper, TestDetailsBO.PlanListBean item) {
         helper.addOnClickListener(R.id.tv_look_layout_fragment_improve_plan_list_item)
                 .addOnClickListener(R.id.tv_state_name_layout_fragment_improve_plan_list_item)
+                .setText(R.id.title, item.getVideoTitle())
                 .setText(R.id.tv_content_layout_fragment_improve_plan_list_item, item.getVideoTitle())
                 .setText(R.id.tv_train_time_layout_fragment_improve_plan_list_item, item.getTrainLength() + "");
         switch (item.getStatus()) {

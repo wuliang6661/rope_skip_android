@@ -156,6 +156,7 @@ public class XunLianJiHuaActivity extends BaseActivity {
 
             @Override
             public void convert(LGViewHolder holder, JiHuaBO jiHuaBO, int position) {
+                holder.setText(R.id.title, jiHuaBO.getVideoTitle());
                 holder.setText(R.id.tv_content_layout_fragment_improve_plan_list_item, jiHuaBO.getVideoTitle());
                 holder.setText(R.id.tv_train_time_layout_fragment_improve_plan_list_item, jiHuaBO.getTrainLength());
 //                holder.getView(R.id.tv_state_name_layout_fragment_improve_plan_list_item).setVisibility(View.GONE);

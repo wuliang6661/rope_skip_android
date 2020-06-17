@@ -65,20 +65,26 @@
         android:background="#F8F8F8" />
 
 
-    <ScrollView
+    <WebView
+        android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white" />
 
-        <TextView
-            android:id="@+id/html_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginRight="26dp"
-            android:layout_marginBottom="20dp"
-            android:lineSpacingExtra="4dp" />
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
-    </ScrollView>
+    <!--<TextView-->
+    <!--android:id="@+id/html_text"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="26dp"-->
+    <!--android:layout_marginTop="13dp"-->
+    <!--android:layout_marginRight="26dp"-->
+    <!--android:layout_marginBottom="20dp"-->
+    <!--android:lineSpacingExtra="4dp" />-->
+
+    <!--</ScrollView>-->
 
 </LinearLayout>

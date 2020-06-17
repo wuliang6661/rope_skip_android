@@ -299,6 +299,13 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+
+        <!--关于我们-->
+        <activity
+            android:name="com.tohabit.skip.ui.train.fragment.SettingMusicActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <!--查看大图-->
         <activity
             android:name="com.tohabit.skip.ui.BigPicutreActivity"

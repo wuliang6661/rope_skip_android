@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
@@ -40,9 +40,9 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     @BindView(R.id.et_password_fragment_login)
     AppCompatEditText mEtPassword;
     @BindView(R.id.ll_taggle_close_fragment_login)
-    LinearLayout mLlTaggleClose;
+    AppCompatImageView mLlTaggleClose;
     @BindView(R.id.ll_taggle_open_fragment_login)
-    LinearLayout mLlTaggleOpen;
+    AppCompatImageView mLlTaggleOpen;
     @BindView(R.id.tv_forget_password_fragment_login)
     AppCompatButton mTvForgetPassword;
     @BindView(R.id.btn_submit_fragment_login)

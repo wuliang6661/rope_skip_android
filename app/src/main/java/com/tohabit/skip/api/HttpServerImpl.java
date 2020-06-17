@@ -569,7 +569,7 @@ public class HttpServerImpl {
                                                     String sex, String height, String weight) {
         Map<String, Object> params = new HashMap<>();
         params.put("nickName", nickName);
-        params.put("age", age);
+        params.put("birthDate", age);
         params.put("sex", sex);
         params.put("height", height);
         params.put("weight", weight);
@@ -782,7 +782,7 @@ public class HttpServerImpl {
      */
     public static Observable<String> saveGeneralInfo(String age, String height, String sex, String weight) {
         Map<String, Object> params = new HashMap<>();
-        params.put("age", age);
+        params.put("birthDate", age);
         params.put("height", height);
         params.put("sex", sex);
         params.put("weight", weight);

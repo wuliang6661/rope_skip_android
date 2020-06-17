@@ -17,9 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -43,7 +41,6 @@ import java.io.File;
 import java.util.Objects;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -78,6 +75,15 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
     TextView nikeName;
     @BindView(R.id.phone_num)
     TextView phoneNum;
+    @BindView(R.id.birth_day)
+    TextView birthDay;
+    @BindView(R.id.sex_text)
+    TextView sexText;
+    @BindView(R.id.height)
+    TextView height;
+    @BindView(R.id.weight)
+    TextView weight;
+    Unbinder unbinder;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
@@ -153,6 +159,10 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
         nikeName.setText(userBO.getNickName());
         phoneNum.setText(Utils.settingphone(userBO.getPhone()));
         tvTitleFragmentPersonalData.setText("ID " + userBO.getUserCode());
+        sexText.setText(userBO.getSex() == 0 ? "男" : "女");
+        birthDay.setText(userBO.getBirthDate());
+        height.setText(userBO.getHeight() + "");
+        weight.setText(userBO.getWeight() + "");
     }
 
 
@@ -328,4 +338,5 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
             }
         });
     }
+
 }

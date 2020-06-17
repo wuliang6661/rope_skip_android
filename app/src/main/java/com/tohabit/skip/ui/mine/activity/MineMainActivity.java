@@ -18,6 +18,7 @@ import com.tohabit.skip.ui.mine.fragment.MyPkFragment;
 import com.tohabit.skip.ui.mine.fragment.PersonalDataFragment;
 import com.tohabit.skip.ui.mine.fragment.SystemSettingFragment;
 import com.tohabit.skip.ui.mine.presenter.MineMainPresenter;
+import com.tohabit.skip.ui.train.fragment.RopeSkipSettingFragment;
 
 import butterknife.BindView;
 
@@ -90,9 +91,9 @@ public class MineMainActivity extends BaseActivity<MineMainPresenter> implements
             case RouterConstants.SHOW_MESSAGE_LIST:
                 loadRootFragment(R.id.frame_container_activity_mine_main, MessageListFragment.newInstance(null));
                 break;
-//            case RouterConstants.SHOW_ADD_TYPE:
-//                loadRootFragment(R.id.frame_container_activity_mine_main, AddTypeFragment.newInstance(null));
-//                break;
+            case RouterConstants.SHOW_MUSIC_SETTING:
+                loadRootFragment(R.id.frame_container_activity_mine_main, RopeSkipSettingFragment.newInstance(null));
+                break;
 //            default:
 ////                loadRootFragment(R.id.frame_container_activity_mine_main, PerfectInformationFragment.newInstance(null));
 //                break;

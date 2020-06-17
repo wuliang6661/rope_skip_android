@@ -241,7 +241,7 @@ public class PKHomeActivity extends BaseActivity {
                     showToast("您的PK值不足!");
                     return;
                 }
-//                if (App.isConnect()) {
+                if (App.isConnect()) {
                     if (WebSocketUtils.getInstance().getState()) {
                         Bundle bundle = new Bundle();
                         bundle.putInt("id", pkChangCiBOS.get(position).getId());
@@ -251,9 +251,9 @@ public class PKHomeActivity extends BaseActivity {
                     } else {
                         showToast("游戏服务器正在连接！");
                     }
-//                } else {
-//                    showToast("请先连接跳绳设备！");
-//                }
+                } else {
+                    showToast("请先连接跳绳设备！");
+                }
             }
         });
         pkRecycle.setAdapter(adapter);

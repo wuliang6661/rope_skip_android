@@ -1,6 +1,7 @@
 package com.tohabit.skip.ui.find.fragment;
 
-import android.text.Html;
+import android.os.Bundle;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,9 +10,10 @@ import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.ZhiShiBO;
-import com.tohabit.skip.utils.ImageGetterUtils;
+import com.tohabit.skip.widget.WebUtils;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -25,8 +27,10 @@ public class ZhiShiDetailsActivity extends BaseActivity {
     TextView zhishiPerson;
     @BindView(R.id.shoucang_img)
     ImageView shoucangImg;
-    @BindView(R.id.html_text)
-    TextView htmlText;
+    @BindView(R.id.web_view)
+    WebView webView;
+//    @BindView(R.id.html_text)
+//    TextView htmlText;
 
     private int id;
     private ZhiShiBO zhiShiBO;
@@ -52,9 +56,9 @@ public class ZhiShiDetailsActivity extends BaseActivity {
         setTitleText("跳绳知识");
 
         id = getIntent().getExtras().getInt("Id");
+        WebUtils.initWeb(webView);
         getClassDetails(id);
     }
-
 
 
     @Override
@@ -105,10 +109,10 @@ public class ZhiShiDetailsActivity extends BaseActivity {
         } else {
             shoucangImg.setImageResource(R.mipmap.shoucang);
         }
-        htmlText.setText(Html.fromHtml(zhiShiBO.getContent(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
+//        htmlText.setText(Html.fromHtml(zhiShiBO.getContent(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
+        webView.loadDataWithBaseURL(null, zhiShiBO.getContent(), "text/html", "utf-8", null);
 
     }
-
 
 
     /**
@@ -141,5 +145,12 @@ public class ZhiShiDetailsActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
