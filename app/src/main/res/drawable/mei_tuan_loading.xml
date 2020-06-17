@@ -7,46 +7,56 @@
     <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_06"/>
     <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_07"/>-->
 
-   <!-- <item
-        android:drawable="@drawable/refres17"
+    <item
+        android:drawable="@mipmap/refres01"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres18"
+        android:drawable="@mipmap/refres02"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres19"
+        android:drawable="@mipmap/refres03"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres20"
+        android:drawable="@mipmap/refres04"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres21"
+        android:drawable="@mipmap/refres05"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres22"
+        android:drawable="@mipmap/refres06"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres23"
+        android:drawable="@mipmap/refres07"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres24"
+        android:drawable="@mipmap/refres08"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres25"
+        android:drawable="@mipmap/refres09"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres26"
+        android:drawable="@mipmap/refres10"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres27"
+        android:drawable="@mipmap/refres11"
         android:duration="100" />
     <item
-        android:drawable="@drawable/refres28"
+        android:drawable="@mipmap/refres12"
         android:duration="100" />
+
     <item
-        android:drawable="@drawable/refres29"
+        android:drawable="@mipmap/refres13"
         android:duration="100" />
+
     <item
-        android:drawable="@drawable/refres30"
-        android:duration="100" />-->
+        android:drawable="@mipmap/refres14"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/refres15"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/refres16"
+        android:duration="100" />
 </animation-list>

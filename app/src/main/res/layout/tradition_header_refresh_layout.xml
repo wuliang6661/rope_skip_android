@@ -3,7 +3,7 @@
     android:id="@+id/pull_to_refresh_header"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#3c3f41"
+    android:background="@color/white"
     android:gravity="center"
     android:paddingTop="10dip"
     android:paddingBottom="10dip">

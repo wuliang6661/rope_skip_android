@@ -5,12 +5,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
@@ -26,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * @version V1.0
@@ -47,7 +43,6 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
     BaseRvAdapter mListAdapter;
     @BindView(R.id.toolbar_layout_toolbar)
     ToolbarWithBackRightProgress toolbar;
-    Unbinder unbinder;
     private String mModeType;
 
     public static MessageListFragment newInstance(Bundle bundle) {
@@ -98,7 +93,7 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
 
     private void initAdapter() {
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider_test).colorResId(R.color.transparent).build());
+//        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider_test).colorResId(R.color.transparent).build());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListAdapter = new BaseRvAdapter<MessageBO, BaseViewHolder>(R.layout.item_message, new ArrayList<>()) {
 
@@ -159,17 +154,4 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 }

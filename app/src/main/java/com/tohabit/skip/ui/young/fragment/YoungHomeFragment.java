@@ -162,7 +162,6 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
 
     @Override
     public void showProgress() {
-
         progress.setVisibility(View.VISIBLE);
     }
 

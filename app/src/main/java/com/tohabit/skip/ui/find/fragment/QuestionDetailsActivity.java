@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
@@ -23,7 +23,7 @@ import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.OnePingLunBO;
 import com.tohabit.skip.pojo.po.QuestionsBO;
 import com.tohabit.skip.ui.BigPicutreActivity;
-import com.tohabit.skip.utils.ImageGetterUtils;
+import com.tohabit.skip.widget.WebUtils;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
 
@@ -46,8 +46,8 @@ public class QuestionDetailsActivity extends BaseActivity {
     TextView wendaTitle;
     @BindView(R.id.wenda_person_message)
     TextView wendaPersonMessage;
-    @BindView(R.id.html_text)
-    TextView htmlText;
+    @BindView(R.id.web_view)
+    WebView htmlText;
     @BindView(R.id.pinglun_num)
     TextView pinglunNum;
     @BindView(R.id.recycle_view)
@@ -87,6 +87,7 @@ public class QuestionDetailsActivity extends BaseActivity {
 
         id = getIntent().getExtras().getInt("Id");
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
+        WebUtils.initWeb(htmlText);
         getQuestionAnswerInfo();
     }
 
@@ -140,7 +141,8 @@ public class QuestionDetailsActivity extends BaseActivity {
     private void showData() {
         wendaTitle.setText(questionsBO.getTitle());
         wendaPersonMessage.setText("发布人  " + questionsBO.getUserName() + "     发布时间   " + questionsBO.getFriendDate());
-        htmlText.setText(Html.fromHtml(questionsBO.getContent(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
+//        htmlText.setText(Html.fromHtml(questionsBO.getContent(), new ImageGetterUtils.MyImageGetter(this, htmlText), null));
+        htmlText.loadDataWithBaseURL(null, questionsBO.getContent(), "text/html", "utf-8", null);
     }
 
 

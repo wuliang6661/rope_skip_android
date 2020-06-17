@@ -44,9 +44,9 @@ public class StatisticsActivity extends BaseActivity {
     @BindView(R.id.data_baogao)
     RelativeLayout dataBaogao;
     @BindView(R.id.chart1)
-    LineChart chart1;
+    BarChart chart1;
     @BindView(R.id.bar1)
-    BarChart bar1;
+    LineChart bar1;
     @BindView(R.id.chart2)
     LineChart chart2;
     @BindView(R.id.bar2)
@@ -86,9 +86,9 @@ public class StatisticsActivity extends BaseActivity {
         goBack();
 
         recycleView.setLayoutManager(new LinearLayoutManager(this));
-        initChart(chart1);
+        initBar(chart1);
         initChart(chart2);
-        initBar(bar1);
+        initChart(bar1);
         initBar(bar2);
         getDataStatistic();
     }
@@ -164,8 +164,8 @@ public class StatisticsActivity extends BaseActivity {
      * 初始化各自折线图柱状图的数据
      */
     private void initChartData(List<StatisticsBO> s) {
-        List<Entry> nums = new ArrayList<>();
-        List<BarEntry> cishus = new ArrayList<>();
+        List<BarEntry> nums = new ArrayList<>();
+        List<Entry> cishus = new ArrayList<>();
         List<Entry> sudus = new ArrayList<>();
         List<BarEntry> jiasudus = new ArrayList<>();
         float maxskip = 0;
@@ -173,8 +173,8 @@ public class StatisticsActivity extends BaseActivity {
         float maxaverage = 0;
         float maxaccelerate = 0;
         for (int i = 0; i < s.size(); i++) {
-            nums.add(new Entry(i, s.get(i).getSkipNum()));
-            cishus.add(new BarEntry(i, s.get(i).getSkipTime()));
+            nums.add(new BarEntry(i, s.get(i).getSkipNum()));
+            cishus.add(new Entry(i, s.get(i).getSkipTime()));
             sudus.add(new Entry(i, (float) s.get(i).getAverageVelocity()));
             jiasudus.add(new BarEntry(i, (float) s.get(i).getBreakNum()));
             if (s.get(i).getSkipNum() > maxskip) {
@@ -199,13 +199,13 @@ public class StatisticsActivity extends BaseActivity {
         chart2.getAxisLeft().setAxisMinimum(0);
         bar1.getAxisLeft().setAxisMinimum(0);
         bar2.getAxisLeft().setAxisMinimum(0);
-        chart1.getAxisLeft().setAxisMaximum(maxskip + 10);
-        chart2.getAxisLeft().setAxisMaximum(maxaverage + 10);
-        bar1.getAxisLeft().setAxisMaximum(maxbresk + 20);
-        bar2.getAxisLeft().setAxisMaximum(maxaccelerate + 10);
-        setNumData(nums, chart1, 0);
+        chart1.getAxisLeft().setAxisMaximum(maxskip + 30);
+        chart2.getAxisLeft().setAxisMaximum(maxaverage + 30);
+        bar1.getAxisLeft().setAxisMaximum(maxbresk + 30);
+        bar2.getAxisLeft().setAxisMaximum(maxaccelerate + 30);
+        setBarData(nums, chart1);
+        setNumData(cishus, bar1,0);
         setNumData(sudus, chart2, 1);
-        setBarData(cishus, bar1);
         setBarData(jiasudus, bar2);
     }
 
