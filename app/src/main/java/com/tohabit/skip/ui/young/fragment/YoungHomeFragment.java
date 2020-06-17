@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
@@ -26,6 +28,7 @@ import com.tohabit.skip.ui.mine.activity.MineMainActivity;
 import com.tohabit.skip.ui.mine.fragment.XunLianJiHuaActivity;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.widget.TraditionHeaderAdapter;
 import com.tohabit.skip.widget.waterview.WaterFlake;
 
 import java.util.List;
@@ -75,6 +78,8 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
     AppCompatImageView chenghaoImg;
     @BindView(R.id.xiaojiang_layout)
     LinearLayout xiaojiangLayout;
+    @BindView(R.id.refresh_view)
+    UltimateRefreshView refreshView;
 
     public static YoungHomeFragment newInstance(Bundle bundle) {
         YoungHomeFragment fragment = new YoungHomeFragment();
@@ -105,8 +110,20 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
         gifDrawable = (GifDrawable) giViewMonkeyFragmentYoungHome.getDrawable();
         gifDrawable.start();
         Glide.with(getActivity()).load(App.userBO.getImage()).into(ivUserHeaderFragmentYoungHome);
+        initRefresh();
     }
 
+
+    private void initRefresh() {
+        refreshView.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+        refreshView.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
+            @Override
+            public void onHeaderRefresh(UltimateRefreshView view) {
+                getEnergies();
+                getYoungGeneralInfo();
+            }
+        });
+    }
 
 
     @Override
@@ -262,11 +279,13 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
         HttpServerImpl.receiveEnergy(id).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                refreshView.onHeaderRefreshComplete();
                 getYoungGeneralInfo();
             }
 
             @Override
             public void onFiled(String message) {
+                refreshView.onHeaderRefreshComplete();
                 showToast(message);
             }
         });
@@ -280,6 +299,7 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
         HttpServerImpl.getYoungGeneralInfo().subscribe(new HttpResultSubscriber<XIaoJiangBO>() {
             @Override
             public void onSuccess(XIaoJiangBO s) {
+                refreshView.onHeaderRefreshComplete();
                 App.xIaoJiangBO = s;
                 if (s != null) {
                     tvNlz.setText(s.getEnergyValue());
@@ -291,6 +311,7 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
 
             @Override
             public void onFiled(String message) {
+                refreshView.onHeaderRefreshComplete();
                 showToast(message);
             }
         });

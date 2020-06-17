@@ -66,6 +66,8 @@ public interface HttpService {
 
     String URL = "http://47.96.126.117:8084/rope_skipping_webservice/";
 
+//    String URL = "https://tohabit.zjtmcloud.com/rope_skipping_webservice/";
+
     /**
      * 密码登录接口
      */

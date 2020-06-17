@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item android:duration="100" android:drawable="@drawable/refreshing_image_frame_01"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_02"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_03"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_05"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_06"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_07"/>-->
+
+   <!-- <item
+        android:drawable="@drawable/refres17"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres18"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres19"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres20"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres21"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres22"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres23"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres24"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres25"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres26"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres27"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres28"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres29"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/refres30"
+        android:duration="100" />-->
+</animation-list>

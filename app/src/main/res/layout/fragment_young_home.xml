@@ -3,154 +3,184 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/ic_yong_home_bg"
     android:fitsSystemWindows="true">
 
-    <com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress
-        android:id="@+id/toolbar_layout_toolbar"
+
+    <com.sak.ultilviewlib.UltimateRefreshView
+        android:id="@+id/refresh_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_toolbar_default"
-        android:background="@color/transparent"
-        app:tl_brp_bottom_divider_visibility="gone"
-        app:tl_brp_left_text_color="@color/colorText"
-        app:tl_brp_right_text_color="@color/colorText"
-        app:tl_brp_title="逗你玩呢"
-        app:tl_brp_title_text_color="@color/color_064A6C" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/xiaojiang_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_layout_toolbar"
-        android:layout_marginTop="12dp"
-        android:background="@mipmap/ic_young_rec_left"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_user_header_fragment_young_home"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginHorizontal="11dp"
-            android:layout_marginLeft="15dp"
-            android:src="@color/no_image" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@mipmap/ic_yong_home_bg" />
+
+            <com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress
+                android:id="@+id/toolbar_layout_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_toolbar_default"
+                android:background="@color/transparent"
+                app:tl_brp_bottom_divider_visibility="gone"
+                app:tl_brp_left_text_color="@color/colorText"
+                app:tl_brp_right_text_color="@color/colorText"
+                app:tl_brp_title="逗你玩呢"
+                app:tl_brp_title_text_color="@color/color_064A6C" />
 
             <LinearLayout
-                android:id="@+id/ll_nlz"
+                android:id="@+id/xiaojiang_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar_layout_toolbar"
+                android:layout_marginTop="12dp"
+                android:background="@mipmap/ic_young_rec_left"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_user_header_fragment_young_home"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginHorizontal="11dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@color/no_image" />
 
-                <android.support.v7.widget.AppCompatImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_star" />
+                    android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tv_nlz"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="12dp"
-                    android:textColor="#ff7ec7f5"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/ll_nlz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/ic_star" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/tv_nlz"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="12dp"
+                            android:textColor="#ff7ec7f5"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_cj"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/chenghao_img"
+                            android:layout_width="16dp"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/ic_star2" />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/tv_cj"
+                            android:layout_width="50dp"
+                            android:layout_height="19dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="12dp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_cj"
+                android:id="@+id/right_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
+                android:layout_below="@+id/toolbar_layout_toolbar"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="15dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/chenghao_img"
-                    android:layout_width="16dp"
+                    android:id="@+id/ic_cj_fragment_young_home"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_star2" />
+                    android:background="@mipmap/ic_cj_right" />
 
                 <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/tv_cj"
-                    android:layout_width="50dp"
-                    android:layout_height="19dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="12dp" />
+                    android:id="@+id/ic_rw_fragment_young_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@mipmap/ic_rw" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/ic_rw2_fragment_young_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@mipmap/ic_rw2" />
+
             </LinearLayout>
 
 
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/right_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_layout_toolbar"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="14dp"
-        android:layout_marginRight="15dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/ic_cj_fragment_young_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_cj_right" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/ic_rw_fragment_young_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@mipmap/ic_rw" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/ic_rw2_fragment_young_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@mipmap/ic_rw2" />
-
-    </LinearLayout>
+            <com.tohabit.commonlibrary.widget.ProgressbarLayout
+                android:id="@+id/progress_fragment_common_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
 
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gi_view_monkey_fragment_young_home"
-        android:layout_width="168dp"
-        android:layout_height="165dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="75dp"
-        android:layout_marginBottom="100dp"
-        android:src="@drawable/monkey" />
+            <com.tohabit.skip.widget.waterview.WaterFlake
+                android:id="@+id/water_flake"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/right_layout" />
 
 
-    <com.tohabit.commonlibrary.widget.ProgressbarLayout
-        android:id="@+id/progress_fragment_common_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_layout_toolbar"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gi_view_monkey_fragment_young_home"
+                android:layout_width="168dp"
+                android:layout_height="165dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="75dp"
+                android:layout_marginBottom="100dp"
+                android:src="@drawable/monkey" />
+
+        </RelativeLayout>
 
 
-    <com.tohabit.skip.widget.waterview.WaterFlake
-        android:id="@+id/water_flake"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/right_layout" />
+    </ScrollView>
 
-</RelativeLayout>
+
+</com.sak.ultilviewlib.UltimateRefreshView>
+
+
+    </RelativeLayout>
