@@ -154,7 +154,6 @@ public class SearchActivty extends BaseActivity {
             @Override
             public void onItemClicked(View view, int position) {
                 showProgress("蓝牙连接中...");
-//                BlueDeviceUtils.getInstance().cancleScan();
                 EventBus.getDefault().post(devices.get(position));
             }
         });

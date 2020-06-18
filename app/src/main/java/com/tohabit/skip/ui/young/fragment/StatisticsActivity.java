@@ -190,20 +190,15 @@ public class StatisticsActivity extends BaseActivity {
             if (s.get(i).getBreakNum() > maxaccelerate) {
                 maxaccelerate = (float) s.get(i).getAccelerateVelocity();
             }
-//            float val = (float) Math.random();
-//            nums.add(new Entry(i, val));
-//            cishus.add(new BarEntry(i, val));
-//            sudus.add(new Entry(i, val));
-//            jiasudus.add(new BarEntry(i, val));
         }
         chart1.getAxisLeft().setAxisMinimum(0);
         chart2.getAxisLeft().setAxisMinimum(0);
         bar1.getAxisLeft().setAxisMinimum(0);
         bar2.getAxisLeft().setAxisMinimum(0);
-        chart1.getAxisLeft().setAxisMaximum(maxskip + 30);
-        chart2.getAxisLeft().setAxisMaximum(maxaverage + 30);
-        bar1.getAxisLeft().setAxisMaximum(maxbresk + 30);
-        bar2.getAxisLeft().setAxisMaximum(maxaccelerate + 30);
+//        chart1.getAxisLeft().setAxisMaximum(maxskip + 30);
+//        chart2.getAxisLeft().setAxisMaximum(maxaverage + 30);
+//        bar1.getAxisLeft().setAxisMaximum(maxbresk + 30);
+//        bar2.getAxisLeft().setAxisMaximum(maxaccelerate + 30);
         setBarData(nums, chart1);
         setNumData(cishus, bar1, 0);
         setNumData(sudus, chart2, 1);

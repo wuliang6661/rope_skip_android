@@ -157,6 +157,7 @@ public class DeviceManagerActivity extends MVPBaseActivity<DeviceManagerContract
             public void convert(LGViewHolder holder, DeviceBO s, int position) {
                 holder.setText(R.id.device_name, s.getName());
                 holder.setText(R.id.device_mac, s.getMacAddress());
+                holder.setText(R.id.status, s.getLinkStatus() == 0 ? "未连接" : "已连接");
             }
         };
         recycleView.setAdapter(adapter);

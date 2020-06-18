@@ -3,6 +3,8 @@
 
     <item android:drawable="@mipmap/bt_bangding_fu" android:state_enabled="true" />
 
-    <item android:drawable="@mipmap/bt_bangding_no" android:state_enabled="false" />
+    <item android:drawable="@mipmap/bt_bangding_fu" android:state_enabled="false" />
 
+    <!-- <item android:drawable="@mipmap/bt_bangding_no" android:state_enabled="false" />
+ -->
 </selector>

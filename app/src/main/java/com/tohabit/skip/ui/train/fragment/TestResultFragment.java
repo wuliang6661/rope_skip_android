@@ -61,6 +61,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 /**
@@ -142,6 +143,9 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     TextView jiasudu;
     @BindView(R.id.jiasudu_img)
     ImageView jiasuduImg;
+    @BindView(R.id.content_layout)
+    AppCompatTextView contentLayout;
+    Unbinder unbinder;
 
     private Dialog mBottomSheetDialog;
     private ImprovePlanListAdapter mPlanListAdapter;
@@ -500,6 +504,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
      */
     private void saveImgs() {
         toolbarLayoutToolbar.setVisibility(View.GONE);
+        contentLayout.setVisibility(View.VISIBLE);
         noShareLayout.setVisibility(View.GONE);
         buttomLayout.setVisibility(View.VISIBLE);
         showProgress(null);
@@ -515,6 +520,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
                     showToast("保存失败！");
                 }
                 toolbarLayoutToolbar.setVisibility(View.VISIBLE);
+                contentLayout.setVisibility(View.GONE);
                 noShareLayout.setVisibility(View.VISIBLE);
                 buttomLayout.setVisibility(View.GONE);
             }
@@ -527,6 +533,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
      */
     private void shareImage(int flags) {
         toolbarLayoutToolbar.setVisibility(View.GONE);
+        contentLayout.setVisibility(View.VISIBLE);
         noShareLayout.setVisibility(View.GONE);
         buttomLayout.setVisibility(View.VISIBLE);
         new Handler().postDelayed(new Runnable() {
@@ -535,9 +542,11 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
                 Bitmap bitmap = ScreenShotUtils.getScrollViewBitmap(scrollView);
                 ShareUtils.shareImage(flags, bitmap);
                 toolbarLayoutToolbar.setVisibility(View.VISIBLE);
+                contentLayout.setVisibility(View.GONE);
                 noShareLayout.setVisibility(View.VISIBLE);
                 buttomLayout.setVisibility(View.GONE);
             }
         }, 500);
     }
+
 }
