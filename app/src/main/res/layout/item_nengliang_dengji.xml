@@ -5,13 +5,26 @@
     android:orientation="horizontal">
 
 
-    <android.support.v7.widget.AppCompatImageView
+    <!-- <android.support.v7.widget.AppCompatImageView
+         android:id="@+id/iv_line3_center_fragment_energy_value"
+         android:layout_width="46dp"
+         android:layout_height="15dp"
+         android:layout_marginLeft="42dp"
+         android:layout_marginTop="15dp"
+         android:background="@mipmap/ic_edit_line1" />-->
+
+
+    <ProgressBar
         android:id="@+id/iv_line3_center_fragment_energy_value"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="46dp"
         android:layout_height="15dp"
         android:layout_marginLeft="42dp"
         android:layout_marginTop="15dp"
-        android:background="@mipmap/ic_edit_line1" />
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/nengliang_progress" />
+
 
     <LinearLayout
         android:layout_width="wrap_content"

@@ -1,7 +1,7 @@
 package com.tohabit.skip.ui.find.fragment;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +15,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -23,6 +25,7 @@ import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.common.adapter.BaseRvAdapter;
 import com.tohabit.skip.pojo.po.FenLeiBO;
 import com.tohabit.skip.pojo.po.ZhiShiBO;
+import com.tohabit.skip.widget.TraditionHeaderAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ import butterknife.OnClick;
 /**
  * 知识Fragment
  */
-public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ZhiShiFragment extends BaseFragment  {
 
 
     @BindView(R.id.fenlei_recycle)
@@ -46,7 +49,7 @@ public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.O
     @BindView(R.id.rv_layout_swipe_to_refresh)
     RecyclerView mRecyclerView;
     @BindView(R.id.swipeLayout_layout_swipe_to_refresh)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    UltimateRefreshView mSwipeRefreshLayout;
 
 
     BaseRvAdapter<ZhiShiBO, BaseViewHolder> adapter;
@@ -77,7 +80,19 @@ public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.O
     @Override
     protected void initEventAndData() {
 //        shaixuanLayout.setVisibility(View.VISIBLE);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+//        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+        mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
+            @Override
+            public void onHeaderRefresh(UltimateRefreshView view) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onRefresh();
+                    }
+                },1000);
+            }
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -160,13 +175,13 @@ public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.O
             @Override
             public void onSuccess(List<FenLeiBO> s) {
                 setFenLeiAdapter(s);
-                mSwipeRefreshLayout.setRefreshing(false);
+                mSwipeRefreshLayout.onHeaderRefreshComplete();
             }
 
             @Override
             public void onFiled(String message) {
                 showToast(message);
-                mSwipeRefreshLayout.setRefreshing(false);
+                mSwipeRefreshLayout.onHeaderRefreshComplete();
             }
         });
     }
@@ -214,7 +229,6 @@ public class ZhiShiFragment extends BaseFragment implements SwipeRefreshLayout.O
                 });
     }
 
-    @Override
     public void onRefresh() {
         getKechengClass();
     }

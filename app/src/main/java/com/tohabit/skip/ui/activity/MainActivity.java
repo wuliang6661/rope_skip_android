@@ -48,7 +48,6 @@ import com.tohabit.skip.utils.DensityUtil;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.UpdateUtils;
 import com.tohabit.skip.utils.Utils;
-import com.tohabit.skip.utils.blue.bleutils.BlueUtils;
 import com.tohabit.skip.utils.blue.btutil.BlueDeviceUtils;
 import com.tohabit.skip.utils.blue.btutil.BluetoothChatService;
 
@@ -205,12 +204,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         JPushInterface.setTags(this, 1, treeSet);
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        BlueUtils.getInstance().disConnectBlue();
-    }
 
     /**
      * 退到后台
@@ -583,6 +576,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         //可交互的后台服务与普通服务的不同之处，就在于这个connection建立起了两者的联系
         @Override
         public void onServiceDisconnected(ComponentName name) {
+
         }
 
         @Override
@@ -596,6 +590,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             blueService.connect(device.getAddress());
         }
     };
+
+
+    @Override
+    protected void onDestroy() {
+        if(blueService != null){
+            blueService.disconnect();
+            blueService.close();
+            unbindService(connection);
+        }
+        App.connectDevice = null;
+        App.blueService = null;
+        super.onDestroy();
+    }
 
 
     @SuppressLint("HandlerLeak")

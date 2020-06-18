@@ -85,6 +85,8 @@ public class DataDetailsActivity extends BaseActivity {
     LinearLayout buttomLayout;
     @BindView(R.id.scroll_view)
     NestedScrollView scrollView;
+    @BindView(R.id.user_logo)
+    RoundedImageView userLogo;
 
     private BaoGaoDetailsBO detailsBO;
 
@@ -121,6 +123,7 @@ public class DataDetailsActivity extends BaseActivity {
         getDataMsg(id);
 
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
+        Glide.with(this).load(App.userBO.getImage()).into(userLogo);
         userName.setText(App.userBO.getNickName());
         shapeDate.setText(TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd")));
         if (!TextUtils.isEmpty(App.userBO.getDownloadUrl())) {

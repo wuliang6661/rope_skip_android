@@ -119,8 +119,8 @@
                     android:id="@+id/nengliang_dengji"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
                     android:layout_below="@+id/user_layout"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="25dp" />
 
 
@@ -358,125 +358,11 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
 
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="52dp"
-                                android:layout_height="52dp"
-                                android:background="@mipmap/ic_mk_grade1" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:text="青铜战士"
-                                android:textColor="#ff888888"
-                                android:textSize="12sp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="0-999"
-                                android:textColor="#ff888888"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="52dp"
-                                android:layout_height="52dp"
-                                android:background="@mipmap/ic_mk_grade2" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:text="白银斗士"
-                                android:textColor="#ff888888"
-                                android:textSize="12sp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="1000-4999"
-                                android:textColor="#ff888888"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="52dp"
-                                android:layout_height="52dp"
-                                android:background="@mipmap/ic_mk_grade3" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:text="黄金斗神"
-                                android:textColor="#ff888888"
-                                android:textSize="12sp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="5000-14999"
-                                android:textColor="#ff888888"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="52dp"
-                                android:layout_height="52dp"
-                                android:background="@mipmap/ic_mk_grade4" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:text="至尊圣佛"
-                                android:textColor="#ff888888"
-                                android:textSize="12sp" />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="15000以上"
-                                android:textColor="#ff888888"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycle_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
 

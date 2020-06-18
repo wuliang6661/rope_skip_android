@@ -2,6 +2,7 @@ package com.tohabit.skip.ui.young.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
@@ -119,8 +120,13 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
         refreshView.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
             @Override
             public void onHeaderRefresh(UltimateRefreshView view) {
-                getEnergies();
-                getYoungGeneralInfo();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getEnergies();
+                        getYoungGeneralInfo();
+                    }
+                },1000);
             }
         });
     }

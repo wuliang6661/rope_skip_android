@@ -194,7 +194,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         getDeviceQc();
         if (App.musicBO != null) {
             musicLayout.setVisibility(View.VISIBLE);
-            musicText.setText(App.musicBO .getName());
+            musicText.setText(App.musicBO.getName());
         }
     }
 
@@ -240,6 +240,10 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_back_fragment_train_plan:
+                if (type == 1 && testState) {
+                    updateTest();
+                    return;
+                }
                 _mActivity.onBackPressedSupport();
                 break;
             case R.id.ll_setting_fragment_train_plan:
@@ -307,8 +311,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         params.put("skipNum", skipNum);  //跳绳次数
         params.put("skipTime", trainLength - timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
-        params.put("backgroundMusicId", App.musicBO  == null ? null : App.musicBO .getId());
-        params.put("beat", App.beat );
+        params.put("backgroundMusicId", App.musicBO == null ? null : App.musicBO.getId());
+        params.put("beat", App.beat);
         params.put("trainPlanId", trainPlanId);   //训练id
         showProgress(null);
         HttpServerImpl.addTrain(params).subscribe(new HttpResultSubscriber<String>() {
@@ -345,7 +349,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         params.put("skipTime", trainLength - timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("deviceId", null);  //todo 设备id，暂时缺失
-        params.put("skipDate",TimeUtils.getNowString());
+        params.put("skipDate", TimeUtils.getNowString());
         showProgress(null);
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override
@@ -438,13 +442,13 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      * 播放音乐
      */
     private void startMusic() {
-        if (App.musicBO  != null) {
+        if (App.musicBO != null) {
             if (player != null) {
                 player.stop();
                 player = null;
             }
             player = new Player();
-            player.playUrl(App.musicBO .getUrl());
+            player.playUrl(App.musicBO.getUrl());
         }
     }
 
@@ -467,7 +471,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
 
     @Override
     public void onDestroyView() {
-        App.musicBO  = null;
+        App.musicBO = null;
         App.beat = null;
         if (player != null) {
             player.stop();

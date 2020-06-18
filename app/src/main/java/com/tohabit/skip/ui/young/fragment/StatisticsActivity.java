@@ -22,6 +22,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
@@ -204,7 +205,7 @@ public class StatisticsActivity extends BaseActivity {
         bar1.getAxisLeft().setAxisMaximum(maxbresk + 30);
         bar2.getAxisLeft().setAxisMaximum(maxaccelerate + 30);
         setBarData(nums, chart1);
-        setNumData(cishus, bar1,0);
+        setNumData(cishus, bar1, 0);
         setNumData(sudus, chart2, 1);
         setBarData(jiasudus, bar2);
     }
@@ -255,6 +256,12 @@ public class StatisticsActivity extends BaseActivity {
 //                    }
 //                });
 //            }
+            set1.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    return (int) value + "";
+                }
+            });
             LineData data = new LineData(set1);
             chart.setData(data);
         }
@@ -291,6 +298,12 @@ public class StatisticsActivity extends BaseActivity {
             data.setBarWidth(0.9f);
             chart.setData(data);
 
+            set1.setValueFormatter(new ValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    return (int) value + "";
+                }
+            });
             chart.invalidate();
             chart.animateY(1000);
         }

@@ -161,8 +161,8 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
         tvTitleFragmentPersonalData.setText("ID " + userBO.getUserCode());
         sexText.setText(userBO.getSex() == 0 ? "男" : "女");
         birthDay.setText(userBO.getBirthDate());
-        height.setText(userBO.getHeight() + "");
-        weight.setText(userBO.getWeight() + "");
+        height.setText(userBO.getHeight() + "cm");
+        weight.setText(userBO.getWeight() + "kg");
     }
 
 

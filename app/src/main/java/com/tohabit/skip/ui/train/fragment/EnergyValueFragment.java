@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.tohabit.commonlibrary.apt.SingleClick;
@@ -60,6 +61,8 @@ public class EnergyValueFragment extends BaseFragment<EnergyValuePresenter> impl
     @BindView(R.id.nengliang_dengji)
     RecyclerView nengliangDengji;
     Unbinder unbinder;
+    @BindView(R.id.recycle_view)
+    RecyclerView recycleView;
 
 
     public static EnergyValueFragment newInstance(Bundle bundle) {
@@ -96,6 +99,10 @@ public class EnergyValueFragment extends BaseFragment<EnergyValuePresenter> impl
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         nengliangDengji.setLayoutManager(manager);
+
+        LinearLayoutManager manager1 = new LinearLayoutManager(getActivity());
+        manager1.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recycleView.setLayoutManager(manager1);
         getEnergyLevelInfoList();
     }
 
@@ -144,6 +151,7 @@ public class EnergyValueFragment extends BaseFragment<EnergyValuePresenter> impl
             @Override
             public void onSuccess(List<NengLiangDengjiBO> s) {
                 setAdapter(s);
+                setEnergy(s);
             }
 
             @Override
@@ -163,15 +171,51 @@ public class EnergyValueFragment extends BaseFragment<EnergyValuePresenter> impl
 
             @Override
             public void convert(LGViewHolder holder, NengLiangDengjiBO nengLiangDengjiBO, int position) {
+                ProgressBar progressBar = (ProgressBar) holder.getView(R.id.iv_line3_center_fragment_energy_value);
+                progressBar.setProgress(0);
                 if (getItemCount() != 0 && position == (getItemCount() - 1)) {
-                    holder.getView(R.id.iv_line3_center_fragment_energy_value).setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 } else {
-                    holder.getView(R.id.iv_line3_center_fragment_energy_value).setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                 }
+                int myNengliang = Integer.parseInt((App.xIaoJiangBO.getEnergyValue()));
+                if (position < dengjiBOS.size() - 1) {
+                    if (myNengliang >= nengLiangDengjiBO.getValue() && myNengliang <= dengjiBOS.get(position + 1).getValue()) {
+                        progressBar.setProgress((int) ((myNengliang / ((float) dengjiBOS.get(position + 1).getValue())) * 100));
+                    }
+                }
+//                if (position == 0) {
+
+//                } else {
+//                    if (myNengliang >= nengLiangDengjiBO.getValue() && myNengliang <= dengjiBOS.get(position + 1).getValue()) {
+//                        int jindu = myNengliang - dengjiBOS.get(position - 1).getValue();
+//                        float all = nengLiangDengjiBO.getValue() - dengjiBOS.get(position - 1).getValue();
+//                        progressBar.setProgress((int) (jindu / all * 100));
+//                    }
+//                }
                 holder.setText(R.id.nengliang_text, nengLiangDengjiBO.getName());
                 holder.setImageUrl(getActivity(), R.id.nengliang_img, nengLiangDengjiBO.getImage());
             }
         };
         nengliangDengji.setAdapter(adapter);
     }
+
+
+    private void setEnergy(List<NengLiangDengjiBO> dengjiBOS) {
+        LGRecycleViewAdapter<NengLiangDengjiBO> adapter = new LGRecycleViewAdapter<NengLiangDengjiBO>(dengjiBOS) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_energy;
+            }
+
+            @Override
+            public void convert(LGViewHolder holder, NengLiangDengjiBO nengLiangDengjiBO, int position) {
+                holder.setText(R.id.energy_name, nengLiangDengjiBO.getName());
+                holder.setImageUrl(getActivity(), R.id.energy_img, nengLiangDengjiBO.getImage());
+                holder.setText(R.id.energy_value, nengLiangDengjiBO.getValue() + "");
+            }
+        };
+        recycleView.setAdapter(adapter);
+    }
+
 }
