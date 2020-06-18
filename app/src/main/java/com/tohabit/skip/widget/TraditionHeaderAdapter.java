@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.sak.ultilviewlib.adapter.BaseHeaderAdapter;
 import com.tohabit.skip.R;
+import com.tohabit.skip.app.App;
 
 /**
  * Created by engineer on 2017/4/30.
@@ -61,7 +62,11 @@ public class TraditionHeaderAdapter extends BaseHeaderAdapter {
         pull_to_refresh_image1.setVisibility(View.GONE);
         pull_to_refresh_text.setVisibility(View.GONE);
         refreshImg.setVisibility(View.VISIBLE);
-        refreshImg.setImageResource(R.drawable.mei_tuan_loading);
+        if (App.xIaoJiangBO.getSex() == 0) {
+            refreshImg.setImageResource(R.drawable.mei_tuan_loading);
+        } else {
+            refreshImg.setImageResource(R.drawable.refresh_nv);
+        }
         AnimationDrawable mAnimationDrawable = (AnimationDrawable) refreshImg.getDrawable();
         mAnimationDrawable.start();
     }

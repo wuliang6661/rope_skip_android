@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item android:duration="100" android:drawable="@drawable/refreshing_image_frame_01"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_02"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_03"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_05"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_06"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_07"/>-->
+
+    <item
+        android:drawable="@mipmap/refres_nv01"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv02"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv03"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv04"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv05"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv06"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv07"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv08"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv09"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv10"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv11"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/refres_nv12"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/refres_nv13"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/refres_nv14"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/refres_nv15"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/refres_nv16"
+        android:duration="100" />
+
+</animation-list>
