@@ -19,6 +19,7 @@ import com.tohabit.skip.pojo.po.JiHuaBO;
 import com.tohabit.skip.pojo.po.KechengBO;
 import com.tohabit.skip.pojo.po.MessageBO;
 import com.tohabit.skip.pojo.po.MusicBO;
+import com.tohabit.skip.pojo.po.MusicBeatBO;
 import com.tohabit.skip.pojo.po.NengLiangDengjiBO;
 import com.tohabit.skip.pojo.po.NengLiangVO;
 import com.tohabit.skip.pojo.po.OnePingLunBO;
@@ -685,5 +686,17 @@ public interface HttpService {
      */
     @POST("app/share/getWxShareMessage")
     Observable<BaseResult<ShareBO>> getWxShareMessage();
+
+    /**
+     * 获取音乐/节拍
+     */
+    @GET("app/user/getMusicAndBeat")
+    Observable<BaseResult<MusicBeatBO>> getMusicAndBeat();
+
+    /**
+     * 保存音乐节拍
+     */
+    @POST("app/user/saveMusicAndBeat")
+    Observable<BaseResult<String>> saveMusicAndBeat(@Body Map<String, Object> params);
 
 }

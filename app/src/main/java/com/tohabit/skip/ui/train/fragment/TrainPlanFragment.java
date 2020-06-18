@@ -192,9 +192,9 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         super.onSupportVisible();
         freshView();
         getDeviceQc();
-        if (App.musicBO != null) {
+        if (App.musicBeatBO != null) {
             musicLayout.setVisibility(View.VISIBLE);
-            musicText.setText(App.musicBO.getName());
+            musicText.setText(App.musicBeatBO.getMusicName());
         }
     }
 
@@ -311,8 +311,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         params.put("skipNum", skipNum);  //跳绳次数
         params.put("skipTime", trainLength - timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
-        params.put("backgroundMusicId", App.musicBO == null ? null : App.musicBO.getId());
-        params.put("beat", App.beat);
+        params.put("backgroundMusicId", App.musicBeatBO == null ? null : App.musicBeatBO.getMusicId());
+        params.put("beat", App.musicBeatBO.getBeatId());
         params.put("trainPlanId", trainPlanId);   //训练id
         showProgress(null);
         HttpServerImpl.addTrain(params).subscribe(new HttpResultSubscriber<String>() {
@@ -442,13 +442,13 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      * 播放音乐
      */
     private void startMusic() {
-        if (App.musicBO != null) {
+        if (App.musicBeatBO != null) {
             if (player != null) {
                 player.stop();
                 player = null;
             }
             player = new Player();
-            player.playUrl(App.musicBO.getUrl());
+            player.playUrl(App.musicBeatBO.getMusicUrl());
         }
     }
 
@@ -471,8 +471,6 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
 
     @Override
     public void onDestroyView() {
-        App.musicBO = null;
-        App.beat = null;
         if (player != null) {
             player.stop();
         }

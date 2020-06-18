@@ -20,6 +20,7 @@ import com.tohabit.skip.pojo.po.JiHuaBO;
 import com.tohabit.skip.pojo.po.KechengBO;
 import com.tohabit.skip.pojo.po.MessageBO;
 import com.tohabit.skip.pojo.po.MusicBO;
+import com.tohabit.skip.pojo.po.MusicBeatBO;
 import com.tohabit.skip.pojo.po.NengLiangDengjiBO;
 import com.tohabit.skip.pojo.po.NengLiangVO;
 import com.tohabit.skip.pojo.po.OnePingLunBO;
@@ -808,6 +809,23 @@ public class HttpServerImpl {
      */
     public static Observable<ShareBO> getWxShareMessage() {
         return getService().getWxShareMessage().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 获取音乐节拍
+     */
+    public static Observable<MusicBeatBO> getMusicAndBeat() {
+        return getService().getMusicAndBeat().compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 保存音乐节拍
+     */
+    public static Observable<String> saveMusicAndBeat(String beatId, String musicId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("beatId", beatId);
+        params.put("musicId", musicId);
+        return getService().saveMusicAndBeat(params).compose(RxResultHelper.httpRusult());
     }
 
     /**

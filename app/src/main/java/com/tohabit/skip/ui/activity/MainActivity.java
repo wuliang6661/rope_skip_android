@@ -27,6 +27,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.tohabit.commonlibrary.widget.NoScrollViewPager;
 import com.tohabit.skip.R;
+import com.tohabit.skip.api.HttpResultSubscriber;
+import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseActivity;
@@ -35,6 +37,7 @@ import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.event.model.HideDialogEvent;
 import com.tohabit.skip.event.model.SwitchMainEvent;
+import com.tohabit.skip.pojo.po.MusicBeatBO;
 import com.tohabit.skip.presenter.MainPresenter;
 import com.tohabit.skip.presenter.contract.MainContract;
 import com.tohabit.skip.service.UartService;
@@ -179,6 +182,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         chikcBlue();
         registerPush();
         checkUpdate();
+        getMusic();
+    }
+
+
+    /**
+     * 获取保存的音乐节拍
+     */
+    private void getMusic() {
+        HttpServerImpl.getMusicAndBeat().subscribe(new HttpResultSubscriber<MusicBeatBO>() {
+            @Override
+            public void onSuccess(MusicBeatBO s) {
+                App.musicBeatBO = s;
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
 
 
@@ -594,7 +616,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void onDestroy() {
-        if(blueService != null){
+        if (blueService != null) {
             blueService.disconnect();
             blueService.close();
             unbindService(connection);

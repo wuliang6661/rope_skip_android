@@ -11,10 +11,13 @@ import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
+import com.tohabit.skip.api.HttpResultSubscriber;
+import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.pojo.po.BeatsBO;
 import com.tohabit.skip.pojo.po.MusicBO;
+import com.tohabit.skip.pojo.po.MusicBeatBO;
 import com.tohabit.skip.ui.train.contract.RopeSkipSettingContract;
 import com.tohabit.skip.ui.train.presenter.RoseSkipSettingPresenter;
 import com.tohabit.skip.utils.ToastUtil;
@@ -48,7 +51,6 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
     LinearLayout llJz;
     @BindView(R.id.btn_save_fragment_rope_skip_setting)
     AppCompatButton btnSave;
-
 
 
     private BeatsBO selectBeat;
@@ -137,10 +139,9 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
                 startActivityForResult(intent1, 0x22);
                 break;
             case R.id.btn_save_fragment_rope_skip_setting:
-                App.musicBO = selectMusic;
-                App.beat = selectBeat.getBeat() + "";
-                ToastUtil.show("保存成功");
-                _mActivity.onBackPressedSupport();
+//                App.musicBO = selectMusic;
+//                App.beat = selectBeat.getBeat() + "";
+                saveMusic();
                 break;
         }
     }
@@ -181,6 +182,45 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
                 }
                 break;
         }
+    }
+
+
+    /**
+     * 保存音乐
+     */
+    private void saveMusic() {
+        HttpServerImpl.saveMusicAndBeat(selectBeat.getId() + "", selectMusic.getId() + "")
+                .subscribe(new HttpResultSubscriber<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        getMusic();
+                    }
+
+                    @Override
+                    public void onFiled(String message) {
+                        showToast(message);
+                    }
+                });
+    }
+
+
+    /**
+     * 获取保存的音乐节拍
+     */
+    private void getMusic() {
+        HttpServerImpl.getMusicAndBeat().subscribe(new HttpResultSubscriber<MusicBeatBO>() {
+            @Override
+            public void onSuccess(MusicBeatBO s) {
+                App.musicBeatBO = s;
+                ToastUtil.show("保存成功");
+                _mActivity.onBackPressedSupport();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
 
 }

@@ -35,6 +35,7 @@ import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.train.adapter.TranRecordListAdapter;
 import com.tohabit.skip.ui.train.contract.TranHomeContract;
+import com.tohabit.skip.ui.train.music.Player;
 import com.tohabit.skip.ui.train.presenter.TranHomePresenter;
 import com.tohabit.skip.ui.young.fragment.StatisticsActivity;
 import com.tohabit.skip.utils.ByteUtils;
@@ -313,6 +314,9 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         switch (view.getId()) {
             case R.id.iv_start_test_fragment_train_main:
                 if (testState) {//开始
+                    if (player != null) {
+                        player.stop();
+                    }
                     addTest();
                     testState = false;
                     timeCount = 0;
@@ -348,6 +352,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                             handler.sendEmptyMessage(COUNT);
                         }
                     }, 0, 1000);
+                    startMusic();
                 }
                 break;
             case R.id.tv_tj_fragment_train_main:
@@ -372,6 +377,22 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 intent1.setClass(getActivity(), TainMainActivity.class);
                 startActivity(intent1);
                 break;
+        }
+    }
+
+    Player player;
+
+    /**
+     * 播放音乐
+     */
+    private void startMusic() {
+        if (App.musicBeatBO != null) {
+            if (player != null) {
+                player.stop();
+                player = null;
+            }
+            player = new Player();
+            player.playUrl(App.musicBeatBO.getMusicUrl());
         }
     }
 
