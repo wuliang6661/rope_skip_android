@@ -699,4 +699,10 @@ public interface HttpService {
     @POST("app/user/saveMusicAndBeat")
     Observable<BaseResult<String>> saveMusicAndBeat(@Body Map<String, Object> params);
 
+    /**
+     * 完成训练计划
+     */
+    @POST("app/general/completeTrainPlan")
+    Observable<BaseResult<String>> completeTrainPlan(@Query("id") String id);
+
 }

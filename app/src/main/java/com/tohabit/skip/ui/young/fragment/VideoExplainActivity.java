@@ -50,7 +50,6 @@ public class VideoExplainActivity extends BaseActivity {
     private ExplainDetailsBO detailsBO;
 
 
-
     @Override
     protected void initInject() {
 
@@ -232,6 +231,24 @@ public class VideoExplainActivity extends BaseActivity {
                 videoPlayer.setSeekOnStart(startTime);
                 break;
         }
+    }
+
+
+    /**
+     * 完成训练计划
+     */
+    public void completeTrainPlan(String id) {
+        HttpServerImpl.completeTrainPlan(id).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                showToast("训练计划已完成！");
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
     }
 
 

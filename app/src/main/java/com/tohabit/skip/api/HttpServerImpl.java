@@ -829,6 +829,13 @@ public class HttpServerImpl {
     }
 
     /**
+     * 完成训练计划
+     */
+    public static Observable<String> completeTrainPlan(String id) {
+        return getService().completeTrainPlan(id).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
      * 提交图片
      */
     public static Observable<String> updateFile(File file) {
