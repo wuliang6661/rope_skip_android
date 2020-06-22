@@ -832,7 +832,20 @@ public class HttpServerImpl {
      * 完成训练计划
      */
     public static Observable<String> completeTrainPlan(String id) {
-        return getService().completeTrainPlan(id).compose(RxResultHelper.httpRusult());
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        return getService().completeTrainPlan(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 增加分享记录
+     */
+    public static Observable<String> addDataShare(int mode, int id, int type) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        params.put("objectId", id);
+        params.put("objectType", type);
+        return getService().addDataShare(params).compose(RxResultHelper.httpRusult());
     }
 
     /**

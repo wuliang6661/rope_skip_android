@@ -1,7 +1,7 @@
 package com.tohabit.skip.ui.mine.fragment;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
@@ -19,6 +21,7 @@ import com.tohabit.skip.pojo.po.MessageBO;
 import com.tohabit.skip.ui.mine.contract.MessageListContract;
 import com.tohabit.skip.ui.train.presenter.MessageListPresenter;
 import com.tohabit.skip.utils.ToastUtil;
+import com.tohabit.skip.widget.TraditionHeaderAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +35,12 @@ import butterknife.BindView;
  * @Description:
  * @author: sundongdong
  */
-public class MessageListFragment extends BaseFragment<MessageListPresenter> implements MessageListContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class MessageListFragment extends BaseFragment<MessageListPresenter> implements MessageListContract.View {
 
     @BindView(R.id.rv_layout_swipe_to_refresh)
     RecyclerView mRecyclerView;
     @BindView(R.id.swipeLayout_layout_swipe_to_refresh)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    UltimateRefreshView mSwipeRefreshLayout;
     @BindView(R.id.progress_fragment_fragment_train_plan_list)
     ProgressbarLayout progress;
     BaseRvAdapter mListAdapter;
@@ -82,17 +85,26 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
         mModeType = bundle.getString(RouterConstants.ARG_MODE, "");
         initAdapter();
 
-        mSwipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+        mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
+            @Override
+            public void onHeaderRefresh(UltimateRefreshView view) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onRefresh();
+                    }
+                }, 1000);
+            }
+        });
         onRefresh();
     }
 
-    @Override
     public void onRefresh() {
         mPresenter.getList(mModeType);
     }
 
     private void initAdapter() {
-        mSwipeRefreshLayout.setOnRefreshListener(this);
 //        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider_test).colorResId(R.color.transparent).build());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListAdapter = new BaseRvAdapter<MessageBO, BaseViewHolder>(R.layout.item_message, new ArrayList<>()) {
@@ -127,7 +139,7 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
         }
 
         if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.onHeaderRefreshComplete();
         }
 
         mListAdapter.setNewData(orderList);
@@ -145,7 +157,7 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
 
     @Override
     public void showError(String msg) {
-        mSwipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.onHeaderRefreshComplete();
         ToastUtil.show(msg);
     }
 

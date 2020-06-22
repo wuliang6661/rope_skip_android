@@ -79,7 +79,6 @@ public class HuodongFragment extends BaseFragment {
 
     @Override
     protected void initEventAndData() {
-//        mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
         mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
             @Override
@@ -104,7 +103,6 @@ public class HuodongFragment extends BaseFragment {
     public void onSupportVisible() {
         super.onSupportVisible();
         onRefresh();
-//        mSwipeRefreshLayout.setRefreshing(true);
     }
 
     private void initAdapter() {

@@ -39,6 +39,17 @@ public class UserBO implements Serializable {
     private String height;
     private int sex;
     private String weight;
+    /**
+     * weight : 50.0
+     * height : 180.0
+     * maxTime : 30
+     * maxNum : 60
+     * percent : 1
+     */
+
+    private int maxTime;
+    private int maxNum;
+    private int percent;
 
 
     public int getId() {
@@ -151,5 +162,29 @@ public class UserBO implements Serializable {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public int getMaxTime() {
+        return maxTime;
+    }
+
+    public void setMaxTime(int maxTime) {
+        this.maxTime = maxTime;
+    }
+
+    public int getMaxNum() {
+        return maxNum;
+    }
+
+    public void setMaxNum(int maxNum) {
+        this.maxNum = maxNum;
+    }
+
+    public int getPercent() {
+        return percent;
+    }
+
+    public void setPercent(int percent) {
+        this.percent = percent;
     }
 }

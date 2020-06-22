@@ -49,6 +49,10 @@ public class TraditionHeaderAdapter extends BaseHeaderAdapter {
         pull_to_refresh_text.setText("");
 //        refreshImg.clearAnimation();
 //        refreshImg.startAnimation(mFlipAnimation);
+        refreshImg.setVisibility(View.VISIBLE);
+        refreshImg.setImageResource(R.drawable.xiala_anim);
+        AnimationDrawable mAnimationDrawable = (AnimationDrawable) refreshImg.getDrawable();
+        mAnimationDrawable.start();
     }
 
     @Override

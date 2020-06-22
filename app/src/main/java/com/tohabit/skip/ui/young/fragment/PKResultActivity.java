@@ -72,6 +72,7 @@ public class PKResultActivity extends BaseActivity {
     private int type = 0;  //type  0  成功  1 失败
 
     ShapeDialog shapeDialog;
+    PkResultBO resultBO;
 
     @Override
     protected void initInject() {
@@ -97,7 +98,7 @@ public class PKResultActivity extends BaseActivity {
             baseLayout.setBackgroundResource(R.mipmap.pk_nv_bg);
         }
         type = getIntent().getExtras().getInt("type");
-        PkResultBO resultBO = (PkResultBO) getIntent().getExtras().getSerializable("data");
+        resultBO = (PkResultBO) getIntent().getExtras().getSerializable("data");
         if (type == 0) {   //成功
             jieguoImg.setImageResource(R.mipmap.pk_chenggong);
             valueMiaoshu.setText("本场胜利获得PK值");
@@ -242,6 +243,7 @@ public class PKResultActivity extends BaseActivity {
             public void run() {
                 Bitmap bitmap = ScreenShotUtils.getBitMap(PKResultActivity.this);
                 ShareUtils.shareImage(flags, bitmap);
+                ShareUtils.addShare(resultBO.getId(), 2, flags);
                 titleLayout.setVisibility(View.VISIBLE);
                 restart.setVisibility(View.VISIBLE);
                 shareMsg.setVisibility(View.VISIBLE);

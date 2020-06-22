@@ -281,7 +281,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             R.id.btn_exit_login_fragment_mine,
             R.id.my_shoucang,
             R.id.add_device_layout,
-    R.id.item_select_music})
+            R.id.item_select_music})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -390,6 +390,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
             @Override
             public void onSuccess(ShareBO s) {
                 ShareUtils.shareApp(flag, s);
+                ShareUtils.addShare(0, 5, flag);
             }
 
             @Override

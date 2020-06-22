@@ -77,6 +77,15 @@ public class BaoGaoDetailsBO {
 
         private int taskType;
         private int completeNum;
+        private String taskName;
+
+        public String getTaskName() {
+            return taskName;
+        }
+
+        public void setTaskName(String taskName) {
+            this.taskName = taskName;
+        }
 
         public int getTaskType() {
             return taskType;

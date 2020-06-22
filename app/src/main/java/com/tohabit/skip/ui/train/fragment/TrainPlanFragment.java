@@ -34,6 +34,7 @@ import com.tohabit.skip.ui.young.fragment.PKResultActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
 import com.tohabit.skip.utils.ByteUtils;
 import com.tohabit.skip.utils.Example;
+import com.tohabit.skip.utils.StringUtils;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
@@ -363,6 +364,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
                 intent.setClass(_mActivity, TainMainActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
 
             @Override
@@ -442,7 +444,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      * 播放音乐
      */
     private void startMusic() {
-        if (App.musicBeatBO != null) {
+        if (App.musicBeatBO != null && !StringUtils.isEmpty(App.musicBeatBO.getMusicUrl())) {
             if (player != null) {
                 player.stop();
                 player = null;

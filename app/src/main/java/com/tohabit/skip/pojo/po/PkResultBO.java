@@ -12,6 +12,15 @@ public class PkResultBO implements Serializable {
 
     private int pkChallengeValue;
     private int sex;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getPkChallengeValue() {
         return pkChallengeValue;

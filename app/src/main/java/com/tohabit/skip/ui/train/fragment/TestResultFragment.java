@@ -541,6 +541,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             public void run() {
                 Bitmap bitmap = ScreenShotUtils.getScrollViewBitmap(scrollView);
                 ShareUtils.shareImage(flags, bitmap);
+                ShareUtils.addShare(Integer.parseInt(testId), 3, flags);
                 toolbarLayoutToolbar.setVisibility(View.VISIBLE);
                 contentLayout.setVisibility(View.GONE);
                 noShareLayout.setVisibility(View.VISIBLE);
