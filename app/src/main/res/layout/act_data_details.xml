@@ -85,8 +85,8 @@
                     android:id="@+id/user_pk_icon"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_alignRight="@+id/user_img"
-                    android:layout_alignBottom="@+id/user_img"
+                    android:layout_alignRight="@+id/user_logo"
+                    android:layout_alignBottom="@+id/user_logo"
                     android:layout_marginRight="-5dp"
                     android:src="@mipmap/ic_grade_tag3" />
 
@@ -95,7 +95,7 @@
                     android:id="@+id/pk_vaule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/user_img"
+                    android:layout_below="@+id/user_logo"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:text="0"

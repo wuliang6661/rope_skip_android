@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 
 import com.mob.MobSDK;
 import com.tohabit.skip.R;
+import com.tohabit.skip.api.HttpResultSubscriber;
+import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.pojo.po.ShareBO;
 
 import cn.sharesdk.framework.Platform;
@@ -46,15 +48,15 @@ public class ShareUtils {
     /**
      * 分享图片
      */
-    public static  void shareImage(int flag, Bitmap bitmap) {
-         Platform.ShareParams oks = new Platform.ShareParams();
-         oks.setShareType(Platform.SHARE_IMAGE);
-         oks.setImageData(bitmap);
+    public static void shareImage(int flag, Bitmap bitmap) {
+        Platform.ShareParams oks = new Platform.ShareParams();
+        oks.setShareType(Platform.SHARE_IMAGE);
+        oks.setImageData(bitmap);
         //指定分享的平台，如果为空，还是会调用九宫格的平台列表界面
         Platform pla;
         if (flag == 0) {   //微信好友
             pla = ShareSDK.getPlatform(Wechat.NAME);
-        }else{
+        } else {
             pla = ShareSDK.getPlatform(WechatMoments.NAME);
         }
         // 执行图文分享
@@ -65,7 +67,7 @@ public class ShareUtils {
     /**
      * 图文分享
      */
-    public static void shareTuWen(int flag){
+    public static void shareTuWen(int flag) {
         Platform.ShareParams oks = new Platform.ShareParams();
         oks.setShareType(Platform.SHARE_WEBPAGE);
         // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
@@ -81,7 +83,7 @@ public class ShareUtils {
         Platform pla;
         if (flag == 0) {   //微信好友
             pla = ShareSDK.getPlatform(Wechat.NAME);
-        }else{
+        } else {
             pla = ShareSDK.getPlatform(WechatMoments.NAME);
         }
         // 执行图文分享
@@ -92,7 +94,7 @@ public class ShareUtils {
     /**
      * 分享应用
      */
-    public static void shareApp(int flag, ShareBO shareBO){
+    public static void shareApp(int flag, ShareBO shareBO) {
         Platform.ShareParams oks = new Platform.ShareParams();
         oks.setShareType(Platform.SHARE_WEBPAGE);
         // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
@@ -110,11 +112,28 @@ public class ShareUtils {
         Platform pla;
         if (flag == 0) {   //微信好友
             pla = ShareSDK.getPlatform(Wechat.NAME);
-        }else{
+        } else {
             pla = ShareSDK.getPlatform(WechatMoments.NAME);
         }
         // 执行应用分享
         pla.share(oks);
     }
 
+
+    /**
+     * 增加分享id
+     */
+    public static void addShare(int id, int type, int mode) {
+        HttpServerImpl.addDataShare(mode, id, type).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFiled(String message) {
+
+            }
+        });
+    }
 }

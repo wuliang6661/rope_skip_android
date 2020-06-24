@@ -91,6 +91,7 @@ public class DataDetailsActivity extends BaseActivity {
     private BaoGaoDetailsBO detailsBO;
 
     ShapeDialog shapeDialog;
+    int id;
 
     @Override
     protected void initInject() {
@@ -115,7 +116,7 @@ public class DataDetailsActivity extends BaseActivity {
         taskRecycle.setLayoutManager(new LinearLayoutManager(this));
         taskRecycle.setNestedScrollingEnabled(false);
 
-        int id = getIntent().getExtras().getInt("id");
+        id = getIntent().getExtras().getInt("id");
 
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
         Glide.with(this).load(App.xIaoJiangBO.getIcon()).into(userPkIcon);
@@ -323,23 +324,24 @@ public class DataDetailsActivity extends BaseActivity {
                     @Override
                     public void convert(LGViewHolder holder, BaoGaoDetailsBO.TaskListBean s, int position) {
                         holder.setText(R.id.task_num, s.getCompleteNum() + "");
-                        switch (s.getTaskType()) {
-                            case 1:
-                                holder.setText(R.id.task_content, "本周完成PK任务");
-                                break;
-                            case 2:
-                                holder.setText(R.id.task_content, "本周完成幸运兑换");
-                                break;
-                            case 3:
-                                holder.setText(R.id.task_content, "本周完成课程学习");
-                                break;
-                            case 4:
-                                holder.setText(R.id.task_content, "本周完成知识学习");
-                                break;
-                            case 5:
-                                holder.setText(R.id.task_content, "本周完成参与问答");
-                                break;
-                        }
+//                        switch (s.getTaskType()) {
+////                            case 1:
+////                                holder.setText(R.id.task_content, "本周完成PK任务");
+////                                break;
+////                            case 2:
+////                                holder.setText(R.id.task_content, "本周完成幸运兑换");
+////                                break;
+////                            case 3:
+////                                holder.setText(R.id.task_content, "本周完成课程学习");
+////                                break;
+////                            case 4:
+////                                holder.setText(R.id.task_content, "本周完成知识学习");
+////                                break;
+////                            case 5:
+////                                holder.setText(R.id.task_content, "本周完成参与问答");
+////                                break;
+////                        }
+                        holder.setText(R.id.task_content, s.getTaskName());
                     }
 
                     @Override
@@ -403,6 +405,7 @@ public class DataDetailsActivity extends BaseActivity {
             public void run() {
                 Bitmap bitmap = ScreenShotUtils.getScrollViewBitmap(scrollView);
                 ShareUtils.shareImage(flags, bitmap);
+                ShareUtils.addShare(id, 2, flags);
                 titleLayout.setVisibility(View.VISIBLE);
                 buttomLayout.setVisibility(View.GONE);
             }

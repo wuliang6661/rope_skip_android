@@ -66,6 +66,9 @@ public class ShapeChengJiuActivity extends BaseActivity {
     LinearLayout buttom_layout;
 
     private Dialog mBottomSheetDialog;
+    private int id;
+    private int shareType;
+
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
         }
@@ -99,15 +102,19 @@ public class ShapeChengJiuActivity extends BaseActivity {
         if (type == 1) {  //成就
             ChengJiuBo.AcquireMedalListBean chengjiu = (ChengJiuBo.AcquireMedalListBean) getIntent().getExtras().getSerializable("xunzhang");
             Glide.with(this).load(chengjiu.getImage()).into(xunzhangImg);
+            id = chengjiu.getId();
             xunzhangName.setText(chengjiu.getName() + "勋章");
             xunzhangNum.setText("累积跳绳总数高达" + chengjiu.getSkipTotalNum() + "个");
             xunzhang_miaoshu.setText("恭喜获得" + chengjiu.getName() + "勋章");
+            shareType = 0;
         } else {    //证书
             RongYuBO.AcquireHonorListBean rongyu = (RongYuBO.AcquireHonorListBean) getIntent().getExtras().getSerializable("zhengshu");
             Glide.with(this).load(rongyu.getImage()).into(xunzhangImg);
             xunzhangName.setText(rongyu.getName() + "证书");
+            id = rongyu.getId();
             xunzhangNum.setText("pk胜利总数高达" + rongyu.getPkVTotalNum() + "次");
-            xunzhang_miaoshu.setText("恭喜获得" + rongyu.getName() + "勋章");
+            xunzhang_miaoshu.setText("恭喜获得" + rongyu.getName() + "证书");
+            shareType = 1;
         }
         Glide.with(this).load(App.userBO.getImage()).into(userImg);
         userName.setText(App.userBO.getNickName());
@@ -145,6 +152,7 @@ public class ShapeChengJiuActivity extends BaseActivity {
                     public void run() {
                         Bitmap bitmap = ScreenShotUtils.getBitMap(ShapeChengJiuActivity.this);
                         ShareUtils.shareImage(0, bitmap);
+                        ShareUtils.addShare(id, shareType, 0);
                         title_layout.setVisibility(View.VISIBLE);
                         btnCommit.setVisibility(View.VISIBLE);
                         buttom_layout.setVisibility(View.GONE);
@@ -164,6 +172,7 @@ public class ShapeChengJiuActivity extends BaseActivity {
                     public void run() {
                         Bitmap bitmap = ScreenShotUtils.getBitMap(ShapeChengJiuActivity.this);
                         ShareUtils.shareImage(1, bitmap);
+                        ShareUtils.addShare(id, shareType, 1);
                         title_layout.setVisibility(View.VISIBLE);
                         btnCommit.setVisibility(View.VISIBLE);
                         buttom_layout.setVisibility(View.GONE);

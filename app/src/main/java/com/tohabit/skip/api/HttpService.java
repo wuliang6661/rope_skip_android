@@ -703,6 +703,12 @@ public interface HttpService {
      * 完成训练计划
      */
     @POST("app/general/completeTrainPlan")
-    Observable<BaseResult<String>> completeTrainPlan(@Query("id") String id);
+    Observable<BaseResult<String>> completeTrainPlan(@Body Map<String, Object> params);
+
+    /**
+     * 增加分享记录
+     */
+    @POST("app/share/addDataShare")
+    Observable<BaseResult<String>> addDataShare(@Body Map<String, Object> params);
 
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item android:duration="100" android:drawable="@drawable/refreshing_image_frame_01"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_02"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_03"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_05"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_06"/>
+    <item android:duration="100" android:drawable="@drawable/refreshing_image_frame_07"/>-->
+
+    <item
+        android:drawable="@mipmap/xiala01"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala02"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala03"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala04"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala05"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala06"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala07"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala08"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala09"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala10"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala11"
+        android:duration="100" />
+    <item
+        android:drawable="@mipmap/xiala12"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/xiala13"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/xiala14"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/xiala15"
+        android:duration="100" />
+
+    <item
+        android:drawable="@mipmap/xiala16"
+        android:duration="100" />
+</animation-list>

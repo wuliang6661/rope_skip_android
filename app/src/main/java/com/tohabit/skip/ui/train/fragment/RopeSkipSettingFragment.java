@@ -52,9 +52,11 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
     @BindView(R.id.btn_save_fragment_rope_skip_setting)
     AppCompatButton btnSave;
 
-
     private BeatsBO selectBeat;
     private MusicBO selectMusic;
+
+    private int musicId;
+    private int beatId;
 
     public static RopeSkipSettingFragment newInstance(Bundle bundle) {
         RopeSkipSettingFragment fragment = new RopeSkipSettingFragment();
@@ -90,8 +92,15 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
             }
         });
 
-        mPresenter.getBeats();
-        mPresenter.getMusicList();
+        if (App.musicBeatBO == null) {
+            mPresenter.getBeats();
+            mPresenter.getMusicList();
+        } else {
+            musicId = App.musicBeatBO.getMusicId();
+            beatId = App.musicBeatBO.getBeatId();
+            tvBgMusicName.setText(App.musicBeatBO.getMusicName());
+            tvJzName.setText(App.musicBeatBO.getBeat() + "下/秒");
+        }
     }
 
 
@@ -127,20 +136,16 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_bg_music_fragment_rope_skip_setting:
-//                showMusic();
                 Intent intent = new Intent(getActivity(), SettingMusicActivity.class);
                 intent.putExtra("type", 0);
                 startActivityForResult(intent, 0x11);
                 break;
             case R.id.ll_jz_fragment_rope_skip_setting:
-//                showBeats();
                 Intent intent1 = new Intent(getActivity(), SettingMusicActivity.class);
                 intent1.putExtra("type", 1);
                 startActivityForResult(intent1, 0x22);
                 break;
             case R.id.btn_save_fragment_rope_skip_setting:
-//                App.musicBO = selectMusic;
-//                App.beat = selectBeat.getBeat() + "";
                 saveMusic();
                 break;
         }
@@ -151,6 +156,7 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
         if (!beatsBOS.isEmpty()) {
             tvJzName.setText(beatsBOS.get(0).getBeat() + "下/秒");
             selectBeat = beatsBOS.get(0);
+            beatId = selectBeat.getId();
         }
     }
 
@@ -159,6 +165,7 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
         if (!musicBOS.isEmpty()) {
             tvBgMusicName.setText(musicBOS.get(0).getName());
             selectMusic = musicBOS.get(0);
+            musicId = selectMusic.getId();
         }
     }
 
@@ -172,6 +179,7 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
                 if (musicBO != null) {
                     selectMusic = musicBO;
                     tvBgMusicName.setText(selectMusic.getName());
+                    musicId = selectMusic.getId();
                 }
                 break;
             case 0x22:
@@ -179,6 +187,7 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
                 if (beatsBO != null) {
                     selectBeat = beatsBO;
                     tvJzName.setText(selectBeat.getBeat() + "下/秒");
+                    beatId = selectBeat.getId();
                 }
                 break;
         }
@@ -189,7 +198,7 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
      * 保存音乐
      */
     private void saveMusic() {
-        HttpServerImpl.saveMusicAndBeat(selectBeat.getId() + "", selectMusic.getId() + "")
+        HttpServerImpl.saveMusicAndBeat(beatId + "", musicId + "")
                 .subscribe(new HttpResultSubscriber<String>() {
                     @Override
                     public void onSuccess(String s) {

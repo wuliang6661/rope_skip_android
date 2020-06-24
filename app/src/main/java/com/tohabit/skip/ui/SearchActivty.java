@@ -153,8 +153,18 @@ public class SearchActivty extends BaseActivity {
         adapter.setOnItemClickListener(R.id.connect, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
-                showProgress("蓝牙连接中...");
-                EventBus.getDefault().post(devices.get(position));
+                if (App.connectDevice != null && App.connectDevice.getAddress().equals(devices.get(position).getAddress())) {
+                    if (App.blueService != null) {
+                        App.blueService.disconnect();
+                        App.blueService.close();
+                    }
+                    App.connectDevice = null;
+                    App.blueService = null;
+                    showToast("已断开连接！");
+                } else {
+                    showProgress("蓝牙连接中...");
+                    EventBus.getDefault().post(devices.get(position));
+                }
             }
         });
         recycleView.setAdapter(adapter);

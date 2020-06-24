@@ -14,6 +14,7 @@ import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
+import com.tohabit.skip.app.App;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.ExplainDetailsBO;
 import com.tohabit.skip.ui.find.fragment.FullVideoActivity;
@@ -48,6 +49,7 @@ public class VideoExplainActivity extends BaseActivity {
     RelativeLayout videoJin;
 
     private ExplainDetailsBO detailsBO;
+    private int id;
 
 
     @Override
@@ -70,7 +72,7 @@ public class VideoExplainActivity extends BaseActivity {
         goBack();
 //        String title = getIntent().getExtras().getString("title");
         setTitleText("高度训练");
-        int id = getIntent().getExtras().getInt("id");
+        id = getIntent().getExtras().getInt("id");
         inviVideo();
         getImprovePlan(id);
     }
@@ -104,13 +106,18 @@ public class VideoExplainActivity extends BaseActivity {
         videoPlayer.setGSYVideoProgressListener(new GSYVideoProgressListener() {
             @Override
             public void onProgress(int progress, int secProgress, int currentPosition, int duration) {
-                String time = TimeUtils.millis2String(duration - currentPosition,
+                String time = TimeUtils.millis2String(currentPosition,
                         new SimpleDateFormat("mm:ss"));
                 downTime.setText(time);
+                if (progress >= App.userBO.getPercent() * 100 - 10 && !isWancheng) {
+                    completeTrainPlan(id + "");
+                    isWancheng = true;
+                }
             }
         });
     }
 
+    boolean isWancheng = false;
 
     /**
      * 查询
@@ -241,12 +248,11 @@ public class VideoExplainActivity extends BaseActivity {
         HttpServerImpl.completeTrainPlan(id).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-                showToast("训练计划已完成！");
+
             }
 
             @Override
             public void onFiled(String message) {
-                showToast(message);
             }
         });
     }
