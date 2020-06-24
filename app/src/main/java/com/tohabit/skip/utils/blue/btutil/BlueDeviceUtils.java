@@ -396,6 +396,7 @@ public class BlueDeviceUtils {
                     listener.searchStop();
                 }
             }
+
         }
     };
 
