@@ -333,13 +333,13 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                         showToast("请先连接跳绳！");
                         return;
                     }
-                    if (!isEditMsg) {
-                        intent = new Intent();
-                        intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
-                        intent.setClass(_mActivity, TainMainActivity.class);
-                        startActivity(intent);
-                        return;
-                    }
+//                    if (!isEditMsg) {
+//                        intent = new Intent();
+//                        intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
+//                        intent.setClass(_mActivity, TainMainActivity.class);
+//                        startActivity(intent);
+//                        return;
+//                    }
                     testState = true;
                     ivStartTest.setBackgroundResource(R.mipmap.ic_finish_test);
                     if (timer == null) {
