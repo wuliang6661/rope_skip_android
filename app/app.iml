@@ -50,13 +50,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/debug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/assets" type="java-test-resource" />
@@ -64,6 +57,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/assets" type="java-resource" />
@@ -96,9 +96,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-apk" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-main-apk-res" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-resources" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifest-checker" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
@@ -114,7 +115,11 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
+    </content>
+    <content url="file://$MODULE_DIR$/../tmpmob/ShareSDK/assets">
+      <sourceFolder url="file://$MODULE_DIR$/../tmpmob/ShareSDK/assets" type="java-resource" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -122,16 +127,17 @@
     <orderEntry type="library" name="Gradle: id.zelory:compressor-2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-vector-drawable-28.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.shuyu:gsyVideoPlayer-x86-6.0.3" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:D.\Android_Project\rope_skip_android\app\libs\alipaySdk-20180601.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.zxing:core:3.3.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:cardview-v7-28.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.youth.banner:banner-1.4.10" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:drawerlayout-28.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobGUI:2019.0306.1850@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.amap.api:navi-3dmap:5.6.0_3dmap5.7.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: me.yokeyword:fragmentation-0.10.7" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.exoplayer:exoplayer-ui-2.9.3" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support.constraint:constraint-layout-1.1.3" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:annotations:4.8.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-Wechat-Core:3.7.5@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:exifinterface-28.0.0" level="project" />
     <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:versionedparcelable-28.0.0" level="project" />
@@ -166,10 +172,14 @@
     <orderEntry type="library" name="Gradle: com.blankj:utilcode-1.20.4" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.exoplayer:exoplayer-2.9.3" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.retrofit2:converter-gson:2.5.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:OneKeyShare-3.7.5" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-Wechat:3.7.5@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:documentfile-28.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish:javax.annotation:10.0-b28@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:C.\Users\dell\.gradle\caches\transforms-1\files-1.1\skipevaluation_demo_2020-05-06.aar\a9e5a276276ae81c98a705bb56ae286c:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-Wechat-Moments:3.7.5@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobGuard-1.0.5" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:recyclerview-v7-28.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.reoobter:ultrapullview-1.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:design-28.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:cursoradapter-28.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.findbugs:jsr305:2.0.1@jar" level="project" />
@@ -181,8 +191,10 @@
     <orderEntry type="library" name="Gradle: com.android.support:transition-28.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:disklrucache:4.8.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:common:1.1.1@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/wuliang/.gradle/caches/transforms-1/files-1.1/skipevaluation_demo_2020-05-06.aar/d533318a748395f3f6e80d83c0e47aca:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ittianyu:BottomNavigationViewEx-1.2.4" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.exoplayer:exoplayer-smoothstreaming-2.9.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:SDKWrapper:2018.0801.1824@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-compat-28.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.15.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7-28.0.0" level="project" />
@@ -217,6 +229,7 @@
     <orderEntry type="library" name="Gradle: com.android.support:customview-28.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.exoplayer:exoplayer-hls-2.9.3" level="project" />
     <orderEntry type="library" name="Gradle: com.shuyu:GSYVideoPlayer-exo2-6.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: cn.sharesdk:ShareSDK-3.7.5" level="project" />
     <orderEntry type="library" name="Gradle: pl.droidsonroids.gif:android-gif-drawable-1.2.7" level="project" />
     <orderEntry type="library" name="Gradle: com.amap.api:location:3.3.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test:runner-1.0.2" level="project" />
@@ -228,6 +241,8 @@
     <orderEntry type="library" name="Gradle: com.android.support:collections:28.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.shuyu:gsyvideoplayer-androidvideocache-6.0.3" level="project" />
     <orderEntry type="library" name="Gradle: com.jakewharton:butterknife-9.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobTools:2020.0618.1201@jar" level="project" />
+    <orderEntry type="library" name="Gradle: me.leolin:ShortcutBadger-1.1.22" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:asynclayoutinflater-28.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test.espresso:espresso-core-3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: cat.ereza:customactivityoncrash-1.5.0" level="project" />
@@ -238,10 +253,13 @@
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:print-28.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobCommons:2020.0609.1841@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test.espresso:espresso-idling-resource-3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/wuliang/Downloads/tiaosheng/rope_skip_android/app/libs/alipaySdk-20180601.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.afollestad.material-dialogs:core-0.9.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.2@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.bigkoo:svprogresshud-1.0.6" level="project" />
+    <orderEntry type="library" name="Gradle: cn.jiguang.sdk:jcore-2.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-integration:1.3@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-library:1.3@jar" level="project" />
     <orderEntry type="library" name="Gradle: org.greenrobot:eventbus:3.1.1@jar" level="project" />
@@ -250,6 +268,7 @@
     <orderEntry type="library" name="Gradle: cn.bingoogolapple:bga-banner-2.2.6" level="project" />
     <orderEntry type="library" name="Gradle: com.github.hackware1993:MagicIndicator-1.5.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:animated-vector-drawable-28.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: cn.jiguang.sdk:jpush-3.3.2" level="project" />
     <orderEntry type="module" module-name="commonlibrary" />
   </component>
 </module>

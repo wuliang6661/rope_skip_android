@@ -50,6 +50,26 @@ public class SearchActivty extends BaseActivity {
 
     private List<DeviceBO> deviceBOS;
 
+    /**
+     * 当前正在获取的目录序号
+     */
+    private int selectPosition = 0;
+
+    /**
+     * 总共的目录条数
+     */
+    private int muluCount = 0;
+
+    /**
+     * 删除的开始时间
+     */
+    private long startUTC;
+
+    /**
+     * 删除的结束时间
+     */
+    private long endUTC;
+
     @Override
     protected void initInject() {
 
@@ -262,25 +282,6 @@ public class SearchActivty extends BaseActivity {
         }
     }
 
-    /**
-     * 当前正在获取的目录序号
-     */
-    private int selectPosition = 0;
-
-    /**
-     * 总共的目录条数
-     */
-    private int muluCount = 0;
-
-    /**
-     * 删除的开始时间
-     */
-    private long startUTC;
-
-    /**
-     * 删除的结束时间
-     */
-    private long endUTC;
 
     /**
      * 获取目录内容
