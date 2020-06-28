@@ -115,13 +115,25 @@
                     android:layout_centerHorizontal="true" />
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/nengliang_dengji"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/user_layout"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="25dp" />
+                    android:layout_marginTop="25dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/nengliang_dengji"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        android:visibility="gone"
+                        android:background="@mipmap/jindu_all" />
+                </RelativeLayout>
 
 
                 <LinearLayout
