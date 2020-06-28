@@ -50,15 +50,15 @@ public class UserBO implements Serializable {
     private int maxTime;
     private int maxNum;
     private int percent;
-    private String taoBaoUrl;
+    private String url;
     private int type;
 
-    public String getTaoBaoUrl() {
-        return taoBaoUrl;
+    public String getUrl() {
+        return url;
     }
 
-    public void setTaoBaoUrl(String taoBaoUrl) {
-        this.taoBaoUrl = taoBaoUrl;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public int getType() {

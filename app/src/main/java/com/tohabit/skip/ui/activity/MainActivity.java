@@ -341,13 +341,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 buyDialog.hide();
                 if (App.userBO.getType() == 0) {
                     if (Utils.isPkgInstalled(MainActivity.this, "com.taobao.taobao")) {
-                        Utils.gotoShop(MainActivity.this, App.userBO.getTaoBaoUrl());
+                        Utils.gotoShop(MainActivity.this, App.userBO.getUrl());
                     } else {
                         showToast("您还没有安装淘宝客户端！");
                     }
                 } else {
                     if (Utils.isPkgInstalled(MainActivity.this, "com.tmall.wireless")) {
-                        Utils.gotoShop(MainActivity.this, App.userBO.getTaoBaoUrl());
+                        Utils.gotoShop(MainActivity.this, App.userBO.getUrl());
                     } else {
                         showToast("您还没有安装天猫客户端！");
                     }
