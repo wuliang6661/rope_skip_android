@@ -163,6 +163,12 @@ public class SearchActivty extends BaseActivity {
                     adapter.notifyDataSetChanged();
                     showToast("已断开连接！");
                 } else {
+                    if (App.blueService != null) {
+                        App.blueService.disconnect();
+                        App.blueService.close();
+                    }
+                    App.connectDevice = null;
+                    App.blueService = null;
                     showProgress("蓝牙连接中...");
                     EventBus.getDefault().post(devices.get(position));
                 }
