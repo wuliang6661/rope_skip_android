@@ -136,6 +136,7 @@ public class SearchActivty extends BaseActivity {
             public void convert(LGViewHolder holder, BluetoothDevice result, int position) {
                 holder.setText(R.id.item_text, "绳柄名称：" + result.getName());
                 holder.setText(R.id.mac_text, "蓝牙名称：" + result.getAddress());
+                holder.setText(R.id.connect, "绑定");
                 if (App.connectDevice != null && App.connectDevice.getAddress().equals(result.getAddress())) {
                     holder.getView(R.id.connect).setEnabled(false);
                     holder.setText(R.id.connect, "已绑定");
