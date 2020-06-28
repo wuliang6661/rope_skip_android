@@ -217,11 +217,9 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                        mPresenter.logout();
                         PrefUtils.setPrefString(mContext, Constants.PREF_KEY_TOKEN, "");
                         JPushInterface.deleteAlias(getActivity(), 1);
                         JPushInterface.cleanTags(getActivity(), 1);
-//                        PrefUtils.clearPreference(mContext);
                         Intent intent = new Intent();
                         intent.putExtra(RouterConstants.ARG_MODE, LoginActivity.FLAG_LOGIN_TAG);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

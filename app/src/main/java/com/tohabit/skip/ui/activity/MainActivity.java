@@ -35,6 +35,7 @@ import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.common.adapter.CommonFragmentAdapter;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
+import com.tohabit.skip.event.model.CancleEvent;
 import com.tohabit.skip.event.model.HideDialogEvent;
 import com.tohabit.skip.event.model.SwitchMainEvent;
 import com.tohabit.skip.pojo.po.MusicBeatBO;
@@ -597,6 +598,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(CancleEvent event){
+        if (blueService != null) {
+            blueService.disconnect();
+            blueService.close();
+            unbindService(connection);
+        }
+        App.connectDevice = null;
+        App.blueService = null;
+        blueService = null;
+    }
+
+
     private UartService blueService;
 
     /**
@@ -631,6 +645,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
         App.connectDevice = null;
         App.blueService = null;
+        blueService = null;
         super.onDestroy();
     }
 
@@ -654,11 +669,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     showToast(msg.getData().getString(BluetoothChatService.TOAST));
                     break;
                 case UartService.MESSAGE_STATE_CHANGE:
-                    EventBus.getDefault().post(new BlueEvent(msg.arg1));
                     App.connectDevice = null;
                     switch (msg.arg1) {
                         case UartService.STATE_DISCONNECTED:
-                            showToast("蓝牙连接失败！");
+                            showToast("蓝牙连接已断开！");
 //                            mPresenter.connectBlue();
                             break;
                         case UartService.STATE_CONNECTING:
@@ -669,6 +683,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                             showToast("蓝牙已连接！");
                             break;
                     }
+                    EventBus.getDefault().post(new BlueEvent(msg.arg1));
                     break;
                 case UartService.NITIFI_SOURESS:   //监听一开始建立
                     EventBus.getDefault().post(new BlueEvent(UartService.NITIFI_SOURESS));
