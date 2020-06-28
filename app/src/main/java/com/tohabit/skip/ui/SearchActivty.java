@@ -160,6 +160,7 @@ public class SearchActivty extends BaseActivity {
                     }
                     App.connectDevice = null;
                     App.blueService = null;
+                    adapter.notifyDataSetChanged();
                     showToast("已断开连接！");
                 } else {
                     showProgress("蓝牙连接中...");

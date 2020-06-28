@@ -1,6 +1,5 @@
 package com.tohabit.skip.ui.mine.fragment;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +12,8 @@ import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
-import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.JiHuaBO;
-import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.young.fragment.VideoExplainActivity;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;

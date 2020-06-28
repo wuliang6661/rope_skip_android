@@ -50,7 +50,24 @@ public class UserBO implements Serializable {
     private int maxTime;
     private int maxNum;
     private int percent;
+    private String taoBaoUrl;
+    private int type;
 
+    public String getTaoBaoUrl() {
+        return taoBaoUrl;
+    }
+
+    public void setTaoBaoUrl(String taoBaoUrl) {
+        this.taoBaoUrl = taoBaoUrl;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public int getId() {
         return id;

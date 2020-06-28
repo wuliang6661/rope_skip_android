@@ -339,10 +339,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onClick(View v) {
                 buyDialog.hide();
-                if (Utils.isPkgInstalled(MainActivity.this, "com.taobao.taobao")) {
-                    Utils.gotoShop(MainActivity.this, "taobao://shop.m.taobao.com/shop/shop_index.htm?shop_id=185441148");
+                if (App.userBO.getType() == 0) {
+                    if (Utils.isPkgInstalled(MainActivity.this, "com.taobao.taobao")) {
+                        Utils.gotoShop(MainActivity.this, App.userBO.getTaoBaoUrl());
+                    } else {
+                        showToast("您还没有安装淘宝客户端！");
+                    }
                 } else {
-                    showToast("您还没有安装淘宝客户端！");
+                    if (Utils.isPkgInstalled(MainActivity.this, "com.tmall.wireless")) {
+                        Utils.gotoShop(MainActivity.this, App.userBO.getTaoBaoUrl());
+                    } else {
+                        showToast("您还没有安装天猫客户端！");
+                    }
                 }
             }
         });
