@@ -277,6 +277,8 @@ public class UartService extends Service {
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
         }
+        mConnectionState = STATE_DISCONNECTED;
+        mHandler.obtainMessage(MESSAGE_STATE_CHANGE, mConnectionState, -1).sendToTarget();
         mBluetoothGatt.disconnect();
     }
 

@@ -40,6 +40,7 @@ import com.tohabit.skip.ui.train.presenter.TranHomePresenter;
 import com.tohabit.skip.ui.young.fragment.StatisticsActivity;
 import com.tohabit.skip.utils.ByteUtils;
 import com.tohabit.skip.utils.Example;
+import com.tohabit.skip.utils.StringUtils;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
@@ -224,11 +225,11 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             tvBlueConnectStatus.setText("设备连接中...");
             blueStateImg.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
         } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
-            mPresenter.getDeviceQC();
+//            mPresenter.getDeviceQC();
         } else {
             tvBlueConnectStatus.setText("已断开");
             blueStateImg.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
-
+            tvBattery.setText("--");
         }
     }
 
@@ -386,7 +387,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
      * 播放音乐
      */
     private void startMusic() {
-        if (App.musicBeatBO != null) {
+        if (App.musicBeatBO != null && !StringUtils.isEmpty(App.musicBeatBO.getMusicUrl())) {
             if (player != null) {
                 player.stop();
                 player = null;
@@ -413,7 +414,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         params.put("skipTime", timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("deviceId", null);  //todo 设备id，暂时缺失
-        params.put("skipDate",TimeUtils.getNowString());
+        params.put("skipDate", TimeUtils.getNowString());
         showProgress(null);
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override

@@ -1,21 +1,31 @@
 package com.tohabit.skip.ui;
 
 import android.bluetooth.BluetoothDevice;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.algorithm.skipevaluation.Evaluator;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.base.BaseActivity;
+import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
+import com.tohabit.skip.event.model.CancleEvent;
 import com.tohabit.skip.pojo.po.DeviceBO;
 import com.tohabit.skip.service.UartService;
+import com.tohabit.skip.utils.ByteUtils;
+import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.blue.OnSearchListenter;
 import com.tohabit.skip.utils.blue.btutil.BlueDeviceUtils;
+import com.tohabit.skip.utils.blue.cmd.BleCmd;
+import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
 
@@ -24,7 +34,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -37,6 +49,26 @@ public class SearchActivty extends BaseActivity {
     List<BluetoothDevice> devices;
 
     private List<DeviceBO> deviceBOS;
+
+    /**
+     * 当前正在获取的目录序号
+     */
+    private int selectPosition = 0;
+
+    /**
+     * 总共的目录条数
+     */
+    private int muluCount = 0;
+
+    /**
+     * 删除的开始时间
+     */
+    private long startUTC;
+
+    /**
+     * 删除的结束时间
+     */
+    private long endUTC;
 
     @Override
     protected void initInject() {
@@ -138,7 +170,7 @@ public class SearchActivty extends BaseActivity {
                 holder.setText(R.id.mac_text, "蓝牙名称：" + result.getAddress());
                 holder.setText(R.id.connect, "绑定");
                 if (App.connectDevice != null && App.connectDevice.getAddress().equals(result.getAddress())) {
-                    holder.getView(R.id.connect).setEnabled(false);
+//                    holder.getView(R.id.connect).setEnabled(false);
                     holder.setText(R.id.connect, "已绑定");
                 } else {
                     if (deviceBOS != null) {
@@ -155,21 +187,11 @@ public class SearchActivty extends BaseActivity {
             @Override
             public void onItemClicked(View view, int position) {
                 if (App.connectDevice != null && App.connectDevice.getAddress().equals(devices.get(position).getAddress())) {
-                    if (App.blueService != null) {
-                        App.blueService.disconnect();
-                        App.blueService.close();
-                    }
+                    EventBus.getDefault().post(new CancleEvent());
                     App.connectDevice = null;
-                    App.blueService = null;
                     adapter.notifyDataSetChanged();
-                    showToast("已断开连接！");
                 } else {
-                    if (App.blueService != null) {
-                        App.blueService.disconnect();
-                        App.blueService.close();
-                    }
-                    App.connectDevice = null;
-                    App.blueService = null;
+                    EventBus.getDefault().post(new CancleEvent());
                     showProgress("蓝牙连接中...");
                     EventBus.getDefault().post(devices.get(position));
                 }
@@ -187,8 +209,138 @@ public class SearchActivty extends BaseActivity {
             saveDevices();
         } else if (event.isConnect == UartService.STATE_CONNECTING) {
         } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
+            showProgress("同步跳绳历史数据中...");
+            tongbuTime();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getAllMuLu();
+                }
+            }, 500);
         } else {
         }
+    }
+
+    /**
+     * 获取所有目录
+     */
+    private void getAllMuLu() {
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            UartService.COUNT_OPENTION = 0x33;
+            App.blueService.writeCharacteristic1Info(RequstBleCmd.createAllSportRecordCmd().getCmdByte());
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(BlueDataEvent event) {
+        BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
+        if (UartService.COUNT_OPENTION == 0x33) {  //目录数
+            byte[] changdu = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1]};
+            muluCount = ByteUtils.bytesToInt(changdu);
+            LogUtils.e("获取的目录条数：" + muluCount);
+            if (muluCount > 0) {
+                selectPosition = 0;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getMuLuMessage(selectPosition);
+                    }
+                }, 500);
+            }else{
+                stopProgress();
+            }
+        }
+        if (UartService.COUNT_OPENTION == 0x44) {  //目录内容
+            byte[] startTime = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1],
+                    builder.getDataBody()[2], builder.getDataBody()[3]};
+            long dateTime = ByteUtils.bytesToInt2(startTime, 0);
+            if (selectPosition == 0) {
+                startUTC = dateTime;
+            }
+            byte[] endTime = new byte[]{builder.getDataBody()[4], builder.getDataBody()[5],
+                    builder.getDataBody()[6], builder.getDataBody()[7]};
+            long dateEndTime = ByteUtils.bytesToInt2(endTime, 0);
+            if (selectPosition == muluCount - 1) {
+                endUTC = dateEndTime;
+            }
+            LogUtils.e("获取的跳绳时长=" + (dateEndTime - dateTime));
+            byte[] skipNumByte = new byte[]{builder.getDataBody()[13], builder.getDataBody()[14]};
+            byte[] breakNumByte = new byte[]{builder.getDataBody()[15], builder.getDataBody()[16]};
+            int skipNum = ByteUtils.bytesToInt(skipNumByte);
+            int breakNum = ByteUtils.bytesToInt(breakNumByte);
+            LogUtils.e("获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
+            addTest(skipNum, breakNum, (int) (dateEndTime - dateTime), dateTime);
+            if (selectPosition < muluCount - 1) {
+                selectPosition++;
+                getMuLuMessage(selectPosition);
+            } else {
+                stopProgress();
+                showToast("同步完成！");
+                deleteAll();
+            }
+        }
+    }
+
+
+    /**
+     * 获取目录内容
+     */
+    private void getMuLuMessage(int muluCount) {
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            UartService.COUNT_OPENTION = 0x44;
+            App.blueService.writeCharacteristic1Info(RequstBleCmd.createSportInfoCmd((short) muluCount).getCmdByte());
+        }
+    }
+
+    /**
+     * 同步时间
+     */
+    private void tongbuTime() {
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            UartService.COUNT_OPENTION = 0x55;
+            App.blueService.writeCharacteristic1Info(RequstBleCmd.createSynTimeCmd().getCmdByte());
+        }
+    }
+
+    /**
+     * 删除所有目录
+     */
+    private void deleteAll() {
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            UartService.COUNT_OPENTION = 0x66;
+            App.blueService.writeCharacteristic1Info(RequstBleCmd.createBatDeleteSportCmd(startUTC, endUTC).getCmdByte());
+        }
+    }
+
+
+    /**
+     * 添加测试结果
+     */
+    private void addTest(int skipNum, int breakNum, int timeCount, long time) {
+        Example example = new Example(getAssets(), breakNum, skipNum, timeCount);
+        Evaluator evaluator = example.getData();
+        Map<String, Object> params = new HashMap<>();
+        params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
+        params.put("breakNum", 0);   //断绳数量
+        params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
+        params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
+        params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
+        params.put("skipNum", skipNum);  //跳绳次数
+        params.put("skipTime", timeCount);
+        params.put("stableScore", evaluator.getPositionStabilityScore());
+        params.put("deviceId", null);  //todo 设备id，暂时缺失
+        params.put("skipDate", TimeUtils.millis2String(time));
+        showProgress(null);
+        HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+            }
+
+            @Override
+            public void onFiled(String message) {
+            }
+        });
     }
 
 

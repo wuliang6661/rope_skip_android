@@ -20,9 +20,9 @@ public class RequstBleCmd {
         byte[] typeCmd = new BleCmd.CmdTypeBuilder().setType(BleCmd.CmdConstans.SET_CMD, BleCmd.CmdConstans.TIME_CMD).build();
 //        byte[] timeData = HexDump.intToBytes2((int) (System.currentTimeMillis() / 1000));
 //        byte[] timeData = DateUtils.formatDeviceYMDHMAsBytes(System.currentTimeMillis());
-        long timeSeconds = System.currentTimeMillis()/1000;
-        Log.d("RequstBleCmd", "同步时间： "+timeSeconds);
-        byte[] timeData = HexDump.intToBytes2((int)timeSeconds);
+        long timeSeconds = System.currentTimeMillis() / 1000;
+        Log.d("RequstBleCmd", "同步时间： " + timeSeconds);
+        byte[] timeData = HexDump.intToBytes2((int) timeSeconds);
         BleCmd cmd = new BleCmd.Builder().setTypeCmd(typeCmd).setDataBody(timeData).build();
         return cmd;
     }
@@ -87,8 +87,8 @@ public class RequstBleCmd {
     public static BleCmd createGetPointCmd(long date) {
         byte[] typeCmd = new BleCmd.CmdTypeBuilder().setType(BleCmd.CmdConstans.GET_CMD, BleCmd.CmdConstans.SPORT_POINT_CMD).build();
         byte[] dateData = HexDump.intToBytes2((int) date);
-        byte[] noData = new byte[]{0x00,0x00};
-        ByteBuffer byteBuffer = ByteBuffer.allocate(dateData.length+noData.length);
+        byte[] noData = new byte[]{0x00, 0x00};
+        ByteBuffer byteBuffer = ByteBuffer.allocate(dateData.length + noData.length);
         byteBuffer.put(dateData);
         byteBuffer.put(noData);
         BleCmd cmd = new BleCmd.Builder().setTypeCmd(typeCmd).setDataBody(byteBuffer.array()).build();
@@ -97,6 +97,7 @@ public class RequstBleCmd {
 
     /**
      * 删除一次运动
+     *
      * @param date 单位为秒
      * @return
      */
@@ -109,8 +110,9 @@ public class RequstBleCmd {
 
     /**
      * 批量删除运动
+     *
      * @param date_start 单位为秒
-     * @param data_end 单位为秒
+     * @param data_end   单位为秒
      * @return
      */
     public static BleCmd createBatDeleteSportCmd(long date_start, long data_end) {

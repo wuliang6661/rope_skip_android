@@ -38,4 +38,32 @@ public class ByteUtils {
         return value;
     }
 
+
+    /**
+     * 将整数转换为byte数组并指定长度
+     * @param a 整数
+     * @param length 指定长度
+     * @return
+     */
+    public static byte[] intToBytes(int a, int length) {
+        byte[] bs = new byte[length];
+        for (int i = bs.length - 1; i >= 0; i--) {
+            bs[i] = (byte) (a % 255);
+            a = a / 255;
+        }
+        return bs;
+    }
+
+    /**
+     * 将byte数组转换为整数
+     * @param bs
+     * @return
+     */
+    public static int bytesToInt(byte[] bs) {
+        int a = 0;
+        for (int i = bs.length - 1; i >= 0; i--) {
+            a += bs[i] * Math.pow(255, bs.length - i - 1);
+        }
+        return a;
+    }
 }
