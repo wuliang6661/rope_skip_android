@@ -331,7 +331,6 @@ public class SearchActivty extends BaseActivity {
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("deviceId", null);  //todo 设备id，暂时缺失
         params.put("skipDate", TimeUtils.millis2String(time));
-        showProgress(null);
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
