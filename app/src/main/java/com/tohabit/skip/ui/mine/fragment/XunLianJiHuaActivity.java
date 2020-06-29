@@ -207,6 +207,7 @@ public class XunLianJiHuaActivity extends BaseActivity {
             public void onItemClicked(View view, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", jiHuaBOS.get(position).getImprovePlanId());
+                bundle.putInt("xunlianId", jiHuaBOS.get(position).getId());
                 gotoActivity(VideoExplainActivity.class, bundle, false);
             }
         });

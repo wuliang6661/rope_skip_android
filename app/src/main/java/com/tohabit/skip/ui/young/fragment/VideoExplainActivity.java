@@ -51,6 +51,7 @@ public class VideoExplainActivity extends BaseActivity {
     private ExplainDetailsBO detailsBO;
 
     private int id;
+    private int xunlianId;
 
 
     @Override
@@ -74,6 +75,7 @@ public class VideoExplainActivity extends BaseActivity {
 //        String title = getIntent().getExtras().getString("title");
         setTitleText("高度训练");
         id = getIntent().getExtras().getInt("id");
+        xunlianId = getIntent().getExtras().getInt("xunlianId");
         inviVideo();
         getImprovePlan(id);
     }
@@ -111,7 +113,7 @@ public class VideoExplainActivity extends BaseActivity {
                         new SimpleDateFormat("mm:ss"));
                 downTime.setText(time);
                 if (progress >= App.userBO.getPercent() * 100 - 10 && !isWancheng) {
-                    completeTrainPlan(id + "");
+                    completeTrainPlan(xunlianId + "");
                     isWancheng = true;
                 }
             }
