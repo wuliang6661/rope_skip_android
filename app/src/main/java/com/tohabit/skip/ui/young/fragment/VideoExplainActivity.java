@@ -49,6 +49,7 @@ public class VideoExplainActivity extends BaseActivity {
     RelativeLayout videoJin;
 
     private ExplainDetailsBO detailsBO;
+
     private int id;
 
 
