@@ -306,6 +306,13 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+
+        <!--修改体重身高-->
+        <activity
+            android:name="com.tohabit.skip.ui.mine.fragment.UpdatePersonActivty"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <!--查看大图-->
         <activity
             android:name="com.tohabit.skip.ui.BigPicutreActivity"

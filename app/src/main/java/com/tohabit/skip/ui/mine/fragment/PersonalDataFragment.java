@@ -36,8 +36,12 @@ import com.tohabit.skip.ui.mine.presenter.PersonalDataPresenter;
 import com.tohabit.skip.utils.PhotoFromPhotoAlbum;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
+import com.tohabit.skip.widget.DateDialog;
+import com.tohabit.skip.widget.PopXingZhi;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -88,6 +92,8 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
 
+
+    private int sex;
 
     public static PersonalDataFragment newInstance(Bundle bundle) {
         PersonalDataFragment fragment = new PersonalDataFragment();
@@ -159,6 +165,7 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
         nikeName.setText(userBO.getNickName());
         phoneNum.setText(Utils.settingphone(userBO.getPhone()));
         tvTitleFragmentPersonalData.setText("ID " + userBO.getUserCode());
+        sex = userBO.getSex();
         sexText.setText(userBO.getSex() == 0 ? "男" : "女");
         birthDay.setText(userBO.getBirthDate());
         height.setText(userBO.getHeight() + "cm");
@@ -190,6 +197,93 @@ public class PersonalDataFragment extends BaseFragment<PersonalDataPresenter>
                 checkPermissions();
                 break;
         }
+    }
+
+
+    @OnClick({R.id.birth_day_layout, R.id.sex_layout, R.id.weight_layout, R.id.height_layout})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.birth_day_layout:
+                DateDialog.show(getActivity(), birthDay, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateBirth();
+                    }
+                });
+                break;
+            case R.id.sex_layout:
+                showSexDialog();
+                break;
+            case R.id.weight_layout:
+                Bundle bundle = new Bundle();
+                bundle.putInt("type", 0);
+                gotoActivity(UpdatePersonActivty.class, bundle, false);
+                break;
+            case R.id.height_layout:
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("type", 1);
+                gotoActivity(UpdatePersonActivty.class, bundle1, false);
+                break;
+        }
+    }
+
+
+    /**
+     * 显示选择男女的弹窗
+     */
+    private void showSexDialog() {
+        List<String> sexs = new ArrayList<>();
+        sexs.add("男");
+        sexs.add("女");
+        PopXingZhi popXingZhi = new PopXingZhi(getActivity(), "", sexs);
+        popXingZhi.setListener(new PopXingZhi.onSelectListener() {
+            @Override
+            public void commit(int position, String item) {
+                sex = position;
+                sexText.setText(item);
+                updateSex();
+            }
+        });
+        popXingZhi.setSelectPosition(sex);
+        popXingZhi.showAtLocation(getActivity().getWindow().getDecorView());
+    }
+
+
+    /**
+     * 修改性别
+     */
+    private void updateSex() {
+        HttpServerImpl.updateSex(sex).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                mPresenter.getUserInfo();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+                mPresenter.getUserInfo();
+            }
+        });
+    }
+
+
+    /**
+     * 修改生日
+     */
+    private void updateBirth() {
+        HttpServerImpl.updateBirthDate(birthDay.getText().toString().trim()).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                mPresenter.getUserInfo();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+                mPresenter.getUserInfo();
+            }
+        });
     }
 
 

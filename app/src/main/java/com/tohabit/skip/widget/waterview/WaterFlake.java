@@ -149,7 +149,7 @@ public class WaterFlake extends FrameLayout {
         }
         for (int i = 0; i < modelList.size(); i++) {
             NengLiangVO waterModel = modelList.get(i);
-            final View view = mLayoutInflater.inflate(R.layout.item_water, this, false);
+            View view = mLayoutInflater.inflate(R.layout.item_water, this, false);
             view.setX((float) ((mWidth * xRandom[i] * 0.11)));
             view.setY((float) ((mHeight * yRandom[i] * 0.08)));
             view.setTag(waterModel);

@@ -711,4 +711,29 @@ public interface HttpService {
     @POST("app/share/addDataShare")
     Observable<BaseResult<String>> addDataShare(@Body Map<String, Object> params);
 
+    /**
+     * 修改生日
+     */
+    @POST("app/user/updateBirthDate")
+    Observable<BaseResult<String>> updateBirthDate(@Body Map<String,Object> params);
+
+
+    /**
+     * 修改性别
+     */
+    @POST("app/user/updateSex")
+    Observable<BaseResult<String>> updateSex(@Body Map<String,Object> params);
+
+    /**
+     * 修改身高
+     */
+    @POST("app/user/updateHeight")
+    Observable<BaseResult<String>> updateHeight(@Body Map<String,Object> params);
+
+    /**
+     * 修改体重
+     */
+    @POST("app/user/updateWeight")
+    Observable<BaseResult<String>> updateWeight(@Body Map<String,Object> params);
+
 }

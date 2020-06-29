@@ -849,6 +849,42 @@ public class HttpServerImpl {
     }
 
     /**
+     * 修改性别
+     */
+    public static Observable<String> updateSex(int sex){
+        Map<String, Object> params = new HashMap<>();
+        params.put("sex", sex);
+        return getService().updateSex(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改生日
+     */
+    public static Observable<String> updateBirthDate(String birthDate){
+        Map<String, Object> params = new HashMap<>();
+        params.put("birthDate", birthDate);
+        return getService().updateBirthDate(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改体重
+     */
+    public static Observable<String> updateWeight(String weight){
+        Map<String, Object> params = new HashMap<>();
+        params.put("weight", weight);
+        return getService().updateWeight(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
+     * 修改身高
+     */
+    public static Observable<String> updateHeight(String height){
+        Map<String, Object> params = new HashMap<>();
+        params.put("height", height);
+        return getService().updateHeight(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
      * 提交图片
      */
     public static Observable<String> updateFile(File file) {

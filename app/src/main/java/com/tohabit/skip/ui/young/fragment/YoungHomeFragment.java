@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
 import com.sak.ultilviewlib.UltimateRefreshView;
 import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
@@ -126,7 +127,7 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
                         getEnergies();
                         getYoungGeneralInfo();
                     }
-                },1000);
+                }, 1000);
             }
         });
     }
@@ -267,13 +268,18 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
      */
     private void showEnergies(List<NengLiangVO> s) {
 //        waterFlake.setModelList(s, giViewMonkeyFragmentYoungHome);
-        waterFlake.setModelList(s, xiaojiangLayout);
-        waterFlake.setOnWaterItemListener(new WaterFlake.OnWaterItemListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onItemClick(NengLiangVO waterModel) {
-                receiveEnergy(waterModel.getId());
+            public void run() {
+                waterFlake.setModelList(s, ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 2);
+                waterFlake.setOnWaterItemListener(new WaterFlake.OnWaterItemListener() {
+                    @Override
+                    public void onItemClick(NengLiangVO waterModel) {
+                        receiveEnergy(waterModel.getId());
+                    }
+                });
             }
-        });
+        },300);
     }
 
 

@@ -182,6 +182,7 @@
 
 
             <LinearLayout
+                android:id="@+id/birth_day_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -236,6 +237,7 @@
 
 
             <LinearLayout
+                android:id="@+id/sex_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -290,6 +292,7 @@
 
 
             <LinearLayout
+                android:id="@+id/height_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -344,6 +347,7 @@
 
 
             <LinearLayout
+                android:id="@+id/weight_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
