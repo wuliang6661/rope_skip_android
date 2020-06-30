@@ -192,7 +192,7 @@ public class ExChangeFragment extends BaseFragment {
      * 查询所有兑换商品
      */
     private void getGoodList() {
-        HttpServerImpl.getGoodList(1, 20000).subscribe(new HttpResultSubscriber<List<ShopBO>>() {
+        HttpServerImpl.getGoodList(0, 20000).subscribe(new HttpResultSubscriber<List<ShopBO>>() {
             @Override
             public void onSuccess(List<ShopBO> s) {
                 refreshView.onHeaderRefreshComplete();

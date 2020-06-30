@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.skip.R;
@@ -164,6 +165,10 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
                 }
                 if (TextUtils.isEmpty(password)) {
                     showError("请输入密码");
+                    return;
+                }
+                if(!RegexUtils.isMobileExact(phone)){
+                    showError("请输入正确的手机号码！");
                     return;
                 }
                 showProgress("加载中...");

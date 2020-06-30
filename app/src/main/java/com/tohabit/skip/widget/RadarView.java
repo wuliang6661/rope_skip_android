@@ -328,9 +328,9 @@ public class RadarView extends View {
         float y1 = centerY - radius;
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), images.get(0));
         canvas.drawBitmap(bitmap, x1 - SizeUtils.dp2px(18), y1 - fontHeight / 5 - bitmap.getHeight() -
-                SizeUtils.dp2px(18), textPaint);
-        canvas.drawText(titles.get(0), x1, y1 - fontHeight / 5 - 20, textPaint);
-        canvas.drawText(data.get(0) + "", x1, y1 + SizeUtils.dp2px(5), fenshuPaint);
+                SizeUtils.dp2px(18)-27, textPaint);
+        canvas.drawText(titles.get(0), x1, y1 - fontHeight / 5 - 47, textPaint);
+        canvas.drawText(data.get(0) + "", x1, y1 + SizeUtils.dp2px(5)-27, fenshuPaint);
         //绘制文字2
         float x2 = (float) (centerX + radius * Math.sin(angle)) - 20;
         float y2 = (float) (centerY - radius * Math.cos(angle));
