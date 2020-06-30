@@ -3,9 +3,12 @@ package com.tohabit.skip.ui.find.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +19,7 @@ import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.pojo.po.ShopBO;
+import com.tohabit.skip.widget.NonScrollGridView;
 import com.tohabit.skip.widget.TraditionHeaderAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
@@ -45,13 +49,15 @@ public class ExChangeFragment extends BaseFragment {
     @BindView(R.id.tuijian3_text)
     TextView tuijian3Text;
     @BindView(R.id.recycle_view)
-    RecyclerView recycleView;
+    NonScrollGridView recycleView;
     Unbinder unbinder;
 
     List<ShopBO> tuijianList;
     @BindView(R.id.refresh_view)
     UltimateRefreshView refreshView;
     Unbinder unbinder1;
+
+    List<ShopBO> allList;
 
     @Override
     protected void initInject() {
@@ -71,8 +77,8 @@ public class ExChangeFragment extends BaseFragment {
     @Override
     protected void initEventAndData() {
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
-        recycleView.setLayoutManager(manager);
-        recycleView.setNestedScrollingEnabled(false);
+//        recycleView.setLayoutManager(manager);
+//        recycleView.setNestedScrollingEnabled(false);
 
         initRefresh();
     }
@@ -196,7 +202,9 @@ public class ExChangeFragment extends BaseFragment {
             @Override
             public void onSuccess(List<ShopBO> s) {
                 refreshView.onHeaderRefreshComplete();
-                showAdapter(s);
+                allList = s;
+//                showAdapter(s);
+                recycleView.setAdapter(new MyAdapter());
             }
 
             @Override
@@ -228,7 +236,66 @@ public class ExChangeFragment extends BaseFragment {
             bundle.putInt("Id", adapter.getItem(position).getId());
             gotoActivity(ShopDetailsActivity.class, bundle, false);
         });
-        recycleView.setAdapter(adapter);
+//        recycleView.setAdapter(adapter);
+    }
+
+
+    class MyAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return allList.size();
+        }
+
+        @Override
+        public ShopBO getItem(int position) {
+            return allList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.item_shop, parent, false);
+                holder = new ViewHolder();
+                holder.shopName = convertView.findViewById(R.id.shop_name);
+                holder.shopImg = convertView.findViewById(R.id.shop_img);
+                holder.nengliangNum = convertView.findViewById(R.id.nengliang_num);
+                holder.priceNum = convertView.findViewById(R.id.price_num);
+                holder.itemLayout = convertView.findViewById(R.id.item_layout);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            Glide.with(getActivity()).load(allList.get(position).getImage()).into(holder.shopImg);
+            holder.shopName.setText(allList.get(position).getName());
+            holder.nengliangNum.setText(allList.get(position).getExchangeEnergy() + "");
+            holder.priceNum.setText("¥" + allList.get(position).getPrice());
+            holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("Id",getItem(position).getId());
+                    gotoActivity(ShopDetailsActivity.class, bundle, false);
+                }
+            });
+            return convertView;
+        }
+
+        class ViewHolder {
+
+            ImageView shopImg;
+            TextView shopName;
+            TextView nengliangNum;
+            TextView priceNum;
+            LinearLayout itemLayout;
+
+        }
     }
 
 }
