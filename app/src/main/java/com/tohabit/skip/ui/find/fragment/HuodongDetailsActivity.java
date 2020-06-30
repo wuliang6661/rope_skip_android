@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.tohabit.skip.R;
@@ -71,7 +72,7 @@ public class HuodongDetailsActivity extends BaseActivity {
     }
 
 
-    private void getActivity(){
+    private void getActivity() {
         HttpServerImpl.getActivity(huodongBO.getId() + "").subscribe(new HttpResultSubscriber<HuodongBO>() {
             @Override
             public void onSuccess(HuodongBO ss) {
@@ -81,13 +82,13 @@ public class HuodongDetailsActivity extends BaseActivity {
 
             @Override
             public void onFiled(String message) {
-              showToast(message);
+                showToast(message);
             }
         });
     }
 
 
-    private void showData(){
+    private void showData() {
         Glide.with(this).load(huodongBO.getImage()).into(huodongImg);
         huodongTitle.setText(huodongBO.getTitle());
         huodongTime.setText("报名时间： " + huodongBO.getTimeBucket());
@@ -131,7 +132,7 @@ public class HuodongDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.bt_commit)
     public void commit() {
-        if(huodongBO.getJoinStatus() != 0){
+        if (huodongBO.getJoinStatus() != 0) {
             return;
         }
         View dialogView = getLayoutInflater().inflate(R.layout.pop_baoming, null);
@@ -154,6 +155,14 @@ public class HuodongDetailsActivity extends BaseActivity {
             }
             if (StringUtils.isEmpty(age)) {
                 showToast("请填写年龄！");
+                return;
+            }
+            if (StringUtils.isEmpty(phone)) {
+                showToast("请填写电话！");
+                return;
+            }
+            if (!RegexUtils.isMobileExact(phone)) {
+                showToast("请填写正确的电话号码！");
                 return;
             }
             baoming(name, age, phone);

@@ -58,6 +58,7 @@
                         android:layout_marginLeft="60dp"
                         android:background="@color/white"
                         android:hint="输入收货人姓名"
+                        android:maxLength="10"
                         android:textColor="@color/colorText"
                         android:textColorHint="@color/color_C3C3C3"
                         android:textSize="14sp" />
@@ -87,6 +88,7 @@
                         android:background="@color/white"
                         android:hint="输入手机号码"
                         android:inputType="number"
+                        android:maxLength="11"
                         android:textColor="@color/colorText"
                         android:textColorHint="@color/color_C3C3C3"
                         android:textSize="14sp" />
@@ -115,9 +117,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="60dp"
                         android:layout_weight="1"
-                        android:textColor="@color/colorText"
                         android:background="@color/white"
                         android:hint="选择所在省份、城市、区县"
+                        android:textColor="@color/colorText"
                         android:textColorHint="@color/color_C3C3C3"
                         android:textSize="14sp" />
 
@@ -154,6 +156,7 @@
                         android:layout_marginLeft="60dp"
                         android:background="@color/white"
                         android:hint="街道、楼牌号等详细地址"
+                        android:maxLength="50"
                         android:textColor="@color/colorText"
                         android:textColorHint="@color/color_C3C3C3"
                         android:textSize="14sp" />

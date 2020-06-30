@@ -1,6 +1,6 @@
 package com.tohabit.skip.ui.mine.fragment;
 
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
@@ -17,6 +19,7 @@ import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.common.adapter.BaseRvAdapter;
 import com.tohabit.skip.pojo.po.WenDaBO;
+import com.tohabit.skip.widget.TraditionHeaderAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +33,14 @@ import butterknife.BindView;
  * desc   :  常见问题界面
  * version: 1.0
  */
-public class FrequentlyActivty extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class FrequentlyActivty extends BaseActivity {
 
     @BindView(R.id.toolbar_layout_toolbar)
     ToolbarWithBackRightProgress toolbar;
     @BindView(R.id.rv_layout_swipe_to_refresh)
     RecyclerView recyclerView;
     @BindView(R.id.swipeLayout_layout_swipe_to_refresh)
-    SwipeRefreshLayout swipeRefreshLayout;
+    UltimateRefreshView mSwipeRefreshLayout;
 
     BaseRvAdapter mListAdapter;
 
@@ -68,17 +71,26 @@ public class FrequentlyActivty extends BaseActivity implements SwipeRefreshLayou
 
         initAdapter();
 
-        swipeRefreshLayout.setRefreshing(true);
+        mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(this));
+        mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
+            @Override
+            public void onHeaderRefresh(UltimateRefreshView view) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onRefresh();
+                    }
+                },1000);
+            }
+        });
         onRefresh();
     }
 
-    @Override
     public void onRefresh() {
         getData();
     }
 
     private void initAdapter() {
-        swipeRefreshLayout.setOnRefreshListener(this);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE)
                 .margin(SizeUtils.dp2px(15)).build());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -125,13 +137,13 @@ public class FrequentlyActivty extends BaseActivity implements SwipeRefreshLayou
         HttpServerImpl.getQuestionList().subscribe(new HttpResultSubscriber<List<WenDaBO>>() {
             @Override
             public void onSuccess(List<WenDaBO> s) {
-                swipeRefreshLayout.setRefreshing(false);
+                mSwipeRefreshLayout.onHeaderRefreshComplete();
                 mListAdapter.setNewData(s);
             }
 
             @Override
             public void onFiled(String message) {
-                swipeRefreshLayout.setRefreshing(false);
+                mSwipeRefreshLayout.onHeaderRefreshComplete();
                 showToast(message);
             }
         });

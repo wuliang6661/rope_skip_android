@@ -144,7 +144,7 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
                     showError("请输入短信验证");
                     return;
                 }
-                mPresenter.verifyUserInfo(etTel.getText().toString(), etPleaseInputMsgCode.getText().toString());
+                mPresenter.verifyUserInfo(App.userBO.getPhone(), etPleaseInputMsgCode.getText().toString());
                 break;
             case R.id.btn2_next_fragment_register:
                 if (TextUtils.isEmpty(etTel2.getText().toString())) {
@@ -230,9 +230,9 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (timer != null) {
             timer.cancel();
         }
+        super.onDestroy();
     }
 }

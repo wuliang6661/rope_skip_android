@@ -38,11 +38,11 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/white"
+                android:paddingLeft="@dimen/dp_10"
                 app:lichtd_bottom_divider_visibility="gone"
                 app:lichtd_content_text_color="@color/color_888888"
                 app:lichtd_iv_detail_visibility="visible"
                 app:lichtd_title="请选择反馈类型"
-                android:paddingLeft="@dimen/dp_10"
                 app:lichtd_title_text_color="@color/color_888888"
                 app:lichtd_top_divider_visibility="gone" />
 
@@ -69,6 +69,7 @@
                 android:background="@drawable/bg_item_border"
                 android:gravity="center_vertical"
                 android:hint="手机/邮箱/QQ（选填）"
+                android:maxLength="50"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="10dp"
                 android:textColor="@color/color_888888"
