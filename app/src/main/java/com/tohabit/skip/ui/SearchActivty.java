@@ -22,6 +22,7 @@ import com.tohabit.skip.pojo.po.DeviceBO;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.utils.ByteUtils;
 import com.tohabit.skip.utils.Example;
+import com.tohabit.skip.utils.Utils;
 import com.tohabit.skip.utils.blue.OnSearchListenter;
 import com.tohabit.skip.utils.blue.btutil.BlueDeviceUtils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
@@ -331,7 +332,7 @@ public class SearchActivty extends BaseActivity {
         params.put("skipTime", timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("deviceId", null);  //todo 设备id，暂时缺失
-        params.put("skipDate", TimeUtils.millis2String(time));
+        params.put("skipDate", Utils.utcToLocal(TimeUtils.millis2String(time * 1000)));
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
