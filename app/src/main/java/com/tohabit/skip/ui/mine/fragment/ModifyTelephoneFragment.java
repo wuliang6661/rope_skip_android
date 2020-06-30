@@ -229,6 +229,14 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
     };
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (timer != null) {
+            timer.cancel();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         if (timer != null) {
             timer.cancel();
