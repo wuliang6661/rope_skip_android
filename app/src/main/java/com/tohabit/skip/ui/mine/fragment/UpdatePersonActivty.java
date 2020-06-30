@@ -2,6 +2,7 @@ package com.tohabit.skip.ui.mine.fragment;
 
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.view.View;
 
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
 import com.tohabit.skip.R;
@@ -43,6 +44,12 @@ public class UpdatePersonActivty extends BaseActivity {
 
     @Override
     protected void initEventAndData() {
+        toolbarLayoutToolbar.setBackIBClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         type = getIntent().getExtras().getInt("type");
         if (type == 0) {
             toolbarLayoutToolbar.setTitle("修改体重");
