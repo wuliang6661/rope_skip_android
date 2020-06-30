@@ -166,11 +166,11 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
         switch (view.getId()) {
             case R.id.btn_send_code_fragment_register:
                 selectSend = 0;
-                mPresenter.sendCode(App.userBO.getPhone());
+                mPresenter.sendCode(App.userBO.getPhone(), 1);
                 break;
             case R.id.btn2_send_code_fragment_register:
                 selectSend = 1;
-                mPresenter.sendCode(etTel2.getText().toString());
+                mPresenter.sendCode(etTel2.getText().toString(), 0);
                 break;
         }
     }

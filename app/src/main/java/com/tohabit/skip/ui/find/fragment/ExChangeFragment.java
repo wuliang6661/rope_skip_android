@@ -1,6 +1,7 @@
 package com.tohabit.skip.ui.find.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,11 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.pojo.po.ShopBO;
+import com.tohabit.skip.widget.TraditionHeaderAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
 
@@ -45,6 +49,9 @@ public class ExChangeFragment extends BaseFragment {
     Unbinder unbinder;
 
     List<ShopBO> tuijianList;
+    @BindView(R.id.refresh_view)
+    UltimateRefreshView refreshView;
+    Unbinder unbinder1;
 
     @Override
     protected void initInject() {
@@ -67,6 +74,24 @@ public class ExChangeFragment extends BaseFragment {
         recycleView.setLayoutManager(manager);
         recycleView.setNestedScrollingEnabled(false);
 
+        initRefresh();
+    }
+
+
+    private void initRefresh() {
+        refreshView.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+        refreshView.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
+            @Override
+            public void onHeaderRefresh(UltimateRefreshView view) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getGoodTuijian();
+                        getGoodList();
+                    }
+                }, 1000);
+            }
+        });
     }
 
     @Override
@@ -132,6 +157,7 @@ public class ExChangeFragment extends BaseFragment {
         HttpServerImpl.getGoodList(1, 3).subscribe(new HttpResultSubscriber<List<ShopBO>>() {
             @Override
             public void onSuccess(List<ShopBO> s) {
+                refreshView.onHeaderRefreshComplete();
                 tuijianList = s;
                 if (s == null || s.isEmpty()) {
                     return;
@@ -155,6 +181,7 @@ public class ExChangeFragment extends BaseFragment {
 
             @Override
             public void onFiled(String message) {
+                refreshView.onHeaderRefreshComplete();
                 showToast(message);
             }
         });
@@ -168,11 +195,13 @@ public class ExChangeFragment extends BaseFragment {
         HttpServerImpl.getGoodList(1, 20000).subscribe(new HttpResultSubscriber<List<ShopBO>>() {
             @Override
             public void onSuccess(List<ShopBO> s) {
+                refreshView.onHeaderRefreshComplete();
                 showAdapter(s);
             }
 
             @Override
             public void onFiled(String message) {
+                refreshView.onHeaderRefreshComplete();
                 showToast(message);
             }
         });

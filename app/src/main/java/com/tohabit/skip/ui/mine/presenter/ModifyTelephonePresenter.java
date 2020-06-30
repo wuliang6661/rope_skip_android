@@ -28,8 +28,8 @@ public class ModifyTelephonePresenter extends RxPresenter<ModifyTelephoneContrac
     /**
      * 发送验证码
      */
-    public void sendCode(String phone) {
-        HttpServerImpl.sendCode(phone, 1).subscribe(new HttpResultSubscriber<String>() {
+    public void sendCode(String phone, int type) {
+        HttpServerImpl.sendCode(phone, type).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
                 if (mView != null) {
