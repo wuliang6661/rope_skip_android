@@ -271,7 +271,7 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                waterFlake.setModelList(s, ScreenUtils.getScreenWidth() / 2, ScreenUtils.getScreenHeight() / 2);
+                waterFlake.setModelList(s.size() > 8 ? s.subList(0, 8) : s, xiaojiangLayout);
                 waterFlake.setOnWaterItemListener(new WaterFlake.OnWaterItemListener() {
                     @Override
                     public void onItemClick(NengLiangVO waterModel) {
@@ -279,7 +279,7 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
                     }
                 });
             }
-        },300);
+        }, 300);
     }
 
 
@@ -292,6 +292,7 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
             public void onSuccess(String s) {
                 refreshView.onHeaderRefreshComplete();
                 getYoungGeneralInfo();
+                getEnergies();
             }
 
             @Override
