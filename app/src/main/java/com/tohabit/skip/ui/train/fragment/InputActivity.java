@@ -125,17 +125,17 @@ public class InputActivity extends BaseActivity {
             showToast("请输入断绳次数！");
             return;
         }
-        Example example = new Example(getAssets(), Integer.parseInt(cishu), Integer.parseInt(zongshu), Integer.parseInt(shichang));
-        Evaluator evaluator = example.getData();
+//        Example example = new Example(getAssets(), Integer.parseInt(cishu), Integer.parseInt(zongshu), Integer.parseInt(shichang));
+//        Evaluator evaluator = example.getData();
         Map<String, Object> params = new HashMap<>();
-        params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
+        params.put("actionScore", 0);//动作分数
         params.put("breakNum", cishu);   //断绳数量
-        params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
-        params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
-        params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
+        params.put("coordinateScore", 0); //协调分数
+        params.put("enduranceScore", 0);  //耐力得分
+        params.put("rhythmScore", 0);  //节奏得分
         params.put("skipNum", zongshu);  //跳绳次数
         params.put("skipTime", shichang);
-        params.put("stableScore", evaluator.getPositionStabilityScore());
+        params.put("stableScore", 0);
         params.put("deviceId", null);  //todo 设备id，暂时缺失
         params.put("skipDate",TimeUtils.getNowString());
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
