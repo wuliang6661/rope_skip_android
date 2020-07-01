@@ -57,9 +57,9 @@
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="35dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:layout_marginLeft="35dp"
                         android:text="计数模式"
                         android:textColor="@color/white"
                         android:textSize="17sp"
@@ -149,11 +149,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="30dp"
-                                android:text="00"
                                 android:paddingHorizontal="3dp"
-                                android:textStyle="bold"
+                                android:text="00"
                                 android:textColor="@color/white"
-                                android:textSize="45sp" />
+                                android:textSize="45sp"
+                                android:textStyle="bold" />
 
                             <android.support.v7.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
@@ -212,9 +212,9 @@
                         android:background="@mipmap/ic_home10" />
 
                     <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_test_time_train"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_test_time_train"
                         android:layout_marginLeft="5dp"
                         android:text="时间  00'00''"
                         android:textColor="@color/white"
@@ -222,12 +222,12 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_start_test_fragment_train_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/iv_start_test_fragment_train_main"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:background="@mipmap/ic_home8" />
+                    android:background="@mipmap/start_img" />
             </RelativeLayout>
 
             <android.support.v7.widget.AppCompatImageView
@@ -460,7 +460,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="9dp"
-                    android:text="测试记录"
+                    android:text="跳绳记录"
                     android:textColor="#B9CAE0" />
 
                 <android.support.v7.widget.AppCompatImageView

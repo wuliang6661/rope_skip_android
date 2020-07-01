@@ -705,6 +705,15 @@ public class HttpServerImpl {
         return getService().addTest(params).compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 同步历史记录
+     */
+    public static Observable<String> addTestBatch(List<Map<String, Object>> params) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("list", params);
+        return getService().addTestBatch(body).compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 获取数据报告
@@ -851,7 +860,7 @@ public class HttpServerImpl {
     /**
      * 修改性别
      */
-    public static Observable<String> updateSex(int sex){
+    public static Observable<String> updateSex(int sex) {
         Map<String, Object> params = new HashMap<>();
         params.put("sex", sex);
         return getService().updateSex(params).compose(RxResultHelper.httpRusult());
@@ -860,7 +869,7 @@ public class HttpServerImpl {
     /**
      * 修改生日
      */
-    public static Observable<String> updateBirthDate(String birthDate){
+    public static Observable<String> updateBirthDate(String birthDate) {
         Map<String, Object> params = new HashMap<>();
         params.put("birthDate", birthDate);
         return getService().updateBirthDate(params).compose(RxResultHelper.httpRusult());
@@ -869,7 +878,7 @@ public class HttpServerImpl {
     /**
      * 修改体重
      */
-    public static Observable<String> updateWeight(String weight){
+    public static Observable<String> updateWeight(String weight) {
         Map<String, Object> params = new HashMap<>();
         params.put("weight", weight);
         return getService().updateWeight(params).compose(RxResultHelper.httpRusult());
@@ -878,7 +887,7 @@ public class HttpServerImpl {
     /**
      * 修改身高
      */
-    public static Observable<String> updateHeight(String height){
+    public static Observable<String> updateHeight(String height) {
         Map<String, Object> params = new HashMap<>();
         params.put("height", height);
         return getService().updateHeight(params).compose(RxResultHelper.httpRusult());

@@ -595,6 +595,12 @@ public interface HttpService {
     @POST("app/test/addTest")
     Observable<BaseResult<String>> addTest(@Body Map<String, Object> params);
 
+    /**
+     * 同步历史记录
+     */
+    @POST("app/test/addTestBatch")
+    Observable<BaseResult<String>> addTestBatch(@Body Map<String, Object> params);
+
 
     /**
      * 查询数据报告记录
@@ -715,25 +721,25 @@ public interface HttpService {
      * 修改生日
      */
     @POST("app/user/updateBirthDate")
-    Observable<BaseResult<String>> updateBirthDate(@Body Map<String,Object> params);
+    Observable<BaseResult<String>> updateBirthDate(@Body Map<String, Object> params);
 
 
     /**
      * 修改性别
      */
     @POST("app/user/updateSex")
-    Observable<BaseResult<String>> updateSex(@Body Map<String,Object> params);
+    Observable<BaseResult<String>> updateSex(@Body Map<String, Object> params);
 
     /**
      * 修改身高
      */
     @POST("app/user/updateHeight")
-    Observable<BaseResult<String>> updateHeight(@Body Map<String,Object> params);
+    Observable<BaseResult<String>> updateHeight(@Body Map<String, Object> params);
 
     /**
      * 修改体重
      */
     @POST("app/user/updateWeight")
-    Observable<BaseResult<String>> updateWeight(@Body Map<String,Object> params);
+    Observable<BaseResult<String>> updateWeight(@Body Map<String, Object> params);
 
 }

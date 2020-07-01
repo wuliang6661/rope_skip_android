@@ -53,5 +53,5 @@ public class Constants {
      */
     public static final String serviceUUID = "6e401990-b5a3-f393-e0a9-e50e24dcca9a";
     public static final String characterUUID1 = "6e401991-b5a3-f393-e0a9-e50e24dcca9a";
-
+    public static final String characterUUID2 = "6e401992-b5a3-f393-e0a9-e50e24dcca9a";
 }

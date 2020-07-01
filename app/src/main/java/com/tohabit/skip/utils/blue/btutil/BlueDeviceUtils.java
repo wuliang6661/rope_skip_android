@@ -373,7 +373,7 @@ public class BlueDeviceUtils {
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 // 从intent中获取设备
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                LogUtils.e(device.getName() + "    Mac===" + device.getAddress());
+//                LogUtils.e(device.getName() + "    Mac===" + device.getAddress());
                 if (!StringUtils.isEmpty(device.getName())) {
                     booth.remove(device.getName());
                     booth.put(device.getName(), device);

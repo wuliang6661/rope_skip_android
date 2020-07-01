@@ -51,7 +51,7 @@ public class UartService extends Service {
     //蓝牙厂商提供的UUID
     private static final UUID UUID_SERVICE = UUID.fromString(Constants.serviceUUID); //服务
     private static final UUID UUID_CHARA1 = UUID.fromString(Constants.characterUUID1); //特征值1
-    private static final UUID UUID_CHARA2 = UUID.fromString("0000fff4-0000-1000-8000-00805f9b34fb"); //特征值2
+    private static final UUID UUID_CHARA2 = UUID.fromString(Constants.characterUUID2); //特征值2
 
     public static final int MESSAGE_STATE_CHANGE = 0x11;
     public static final int MESSAGE_DEVICE_NAME = 0x22;
@@ -110,14 +110,20 @@ public class UartService extends Service {
                 for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
                     Log.e("onServicesDisc中中中", " ：" + gattCharacteristic.getUuid());
                     if (Constants.characterUUID1.equals(gattCharacteristic.getUuid().toString())) {
-                        mBluetoothGattService = bluetoothGattService;
+//                        mBluetoothGattService = bluetoothGattService;
                         mBluetoothGattCharacteristic1 = gattCharacteristic;
                         Log.e("daole", mBluetoothGattCharacteristic1.getUuid().toString());
+                    }
+                    if (Constants.characterUUID2.equals(gattCharacteristic.getUuid().toString())) {
+//                        mBluetoothGattService = bluetoothGattService;
+                        mBluetoothGattCharacteristic2 = gattCharacteristic;
+                        Log.e("daole", mBluetoothGattCharacteristic2.getUuid().toString());
                     }
                 }
 
             }
             setCharacteristicNotification(mBluetoothGattCharacteristic1, true);//必须要有，否则接收不到数据
+            setCharacteristicNotification(mBluetoothGattCharacteristic2, true);//必须要有，否则接收不到数据
             mHandler.sendEmptyMessageDelayed(NITIFI_SOURESS, 500);
         }
 
@@ -149,6 +155,22 @@ public class UartService extends Service {
                     .sendToTarget();  //将消息传回主界面
         }
 
+
+        @Override
+        public void onDescriptorWrite(BluetoothGatt gatt,
+                                      BluetoothGattDescriptor descriptor, int status) {
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+
+                //开启监听成功，可以像设备写入命令了
+                Log.e(TAG, "开启监听成功");
+                LogUtils.e("收到蓝牙反馈数据" + ByteUtils.byte2HexStr(descriptor.getValue(), descriptor.getValue().length));
+                mHandler.obtainMessage(MESSAGE_READ, descriptor.getValue().length, -1, descriptor.getValue())
+                        .sendToTarget();  //将消息传回主界面
+            }
+
+        }
+
+        ;
     };
 
 
@@ -334,6 +356,17 @@ public class UartService extends Service {
         return true;
     }
 
+
+    public boolean readCharacteristic1Info(byte[] data) {
+        if (mBluetoothGattService == null) {
+            return false;
+        }
+        mBluetoothGattCharacteristic1 = mBluetoothGattService.getCharacteristic(UUID_CHARA1);//获得特征值1
+        mBluetoothGattCharacteristic1.setValue(data);
+        mBluetoothGatt.readCharacteristic(mBluetoothGattCharacteristic1);
+        return true;
+    }
+
     /**
      * Enables or disables notification on a give characteristic.
      *
@@ -354,9 +387,20 @@ public class UartService extends Service {
                 for (BluetoothGattDescriptor descriptor : descriptorList) {
                     descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                     mBluetoothGatt.writeDescriptor(descriptor);
+                    Log.w("wuliang", "设置特征值开启监听成功！");
                 }
             }
         }
+    }
+
+
+    /**
+     * 设置特征值2开启监听
+     */
+    public void setNotifiCharacter() {
+        mBluetoothGattCharacteristic2 = mBluetoothGattService.getCharacteristic(UUID_CHARA2);
+        BluetoothGattDescriptor descriptor = mBluetoothGattCharacteristic2.getDescriptor(UUID_CHARA2);
+        descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
     }
 
 

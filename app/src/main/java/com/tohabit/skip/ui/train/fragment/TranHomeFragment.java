@@ -327,7 +327,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     }
                     String time = Utils.timeToString(timeCount);
                     tvTime.setText("时间  " + time);
-                    ivStartTest.setBackgroundResource(R.mipmap.ic_home8);
+                    ivStartTest.setBackgroundResource(R.mipmap.start_img);
                     isEditMsg = false;
                 } else {//未开始
                     if (!App.isConnect()) {

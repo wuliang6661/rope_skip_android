@@ -142,7 +142,7 @@ public class SearchActivty extends BaseActivity {
                         return;
                     }
                 }
-                if (device.getName().startsWith("TH")) {
+                if (device.getName().startsWith("TH") || device.getName().startsWith("XS")) {
                     devices.add(device);
                     setAdapter();
                 }
@@ -239,7 +239,7 @@ public class SearchActivty extends BaseActivity {
             byte[] changdu = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1]};
             muluCount = ByteUtils.bytesToInt(changdu);
             LogUtils.e("获取的目录条数：" + muluCount);
-            showToast("获取的历史目录条数：" + muluCount);
+//            showToast("获取的历史目录条数：" + muluCount);
             if (muluCount > 0) {
                 selectPosition = 0;
                 new Handler().postDelayed(new Runnable() {
@@ -271,15 +271,16 @@ public class SearchActivty extends BaseActivity {
             int skipNum = ByteUtils.bytesToInt(skipNumByte);
             int breakNum = ByteUtils.bytesToInt(breakNumByte);
             LogUtils.e("获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
-            addTest(skipNum, breakNum, (int) (dateEndTime - dateTime), dateTime);
-            if (selectPosition < muluCount - 1) {
-                selectPosition++;
-                getMuLuMessage(selectPosition);
-            } else {
-                stopProgress();
-                showToast("同步完成！");
-                deleteAll();
-            }
+            getYundongMsg(dateTime);
+//            addTest(skipNum, breakNum, (int) (dateEndTime - dateTime), dateTime);
+//            if (selectPosition < muluCount - 1) {
+//                selectPosition++;
+//                getMuLuMessage(selectPosition);
+//            } else {
+//                stopProgress();
+//                showToast("同步完成！");
+////                deleteAll();
+//            }
         }
     }
 
@@ -311,6 +312,16 @@ public class SearchActivty extends BaseActivity {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
             UartService.COUNT_OPENTION = 0x66;
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createBatDeleteSportCmd(startUTC, endUTC).getCmdByte());
+        }
+    }
+
+    /**
+     * 获取运动分包数据
+     */
+    private void getYundongMsg(long date) {
+        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            UartService.COUNT_OPENTION = 0x77;
+            App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetPointCmd(date).getCmdByte());
         }
     }
 
