@@ -8,7 +8,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.algorithm.skipevaluation.Evaluator;
 import com.blankj.utilcode.util.TimeUtils;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -21,7 +20,6 @@ import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
-import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.StringUtils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
