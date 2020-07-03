@@ -48,7 +48,7 @@ public class WebSocketUtils {
      * 初始化websocket
      */
     private void initSocket() {
-        URI uri = URI.create("ws://47.96.126.117:8084/rope_skipping_webservice/websocket/" + App.userBO.getId());
+        URI uri = URI.create("ws://47.103.87.189:8081/websocket/" + App.userBO.getId());
         client = new JWebSocketClient(uri) {
             @Override
             public void onMessage(String message) {
