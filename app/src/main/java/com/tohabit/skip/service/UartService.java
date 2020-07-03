@@ -163,9 +163,7 @@ public class UartService extends Service {
 
                 //开启监听成功，可以像设备写入命令了
                 Log.e(TAG, "开启监听成功");
-                LogUtils.e("收到蓝牙反馈数据" + ByteUtils.byte2HexStr(descriptor.getValue(), descriptor.getValue().length));
-                mHandler.obtainMessage(MESSAGE_READ, descriptor.getValue().length, -1, descriptor.getValue())
-                        .sendToTarget();  //将消息传回主界面
+
             }
 
         }

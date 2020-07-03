@@ -271,16 +271,16 @@ public class SearchActivty extends BaseActivity {
             int skipNum = ByteUtils.bytesToInt(skipNumByte);
             int breakNum = ByteUtils.bytesToInt(breakNumByte);
             LogUtils.e("获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
-            getYundongMsg(dateTime);
-//            addTest(skipNum, breakNum, (int) (dateEndTime - dateTime), dateTime);
-//            if (selectPosition < muluCount - 1) {
-//                selectPosition++;
-//                getMuLuMessage(selectPosition);
-//            } else {
-//                stopProgress();
-//                showToast("同步完成！");
-////                deleteAll();
-//            }
+//            getYundongMsg(dateTime);
+            addTest(skipNum, breakNum, (int) (dateEndTime - dateTime), dateTime);
+            if (selectPosition < muluCount - 1) {
+                selectPosition++;
+                getMuLuMessage(selectPosition);
+            } else {
+                stopProgress();
+                showToast("同步完成！");
+//                deleteAll();
+            }
         }
     }
 
