@@ -164,6 +164,8 @@ public class UartService extends Service {
         @Override
         public void onDescriptorWrite(BluetoothGatt gatt,
                                       BluetoothGattDescriptor descriptor, int status) {
+            LogUtils.e("uuid == " + descriptor.getUuid().toString() + "value == "
+                    + ByteUtils.byte2HexStr(descriptor.getValue(), descriptor.getValue().length));
             if (status == BluetoothGatt.GATT_SUCCESS) {
 
                 //开启监听成功，可以像设备写入命令了
