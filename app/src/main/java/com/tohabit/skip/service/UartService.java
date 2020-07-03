@@ -114,23 +114,20 @@ public class UartService extends Service {
                     if (Constants.characterUUID1.equals(gattCharacteristic.getUuid().toString())) {
                         mBluetoothGattService = bluetoothGattService;
                         mBluetoothGattCharacteristic1 = gattCharacteristic;
-                        setCharacteristic2Notification(mBluetoothGattCharacteristic1, true);
                     }
                     if (Constants.characterUUID2.equals(gattCharacteristic.getUuid().toString())) {
                         mBluetoothGattService = bluetoothGattService;
                         mBluetoothGattCharacteristic2 = gattCharacteristic;
-                        setCharacteristic2Notification(mBluetoothGattCharacteristic2, true);
                     }
                 }
-
             }
-//            setCharacteristicNotification(mBluetoothGattCharacteristic1, true);//必须要有，否则接收不到数据
-//            try {
-//                Thread.sleep(600);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            setCharacteristic2Notification(mBluetoothGattCharacteristic2, true);//必须要有，否则接收不到数据
+            setCharacteristic2Notification(mBluetoothGattCharacteristic1, true);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            setCharacteristic2Notification(mBluetoothGattCharacteristic2, true);
             mHandler.sendEmptyMessageDelayed(NITIFI_SOURESS, 500);
         }
 
@@ -170,10 +167,7 @@ public class UartService extends Service {
                 //开启监听成功，可以像设备写入命令了
                 Log.e(TAG, "开启监听成功");
             }
-
         }
-
-
     };
 
 
