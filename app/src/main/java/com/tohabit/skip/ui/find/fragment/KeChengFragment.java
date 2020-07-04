@@ -15,6 +15,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.adapter.InitFooterAdapter;
+import com.sak.ultilviewlib.interfaces.OnFooterRefreshListener;
 import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
@@ -57,12 +59,15 @@ public class KeChengFragment extends BaseFragment {
 
     BaseRvAdapter<KechengBO, BaseViewHolder> adapter;
     FenLeiAdapter fenLeiAdapter;
-
     private int isSelectNianLing = 0;
     private int isSelectShengao = 0;
     private int isSelectTizhong = 0;
 
     private int selectFeiLei = 0;
+    private List<FenLeiBO> fenLeiBOS;
+    private List<KechengBO> kechengBOS = new ArrayList<>();
+    private int pageNum = 1;
+
 
     @Override
     protected void initInject() {
@@ -84,9 +89,8 @@ public class KeChengFragment extends BaseFragment {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-//                shaixuanLayout.setVisibility(View.VISIBLE);
-//                mSwipeRefreshLayout.setOnRefreshListener(KeChengFragment.this);
                 mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+                mSwipeRefreshLayout.setBaseFooterAdapter(new InitFooterAdapter(getActivity()));
                 mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
                     @Override
                     public void onHeaderRefresh(UltimateRefreshView view) {
@@ -95,7 +99,17 @@ public class KeChengFragment extends BaseFragment {
                             public void run() {
                                 onRefresh();
                             }
-                        },1000);
+                        }, 1000);
+                    }
+                });
+                mSwipeRefreshLayout.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+                    @Override
+                    public void onFooterRefresh(UltimateRefreshView view) {
+                        if (fenLeiBOS.isEmpty()) {
+                            return;
+                        }
+                        pageNum++;
+                        getHuoDongList(fenLeiBOS.get(selectFeiLei).getId());
                     }
                 });
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -169,6 +183,7 @@ public class KeChengFragment extends BaseFragment {
     }
 
     public void onRefresh() {
+        pageNum = 1;
         getKechengClass();
     }
 
@@ -179,6 +194,7 @@ public class KeChengFragment extends BaseFragment {
         HttpServerImpl.getCourseClasss().subscribe(new HttpResultSubscriber<List<FenLeiBO>>() {
             @Override
             public void onSuccess(List<FenLeiBO> s) {
+                fenLeiBOS = s;
                 setFenLeiAdapter(s);
                 mSwipeRefreshLayout.onHeaderRefreshComplete();
             }
@@ -217,19 +233,28 @@ public class KeChengFragment extends BaseFragment {
      * 根据活动分类查询课程列表
      */
     private void getHuoDongList(int classId) {
-//        showProgress(null);
-        HttpServerImpl.getCourseInfoList(classId + "", isSelectNianLing, isSelectShengao, isSelectTizhong, null)
+        HttpServerImpl.getCourseInfoList(classId + "", isSelectNianLing, isSelectShengao,
+                isSelectTizhong, null, pageNum)
                 .subscribe(new HttpResultSubscriber<List<KechengBO>>() {
                     @Override
                     public void onSuccess(List<KechengBO> s) {
-                        stopProgress();
-                        adapter.setNewData(s);
+                        if (pageNum == 1) {
+                            kechengBOS = s;
+                            adapter.setNewData(s);
+                        } else {
+                            if (s.isEmpty()) {
+                                pageNum--;
+                            }
+                            kechengBOS.addAll(s);
+                            adapter.addData(s);
+                        }
+                        mSwipeRefreshLayout.onFooterRefreshComplete();
                     }
 
                     @Override
                     public void onFiled(String message) {
-                        stopProgress();
                         showToast(message);
+                        mSwipeRefreshLayout.onFooterRefreshComplete();
                     }
                 });
     }

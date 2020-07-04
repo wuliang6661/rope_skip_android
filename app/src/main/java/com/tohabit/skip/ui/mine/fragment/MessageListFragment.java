@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.adapter.InitFooterAdapter;
+import com.sak.ultilviewlib.interfaces.OnFooterRefreshListener;
 import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
@@ -47,6 +49,10 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
     @BindView(R.id.toolbar_layout_toolbar)
     ToolbarWithBackRightProgress toolbar;
     private String mModeType;
+
+    private int pageNum = 1;
+
+    private List<MessageBO> orderList;
 
     public static MessageListFragment newInstance(Bundle bundle) {
         MessageListFragment fragment = new MessageListFragment();
@@ -86,6 +92,7 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
         initAdapter();
 
         mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+        mSwipeRefreshLayout.setBaseFooterAdapter(new InitFooterAdapter(getActivity()));
         mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
             @Override
             public void onHeaderRefresh(UltimateRefreshView view) {
@@ -97,11 +104,19 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
                 }, 1000);
             }
         });
+        mSwipeRefreshLayout.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+            @Override
+            public void onFooterRefresh(UltimateRefreshView view) {
+                pageNum++;
+                mPresenter.getList(mModeType, pageNum);
+            }
+        });
         onRefresh();
     }
 
     public void onRefresh() {
-        mPresenter.getList(mModeType);
+        pageNum = 1;
+        mPresenter.getList(mModeType, pageNum);
     }
 
     private void initAdapter() {
@@ -133,16 +148,24 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
     }
 
     @Override
-    public void setList(List<MessageBO> orderList) {
+    public void setList(List<MessageBO> list) {
         if (mListAdapter == null) {
             return;
         }
-
+        if (pageNum == 1) {
+            orderList = list;
+            mListAdapter.setNewData(orderList);
+        } else {
+            if (list.isEmpty()) {
+                pageNum--;
+            }
+            orderList.addAll(list);
+            mListAdapter.addData(list);
+        }
         if (mSwipeRefreshLayout != null) {
             mSwipeRefreshLayout.onHeaderRefreshComplete();
+            mSwipeRefreshLayout.onFooterRefreshComplete();
         }
-
-        mListAdapter.setNewData(orderList);
     }
 
     @Override
@@ -158,6 +181,7 @@ public class MessageListFragment extends BaseFragment<MessageListPresenter> impl
     @Override
     public void showError(String msg) {
         mSwipeRefreshLayout.onHeaderRefreshComplete();
+        mSwipeRefreshLayout.onFooterRefreshComplete();
         ToastUtil.show(msg);
     }
 

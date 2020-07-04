@@ -17,6 +17,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.adapter.InitFooterAdapter;
+import com.sak.ultilviewlib.interfaces.OnFooterRefreshListener;
 import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
@@ -38,7 +40,7 @@ import butterknife.OnClick;
 /**
  * 百问百答
  */
-public class QuestionsFragment extends BaseFragment{
+public class QuestionsFragment extends BaseFragment {
 
     @BindView(R.id.fenlei_recycle)
     RecyclerView fenleiRecycle;
@@ -52,10 +54,10 @@ public class QuestionsFragment extends BaseFragment{
     UltimateRefreshView mSwipeRefreshLayout;
 
     BaseRvAdapter<QuestionsBO, BaseViewHolder> adapter;
-
     FenLeiAdapter fenLeiAdapter;
-
     private int selectFeiLei = 0;
+    List<FenLeiBO> fenleis;
+    List<QuestionsBO> questionsBOS = new ArrayList<>();
 
     @Override
     protected void initInject() {
@@ -76,6 +78,7 @@ public class QuestionsFragment extends BaseFragment{
     protected void initEventAndData() {
 //        mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+        mSwipeRefreshLayout.setBaseFooterAdapter(new InitFooterAdapter(getActivity()));
         mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
             @Override
             public void onHeaderRefresh(UltimateRefreshView view) {
@@ -84,7 +87,16 @@ public class QuestionsFragment extends BaseFragment{
                     public void run() {
                         onRefresh();
                     }
-                },1000);
+                }, 1000);
+            }
+        });
+        mSwipeRefreshLayout.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+            @Override
+            public void onFooterRefresh(UltimateRefreshView view) {
+                if (fenleis != null && !fenleis.isEmpty()) {
+                    pageNum++;
+                    getHuoDongList(fenleis.get(selectFeiLei).getId());
+                }
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -105,10 +117,10 @@ public class QuestionsFragment extends BaseFragment{
                 RoundedImageView userImg = helper.getView(R.id.user_img);
                 Glide.with(getActivity()).load(item.getHeadImage()).into(userImg);
                 helper.setText(R.id.user_name, item.getUserName());
-                helper.setText(R.id.user_time,item.getCreateDate());
-                helper.setText(R.id.wenti_name,item.getTitle());
+                helper.setText(R.id.user_time, item.getCreateDate());
+                helper.setText(R.id.wenti_name, item.getTitle());
 //                helper.setText(R.id.wenti_message,item.getContent());
-                helper.setText(R.id.huifu_num,item.getCommentNum() + "回复");
+                helper.setText(R.id.huifu_num, item.getCommentNum() + "回复");
             }
         };
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity()).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE)
@@ -167,6 +179,7 @@ public class QuestionsFragment extends BaseFragment{
         HttpServerImpl.getQuestionAnswerClasss().subscribe(new HttpResultSubscriber<List<FenLeiBO>>() {
             @Override
             public void onSuccess(List<FenLeiBO> s) {
+                fenleis = s;
                 setFenLeiAdapter(s);
                 mSwipeRefreshLayout.onHeaderRefreshComplete();
             }
@@ -201,40 +214,54 @@ public class QuestionsFragment extends BaseFragment{
     }
 
 
+    private int pageNum = 1;
+
     /**
      * 根据活动分类查询课程列表
      */
     private void getHuoDongList(int classId) {
 //        showProgress(null);
-        HttpServerImpl.getQuestionAnswerInfoList(classId)
+        HttpServerImpl.getQuestionAnswerInfoList(classId, pageNum)
                 .subscribe(new HttpResultSubscriber<List<QuestionsBO>>() {
                     @Override
                     public void onSuccess(List<QuestionsBO> s) {
                         stopProgress();
-                        adapter.setNewData(s);
+                        if (pageNum == 1) {
+                            questionsBOS = s;
+                            adapter.setNewData(questionsBOS);
+                        } else {
+                            if (s.isEmpty()) {
+                                pageNum--;
+                            }
+                            questionsBOS.addAll(s);
+                            adapter.addData(s);
+                        }
+                        mSwipeRefreshLayout.onFooterRefreshComplete();
                     }
 
                     @Override
                     public void onFiled(String message) {
                         stopProgress();
                         showToast(message);
+                        mSwipeRefreshLayout.onFooterRefreshComplete();
                     }
                 });
     }
 
     public void onRefresh() {
+        pageNum = 1;
         getKechengClass();
     }
 
 
-    @OnClick({R.id.sousuo_layout,R.id.bianji_layout})
-    public void clickMenu(View view){
-        switch (view.getId()){
+    @OnClick({R.id.sousuo_layout, R.id.bianji_layout})
+    public void clickMenu(View view) {
+        switch (view.getId()) {
             case R.id.sousuo_layout:
-                gotoActivity(SearchQuestionsActivity.class,false);
+                gotoActivity(SearchQuestionsActivity.class, false);
                 break;
             case R.id.bianji_layout:
-                gotoActivity(QuestionAddActivity.class,false);
+                gotoActivity(QuestionAddActivity.class, false);
                 break;
         }
     }

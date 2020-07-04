@@ -45,6 +45,7 @@ import com.tohabit.skip.pojo.po.VideoBO;
 import com.tohabit.skip.pojo.po.WenDaBO;
 import com.tohabit.skip.pojo.po.XIaoJiangBO;
 import com.tohabit.skip.pojo.po.ZhiShiBO;
+import com.tohabit.skip.pojo.vo.AddQuestionVO;
 
 import java.io.File;
 import java.io.IOException;
@@ -301,15 +302,15 @@ public class HttpServerImpl {
     /**
      * 获取我的消息
      */
-    public static Observable<List<MessageBO>> getMessageList() {
-        return getService().getMessageList("1", "20000").compose(RxResultHelper.httpRusult());
+    public static Observable<List<MessageBO>> getMessageList(int pageNum) {
+        return getService().getMessageList(pageNum + "", "20").compose(RxResultHelper.httpRusult());
     }
 
     /**
      * 查询常见问题
      */
     public static Observable<List<WenDaBO>> getQuestionList() {
-        return getService().getQuestionList("1", "20000").compose(RxResultHelper.httpRusult());
+        return getService().getQuestionList("1", "100").compose(RxResultHelper.httpRusult());
     }
 
     /**
@@ -334,8 +335,8 @@ public class HttpServerImpl {
     /**
      * 查询我的收藏
      */
-    public static Observable<List<ShouCangBO>> getCollectList(int objectType) {
-        return getService().getCollectList(objectType, "1", "20000").compose(RxResultHelper.httpRusult());
+    public static Observable<List<ShouCangBO>> getCollectList(int objectType, int pageNum) {
+        return getService().getCollectList(objectType, pageNum + "", "20").compose(RxResultHelper.httpRusult());
     }
 
     /**
@@ -356,8 +357,8 @@ public class HttpServerImpl {
     /**
      * 获取精选活动列表
      */
-    public static Observable<List<HuodongBO>> getActivityList(int type) {
-        return getService().getActivityList(type, "1", "20000").compose(RxResultHelper.httpRusult());
+    public static Observable<List<HuodongBO>> getActivityList(int type, int pageNum) {
+        return getService().getActivityList(type, pageNum + "", "20").compose(RxResultHelper.httpRusult());
     }
 
 
@@ -392,8 +393,8 @@ public class HttpServerImpl {
      * 获取课程列表
      */
     public static Observable<List<KechengBO>> getCourseInfoList(String classId, int isSelectAge, int isSelectHeight,
-                                                                int isSelectWeight, String title) {
-        return getService().getCourseInfoList("1", "20000", classId, isSelectAge,
+                                                                int isSelectWeight, String title, int pageNum) {
+        return getService().getCourseInfoList(pageNum + "", "20", classId, isSelectAge,
                 isSelectHeight, isSelectWeight, title).compose(RxResultHelper.httpRusult());
     }
 
@@ -409,7 +410,7 @@ public class HttpServerImpl {
      * 获取视频列表
      */
     public static Observable<List<VideoBO>> getCourseVideoList(int id) {
-        return getService().getCourseVideoList("1", "20000", id + "")
+        return getService().getCourseVideoList("1", "100", id + "")
                 .compose(RxResultHelper.httpRusult());
     }
 
@@ -445,8 +446,8 @@ public class HttpServerImpl {
      * 获取知识列表
      */
     public static Observable<List<ZhiShiBO>> getSelectKnowledgeInfoList(String classId, int isSelectAge, int isSelectHeight,
-                                                                        int isSelectWeight, String title) {
-        return getService().getSelectKnowledgeInfoList("1", "20000", classId, isSelectAge,
+                                                                        int isSelectWeight, String title, int pageNum) {
+        return getService().getSelectKnowledgeInfoList(pageNum + "", "20", classId, isSelectAge,
                 isSelectHeight, isSelectWeight, title).compose(RxResultHelper.httpRusult());
     }
 
@@ -461,8 +462,8 @@ public class HttpServerImpl {
     /**
      * 查询商品列表
      */
-    public static Observable<List<ShopBO>> getGoodList(int recommendStatus, int pageSize) {
-        return getService().getGoodList("1", pageSize + "", recommendStatus).compose(RxResultHelper.httpRusult());
+    public static Observable<List<ShopBO>> getGoodList(int recommendStatus, int pageSize, int pageNum) {
+        return getService().getGoodList(pageNum + "", pageSize + "", recommendStatus).compose(RxResultHelper.httpRusult());
     }
 
     /**
@@ -504,27 +505,29 @@ public class HttpServerImpl {
     /**
      * 根据问答分类查询问答列表
      */
-    public static Observable<List<QuestionsBO>> getQuestionAnswerInfoList(int id) {
-        return getService().getQuestionAnswerInfoList("1", "20000", id + "").compose(RxResultHelper.httpRusult());
+    public static Observable<List<QuestionsBO>> getQuestionAnswerInfoList(int id, int pageNum) {
+        return getService().getQuestionAnswerInfoList(pageNum + "", "20", id + "").compose(RxResultHelper.httpRusult());
     }
 
     /**
      * 根据关键字搜索问答
      */
     public static Observable<List<QuestionsBO>> getSelectQuestionAnswerInfoList(String title) {
-        return getService().getSelectQuestionAnswerInfoList("1", "20000", title).compose(RxResultHelper.httpRusult());
+        return getService().getSelectQuestionAnswerInfoList("1", "100", title).compose(RxResultHelper.httpRusult());
     }
 
 
     /**
      * 添加问答
      */
-    public static Observable<String> AddQuestion(int questionAnswerClassId, String title, String content, String image) {
+    public static Observable<String> AddQuestion(int questionAnswerClassId, String title, String content, String image,
+                                                 List<AddQuestionVO> addQuestionVOS) {
         Map<String, Object> params = new HashMap<>();
         params.put("questionAnswerClassId", questionAnswerClassId);
         params.put("title", title);
         params.put("content", content);
         params.put("image", image);
+        params.put("list", addQuestionVOS);
         return getService().AddQuestion(params).compose(RxResultHelper.httpRusult());
     }
 
@@ -539,14 +542,14 @@ public class HttpServerImpl {
      * 查询所有一级评论
      */
     public static Observable<List<OnePingLunBO>> getOneCommentList(String id) {
-        return getService().getOneCommentList("1", "20000", id + "").compose(RxResultHelper.httpRusult());
+        return getService().getOneCommentList("1", "100", id + "").compose(RxResultHelper.httpRusult());
     }
 
     /**
      * 查询所有二级评论
      */
     public static Observable<List<TwoPingLunBO>> getTwoCommentList(String id) {
-        return getService().getTwoCommentList("1", "20000", id + "").compose(RxResultHelper.httpRusult());
+        return getService().getTwoCommentList("1", "100", id + "").compose(RxResultHelper.httpRusult());
     }
 
     /**
@@ -628,7 +631,7 @@ public class HttpServerImpl {
      * 查询Pk明细列表
      */
     public static Observable<List<PkJiLuBo>> getDataPkList() {
-        return getService().getDataPkList("1", "20000").compose(RxResultHelper.httpRusult());
+        return getService().getDataPkList("1", "100").compose(RxResultHelper.httpRusult());
     }
 
 
@@ -644,7 +647,7 @@ public class HttpServerImpl {
      * 查询能量明细列表
      */
     public static Observable<List<NengLiangVO>> getDataEnergyList() {
-        return getService().getDataEnergyList("1", "20000").compose(RxResultHelper.httpRusult());
+        return getService().getDataEnergyList("1", "100").compose(RxResultHelper.httpRusult());
     }
 
     /**
@@ -672,7 +675,7 @@ public class HttpServerImpl {
      * 查询训练计划列表
      */
     public static Observable<List<JiHuaBO>> getTrainList(int isComplete) {
-        return getService().getTrainList("1", "20000", isComplete).compose(RxResultHelper.httpRusult());
+        return getService().getTrainList("1", "100", isComplete).compose(RxResultHelper.httpRusult());
     }
 
     /**
@@ -686,7 +689,7 @@ public class HttpServerImpl {
      * 查询测试记录
      */
     public static Observable<List<TestBO>> getTestList() {
-        return getService().getTestList("1", "20000").compose(RxResultHelper.httpRusult());
+        return getService().getTestList("1", "100").compose(RxResultHelper.httpRusult());
     }
 
 
@@ -719,7 +722,7 @@ public class HttpServerImpl {
      * 获取数据报告
      */
     public static Observable<List<DataBaoGaoBO>> getDataReportList() {
-        return getService().getDataReportList("1", "20000").compose(RxResultHelper.httpRusult());
+        return getService().getDataReportList("1", "100").compose(RxResultHelper.httpRusult());
     }
 
     /**

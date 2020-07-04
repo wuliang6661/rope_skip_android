@@ -29,8 +29,8 @@ public class MessageListPresenter extends RxPresenter<MessageListContract.View> 
     }
 
     @Override
-    public void getList(String type) {
-        HttpServerImpl.getMessageList().subscribe(new HttpResultSubscriber<List<MessageBO>>() {
+    public void getList(String type, int pageNum) {
+        HttpServerImpl.getMessageList(pageNum).subscribe(new HttpResultSubscriber<List<MessageBO>>() {
             @Override
             public void onSuccess(List<MessageBO> s) {
                 if (mView != null) {

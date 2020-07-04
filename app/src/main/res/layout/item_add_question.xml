@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/item_img"
+            android:layout_width="match_parent"
+            android:layout_height="196dp"
+            android:scaleType="centerCrop" />
+
+
+        <ImageView
+            android:id="@+id/delete_img"
+            android:layout_width="22dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/add_question_delete" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/text_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/item_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F8F8F8"
+            android:lineSpacingExtra="4dp"
+            android:paddingLeft="7dp"
+            android:paddingTop="11dp"
+            android:paddingRight="7dp"
+            android:paddingBottom="11dp"
+            android:scaleType="centerCrop"
+            android:text="大萨达撒阿萨德"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+
+        <ImageView
+            android:id="@+id/delete_text"
+            android:layout_width="22dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/add_question_delete" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

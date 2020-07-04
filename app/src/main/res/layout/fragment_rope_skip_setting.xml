@@ -16,7 +16,7 @@
         app:tl_brp_bottom_divider_visibility="gone"
         app:tl_brp_left_text_color="@color/colorText"
         app:tl_brp_right_text_color="@color/colorText"
-        app:tl_brp_title="跳绳设置"
+        app:tl_brp_title="音乐设置"
         app:tl_brp_title_text_color="@color/colorText" />
 
     <android.support.v4.widget.NestedScrollView

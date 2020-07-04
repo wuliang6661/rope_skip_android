@@ -5,18 +5,25 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
@@ -146,6 +153,16 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
     @BindView(R.id.content_layout)
     AppCompatTextView contentLayout;
     Unbinder unbinder;
+    @BindView(R.id.pingfen_none_layout)
+    LinearLayout pingfenNoneLayout;
+    @BindView(R.id.wentifenxi_layout)
+    RelativeLayout wentifenxiLayout;
+    @BindView(R.id.none_wentifenxi)
+    TextView noneWentifenxi;
+    @BindView(R.id.none_gailiang_layout)
+    LinearLayout noneGailiangLayout;
+    @BindView(R.id.hint_shop)
+    TextView hintShop;
 
     private Dialog mBottomSheetDialog;
     private ImprovePlanListAdapter mPlanListAdapter;
@@ -195,6 +212,35 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
                 e.printStackTrace();
             }
         }
+        String hint = "使用习惯星智能跳绳，您将看到详细的跳绳评分、问题分析和针对性的改良方案！立即购买>>";
+        SpannableString spannableString = new SpannableString(hint);
+        spannableString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                if (App.userBO.getType() == 0) {
+                    if (Utils.isPkgInstalled(getActivity(), "com.taobao.taobao")) {
+                        Utils.gotoShop(getActivity(), App.userBO.getUrl());
+                    } else {
+                        showToast("您还没有安装淘宝客户端！");
+                    }
+                } else {
+                    if (Utils.isPkgInstalled(getActivity(), "com.tmall.wireless")) {
+                        Utils.gotoShop(getActivity(), App.userBO.getUrl());
+                    } else {
+                        showToast("您还没有安装天猫客户端！");
+                    }
+                }
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+                ds.setColor(Color.parseColor("#7EC7F5"));
+            }
+        }, hint.length() - 6, hint.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        hintShop.setText(spannableString);
+        hintShop.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
 
@@ -275,14 +321,25 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
         timeText.setText(Utils.timeToString(data.getSkipTime()));
         setBarData(data, barChart);
         showQustion(data);
-        List<Integer> radarData = new ArrayList<>();
-        radarData.add(data.getActionScore());
-        radarData.add(data.getCoordinateScore());
-        radarData.add(data.getStableScore());
-        radarData.add(data.getRhythmScore());
-        radarData.add(data.getEnduranceScore());
-        radarView.setData(radarData);
-        mPlanListAdapter.setNewData(data.getPlanList());
+        if (data.getActionScore() == 0 && data.getCoordinateScore() == 0 && data.getStableScore() == 0 &&
+                data.getRhythmScore() == 0 && data.getEnduranceScore() == 0) {
+            radarView.setVisibility(View.GONE);
+            pingfenNoneLayout.setVisibility(View.VISIBLE);
+        } else {
+            List<Integer> radarData = new ArrayList<>();
+            radarData.add(data.getActionScore());
+            radarData.add(data.getCoordinateScore());
+            radarData.add(data.getStableScore());
+            radarData.add(data.getRhythmScore());
+            radarData.add(data.getEnduranceScore());
+            radarView.setData(radarData);
+        }
+        if (data.getPlanList() == null || data.getPlanList().isEmpty()) {
+            rcImprovementPlan.setVisibility(View.GONE);
+            noneGailiangLayout.setVisibility(View.VISIBLE);
+        } else {
+            mPlanListAdapter.setNewData(data.getPlanList());
+        }
     }
 
     @Override
@@ -333,7 +390,9 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             nanImg.setVisibility(View.GONE);
             nvImg.setVisibility(View.VISIBLE);
         }
-        if (data.getAnalysisList() == null) {
+        if (data.getAnalysisList() == null || data.getAnalysisList().isEmpty()) {
+            noneWentifenxi.setVisibility(View.VISIBLE);
+            wentifenxiLayout.setVisibility(View.GONE);
             return;
         }
         for (TestDetailsBO.AnalysisListBean item : data.getAnalysisList()) {
@@ -549,5 +608,4 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             }
         }, 500);
     }
-
 }

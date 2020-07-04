@@ -438,7 +438,7 @@ public interface HttpService {
     /**
      * 发布问答
      */
-    @POST("app/find/questionAnswer/AddQuestion")
+    @POST("app/find/questionAnswer/publishQa")
     Observable<BaseResult<String>> AddQuestion(@Body Map<String, Object> params);
 
     /**

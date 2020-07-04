@@ -109,7 +109,7 @@ public class VideoExplainActivity extends BaseActivity {
         videoPlayer.setGSYVideoProgressListener(new GSYVideoProgressListener() {
             @Override
             public void onProgress(int progress, int secProgress, int currentPosition, int duration) {
-                String time = TimeUtils.millis2String(currentPosition,
+                String time = TimeUtils.millis2String(currentPosition + 1000,
                         new SimpleDateFormat("mm:ss"));
                 downTime.setText(time);
                 if (progress >= App.userBO.getPercent() * 100 - 10 && !isWancheng) {

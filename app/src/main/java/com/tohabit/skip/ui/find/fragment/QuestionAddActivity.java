@@ -14,12 +14,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,10 +30,12 @@ import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.FenLeiBO;
-import com.tohabit.skip.ui.mine.adapter.ImageAddAdapter;
+import com.tohabit.skip.pojo.vo.AddQuestionVO;
 import com.tohabit.skip.utils.PhotoFromPhotoAlbum;
 import com.tohabit.skip.utils.StringUtils;
 import com.tohabit.skip.widget.PopXingZhi;
+import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
+import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,22 +54,24 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
     Button btnAlbum;
     @BindView(R.id.edit_title)
     EditText editTitle;
-    @BindView(R.id.edit_content)
-    EditText editContent;
     @BindView(R.id.fenlei_text)
     TextView fenleiText;
     @BindView(R.id.fenlei_layout)
     LinearLayout fenleiLayout;
     @BindView(R.id.add_images)
-    RecyclerView addImages;
-
-    private ArrayList<String> images;
+    RecyclerView addContents;
+    @BindView(R.id.add_img)
+    ImageView addImg;
+    @BindView(R.id.add_text)
+    ImageView addText;
 
     private File cameraSavePath;//拍照照片路径
     private Uri uri;
 
     List<FenLeiBO> fenLeiBOS;
     private int selectPosition = Integer.MAX_VALUE;
+
+    private List<AddQuestionVO> questionVOS = new ArrayList<>();
 
     @Override
     protected void initInject() {
@@ -93,34 +98,63 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
         cameraSavePath = new File(Environment.getExternalStorageDirectory().getPath() + "/" +
                 System.currentTimeMillis() + ".jpg");
 
-        GridLayoutManager manager = new GridLayoutManager(this, 3);
-        addImages.setLayoutManager(manager);
-        images = new ArrayList<>();
+        addContents.setLayoutManager(new LinearLayoutManager(this));
         setAdapter();
     }
 
 
-    private void setAdapter() {
-        ImageAddAdapter addAdapter = new ImageAddAdapter(this, images);
-        addAdapter.setNum(3);
-        addAdapter.setListener(new ImageAddAdapter.onAddImageAdapterListener() {
-            @Override
-            public void addImage() {
+    @OnClick({R.id.add_img, R.id.add_text})
+    public void clickView(View view) {
+        switch (view.getId()) {
+            case R.id.add_img:
                 checkPermissions();
+                break;
+            case R.id.add_text:
+                Intent intent = new Intent(this, QuestionAddTextActivity.class);
+                startActivityForResult(intent, 0x11);
+                break;
+        }
+    }
+
+
+    private void setAdapter() {
+        LGRecycleViewAdapter<AddQuestionVO> adapter = new LGRecycleViewAdapter<AddQuestionVO>(questionVOS) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_add_question;
             }
 
             @Override
-            public void deleteImage(int position, String imageBO) {
-                images.remove(position);
-                addAdapter.setDatas(images);
+            public void convert(LGViewHolder holder, AddQuestionVO addQuestionVO, int position) {
+                if (StringUtils.isEmpty(addQuestionVO.getFont())) {
+                    holder.getView(R.id.text_layout).setVisibility(View.GONE);
+                } else {
+                    holder.getView(R.id.text_layout).setVisibility(View.VISIBLE);
+                    holder.setText(R.id.item_text, addQuestionVO.getFont());
+                }
+                if (StringUtils.isEmpty(addQuestionVO.getImage())) {
+                    holder.getView(R.id.image_layout).setVisibility(View.GONE);
+                } else {
+                    holder.getView(R.id.image_layout).setVisibility(View.VISIBLE);
+                    holder.setImageUrl(QuestionAddActivity.this, R.id.item_img, addQuestionVO.getImage());
+                }
             }
-
+        };
+        adapter.setOnItemClickListener(R.id.delete_img, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
-            public void editName(int position) {
-
+            public void onItemClicked(View view, int position) {
+                questionVOS.remove(position);
+                adapter.notifyDataSetChanged();
             }
         });
-        addImages.setAdapter(addAdapter);
+        adapter.setOnItemClickListener(R.id.delete_text, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                questionVOS.remove(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        addContents.setAdapter(adapter);
     }
 
 
@@ -207,7 +241,7 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
     private void goCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(this, "com.tohabit.skip.fileprovider", cameraSavePath);
+            uri = FileProvider.getUriForFile(this, "com.tohabit.skip.fileProvider", cameraSavePath);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
             uri = Uri.fromFile(cameraSavePath);
@@ -219,6 +253,14 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 0x11) {
+            String content = data.getStringExtra("content");
+            AddQuestionVO addQuestionVO = new AddQuestionVO();
+            addQuestionVO.setFont(content);
+            questionVOS.add(addQuestionVO);
+            setAdapter();
+            return;
+        }
         String photoPath;
         if (requestCode == 1 && resultCode == RESULT_OK) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -259,7 +301,9 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
             @Override
             public void onSuccess(String s) {
                 stopProgress();
-                images.add(s);
+                AddQuestionVO addQuestionVO = new AddQuestionVO();
+                addQuestionVO.setImage(s);
+                questionVOS.add(addQuestionVO);
                 setAdapter();
             }
 
@@ -295,34 +339,25 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
     @OnClick(R.id.btn_album)
     public void fabu() {
         String title = editTitle.getText().toString().trim();
-        String content = editContent.getText().toString().trim();
         String fenlei = fenleiText.getText().toString().trim();
-        if (StringUtils.isEmpty(title)) {
-            showToast("请输入标题！");
-            return;
-        }
-        if (StringUtils.isEmpty(content)) {
-            showToast("请输入正文！");
-            return;
-        }
         if (StringUtils.isEmpty(fenlei)) {
             showToast("请选择分类！");
             return;
         }
-        String imageStr = null;
-        if (!images.isEmpty()) {
-            StringBuilder builder = new StringBuilder();
-            for (String image : images) {
-                builder.append(image).append(",");
-            }
-            imageStr = builder.substring(0, builder.length() - 1);
+        if (StringUtils.isEmpty(title)) {
+            showToast("请输入标题！");
+            return;
         }
-        HttpServerImpl.AddQuestion(fenLeiBOS.get(selectPosition).getId(), title, content, imageStr)
+        if (questionVOS.isEmpty()) {
+            showToast("请输入正文！");
+            return;
+        }
+        HttpServerImpl.AddQuestion(fenLeiBOS.get(selectPosition).getId(), title, null, null, questionVOS)
                 .subscribe(new HttpResultSubscriber<String>() {
                     @Override
                     public void onSuccess(String s) {
-                       showToast("发布成功！");
-                       finish();
+                        showToast("发布成功！");
+                        finish();
                     }
 
                     @Override
@@ -369,4 +404,5 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
         popXingZhi.setSelectPosition(selectPosition == Integer.MAX_VALUE ? 0 : selectPosition);
         popXingZhi.showAtLocation(getWindow().getDecorView());
     }
+
 }

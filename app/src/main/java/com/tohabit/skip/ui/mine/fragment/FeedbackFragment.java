@@ -19,9 +19,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.guoqi.actionsheet.ActionSheet;
 import com.tohabit.commonlibrary.apt.SingleClick;
@@ -47,7 +45,6 @@ import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -365,6 +362,10 @@ public class FeedbackFragment extends BaseFragment<FeedBackPresenter> implements
 
     @Override
     public void getFeedBack(List<FeedBackBO> feedBackBOS) {
+        if(feedBackBOS.isEmpty()){
+            showToast("暂无反馈类型！");
+            return;
+        }
         List<String> arrays = new ArrayList<>();
         for (FeedBackBO feedBackBO : feedBackBOS) {
             arrays.add(feedBackBO.getName());
@@ -382,17 +383,4 @@ public class FeedbackFragment extends BaseFragment<FeedBackPresenter> implements
         showToast("提交成功！");
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 }

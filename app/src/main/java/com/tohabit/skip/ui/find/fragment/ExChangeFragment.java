@@ -2,7 +2,6 @@ package com.tohabit.skip.ui.find.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.adapter.InitFooterAdapter;
+import com.sak.ultilviewlib.interfaces.OnFooterRefreshListener;
 import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -24,6 +25,7 @@ import com.tohabit.skip.widget.TraditionHeaderAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,9 +57,10 @@ public class ExChangeFragment extends BaseFragment {
     List<ShopBO> tuijianList;
     @BindView(R.id.refresh_view)
     UltimateRefreshView refreshView;
-    Unbinder unbinder1;
 
-    List<ShopBO> allList;
+    List<ShopBO> allList = new ArrayList<>();
+
+    private int pageNum = 1;
 
     @Override
     protected void initInject() {
@@ -76,16 +79,13 @@ public class ExChangeFragment extends BaseFragment {
 
     @Override
     protected void initEventAndData() {
-        GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
-//        recycleView.setLayoutManager(manager);
-//        recycleView.setNestedScrollingEnabled(false);
-
         initRefresh();
     }
 
 
     private void initRefresh() {
         refreshView.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+        refreshView.setBaseFooterAdapter(new InitFooterAdapter(getActivity()));
         refreshView.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
             @Override
             public void onHeaderRefresh(UltimateRefreshView view) {
@@ -96,6 +96,13 @@ public class ExChangeFragment extends BaseFragment {
                         getGoodList();
                     }
                 }, 1000);
+            }
+        });
+        refreshView.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+            @Override
+            public void onFooterRefresh(UltimateRefreshView view) {
+                pageNum++;
+                getGoodList();
             }
         });
     }
@@ -160,7 +167,7 @@ public class ExChangeFragment extends BaseFragment {
      * 查询热门推荐商品
      */
     private void getGoodTuijian() {
-        HttpServerImpl.getGoodList(1, 3).subscribe(new HttpResultSubscriber<List<ShopBO>>() {
+        HttpServerImpl.getGoodList(1, 3, 1).subscribe(new HttpResultSubscriber<List<ShopBO>>() {
             @Override
             public void onSuccess(List<ShopBO> s) {
                 refreshView.onHeaderRefreshComplete();
@@ -198,18 +205,26 @@ public class ExChangeFragment extends BaseFragment {
      * 查询所有兑换商品
      */
     private void getGoodList() {
-        HttpServerImpl.getGoodList(0, 20000).subscribe(new HttpResultSubscriber<List<ShopBO>>() {
+        HttpServerImpl.getGoodList(0, 20, pageNum).subscribe(new HttpResultSubscriber<List<ShopBO>>() {
             @Override
             public void onSuccess(List<ShopBO> s) {
                 refreshView.onHeaderRefreshComplete();
-                allList = s;
-//                showAdapter(s);
+                refreshView.onFooterRefreshComplete();
+                if(pageNum == 1){
+                    allList = s;
+                }else{
+                    if(s.isEmpty()){
+                        pageNum --;
+                    }
+                    allList.addAll(s);
+                }
                 recycleView.setAdapter(new MyAdapter());
             }
 
             @Override
             public void onFiled(String message) {
                 refreshView.onHeaderRefreshComplete();
+                refreshView.onFooterRefreshComplete();
                 showToast(message);
             }
         });
@@ -280,7 +295,7 @@ public class ExChangeFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("Id",getItem(position).getId());
+                    bundle.putInt("Id", getItem(position).getId());
                     gotoActivity(ShopDetailsActivity.class, bundle, false);
                 }
             });

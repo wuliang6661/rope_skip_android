@@ -14,6 +14,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.adapter.InitFooterAdapter;
+import com.sak.ultilviewlib.interfaces.OnFooterRefreshListener;
 import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.skip.R;
@@ -51,6 +53,9 @@ public class HuodongFragment extends BaseFragment {
     private FenLeiAdapter fenLeiAdapter;
 
     private int selectFeiLei = 0;
+    private int pageNum = 1;
+    private List<FenLeiBO> fenLeiBOS;
+    private List<HuodongBO> huodongBOS = new ArrayList<>();
 
     public static HuodongFragment newInstance(Bundle bundle) {
         HuodongFragment fragment = new HuodongFragment();
@@ -80,6 +85,7 @@ public class HuodongFragment extends BaseFragment {
     @Override
     protected void initEventAndData() {
         mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+        mSwipeRefreshLayout.setBaseFooterAdapter(new InitFooterAdapter(getActivity()));
         mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
             @Override
             public void onHeaderRefresh(UltimateRefreshView view) {
@@ -88,7 +94,17 @@ public class HuodongFragment extends BaseFragment {
                     public void run() {
                         onRefresh();
                     }
-                },1000);
+                }, 1000);
+            }
+        });
+        mSwipeRefreshLayout.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+            @Override
+            public void onFooterRefresh(UltimateRefreshView view) {
+                if (fenLeiBOS.isEmpty()) {
+                    return;
+                }
+                pageNum++;
+                getHuoDongList(fenLeiBOS.get(selectFeiLei).getType());
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -158,6 +174,7 @@ public class HuodongFragment extends BaseFragment {
     }
 
     public void onRefresh() {
+        pageNum = 1;
         getHuoDongClass();
     }
 
@@ -169,6 +186,7 @@ public class HuodongFragment extends BaseFragment {
         HttpServerImpl.getActivityClasss().subscribe(new HttpResultSubscriber<List<FenLeiBO>>() {
             @Override
             public void onSuccess(List<FenLeiBO> s) {
+                fenLeiBOS = s;
                 setFenLeiAdapter(s);
                 mSwipeRefreshLayout.onHeaderRefreshComplete();
             }
@@ -207,17 +225,25 @@ public class HuodongFragment extends BaseFragment {
      * 根据活动分类查询活动列表
      */
     private void getHuoDongList(int type) {
-//        showProgress(null);
-        HttpServerImpl.getActivityList(type).subscribe(new HttpResultSubscriber<List<HuodongBO>>() {
+        HttpServerImpl.getActivityList(type, pageNum).subscribe(new HttpResultSubscriber<List<HuodongBO>>() {
             @Override
             public void onSuccess(List<HuodongBO> s) {
-//                stopProgress();
-                adapter.setNewData(s);
+                mSwipeRefreshLayout.onFooterRefreshComplete();
+                if (pageNum == 1) {
+                    huodongBOS = s;
+                    adapter.setNewData(huodongBOS);
+                } else {
+                    if (s.isEmpty()) {
+                        pageNum--;
+                    }
+                    huodongBOS.addAll(s);
+                    adapter.addData(s);
+                }
             }
 
             @Override
             public void onFiled(String message) {
-//                stopProgress();
+                mSwipeRefreshLayout.onFooterRefreshComplete();
                 showToast(message);
             }
         });

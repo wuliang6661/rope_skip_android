@@ -30,7 +30,7 @@ public interface MessageListContract {
         /**
          * 获取数据
          */
-        void getList(String type);
+        void getList(String type,int pageNum);
     }
 
 }

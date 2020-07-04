@@ -16,6 +16,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.adapter.InitFooterAdapter;
+import com.sak.ultilviewlib.interfaces.OnFooterRefreshListener;
 import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
@@ -37,7 +39,7 @@ import butterknife.OnClick;
 /**
  * 知识Fragment
  */
-public class ZhiShiFragment extends BaseFragment  {
+public class ZhiShiFragment extends BaseFragment {
 
 
     @BindView(R.id.fenlei_recycle)
@@ -62,6 +64,10 @@ public class ZhiShiFragment extends BaseFragment  {
     private int isSelectShengao = 0;
     private int isSelectTizhong = 0;
 
+    private int pageNum = 1;
+    private List<FenLeiBO> fenLeiBOS;
+    private List<ZhiShiBO> zhiShiBOS = new ArrayList<>();
+
     @Override
     protected void initInject() {
 
@@ -79,9 +85,8 @@ public class ZhiShiFragment extends BaseFragment  {
 
     @Override
     protected void initEventAndData() {
-//        shaixuanLayout.setVisibility(View.VISIBLE);
-//        mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(getActivity()));
+        mSwipeRefreshLayout.setBaseFooterAdapter(new InitFooterAdapter(getActivity()));
         mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
             @Override
             public void onHeaderRefresh(UltimateRefreshView view) {
@@ -90,7 +95,17 @@ public class ZhiShiFragment extends BaseFragment  {
                     public void run() {
                         onRefresh();
                     }
-                },1000);
+                }, 1000);
+            }
+        });
+        mSwipeRefreshLayout.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+            @Override
+            public void onFooterRefresh(UltimateRefreshView view) {
+                if (fenLeiBOS.isEmpty()) {
+                    return;
+                }
+                pageNum++;
+                getHuoDongList(fenLeiBOS.get(selectFeiLei).getId());
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -174,6 +189,7 @@ public class ZhiShiFragment extends BaseFragment  {
         HttpServerImpl.getKnowledgeClasss().subscribe(new HttpResultSubscriber<List<FenLeiBO>>() {
             @Override
             public void onSuccess(List<FenLeiBO> s) {
+                fenLeiBOS = s;
                 setFenLeiAdapter(s);
                 mSwipeRefreshLayout.onHeaderRefreshComplete();
             }
@@ -212,24 +228,34 @@ public class ZhiShiFragment extends BaseFragment  {
      * 根据活动分类查询课程列表
      */
     private void getHuoDongList(int classId) {
-//        showProgress(null);
-        HttpServerImpl.getSelectKnowledgeInfoList(classId + "", isSelectNianLing, isSelectShengao, isSelectTizhong, null)
+        HttpServerImpl.getSelectKnowledgeInfoList(classId + "", isSelectNianLing, isSelectShengao,
+                isSelectTizhong, null, pageNum)
                 .subscribe(new HttpResultSubscriber<List<ZhiShiBO>>() {
                     @Override
                     public void onSuccess(List<ZhiShiBO> s) {
-                        stopProgress();
-                        adapter.setNewData(s);
+                        if (pageNum == 1) {
+                            zhiShiBOS = s;
+                            adapter.setNewData(s);
+                        } else {
+                            if (s.isEmpty()) {
+                                pageNum--;
+                            }
+                            zhiShiBOS.addAll(s);
+                            adapter.addData(s);
+                        }
+                        mSwipeRefreshLayout.onFooterRefreshComplete();
                     }
 
                     @Override
                     public void onFiled(String message) {
-                        stopProgress();
                         showToast(message);
+                        mSwipeRefreshLayout.onFooterRefreshComplete();
                     }
                 });
     }
 
     public void onRefresh() {
+        pageNum = 1;
         getKechengClass();
     }
 

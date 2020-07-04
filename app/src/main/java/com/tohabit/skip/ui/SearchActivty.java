@@ -49,6 +49,7 @@ public class SearchActivty extends BaseActivity {
     List<BluetoothDevice> devices;
 
     private List<DeviceBO> deviceBOS;
+    private String deviceId;
 
     /**
      * 当前正在获取的目录序号
@@ -341,7 +342,7 @@ public class SearchActivty extends BaseActivity {
         params.put("skipNum", skipNum);  //跳绳次数
         params.put("skipTime", timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
-        params.put("deviceId", null);  //todo 设备id，暂时缺失
+        params.put("deviceId", deviceId);
         params.put("skipDate", TimeUtils.millis2String(time * 1000));
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override
@@ -362,6 +363,7 @@ public class SearchActivty extends BaseActivity {
         HttpServerImpl.saveDevices(0, App.connectDevice.getName(), App.connectDevice.getAddress()).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                deviceId = s;
             }
 
             @Override

@@ -155,6 +155,7 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
                     showError("请输入短信验证");
                     return;
                 }
+                mPresenter.updatePhone(etTel2.getText().toString(), et2PleaseInputMsgCode.getText().toString());
                 break;
         }
     }
