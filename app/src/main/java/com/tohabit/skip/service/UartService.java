@@ -72,6 +72,8 @@ public class UartService extends Service {
 
     private Handler mHandler;
 
+    private boolean isOpenUUID2Notifi = false;
+
 
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
@@ -123,12 +125,6 @@ public class UartService extends Service {
                 }
             }
             setCharacteristic2Notification(mBluetoothGattCharacteristic1, true);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            setCharacteristic2Notification(mBluetoothGattCharacteristic2, true);
             mHandler.sendEmptyMessageDelayed(NITIFI_SOURESS, 500);
         }
 
@@ -169,6 +165,10 @@ public class UartService extends Service {
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 //开启监听成功，可以像设备写入命令了
                 Log.e(TAG, "开启监听成功");
+                if(!isOpenUUID2Notifi){
+                    isOpenUUID2Notifi = true;
+                    setCharacteristic2Notification(mBluetoothGattCharacteristic2, true);
+                }
             }
         }
     };
@@ -379,10 +379,6 @@ public class UartService extends Service {
             Log.w(TAG, "BluetoothAdapter not initialized");
             return;
         }
-
-//        BluetoothGattDescriptor uuid2 =  new BluetoothGattDescriptor(UUID_CHARA2, BluetoothGattDescriptor.PERMISSION_WRITE);
-//        uuid2.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-//        characteristic.addDescriptor(uuid2);
         boolean isEnableNotification = mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
         if (isEnableNotification) {
             List<BluetoothGattDescriptor> descriptorList = characteristic.getDescriptors();
@@ -404,9 +400,6 @@ public class UartService extends Service {
             return;
         }
         boolean isEnableNotification = mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
-//        BluetoothGattDescriptor descriptor = characteristic.getDescriptor(UUID.fromString(UUID_CLIENT_CHARACTERISTIC_CONFIG_DESCRIPTOR));
-//        descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-//        mBluetoothGatt.writeDescriptor(descriptor);
         if (isEnableNotification) {
             List<BluetoothGattDescriptor> descriptorList = characteristic.getDescriptors();
             if (descriptorList != null && descriptorList.size() > 0) {

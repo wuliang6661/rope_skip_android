@@ -2,6 +2,7 @@ package com.tohabit.skip.utils.blue.cmd;
 
 import android.util.Log;
 
+import com.tohabit.skip.utils.ByteUtils;
 import com.tohabit.skip.utils.blue.HexDump;
 
 import java.nio.ByteBuffer;
@@ -84,10 +85,10 @@ public class RequstBleCmd {
      * @param date 单位为秒
      * @return
      */
-    public static BleCmd createGetPointCmd(long date) {
+    public static BleCmd createGetPointCmd(long date, int baoxuhao) {
         byte[] typeCmd = new BleCmd.CmdTypeBuilder().setType(BleCmd.CmdConstans.GET_CMD, BleCmd.CmdConstans.SPORT_POINT_CMD).build();
         byte[] dateData = HexDump.intToBytes2((int) date);
-        byte[] noData = new byte[]{0x00, 0x00};
+        byte[] noData = ByteUtils.intToBytes(baoxuhao, 2);
         ByteBuffer byteBuffer = ByteBuffer.allocate(dateData.length + noData.length);
         byteBuffer.put(dateData);
         byteBuffer.put(noData);

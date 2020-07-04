@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import com.algorithm.skipevaluation.Evaluator;
 import com.algorithm.skipevaluation.dto.SkipInfo;
 import com.algorithm.skipevaluation.dto.SkipUnitData;
+import com.tohabit.skip.utils.blue.model.BlePoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,6 +123,52 @@ public class Example {
             unit.setYaw(skipData[row][8]);
             unit.setHallSensor((int) Math.round(skipData[row][10]));
             unit.setTimestamp((int) Math.round(skipData[row][11]));
+
+            circle.add(unit);
+        }
+        if (circle.size() > 0) {
+            data.add(circle);
+            circle = new ArrayList<>();
+        }
+        skipInfo.setSkipData(data);
+
+        //创建并评估
+        evaluator = new Evaluator(assetManager, skipInfo);
+        evaluator.evaluate();
+
+    }
+
+
+    public Example(AssetManager assetManager, int breakCount, int circleCount, int duration, List<BlePoint> blePoints) {
+        SkipInfo skipInfo = new SkipInfo();
+        skipInfo.setBreakCount(breakCount);
+        skipInfo.setCircleCount(circleCount);
+        skipInfo.setDuration(duration);
+
+        List<List<SkipUnitData>> data = new ArrayList<>();
+        List<SkipUnitData> circle = new ArrayList<>();
+        int currCircle = Math.round(blePoints.get(0).getNumber());
+        int circlenum = currCircle;
+        //按圈保存在一个list中
+        for (int row = 0; row < blePoints.size(); row++) {
+            currCircle = Math.round(blePoints.get(row).getNumber());
+            if (circlenum != currCircle) {
+                circlenum = currCircle;
+                data.add(circle);
+                circle = new ArrayList<>();
+            }
+            SkipUnitData unit = new SkipUnitData();
+            unit.setAccelerationX(blePoints.get(row).getAccelerationX());
+            unit.setAccelerationY(blePoints.get(row).getAccelerationY());
+            unit.setAccelerationZ(blePoints.get(row).getAccelerationZ());
+            unit.setAngularVelocityX(blePoints.get(row).getAngularVelocityX());
+            unit.setAngularVelocityY(blePoints.get(row).getAngularVelocityY());
+            unit.setAngularVelocityZ(blePoints.get(row).getAngularVelocityZ());
+            unit.setPitch(blePoints.get(row).getPitch());
+            unit.setRoll(blePoints.get(row).getRoll());
+            unit.setYaw(blePoints.get(row).getYaw());
+            unit.setHallSensor(Math.round(blePoints.get(row).getHallSensor()));
+            unit.setTimestamp(Math.round(blePoints.get(row).getTimestamp()));
 
             circle.add(unit);
         }

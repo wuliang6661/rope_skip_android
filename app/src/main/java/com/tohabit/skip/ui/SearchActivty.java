@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.algorithm.skipevaluation.Evaluator;
@@ -19,6 +20,7 @@ import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.event.model.CancleEvent;
 import com.tohabit.skip.pojo.po.DeviceBO;
+import com.tohabit.skip.pojo.vo.BleYundongMsg;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.utils.ByteUtils;
 import com.tohabit.skip.utils.Example;
@@ -26,6 +28,9 @@ import com.tohabit.skip.utils.blue.OnSearchListenter;
 import com.tohabit.skip.utils.blue.btutil.BlueDeviceUtils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
+import com.tohabit.skip.utils.blue.model.BleData;
+import com.tohabit.skip.utils.blue.model.BlePoint;
+import com.tohabit.skip.utils.blue.model.BleSport;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
 
@@ -39,6 +44,8 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+
+import static java.lang.Math.max;
 
 public class SearchActivty extends BaseActivity {
 
@@ -70,6 +77,24 @@ public class SearchActivty extends BaseActivity {
      * 删除的结束时间
      */
     private long endUTC;
+
+    /**
+     * 一次运动轨迹的数据长度
+     */
+    private int pointDataLength;
+
+    /**
+     * 当前运动详情的数据
+     */
+    private BleYundongMsg yundongMsg;
+
+    /**
+     * 所有的历史数据
+     */
+    private List<Map<String, Object>> list = new ArrayList<>();
+
+
+    private List<BlePoint> blePoints = new ArrayList<BlePoint>();   //存储ble获取的坐标点
 
     @Override
     protected void initInject() {
@@ -254,34 +279,43 @@ public class SearchActivty extends BaseActivity {
             }
         }
         if (UartService.COUNT_OPENTION == 0x44) {  //目录内容
-            byte[] startTime = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1],
-                    builder.getDataBody()[2], builder.getDataBody()[3]};
-            long dateTime = ByteUtils.bytesToInt2(startTime, 0);
+            BleSport bleSport = new BleSport(builder.getDataBody());
+            long dateTime = bleSport.getStart_time();
+            long dateEndTime = bleSport.getEnd_time();
+            int duration = max(1, (int) (dateEndTime - dateTime));
+            pointDataLength = bleSport.getFrameLength();
             if (selectPosition == 0) {
                 startUTC = dateTime;
             }
-            byte[] endTime = new byte[]{builder.getDataBody()[4], builder.getDataBody()[5],
-                    builder.getDataBody()[6], builder.getDataBody()[7]};
-            long dateEndTime = ByteUtils.bytesToInt2(endTime, 0);
             if (selectPosition == muluCount - 1) {
                 endUTC = dateEndTime;
             }
-            LogUtils.e("获取的跳绳时长=" + (dateEndTime - dateTime));
+            LogUtils.e("获取的跳绳时长=" + duration + "跳绳轨迹的数据长度 = " + pointDataLength);
             byte[] skipNumByte = new byte[]{builder.getDataBody()[13], builder.getDataBody()[14]};
             byte[] breakNumByte = new byte[]{builder.getDataBody()[15], builder.getDataBody()[16]};
             int skipNum = ByteUtils.bytesToInt(skipNumByte);
             int breakNum = ByteUtils.bytesToInt(breakNumByte);
             LogUtils.e("获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
-            getYundongMsg(dateTime);
-//            addTest(skipNum, breakNum, (int) (dateEndTime - dateTime), dateTime);
-//            if (selectPosition < muluCount - 1) {
-//                selectPosition++;
-//                getMuLuMessage(selectPosition);
-//            } else {
-//                stopProgress();
-//                showToast("同步完成！");
-////                deleteAll();
-//            }
+            yundongMsg = new BleYundongMsg(duration, skipNum, breakNum, dateTime);
+            getYundongMsg(dateTime, selectPosition);
+        }
+        if (UartService.COUNT_OPENTION == 0x77) {  //跳绳轨迹分包数据
+            BleData bleData = new BleData(event.getData(), pointDataLength);
+            blePoints.addAll(bleData.getBlePointList());//把所有解析出来的坐标点保存起来
+            if (bleData.isLastPage() && blePoints.size() > 0) {//如果是最后一包，说明此次运动数据已经取完，删除
+                Log.d("chen", "接收到跳绳数据。");
+                Log.d("chen", "圈序号：" + blePoints.get(0).getNumber() + "-" + blePoints.get(blePoints.size() - 1).getNumber());
+                Log.d("chen", "共 " + blePoints.size() + " 个采样点");
+                save();
+                if (selectPosition < muluCount - 1) {
+                    selectPosition++;
+                    getMuLuMessage(selectPosition);
+                } else {
+                    stopProgress();
+                    showToast("同步完成！");
+                    addTest();
+                }
+            }
         }
     }
 
@@ -319,38 +353,49 @@ public class SearchActivty extends BaseActivity {
     /**
      * 获取运动分包数据
      */
-    private void getYundongMsg(long date) {
+    private void getYundongMsg(long date, int baoxuhao) {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
             UartService.COUNT_OPENTION = 0x77;
-            App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetPointCmd(date).getCmdByte());
+            App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetPointCmd(date, baoxuhao).getCmdByte());
         }
+    }
+
+
+    /**
+     * 保存一个目录的结果
+     */
+    private void save() {
+        Example example = new Example(getAssets(), yundongMsg.getBreakNum(), yundongMsg.getSkipNum(),
+                yundongMsg.getTimeCount(), blePoints);
+        Evaluator evaluator = example.getData();
+        Map<String, Object> params = new HashMap<>();
+        params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
+        params.put("breakNum", yundongMsg.getBreakNum());   //断绳数量
+        params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
+        params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
+        params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
+        params.put("skipNum", yundongMsg.getSkipNum());  //跳绳次数
+        params.put("skipTime", yundongMsg.getTimeCount());
+        params.put("stableScore", evaluator.getPositionStabilityScore());
+        params.put("deviceId", deviceId);
+        params.put("skipDate", TimeUtils.millis2String(yundongMsg.getTime() * 1000));
+        list.add(params);
     }
 
 
     /**
      * 添加测试结果
      */
-    private void addTest(int skipNum, int breakNum, int timeCount, long time) {
-        Example example = new Example(getAssets(), breakNum, skipNum, timeCount);
-        Evaluator evaluator = example.getData();
-        Map<String, Object> params = new HashMap<>();
-        params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
-        params.put("breakNum", breakNum);   //断绳数量
-        params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
-        params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
-        params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
-        params.put("skipNum", skipNum);  //跳绳次数
-        params.put("skipTime", timeCount);
-        params.put("stableScore", evaluator.getPositionStabilityScore());
-        params.put("deviceId", deviceId);
-        params.put("skipDate", TimeUtils.millis2String(time * 1000));
-        HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
+    private void addTest() {
+        HttpServerImpl.addTestBatch(list).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                deleteAll();
             }
 
             @Override
             public void onFiled(String message) {
+                showToast(message);
             }
         });
     }
