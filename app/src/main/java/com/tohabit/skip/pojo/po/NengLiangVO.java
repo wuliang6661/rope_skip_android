@@ -15,7 +15,7 @@ public class NengLiangVO {
      */
 
     private int id;
-    private int energyValue;
+    private String energyValue;
     private String code;
     private String title;
     private String content;
@@ -48,11 +48,11 @@ public class NengLiangVO {
         this.id = id;
     }
 
-    public int getEnergyValue() {
+    public String getEnergyValue() {
         return energyValue;
     }
 
-    public void setEnergyValue(int energyValue) {
+    public void setEnergyValue(String energyValue) {
         this.energyValue = energyValue;
     }
 

@@ -26,7 +26,7 @@ public class EnergyRewardListAdapter extends BaseRvAdapter<NengLiangVO, BaseView
     @Override
     protected void convert(BaseViewHolder helper, NengLiangVO item) {
         helper.setText(R.id.tv_name_layout_fragment_energy_reward_list_item, item.getTitle())
-                .setText(R.id.tv_value_layout_fragment_energy_reward_list_item, "+" + item.getEnergyValue())
+                .setText(R.id.tv_value_layout_fragment_energy_reward_list_item, item.getEnergyValue())
                 .setText(R.id.tv_time_layout_fragment_energy_reward_list_item, item.getCreateDate());
     }
 }
