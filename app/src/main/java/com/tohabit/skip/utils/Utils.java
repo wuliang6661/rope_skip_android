@@ -50,11 +50,6 @@ public class Utils {
         return statusHeight;
     }
 
-//    public static void gotoImageDetailView(SupportFragment fragment, String img){
-//        Bundle bundle = new Bundle();
-//        bundle.putString(Constants.STRING_MODE,img);
-//        fragment.start(ImageDetailFragment.newInstance(bundle));
-//    }
 
     public static String timeToString(int seconds) {
         if (seconds < 60) {
@@ -75,6 +70,21 @@ public class Utils {
         return count < 10 ? "0" + count : count + "";
     }
 
+
+    public static String timeToChineseString(int seconds) {
+        if (seconds < 60) {
+            return "00分" + numToString(seconds) + "秒";
+        } else if (seconds < 3600) {
+            int munite = seconds / 60;
+            int second = seconds % 60;
+            return numToString(munite) + "分" + numToString(second) + "秒";
+        } else {
+            int hour = seconds / 3600;
+            int munite = seconds % 3600 / 60;
+            int second = seconds % 3600 % 60;
+            return numToString(hour) + "时" + numToString(munite) + "分" + numToString(second) + "秒";
+        }
+    }
 
     /**
      * 手机号用****号隐藏中间数字

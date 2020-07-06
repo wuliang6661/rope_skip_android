@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.tohabit.skip.R;
 import com.tohabit.skip.common.adapter.BaseRvAdapter;
 import com.tohabit.skip.pojo.po.TestBO;
+import com.tohabit.skip.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,6 @@ public class TranRecordListAdapter extends BaseRvAdapter<TestBO, BaseViewHolder>
         helper.addOnClickListener(R.id.tv_look_layout_fragment_train_record_list_item)
                 .setText(R.id.tv_time_layout_fragment_train_record_list_item, item.getSkipDate())
                 .setText(R.id.tv_jb_layout_fragment_train_record_list_item, item.getSkipNum() + "")
-                .setText(R.id.tv_pay_time_layout_fragment_train_record_list_item, item.getSkipTime() + "");
+                .setText(R.id.tv_pay_time_layout_fragment_train_record_list_item, Utils.timeToChineseString(item.getSkipTime()));
     }
 }
