@@ -8,7 +8,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
 import com.sak.ultilviewlib.UltimateRefreshView;
 import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
@@ -33,6 +32,7 @@ import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.widget.TraditionHeaderAdapter;
 import com.tohabit.skip.widget.waterview.WaterFlake;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -82,6 +82,8 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
     LinearLayout xiaojiangLayout;
     @BindView(R.id.refresh_view)
     UltimateRefreshView refreshView;
+
+    List<NengLiangVO> nengliangs = new ArrayList<>();
 
     public static YoungHomeFragment newInstance(Bundle bundle) {
         YoungHomeFragment fragment = new YoungHomeFragment();
@@ -267,11 +269,11 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
      * 显示能力球布局
      */
     private void showEnergies(List<NengLiangVO> s) {
-//        waterFlake.setModelList(s, giViewMonkeyFragmentYoungHome);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                waterFlake.setModelList(s.size() > 8 ? s.subList(0, 8) : s, xiaojiangLayout);
+                nengliangs = s.size() > 8 ? s.subList(0, 8) : s;
+                waterFlake.setModelList(nengliangs, xiaojiangLayout);
                 waterFlake.setOnWaterItemListener(new WaterFlake.OnWaterItemListener() {
                     @Override
                     public void onItemClick(NengLiangVO waterModel) {
@@ -292,7 +294,14 @@ public class YoungHomeFragment extends BaseFragment<CommonPresenter> implements 
             public void onSuccess(String s) {
                 refreshView.onHeaderRefreshComplete();
                 getYoungGeneralInfo();
-                getEnergies();
+                for (int i = 0; i < nengliangs.size(); i++) {
+                    if (nengliangs.get(i).getId() == id) {
+                        nengliangs.remove(i);
+                    }
+                }
+                if (nengliangs.isEmpty()) {
+                    getEnergies();
+                }
             }
 
             @Override

@@ -137,7 +137,8 @@ public class MyAddressListFragment extends BaseActivity<MyAddressListPresenter> 
                         break;
                     case R.id.address_layout:
                         if (isSelect != 0) {
-                            EventBus.getDefault().post(mListAdapter.getItem(position));
+                            AddressBO addressBO = mListAdapter.getItem(position);
+                            EventBus.getDefault().post(addressBO);
                             finish();
                             return;
                         }

@@ -141,6 +141,8 @@ public class ExChangeShopActivity extends BaseActivity {
 
 
     private void showAddress() {
+        addressLayout.setVisibility(View.VISIBLE);
+        addAddress.setVisibility(View.GONE);
         name.setText(address.getName());
         phone.setText(address.getPhone());
         addressDetails.setText(address.getAddress());

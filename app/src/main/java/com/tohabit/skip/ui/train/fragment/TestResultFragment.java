@@ -388,7 +388,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
      * 显示问题分析
      */
     private void showQustion(TestDetailsBO data) {
-        int sex = App.xIaoJiangBO.getSex();
+        int sex = App.userBO.getSex();
         if (sex == 0) {  //男
             nanImg.setVisibility(View.VISIBLE);
             nvImg.setVisibility(View.GONE);
