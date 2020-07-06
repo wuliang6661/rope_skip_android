@@ -217,19 +217,7 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                if (App.userBO.getType() == 0) {
-                    if (Utils.isPkgInstalled(getActivity(), "com.taobao.taobao")) {
-                        Utils.gotoShop(getActivity(), App.userBO.getUrl());
-                    } else {
-                        showToast("您还没有安装淘宝客户端！");
-                    }
-                } else {
-                    if (Utils.isPkgInstalled(getActivity(), "com.tmall.wireless")) {
-                        Utils.gotoShop(getActivity(), App.userBO.getUrl());
-                    } else {
-                        showToast("您还没有安装天猫客户端！");
-                    }
-                }
+
             }
 
             @Override
@@ -240,7 +228,25 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
             }
         }, hint.length() - 6, hint.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         hintShop.setText(spannableString);
-        hintShop.setMovementMethod(LinkMovementMethod.getInstance());
+//        hintShop.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+
+    @OnClick(R.id.hint_shop)
+    public void goShop() {
+        if (App.userBO.getType() == 0) {
+            if (Utils.isPkgInstalled(getActivity(), "com.taobao.taobao")) {
+                Utils.gotoShop(getActivity(), App.userBO.getUrl());
+            } else {
+                showToast("您还没有安装淘宝客户端！");
+            }
+        } else {
+            if (Utils.isPkgInstalled(getActivity(), "com.tmall.wireless")) {
+                Utils.gotoShop(getActivity(), App.userBO.getUrl());
+            } else {
+                showToast("您还没有安装天猫客户端！");
+            }
+        }
     }
 
 

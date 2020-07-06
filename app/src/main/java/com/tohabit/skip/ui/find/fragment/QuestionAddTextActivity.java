@@ -43,6 +43,12 @@ public class QuestionAddTextActivity extends BaseActivity {
         btnAlbum.setText("保存");
         btnAlbum.setTextColor(Color.parseColor("#7EC7F5"));
 
+        int type = getIntent().getIntExtra("type",0);
+        if(type == 1){
+            setTitleText("编辑文字");
+            String msg = getIntent().getStringExtra("msg");
+            etText.setText(msg);
+        }
     }
 
 

@@ -73,6 +73,8 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
 
     private List<AddQuestionVO> questionVOS = new ArrayList<>();
 
+    private int bianjiPosition = Integer.MAX_VALUE;
+
     @Override
     protected void initInject() {
 
@@ -152,6 +154,23 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
             public void onItemClicked(View view, int position) {
                 questionVOS.remove(position);
                 adapter.notifyDataSetChanged();
+            }
+        });
+        adapter.setOnItemClickListener(R.id.item_img, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                bianjiPosition = position;
+                checkPermissions();
+            }
+        });
+        adapter.setOnItemClickListener(R.id.item_text, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                bianjiPosition = position;
+                Intent intent = new Intent(QuestionAddActivity.this, QuestionAddTextActivity.class);
+                intent.putExtra("type", 1);
+                intent.putExtra("msg", questionVOS.get(position).getFont());
+                startActivityForResult(intent, 0x11);
             }
         });
         addContents.setAdapter(adapter);
@@ -257,7 +276,12 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
             String content = data.getStringExtra("content");
             AddQuestionVO addQuestionVO = new AddQuestionVO();
             addQuestionVO.setFont(content);
-            questionVOS.add(addQuestionVO);
+            if (bianjiPosition != Integer.MAX_VALUE) {
+                questionVOS.set(bianjiPosition, addQuestionVO);
+                bianjiPosition = Integer.MAX_VALUE;
+            } else {
+                questionVOS.add(addQuestionVO);
+            }
             setAdapter();
             return;
         }
@@ -303,7 +327,12 @@ public class QuestionAddActivity extends BaseActivity implements ActionSheet.OnA
                 stopProgress();
                 AddQuestionVO addQuestionVO = new AddQuestionVO();
                 addQuestionVO.setImage(s);
-                questionVOS.add(addQuestionVO);
+                if (bianjiPosition != Integer.MAX_VALUE) {
+                    questionVOS.set(bianjiPosition, addQuestionVO);
+                    bianjiPosition = Integer.MAX_VALUE;
+                } else {
+                    questionVOS.add(addQuestionVO);
+                }
                 setAdapter();
             }
 
