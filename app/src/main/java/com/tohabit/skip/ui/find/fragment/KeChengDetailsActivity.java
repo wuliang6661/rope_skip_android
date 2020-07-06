@@ -229,8 +229,6 @@ public class KeChengDetailsActivity extends BaseActivity {
     }
 
 
-
-
     /**
      * 获取课程视频列表
      */
@@ -241,6 +239,7 @@ public class KeChengDetailsActivity extends BaseActivity {
                 videos = s;
                 if (!s.isEmpty()) {
                     video(s.get(0));
+                    addDataLearn(s.get(0).getId() + "");
                 }
                 showVideoAdapter();
             }
@@ -297,9 +296,28 @@ public class KeChengDetailsActivity extends BaseActivity {
             @Override
             public void onItemClicked(View view, int position) {
                 video(adapter.getItem(position));
+                addDataLearn(adapter.getItem(position).getId() + "");
             }
         });
         recycleView.setAdapter(adapter);
+    }
+
+
+    /**
+     * 添加学习记录
+     */
+    private void addDataLearn(String objectId) {
+        HttpServerImpl.addDataLearn(objectId).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFiled(String message) {
+
+            }
+        });
     }
 
 

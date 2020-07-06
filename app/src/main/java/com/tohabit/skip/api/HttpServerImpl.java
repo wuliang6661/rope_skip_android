@@ -897,6 +897,16 @@ public class HttpServerImpl {
     }
 
     /**
+     * 添加学习记录
+     */
+    public static Observable<String> addDataLearn(String objectId){
+        Map<String, Object> params = new HashMap<>();
+        params.put("objectId", objectId);
+        params.put("objectType", 0);
+        return getService().addDataLearn(params).compose(RxResultHelper.httpRusult());
+    }
+
+    /**
      * 提交图片
      */
     public static Observable<String> updateFile(File file) {

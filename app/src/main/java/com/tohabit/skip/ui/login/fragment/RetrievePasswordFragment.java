@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.commonlibrary.widget.ToolbarWithBackRightProgress;
@@ -96,8 +97,8 @@ public class RetrievePasswordFragment extends BaseFragment<RetrievePasswordPrese
                 _mActivity.onBackPressedSupport();
             }
         });
-        String userName = App.spUtils.getString(Constants.PREF_KEY_USER, "");
-        etTel.setText(userName);
+//        String userName = App.spUtils.getString(Constants.PREF_KEY_USER, "");
+//        etTel.setText(userName);
     }
 
 
@@ -134,7 +135,11 @@ public class RetrievePasswordFragment extends BaseFragment<RetrievePasswordPrese
         switch (view.getId()) {
             case R.id.btn_next_fragment_register:
                 if (TextUtils.isEmpty(etTel.getText().toString())) {
-                    showError("请输入手机号码");
+                    showError("请输入手机号码！");
+                    return;
+                }
+                if(!RegexUtils.isMobileExact(etTel.getText().toString())){
+                    showError("请输入正确的手机号码！");
                     return;
                 }
                 if (TextUtils.isEmpty(etPleaseInputMsgCode.getText().toString())) {
@@ -161,6 +166,10 @@ public class RetrievePasswordFragment extends BaseFragment<RetrievePasswordPrese
             case R.id.btn_send_code_fragment_register:
                 if (TextUtils.isEmpty(etTel.getText().toString())) {
                     showError("请输入手机号码");
+                    return;
+                }
+                if(!RegexUtils.isMobileExact(etTel.getText().toString())){
+                    showError("请输入正确的手机号码！");
                     return;
                 }
                 mPresenter.sendCode(etTel.getText().toString());
