@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="今日已完成计划"
+                android:text="累计已完成计划"
                 android:textColor="#AAAAAA"
                 android:textSize="14sp" />
 

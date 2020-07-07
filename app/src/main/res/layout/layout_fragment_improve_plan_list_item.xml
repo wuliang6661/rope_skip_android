@@ -37,6 +37,17 @@
             android:textSize="14sp"
             android:visibility="gone" />
 
+
+        <TextView
+            android:id="@+id/common_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:textColor="#ff7ec7f5"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_state_name_layout_fragment_improve_plan_list_item"
             android:layout_width="wrap_content"

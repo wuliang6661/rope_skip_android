@@ -72,6 +72,7 @@
                     android:layout_marginLeft="60dp"
                     android:background="@null"
                     android:hint="请输入小将昵称"
+                    android:maxLength="10"
                     android:textColor="#333333"
                     android:textColorHint="#999999"
                     android:textSize="14sp" />
@@ -212,9 +213,9 @@
                     android:layout_marginLeft="60dp"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:digits="0123456789."
                     android:hint="请输入小将身高"
-                    android:inputType="number"
-                    android:maxLength="5"
+                    android:maxLength="10"
                     android:textColor="#333333"
                     android:textColorHint="#999999"
                     android:textSize="14sp" />
@@ -262,9 +263,9 @@
                     android:layout_marginLeft="60dp"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:digits="0123456789."
                     android:hint="请输入小将体重"
-                    android:inputType="number"
-                    android:maxLength="5"
+                    android:maxLength="10"
                     android:textColor="#333333"
                     android:textColorHint="#999999"
                     android:textSize="14sp" />

@@ -161,11 +161,14 @@ public class XunLianJiHuaActivity extends BaseActivity {
                     holder.setTextColor(R.id.title, "#333333");
                     holder.setTextColor(R.id.item_num, "#333333");
                     setText(holder, "#7EC7F5");
+                    holder.getView(R.id.common_date).setVisibility(View.GONE);
                     holder.setText(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "去完成");
                     holder.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "#F97B61");
                 } else {    //已完成
                     holder.setTextColor(R.id.title, "#AAAAAA");
                     holder.setTextColor(R.id.item_num, "#AAAAAA");
+                    holder.getView(R.id.common_date).setVisibility(View.VISIBLE);
+                    holder.setText(R.id.common_date, jiHuaBO.getCompleteDate());
                     setText(holder, "#AAAAAA");
                     holder.setText(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "已完成");
                     holder.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "#AAAAAA");

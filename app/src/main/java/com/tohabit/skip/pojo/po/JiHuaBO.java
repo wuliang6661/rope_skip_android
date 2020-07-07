@@ -18,6 +18,15 @@ public class JiHuaBO {
     private String videoTitle;
     private String trainLength;
     private int id;
+    private String completeDate;
+
+    public String getCompleteDate() {
+        return completeDate;
+    }
+
+    public void setCompleteDate(String completeDate) {
+        this.completeDate = completeDate;
+    }
 
     public int getUserId() {
         return userId;
