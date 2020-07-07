@@ -243,7 +243,7 @@ public class SyncHistoryUtils {
         HttpServerImpl.addTestBatch(list).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-//                deleteAll();
+                deleteAll();
             }
 
             @Override
