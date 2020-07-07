@@ -185,6 +185,7 @@ public class SearchActivty extends BaseActivity {
 //            showProgress("同步跳绳历史数据中...");
 //            tongbuTime();
         } else {
+            initDeviceBlue();
         }
     }
 
