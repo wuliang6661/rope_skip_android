@@ -363,7 +363,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                 @Override
                 public void convert(LGViewHolder holder, DeviceBO deviceBO, int position) {
                     holder.setText(R.id.device_name, deviceBO.getName());
-                    holder.setText(R.id.device_status, deviceBO.getLinkStatus() == 0 ? "未连接" : "已连接");
+                    holder.setText(R.id.device_status, (App.isConnect() && App.connectDevice.getAddress().equals(deviceBO.getMacAddress()))
+                            ? "已连接" : "未连接");
                 }
             };
             devices.setAdapter(adapter);
@@ -375,8 +376,15 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
     @Override
     public void getDeviceData(DeviceLinkBO linkBO) {
         deviceZongshu.setText(linkBO.getTotal() + "");
-        deviceZaixian.setText(linkBO.getOnline() + "");
-        deviceLixian.setText(linkBO.getOffline() + "");
+        if (App.isConnect()) {
+            deviceZaixian.setText("1");
+            deviceLixian.setText((linkBO.getTotal() - 1) + "");
+        } else {
+            deviceZaixian.setText("0");
+            deviceLixian.setText(linkBO.getTotal() + "");
+        }
+//        deviceZaixian.setText(linkBO.getOnline() + "");
+//        deviceLixian.setText(linkBO.getOffline() + "");
     }
 
 

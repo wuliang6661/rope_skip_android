@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
+import com.tohabit.skip.app.App;
 import com.tohabit.skip.mvp.MVPBaseActivity;
 import com.tohabit.skip.pojo.po.DeviceBO;
 import com.tohabit.skip.ui.SearchActivty;
@@ -157,7 +158,9 @@ public class DeviceManagerActivity extends MVPBaseActivity<DeviceManagerContract
             public void convert(LGViewHolder holder, DeviceBO s, int position) {
                 holder.setText(R.id.device_name, s.getName());
                 holder.setText(R.id.device_mac, s.getMacAddress());
-                holder.setText(R.id.status, s.getLinkStatus() == 0 ? "未连接" : "已连接");
+//                holder.setText(R.id.status, s.getLinkStatus() == 0 ? "未连接" : "已连接");
+                holder.setText(R.id.status, (App.isConnect() && App.connectDevice.getAddress().equals(s.getMacAddress()))
+                        ? "已连接" : "未连接");
             }
         };
         recycleView.setAdapter(adapter);
