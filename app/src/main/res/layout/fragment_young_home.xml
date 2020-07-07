@@ -167,14 +167,16 @@
                     android:src="@drawable/monkey" />
 
 
-                <com.tohabit.skip.widget.waterview.WaterFlake
-                    android:id="@+id/water_flake"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/right_layout" />
-
-
             </RelativeLayout>
         </ScrollView>
     </com.sak.ultilviewlib.UltimateRefreshView>
+
+    <com.tohabit.skip.widget.waterview.WaterFlake
+        android:id="@+id/water_flake"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="200dp" />
+
 </RelativeLayout>

@@ -38,16 +38,6 @@
             android:visibility="gone" />
 
 
-        <TextView
-            android:id="@+id/common_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:textColor="#ff7ec7f5"
-            android:textSize="12sp"
-            android:visibility="gone" />
-
-
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_state_name_layout_fragment_improve_plan_list_item"
             android:layout_width="wrap_content"
@@ -91,6 +81,7 @@
                 android:id="@+id/tv_content_layout_fragment_improve_plan_list_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:text="跳绳高度训练"
                 android:textColor="#ff7ec7f5"
                 android:textSize="12sp" />
@@ -140,6 +131,33 @@
                 android:textColor="#ff7ec7f5"
                 android:textSize="14sp"
                 android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/common_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="113dp"
+                android:layout_height="wrap_content"
+                android:text="完成日期"
+                android:textColor="#AAAAAA"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/common_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:textColor="#AAAAAA"
+                android:textSize="12sp" />
+
         </LinearLayout>
 
         <LinearLayout

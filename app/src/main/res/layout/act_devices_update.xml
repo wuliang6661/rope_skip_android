@@ -66,6 +66,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="20dp"
             android:background="@null"
+            android:enabled="false"
             android:gravity="right|center_vertical"
             android:hint="请输入设备MAC地址"
             android:singleLine="true"
