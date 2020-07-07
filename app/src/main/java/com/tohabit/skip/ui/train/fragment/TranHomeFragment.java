@@ -430,16 +430,10 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     }
 //                    addTest();
                     getAllMuLu();
-                    testState = false;
-                    timeCount = 0;
                     if (timer != null) {
                         timer.cancel();
                         timer = null;
                     }
-                    String time = Utils.timeToString(timeCount);
-                    tvTime.setText("时间  " + time);
-                    ivStartTest.setBackgroundResource(R.mipmap.start_img);
-                    isEditMsg = false;
                 } else {//未开始
                     if (!App.isConnect()) {
                         showToast("请先连接跳绳！");
@@ -539,6 +533,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             public void onSuccess(String s) {
                 stopProgress();
                 showToast("已生成测试记录！");
+                yundongMsg = null;
                 deleteYunDong(dateTime);
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
@@ -547,6 +542,12 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
                 intent.setClass(_mActivity, TainMainActivity.class);
                 startActivity(intent);
+                testState = false;
+                timeCount = 0;
+                String time = Utils.timeToString(timeCount);
+                tvTime.setText("时间  " + time);
+                ivStartTest.setBackgroundResource(R.mipmap.start_img);
+                isEditMsg = false;
             }
 
             @Override
