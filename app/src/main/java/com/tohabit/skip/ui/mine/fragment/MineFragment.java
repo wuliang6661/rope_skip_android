@@ -367,6 +367,12 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
                             ? "已连接" : "未连接");
                 }
             };
+            adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
+                @Override
+                public void onItemClicked(View view, int position) {
+                    gotoActivity(DeviceManagerActivity.class, false);
+                }
+            });
             devices.setAdapter(adapter);
 //            mItemDevice.setItemNameText(deviceBO.getName());
         }

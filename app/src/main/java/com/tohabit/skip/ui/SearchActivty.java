@@ -65,7 +65,6 @@ public class SearchActivty extends BaseActivity {
         recycleView.setLayoutManager(manager);
         recycleView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE).build());
         devices = new ArrayList<>();
-        initDeviceBlue();
         getData();
     }
 
@@ -141,15 +140,11 @@ public class SearchActivty extends BaseActivity {
                 holder.setText(R.id.mac_text, "蓝牙名称：" + result.getAddress());
                 holder.setText(R.id.connect, "绑定");
                 if (App.connectDevice != null && App.connectDevice.getAddress().equals(result.getAddress())) {
-//                    holder.getView(R.id.connect).setEnabled(false);
                     holder.setText(R.id.connect, "已绑定");
-                } else {
-                    if (deviceBOS != null) {
-//                        for (DeviceBO deviceBO : deviceBOS) {
-//                            if (deviceBO.getMacAddress().equals(result.getAddress())) {
-//                                holder.getView(R.id.connect).setEnabled(true);
-//                            }
-//                        }
+                }
+                for (DeviceBO item : deviceBOS) {
+                    if (result.getAddress().equals(item.getMacAddress())) {
+                        holder.setText(R.id.item_text, "绳柄名称：" + item.getName());
                     }
                 }
             }
@@ -176,7 +171,7 @@ public class SearchActivty extends BaseActivity {
     public void onEvent(BlueEvent event) {
         stopProgress();
         if (event.isConnect == UartService.STATE_CONNECTED) {
-            if(recycleView != null){
+            if (recycleView != null) {
                 setAdapter();
             }
             saveDevices();
@@ -188,8 +183,6 @@ public class SearchActivty extends BaseActivity {
             initDeviceBlue();
         }
     }
-
-
 
 
     /**
@@ -215,6 +208,7 @@ public class SearchActivty extends BaseActivity {
         });
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -228,16 +222,16 @@ public class SearchActivty extends BaseActivity {
             @Override
             public void onSuccess(List<DeviceBO> s) {
                 deviceBOS = s;
+                initDeviceBlue();
             }
 
             @Override
             public void onFiled(String message) {
                 showToast(message);
+                initDeviceBlue();
             }
         });
     }
-
-
 
 
 }
