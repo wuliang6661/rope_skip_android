@@ -19,9 +19,13 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.tohabit.skip.app.Constants;
+import com.tohabit.skip.utils.SyncHistoryUtils;
+import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.blue.ByteUtils;
+import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -165,7 +169,7 @@ public class UartService extends Service {
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 //开启监听成功，可以像设备写入命令了
                 Log.e(TAG, "开启监听成功");
-                if(!isOpenUUID2Notifi){
+                if (!isOpenUUID2Notifi) {
                     isOpenUUID2Notifi = true;
                     setCharacteristic2Notification(mBluetoothGattCharacteristic2, true);
                 }
@@ -348,6 +352,12 @@ public class UartService extends Service {
 
     public boolean writeCharacteristic1Info(byte[] data) {
         if (mBluetoothGattService == null) {
+            return false;
+        }
+        if (SyncHistoryUtils.isSync) {
+            if (!Arrays.equals(data, RequstBleCmd.createGetEQCmd().getCmdByte())) {
+                ToastUtil.shortShow("正在同步数据中...");
+            }
             return false;
         }
         mBluetoothGattCharacteristic1 = mBluetoothGattService.getCharacteristic(UUID_CHARA1);//获得特征值1

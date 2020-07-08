@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.lang.Math.max;
 
@@ -68,11 +70,17 @@ public class SyncHistoryUtils {
      */
     private List<Map<String, Object>> list = new ArrayList<>();
 
+    /**
+     * 同步状态
+     */
+    public static boolean isSync = false;
+
 
     private List<BlePoint> blePoints = new ArrayList<BlePoint>();   //存储ble获取的坐标点
 
     private static SyncHistoryUtils utils;
 
+    private Timer timer;
 
     public static SyncHistoryUtils getInstance(String deviceId) {
         if (utils == null) {
@@ -89,8 +97,18 @@ public class SyncHistoryUtils {
 
 
     public void start() {
+        isSync = true;
+        timer = new Timer();
         getAllMuLu();
     }
+
+
+    private TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            isSync = false;
+        }
+    };
 
 
     /**
@@ -99,6 +117,7 @@ public class SyncHistoryUtils {
     private void getAllMuLu() {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
             UartService.COUNT_OPENTION = 0x33;
+            timer.schedule(task, 5000);
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createAllSportRecordCmd().getCmdByte());
         }
     }
@@ -106,6 +125,7 @@ public class SyncHistoryUtils {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BlueDataEvent event) {
+        timer.cancel();
         try {
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
             if (UartService.COUNT_OPENTION == 0x33) {  //目录数
@@ -158,16 +178,13 @@ public class SyncHistoryUtils {
                         selectPosition++;
                         getMuLuMessage(selectPosition);
                     } else {
-//                        stopProgress();
-//                        showToast("同步完成！");
                         addTest();
                     }
                 }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-//            stopProgress();
-//            showToast("同步失败！");
+            isSync = false;
         }
     }
 
@@ -178,6 +195,7 @@ public class SyncHistoryUtils {
     private void getMuLuMessage(int muluCount) {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
             UartService.COUNT_OPENTION = 0x44;
+            timer.schedule(task, 5000);
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createSportInfoCmd((short) muluCount).getCmdByte());
         }
     }
@@ -208,6 +226,7 @@ public class SyncHistoryUtils {
     private void getYundongMsg(long date, int baoxuhao) {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
             UartService.COUNT_OPENTION = 0x77;
+            timer.schedule(task, 5000);
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetPointCmd(date, baoxuhao).getCmdByte());
         }
     }
@@ -240,6 +259,7 @@ public class SyncHistoryUtils {
      * 添加测试结果
      */
     private void addTest() {
+        isSync = false;
         HttpServerImpl.addTestBatch(list).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {

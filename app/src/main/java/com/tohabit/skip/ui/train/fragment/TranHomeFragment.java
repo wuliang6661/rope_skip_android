@@ -293,9 +293,9 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         }
         if (UartService.COUNT_OPENTION == 0x22) { //跳绳次数
             int cishu = Math.abs(ByteUtils.bytesToInt2(builder.getDataBody(), 0));
-//            if (firstTiaoShengNum == Integer.MAX_VALUE) {
-//                firstTiaoShengNum = cishu;
-//            }
+            if (firstTiaoShengNum == Integer.MAX_VALUE) {
+                firstTiaoShengNum = cishu;
+            }
             skipNum = cishu;
             getDeviceCishu(String.valueOf(Math.abs(skipNum)));
         }

@@ -36,11 +36,11 @@ public class RxResultHelper {
                         Activity activity = AppManager.getAppManager().curremtActivity();
                         Intent intent = new Intent(activity, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.putExtra(RouterConstants.ARG_MODE,LoginActivity.FLAG_LOGIN_TAG);
+                        intent.putExtra(RouterConstants.ARG_MODE, LoginActivity.FLAG_LOGIN_TAG);
                         ToastUtil.show(mDYResponse.getMsg());
                         AppManager.getAppManager().finishAllActivity();
                         activity.startActivity(intent);
-                        return Observable.error(new RuntimeException(mDYResponse.getMsg()));
+                        return createData(null);
                     } else if (mDYResponse.getCode() == 398) {  //可拨打电话的弹窗
                         return Observable.error(new DialogCallException(mDYResponse.getMsg()));
                     } else if (mDYResponse.getCode() == 401) {
@@ -49,11 +49,11 @@ public class RxResultHelper {
                         Activity activity = AppManager.getAppManager().curremtActivity();
                         Intent intent = new Intent(activity, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.putExtra(RouterConstants.ARG_MODE,LoginActivity.FLAG_LOGIN_TAG);
+                        intent.putExtra(RouterConstants.ARG_MODE, LoginActivity.FLAG_LOGIN_TAG);
                         ToastUtil.show(mDYResponse.getMsg());
                         AppManager.getAppManager().finishAllActivity();
                         activity.startActivity(intent);
-                        return Observable.error(new RuntimeException(mDYResponse.getMsg()));
+                        return createData(null);
                     } else {
                         return Observable.error(new RuntimeException(mDYResponse.getMsg()));
                     }
