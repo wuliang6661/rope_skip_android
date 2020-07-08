@@ -40,7 +40,14 @@ public class TranRecordListAdapter extends BaseRvAdapter<TestBO, BaseViewHolder>
             helper.setText(R.id.fen_text, munite);
         }
         String seconds = getSecond(item.getSkipTime());
-        helper.setText(R.id.tv_pay_time_layout_fragment_train_record_list_item, seconds);
+        if (StringUtils.isEmpty(seconds)) {
+            helper.getView(R.id.tv_pay_time_layout_fragment_train_record_list_item).setVisibility(View.GONE);
+            helper.getView(R.id.tv_pay_time_table_layout_fragment_train_record_list_item).setVisibility(View.GONE);
+        } else {
+            helper.getView(R.id.tv_pay_time_layout_fragment_train_record_list_item).setVisibility(View.VISIBLE);
+            helper.getView(R.id.tv_pay_time_table_layout_fragment_train_record_list_item).setVisibility(View.VISIBLE);
+            helper.setText(R.id.tv_pay_time_layout_fragment_train_record_list_item, seconds);
+        }
     }
 
 
@@ -59,13 +66,13 @@ public class TranRecordListAdapter extends BaseRvAdapter<TestBO, BaseViewHolder>
 
     private String getSecond(int seconds) {
         if (seconds < 60) {
-            return numToString(seconds);
+            return numToString(seconds).equals("00") ? "" : numToString(seconds);
         } else if (seconds < 3600) {
             int second = seconds % 60;
-            return numToString(second);
+            return numToString(second).equals("00") ? "" : numToString(second);
         } else {
             int second = seconds % 3600 % 60;
-            return numToString(second);
+            return numToString(second).equals("00") ? "" : numToString(second);
         }
     }
 
