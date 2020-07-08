@@ -125,7 +125,8 @@ public class SyncHistoryUtils {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BlueDataEvent event) {
-        timer.cancel();
+        if (timer != null)
+            timer.cancel();
         try {
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
             if (UartService.COUNT_OPENTION == 0x33) {  //目录数
