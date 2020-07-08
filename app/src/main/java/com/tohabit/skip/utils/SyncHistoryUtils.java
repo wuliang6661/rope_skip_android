@@ -263,6 +263,7 @@ public class SyncHistoryUtils {
         HttpServerImpl.addTestBatch(list).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
+                ToastUtil.shortShow("数据同步完成！");
                 deleteAll();
             }
 

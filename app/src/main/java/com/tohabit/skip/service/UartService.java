@@ -356,7 +356,7 @@ public class UartService extends Service {
         }
         if (SyncHistoryUtils.isSync) {
             if (!Arrays.equals(data, RequstBleCmd.createGetEQCmd().getCmdByte())) {
-                ToastUtil.shortShow("正在同步数据中...");
+                ToastUtil.shortShow("数据同步中，请稍后");
             }
             return false;
         }
