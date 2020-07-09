@@ -146,14 +146,14 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
                 startActivityForResult(intent1, 0x22);
                 break;
             case R.id.btn_save_fragment_rope_skip_setting:
-                if(musicId == 0){
-                    showToast("请选择背景音乐！");
-                    return;
-                }
-                if(beatId == 0){
-                    showToast("请选择节拍！");
-                    return;
-                }
+//                if(musicId == 0){
+////                    showToast("请选择背景音乐！");
+////                    return;
+////                }
+////                if(beatId == 0){
+////                    showToast("请选择节拍！");
+////                    return;
+////                }
                 saveMusic();
                 break;
         }

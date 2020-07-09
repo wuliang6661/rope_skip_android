@@ -1,16 +1,22 @@
 package com.tohabit.skip.ui.train.fragment;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.sak.ultilviewlib.UltimateRefreshView;
+import com.sak.ultilviewlib.adapter.InitFooterAdapter;
+import com.sak.ultilviewlib.interfaces.OnFooterRefreshListener;
+import com.sak.ultilviewlib.interfaces.OnHeaderRefreshListener;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.pojo.po.BeatsBO;
 import com.tohabit.skip.pojo.po.MusicBO;
+import com.tohabit.skip.widget.TraditionHeaderAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
 
@@ -22,6 +28,8 @@ public class SettingMusicActivity extends BaseActivity {
 
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
+    @BindView(R.id.refresh_view)
+    UltimateRefreshView mSwipeRefreshLayout;
 
     @Override
     protected void initInject() {
@@ -50,7 +58,33 @@ public class SettingMusicActivity extends BaseActivity {
             setTitleText("节拍");
             getBeats();
         }
-
+        mSwipeRefreshLayout.setBaseHeaderAdapter(new TraditionHeaderAdapter(this));
+        mSwipeRefreshLayout.setBaseFooterAdapter(new InitFooterAdapter(this));
+        mSwipeRefreshLayout.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
+            @Override
+            public void onHeaderRefresh(UltimateRefreshView view) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (type == 0) {
+                            getMusicList();
+                        } else {
+                            getBeats();
+                        }
+                    }
+                }, 1000);
+            }
+        });
+        mSwipeRefreshLayout.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+            @Override
+            public void onFooterRefresh(UltimateRefreshView view) {
+                if (type == 0) {
+                    getMusicList();
+                } else {
+                    getBeats();
+                }
+            }
+        });
     }
 
     @Override
@@ -81,11 +115,15 @@ public class SettingMusicActivity extends BaseActivity {
             @Override
             public void onSuccess(List<BeatsBO> s) {
                 setBeatsAdapter(s);
+                mSwipeRefreshLayout.onHeaderRefreshComplete();
+                mSwipeRefreshLayout.onFooterRefreshComplete();
             }
 
             @Override
             public void onFiled(String message) {
                 showToast(message);
+                mSwipeRefreshLayout.onHeaderRefreshComplete();
+                mSwipeRefreshLayout.onFooterRefreshComplete();
             }
         });
     }
@@ -99,11 +137,15 @@ public class SettingMusicActivity extends BaseActivity {
             @Override
             public void onSuccess(List<MusicBO> s) {
                 setMusicAdapter(s);
+                mSwipeRefreshLayout.onHeaderRefreshComplete();
+                mSwipeRefreshLayout.onFooterRefreshComplete();
             }
 
             @Override
             public void onFiled(String message) {
                 showToast(message);
+                mSwipeRefreshLayout.onHeaderRefreshComplete();
+                mSwipeRefreshLayout.onFooterRefreshComplete();
             }
         });
     }
