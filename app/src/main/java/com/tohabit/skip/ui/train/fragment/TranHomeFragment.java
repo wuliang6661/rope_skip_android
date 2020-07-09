@@ -44,6 +44,7 @@ import com.tohabit.skip.ui.young.fragment.StatisticsActivity;
 import com.tohabit.skip.utils.ByteUtils;
 import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.StringUtils;
+import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
@@ -439,7 +440,10 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                         showToast("请先连接跳绳！");
                         return;
                     }
-//                    if (!isEditMsg) {
+                    if (SyncHistoryUtils.isSync) {
+                        ToastUtil.shortShow("数据同步中，请稍后");
+                        return;
+                    }//                    if (!isEditMsg) {
 //                        intent = new Intent();
 //                        intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
 //                        intent.setClass(_mActivity, TainMainActivity.class);
