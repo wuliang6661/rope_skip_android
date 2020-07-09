@@ -11,6 +11,7 @@ import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.pojo.BaseResult;
 import com.tohabit.skip.ui.login.activity.LoginActivity;
 import com.tohabit.skip.utils.AppManager;
+import com.tohabit.skip.utils.ToastUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,7 +44,7 @@ public class RxResultHelper {
                         showToast(mDYResponse.getMsg());
                         AppManager.getAppManager().finishAllActivity();
                         activity.startActivity(intent);
-                        return createData(null);
+                        return null;
                     } else if (mDYResponse.getCode() == 398) {  //可拨打电话的弹窗
                         return Observable.error(new DialogCallException(mDYResponse.getMsg()));
                     } else if (mDYResponse.getCode() == 401) {
@@ -56,7 +57,7 @@ public class RxResultHelper {
                         showToast(mDYResponse.getMsg());
                         AppManager.getAppManager().finishAllActivity();
                         activity.startActivity(intent);
-                        return createData(null);
+                        return null;
                     } else {
                         return Observable.error(new RuntimeException(mDYResponse.getMsg()));
                     }
@@ -81,7 +82,7 @@ public class RxResultHelper {
     private static  synchronized void showToast(String msg){
         if(!isToast){
             isToast = true;
-            ToastUtils.showShort(msg);
+            ToastUtil.show(msg);
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {

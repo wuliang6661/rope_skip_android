@@ -297,7 +297,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             if (firstTiaoShengNum == Integer.MAX_VALUE) {
                 firstTiaoShengNum = cishu;
             }
-            skipNum = cishu;
+            skipNum = cishu - firstTiaoShengNum;
             getDeviceCishu(String.valueOf(Math.abs(skipNum)));
         }
         if (UartService.COUNT_OPENTION == 0x10) {  //目录数

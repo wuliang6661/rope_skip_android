@@ -101,8 +101,6 @@ public class SyncHistoryUtils {
     }
 
 
-
-
     /**
      * 获取所有目录
      */
@@ -134,6 +132,7 @@ public class SyncHistoryUtils {
                         }
                     }, 500);
                 } else {
+                    isSync = false;
 //                    stopProgress();
                 }
             }
@@ -177,6 +176,7 @@ public class SyncHistoryUtils {
         } catch (Exception ex) {
             ex.printStackTrace();
             isSync = false;
+            ToastUtil.shortShow("同步失败！" + ex.getMessage());
         }
     }
 
