@@ -35,6 +35,7 @@ import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
 import com.tohabit.skip.utils.ByteUtils;
 import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.StringUtils;
+import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
@@ -258,6 +259,10 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             case R.id.tv_contral_fragment_train_plan:
                 if (!App.isConnect()) {
                     showToast("请先连接跳绳设备！");
+                    return;
+                }
+                if (SyncHistoryUtils.isSync) {
+                    ToastUtil.shortShow("数据同步中，请稍后");
                     return;
                 }
                 if (testState) {//开始
