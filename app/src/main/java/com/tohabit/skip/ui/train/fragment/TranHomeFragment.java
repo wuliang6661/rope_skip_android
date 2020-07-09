@@ -9,13 +9,11 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.algorithm.skipevaluation.Evaluator;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -32,7 +30,6 @@ import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.pojo.po.TestBO;
 import com.tohabit.skip.pojo.po.TestDataBO;
-import com.tohabit.skip.pojo.vo.BleYundongMsg;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
@@ -48,15 +45,10 @@ import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.Utils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
-import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
-import com.tohabit.skip.utils.blue.model.BleData;
-import com.tohabit.skip.utils.blue.model.BlePoint;
-import com.tohabit.skip.utils.blue.model.BleSport;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +58,6 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
-import static java.lang.Math.max;
 
 
 /**
@@ -270,22 +260,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
     }
 
 
-    /**
-     * 一次运动轨迹的数据长度
-     */
-    private int pointDataLength;
-
-    /**
-     * 当前运动详情的数据
-     */
-    private BleYundongMsg yundongMsg;
-
-    private List<BlePoint> blePoints = new ArrayList<BlePoint>();   //存储ble获取的坐标点
-
-    private int muluCount;
-
-    private long dateTime;
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BlueDataEvent event) {
         BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
@@ -299,91 +273,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             }
             skipNum = cishu - firstTiaoShengNum;
             getDeviceCishu(String.valueOf(Math.abs(skipNum)));
-        }
-        if (UartService.COUNT_OPENTION == 0x10) {  //目录数
-            byte[] changdu = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1]};
-            muluCount = ByteUtils.bytesToInt(changdu);
-            LogUtils.e("获取的目录条数：" + muluCount);
-            if (muluCount > 0) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getMuLuMessage(muluCount - 1);
-                    }
-                }, 500);
-            } else {
-                addTest();
-            }
-        }
-        if (UartService.COUNT_OPENTION == 0x12) {  //目录内容
-            BleSport bleSport = new BleSport(builder.getDataBody());
-            dateTime = bleSport.getStart_time();
-            long dateEndTime = bleSport.getEnd_time();
-            int duration = max(1, (int) (dateEndTime - dateTime));
-            pointDataLength = bleSport.getFrameLength();
-            LogUtils.e("获取的跳绳时长=" + duration + "跳绳轨迹的数据长度 = " + pointDataLength);
-            byte[] skipNumByte = new byte[]{builder.getDataBody()[13], builder.getDataBody()[14]};
-            byte[] breakNumByte = new byte[]{builder.getDataBody()[15], builder.getDataBody()[16]};
-            int skipNum = ByteUtils.bytesToInt(skipNumByte);
-            int breakNum = ByteUtils.bytesToInt(breakNumByte);
-            LogUtils.e("获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
-            yundongMsg = new BleYundongMsg(duration, skipNum, breakNum, dateTime);
-//            getYundongMsg(dateTime, muluCount - 1);
-            addTest();
-        }
-        if (UartService.COUNT_OPENTION == 0x13) {  //跳绳轨迹分包数据
-            BleData bleData = new BleData(event.getData(), pointDataLength);
-            blePoints.addAll(bleData.getBlePointList());//把所有解析出来的坐标点保存起来
-            if (bleData.isLastPage() && blePoints.size() > 0) {//如果是最后一包，说明此次运动数据已经取完，删除
-                Log.d("chen", "接收到跳绳数据。");
-                Log.d("chen", "圈序号：" + blePoints.get(0).getNumber() + "-" + blePoints.get(blePoints.size() - 1).getNumber());
-                Log.d("chen", "共 " + blePoints.size() + " 个采样点");
-                stopProgress();
-                addTest();
-            }
-        }
-    }
-
-
-    /**
-     * 获取所有目录
-     */
-    private void getAllMuLu() {
-        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
-            UartService.COUNT_OPENTION = 0x10;
-            App.blueService.writeCharacteristic1Info(RequstBleCmd.createAllSportRecordCmd().getCmdByte());
-        }
-    }
-
-
-    /**
-     * 获取目录内容
-     */
-    private void getMuLuMessage(int muluCount) {
-        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
-            UartService.COUNT_OPENTION = 0x12;
-            App.blueService.writeCharacteristic1Info(RequstBleCmd.createSportInfoCmd((short) muluCount).getCmdByte());
-        }
-    }
-
-
-    /**
-     * 获取运动分包数据
-     */
-    private void getYundongMsg(long date, int baoxuhao) {
-        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
-            UartService.COUNT_OPENTION = 0x13;
-            App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetPointCmd(date, baoxuhao).getCmdByte());
-        }
-    }
-
-    /**
-     * 删除一次运动
-     */
-    private void deleteYunDong(long date) {
-        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
-            UartService.COUNT_OPENTION = 0x14;
-            App.blueService.writeCharacteristic1Info(RequstBleCmd.createDeleteSportCmd(date).getCmdByte());
         }
     }
 
@@ -429,8 +318,13 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     if (player != null) {
                         player.stop();
                     }
-//                    addTest();
-                    getAllMuLu();
+                    addTest();
+                    testState = false;
+                    timeCount = 0;
+                    String time = Utils.timeToString(timeCount);
+                    tvTime.setText("时间  " + time);
+                    ivStartTest.setBackgroundResource(R.mipmap.start_img);
+                    isEditMsg = false;
                     if (timer != null) {
                         timer.cancel();
                         timer = null;
@@ -441,15 +335,9 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                         return;
                     }
                     if (SyncHistoryUtils.isSync) {
-                        ToastUtil.shortShow("数据同步中，请稍后");
+                        showToast("数据同步中，请稍后");
                         return;
-                    }//                    if (!isEditMsg) {
-//                        intent = new Intent();
-//                        intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.BASE_MSG_INPUT);
-//                        intent.setClass(_mActivity, TainMainActivity.class);
-//                        startActivity(intent);
-//                        return;
-//                    }
+                    }
                     testState = true;
                     ivStartTest.setBackgroundResource(R.mipmap.ic_finish_test);
                     if (timer == null) {
@@ -478,6 +366,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                     showToast("正在跳绳中...");
                     return;
                 }
+                firstTiaoShengNum = Integer.MAX_VALUE;
                 Bundle bundle = new Bundle();
                 bundle.putString("trainLength", "60");  //60秒
                 bundle.putInt("type", 1);
@@ -511,14 +400,9 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
      * 添加测试结果
      */
     private void addTest() {
-        Example example = null;
-        if (yundongMsg == null) {
-            example = new Example(getActivity().getAssets(), 0, skipNum,
-                    timeCount);
-        } else {
-            example = new Example(getActivity().getAssets(), yundongMsg.getBreakNum(), yundongMsg.getSkipNum(),
-                    yundongMsg.getTimeCount());
-        }
+        Example example;
+        example = new Example(getActivity().getAssets(), 0, skipNum,
+                timeCount);
         Evaluator evaluator = example.getData();
         Map<String, Object> params = new HashMap<>();
         params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
@@ -526,8 +410,8 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
         params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
         params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
-        params.put("skipNum", yundongMsg == null ? skipNum : yundongMsg.getSkipNum());  //跳绳次数
-        params.put("skipTime", yundongMsg == null ? timeCount : yundongMsg.getTimeCount());
+        params.put("skipNum", skipNum);  //跳绳次数
+        params.put("skipTime", timeCount);
         params.put("stableScore", evaluator.getPositionStabilityScore());
         params.put("deviceId", null);  //todo 设备id，暂时缺失
         params.put("skipDate", TimeUtils.getNowString());
@@ -537,8 +421,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
             public void onSuccess(String s) {
                 stopProgress();
                 showToast("已生成测试记录！");
-                yundongMsg = null;
-                deleteYunDong(dateTime);
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putString(RouterConstants.KEY_STRING, s);
@@ -546,12 +428,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
                 intent.setClass(_mActivity, TainMainActivity.class);
                 startActivity(intent);
-                testState = false;
-                timeCount = 0;
-                String time = Utils.timeToString(timeCount);
-                tvTime.setText("时间  " + time);
-                ivStartTest.setBackgroundResource(R.mipmap.start_img);
-                isEditMsg = false;
             }
 
             @Override

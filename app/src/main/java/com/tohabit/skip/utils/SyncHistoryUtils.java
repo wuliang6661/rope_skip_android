@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
 
 import static java.lang.Math.max;
 
@@ -78,8 +77,6 @@ public class SyncHistoryUtils {
     private List<BlePoint> blePoints = new ArrayList<BlePoint>();   //存储ble获取的坐标点
 
     private static SyncHistoryUtils utils;
-
-    private Timer timer;
 
     public static SyncHistoryUtils getInstance(String deviceId) {
         if (utils == null) {
@@ -133,7 +130,6 @@ public class SyncHistoryUtils {
                     }, 500);
                 } else {
                     isSync = false;
-//                    stopProgress();
                 }
             }
             if (UartService.COUNT_OPENTION == 0x44) {  //目录内容
@@ -171,6 +167,8 @@ public class SyncHistoryUtils {
                     } else {
                         addTest();
                     }
+                }else{
+                    startTime();
                 }
             }
         } catch (Exception ex) {
@@ -276,6 +274,7 @@ public class SyncHistoryUtils {
         TimerUtil.startTimerTask("sync", 5000, new TimerTaskDoCallBack() {
             @Override
             public void taskDo() {
+                ToastUtil.show("数据同步超时！");
                 isSync = false;
             }
         });
