@@ -117,6 +117,8 @@ public class SyncHistoryUtils {
     private void getAllMuLu() {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
             UartService.COUNT_OPENTION = 0x33;
+            timer.cancel();
+            timer = new Timer();
             timer.schedule(task, 5000);
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createAllSportRecordCmd().getCmdByte());
         }
@@ -125,8 +127,9 @@ public class SyncHistoryUtils {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BlueDataEvent event) {
-        if (timer != null)
+        if (timer != null) {
             timer.cancel();
+        }
         try {
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
             if (UartService.COUNT_OPENTION == 0x33) {  //目录数
@@ -196,6 +199,8 @@ public class SyncHistoryUtils {
     private void getMuLuMessage(int muluCount) {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
             UartService.COUNT_OPENTION = 0x44;
+            timer.cancel();
+            timer = new Timer();
             timer.schedule(task, 5000);
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createSportInfoCmd((short) muluCount).getCmdByte());
         }
@@ -227,6 +232,8 @@ public class SyncHistoryUtils {
     private void getYundongMsg(long date, int baoxuhao) {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
             UartService.COUNT_OPENTION = 0x77;
+            timer.cancel();
+            timer = new Timer();
             timer.schedule(task, 5000);
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetPointCmd(date, baoxuhao).getCmdByte());
         }

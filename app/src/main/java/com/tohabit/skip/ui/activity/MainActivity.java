@@ -39,6 +39,7 @@ import com.tohabit.skip.event.model.CancleEvent;
 import com.tohabit.skip.event.model.HideDialogEvent;
 import com.tohabit.skip.event.model.SwitchMainEvent;
 import com.tohabit.skip.pojo.po.MusicBeatBO;
+import com.tohabit.skip.pojo.po.UserBO;
 import com.tohabit.skip.presenter.MainPresenter;
 import com.tohabit.skip.presenter.contract.MainContract;
 import com.tohabit.skip.service.UartService;
@@ -179,6 +180,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
             }
         });
+        getUserInfo();
         initDialog();
         chikcBlue();
         registerPush();
@@ -195,6 +197,23 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onSuccess(MusicBeatBO s) {
                 App.musicBeatBO = s;
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
+
+    /**
+     * 获取用户信息
+     */
+    public void getUserInfo() {
+        HttpServerImpl.getUserInfo().subscribe(new HttpResultSubscriber<UserBO>() {
+            @Override
+            public void onSuccess(UserBO userBO) {
+                App.userBO = userBO;
             }
 
             @Override
@@ -343,12 +362,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if (App.userBO.getType() == 0) {
                     if (Utils.isPkgInstalled(MainActivity.this, "com.taobao.taobao")) {
                         Utils.gotoShop(MainActivity.this, App.userBO.getUrl());
+                        updateIsBuy();
                     } else {
                         showToast("您还没有安装淘宝客户端！");
                     }
                 } else {
                     if (Utils.isPkgInstalled(MainActivity.this, "com.tmall.wireless")) {
                         Utils.gotoShop(MainActivity.this, App.userBO.getUrl());
+                        updateIsBuy();
                     } else {
                         showToast("您还没有安装天猫客户端！");
                     }
@@ -364,6 +385,21 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         paramsWindow1.height = window1.getWindowManager().getDefaultDisplay().getHeight() - DensityUtil.dp2px(mContext, 80);
         window1.setAttributes(paramsWindow1);
         buyDialog.show();
+    }
+
+
+    private void updateIsBuy() {
+        HttpServerImpl.updateIsBuy().subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFiled(String message) {
+
+            }
+        });
     }
 
 
@@ -599,7 +635,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(CancleEvent event){
+    public void onEvent(CancleEvent event) {
         if (blueService != null) {
             blueService.disconnect();
             blueService.close();

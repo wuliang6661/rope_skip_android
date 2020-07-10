@@ -742,4 +742,10 @@ public interface HttpService {
     @POST("app/user/updateWeight")
     Observable<BaseResult<String>> updateWeight(@Body Map<String, Object> params);
 
+    /**
+     * 修改购买状态
+     */
+    @POST("app/user/updateIsBuy")
+    Observable<BaseResult<String>> updateIsBuy();
+
 }

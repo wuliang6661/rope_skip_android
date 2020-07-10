@@ -899,12 +899,21 @@ public class HttpServerImpl {
     /**
      * 添加学习记录
      */
-    public static Observable<String> addDataLearn(String objectId){
+    public static Observable<String> addDataLearn(String objectId) {
         Map<String, Object> params = new HashMap<>();
         params.put("objectId", objectId);
         params.put("objectType", 0);
         return getService().addDataLearn(params).compose(RxResultHelper.httpRusult());
     }
+
+
+    /**
+     * 修改购买状态
+     */
+    public static Observable<String> updateIsBuy() {
+        return getService().updateIsBuy().compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 提交图片

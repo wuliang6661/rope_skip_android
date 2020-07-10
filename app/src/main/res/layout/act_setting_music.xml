@@ -8,11 +8,14 @@
 
     <include layout="@layout/layout_title" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_view"
+    <com.sak.ultilviewlib.UltimateRefreshView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp" />
+        android:layout_height="match_parent">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp" />
+    </com.sak.ultilviewlib.UltimateRefreshView>
 </LinearLayout>
