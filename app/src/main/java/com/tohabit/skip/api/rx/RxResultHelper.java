@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.tohabit.skip.api.DialogCallException;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.app.RouterConstants;
@@ -11,6 +12,9 @@ import com.tohabit.skip.pojo.BaseResult;
 import com.tohabit.skip.ui.login.activity.LoginActivity;
 import com.tohabit.skip.utils.AppManager;
 import com.tohabit.skip.utils.ToastUtil;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,10 +41,10 @@ public class RxResultHelper {
                         Intent intent = new Intent(activity, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra(RouterConstants.ARG_MODE, LoginActivity.FLAG_LOGIN_TAG);
-                        ToastUtil.show(mDYResponse.getMsg());
+                        showToast(mDYResponse.getMsg());
                         AppManager.getAppManager().finishAllActivity();
                         activity.startActivity(intent);
-                        return createData(null);
+                        return null;
                     } else if (mDYResponse.getCode() == 398) {  //可拨打电话的弹窗
                         return Observable.error(new DialogCallException(mDYResponse.getMsg()));
                     } else if (mDYResponse.getCode() == 401) {
@@ -50,10 +54,10 @@ public class RxResultHelper {
                         Intent intent = new Intent(activity, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra(RouterConstants.ARG_MODE, LoginActivity.FLAG_LOGIN_TAG);
-                        ToastUtil.show(mDYResponse.getMsg());
+                        showToast(mDYResponse.getMsg());
                         AppManager.getAppManager().finishAllActivity();
                         activity.startActivity(intent);
-                        return createData(null);
+                        return null;
                     } else {
                         return Observable.error(new RuntimeException(mDYResponse.getMsg()));
                     }
@@ -72,4 +76,20 @@ public class RxResultHelper {
             }
         });
     }
+
+    private static boolean isToast = false;
+
+    private static  synchronized void showToast(String msg){
+        if(!isToast){
+            isToast = true;
+            ToastUtil.show(msg);
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isToast = false;
+                }
+            },2000);
+        }
+    }
+
 }

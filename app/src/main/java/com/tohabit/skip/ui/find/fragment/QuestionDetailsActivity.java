@@ -127,6 +127,7 @@ public class QuestionDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(QuestionsBO s) {
                 questionsBO = s;
+                pinglunNum.setText(s.getCommentNum() + "条评论");
                 showData();
             }
 
@@ -164,7 +165,6 @@ public class QuestionDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(List<OnePingLunBO> s) {
                 stopProgress();
-                pinglunNum.setText(s.size() + "条评论");
                 setPingLunAdapter(s);
             }
 

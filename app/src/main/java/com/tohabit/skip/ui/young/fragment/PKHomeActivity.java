@@ -25,6 +25,8 @@ import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.ui.XieYiActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
+import com.tohabit.skip.utils.SyncHistoryUtils;
+import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
@@ -242,6 +244,10 @@ public class PKHomeActivity extends BaseActivity {
                     return;
                 }
                 if (App.isConnect()) {
+                    if (SyncHistoryUtils.isSync) {
+                        showToast("数据同步中，请稍后");
+                        return;
+                    }
                     if (WebSocketUtils.getInstance().getState()) {
                         Bundle bundle = new Bundle();
                         bundle.putInt("id", pkChangCiBOS.get(position).getId());

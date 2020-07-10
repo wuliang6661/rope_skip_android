@@ -152,6 +152,10 @@ public class SearchActivty extends BaseActivity {
         adapter.setOnItemClickListener(R.id.connect, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
+                if (SyncHistoryUtils.isSync) {
+                    showToast("数据同步中，请稍后");
+                    return;
+                }
                 if (App.connectDevice != null && App.connectDevice.getAddress().equals(devices.get(position).getAddress())) {
                     EventBus.getDefault().post(new CancleEvent());
                     App.connectDevice = null;
