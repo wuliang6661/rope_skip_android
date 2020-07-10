@@ -99,7 +99,7 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
             musicId = App.musicBeatBO.getMusicId();
             beatId = App.musicBeatBO.getBeatId();
             tvBgMusicName.setText(App.musicBeatBO.getMusicName());
-            tvJzName.setText(App.musicBeatBO.getBeat() == 0 ? "" : App.musicBeatBO.getBeat() + "下/秒");
+            tvJzName.setText(App.musicBeatBO.getBeat() == 0 || beatId == 0 ? "无" : App.musicBeatBO.getBeat() + "下/秒");
         }
     }
 
@@ -194,7 +194,7 @@ public class RopeSkipSettingFragment extends BaseFragment<RoseSkipSettingPresent
                 BeatsBO beatsBO = (BeatsBO) data.getSerializableExtra("beat");
                 if (beatsBO != null) {
                     selectBeat = beatsBO;
-                    tvJzName.setText(selectBeat.getBeat() + "下/秒");
+                    tvJzName.setText(selectBeat.getId() == 0 ? "无" : selectBeat.getBeat() + "下/秒");
                     beatId = selectBeat.getId();
                 }
                 break;

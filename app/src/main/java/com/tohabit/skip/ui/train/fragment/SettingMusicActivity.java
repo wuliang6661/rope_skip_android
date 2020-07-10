@@ -189,7 +189,7 @@ public class SettingMusicActivity extends BaseActivity {
             public void convert(LGViewHolder holder, BeatsBO musicBO, int position) {
                 holder.setImageResurce(R.id.item_img, R.mipmap.jiepai);
                 holder.setText(R.id.item_title, "节拍");
-                holder.setText(R.id.item_name, musicBO.getBeat() + "下/秒");
+                holder.setText(R.id.item_name, musicBO.getId() == 0 ? "无" : musicBO.getBeat() + "下/秒");
             }
         };
         adapter.setOnItemClickListener(R.id.item_layout, new LGRecycleViewAdapter.ItemClickListener() {
