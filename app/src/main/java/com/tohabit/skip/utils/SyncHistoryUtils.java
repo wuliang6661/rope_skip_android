@@ -130,6 +130,7 @@ public class SyncHistoryUtils {
                     }, 500);
                 } else {
                     isSync = false;
+                    ToastUtil.show("数据同步完成！");
                 }
             }
             if (UartService.COUNT_OPENTION == 0x44) {  //目录内容
@@ -253,7 +254,7 @@ public class SyncHistoryUtils {
         HttpServerImpl.addTestBatch(list).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-                ToastUtil.shortShow("数据同步完成！");
+                ToastUtil.show("数据同步完成！");
                 deleteAll();
             }
 
