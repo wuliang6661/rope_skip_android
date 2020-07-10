@@ -178,7 +178,7 @@ public class SearchActivty extends BaseActivity {
             if (recycleView != null) {
                 setAdapter();
             }
-            saveDevices();
+//            saveDevices();
         } else if (event.isConnect == UartService.STATE_CONNECTING) {
         } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
 //            showProgress("同步跳绳历史数据中...");
@@ -196,13 +196,12 @@ public class SearchActivty extends BaseActivity {
         HttpServerImpl.saveDevices(0, App.connectDevice.getName(), App.connectDevice.getAddress()).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-//                deviceId = s;
-                new Handler().postDelayed(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         SyncHistoryUtils.getInstance(s).start();
                     }
-                }, 800);
+                }).start();
             }
 
             @Override
@@ -218,7 +217,7 @@ public class SearchActivty extends BaseActivity {
         super.onDestroy();
         BlueDeviceUtils deviceUtils = BlueDeviceUtils.getInstance();
         deviceUtils.onDestory();
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
     }
 
     private void getData() {

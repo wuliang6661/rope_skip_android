@@ -50,6 +50,7 @@ import com.tohabit.skip.ui.train.fragment.TranHomeFragment;
 import com.tohabit.skip.ui.young.fragment.YoungHomeFragment;
 import com.tohabit.skip.utils.AppManager;
 import com.tohabit.skip.utils.DensityUtil;
+import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.UpdateUtils;
 import com.tohabit.skip.utils.Utils;
@@ -723,10 +724,32 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     break;
                 case UartService.NITIFI_SOURESS:   //监听一开始建立
                     EventBus.getDefault().post(new BlueEvent(UartService.NITIFI_SOURESS));
+                    saveDevices();
                     break;
             }
         }
     };
+
+
+
+    /**
+     * 保存设备
+     */
+    private void saveDevices() {
+        HttpServerImpl.saveDevices(0, App.connectDevice.getName(), App.connectDevice.getAddress()).subscribe(new HttpResultSubscriber<String>() {
+            @Override
+            public void onSuccess(String s) {
+                SyncHistoryUtils.getInstance(s).start();
+            }
+
+            @Override
+            public void onFiled(String message) {
+                ToastUtil.show(message);
+            }
+        });
+    }
+
+
 
 
     //记录用户首次点击返回键的时间

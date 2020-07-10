@@ -18,6 +18,9 @@ import android.os.Message;
 import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.tohabit.skip.api.HttpResultSubscriber;
+import com.tohabit.skip.api.HttpServerImpl;
+import com.tohabit.skip.app.App;
 import com.tohabit.skip.app.Constants;
 import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.ToastUtil;
@@ -92,6 +95,7 @@ public class UartService extends Service {
                         mBluetoothGatt.discoverServices());
                 // Give the new state to the Handler so the UI Activity can update
                 mHandler.obtainMessage(MESSAGE_STATE_CHANGE, mConnectionState, -1).sendToTarget();
+//                saveDevices();
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 mConnectionState = STATE_DISCONNECTED;
                 Log.i(TAG, "Disconnected from GATT server.");
@@ -189,6 +193,7 @@ public class UartService extends Service {
         msg.setData(bundle);
         mHandler.sendMessage(msg);
     }
+
 
 
     /**
