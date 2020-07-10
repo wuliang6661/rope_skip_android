@@ -81,10 +81,22 @@
 
 
     <TextView
-        android:id="@+id/xunzhang_num"
+        android:id="@+id/leiji_shuliang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/xunzhang_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="累计跳绳总数高达20000个"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/xunzhang_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/leiji_shuliang"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="累计跳绳总数高达20000个"

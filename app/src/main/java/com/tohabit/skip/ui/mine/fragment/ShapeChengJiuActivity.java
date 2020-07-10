@@ -64,6 +64,8 @@ public class ShapeChengJiuActivity extends BaseActivity {
     RelativeLayout title_layout;
     @BindView(R.id.buttom_layout)
     LinearLayout buttom_layout;
+    @BindView(R.id.leiji_shuliang)
+    TextView leijiShuliang;
 
     private Dialog mBottomSheetDialog;
     private int id;
@@ -105,6 +107,7 @@ public class ShapeChengJiuActivity extends BaseActivity {
             id = chengjiu.getId();
             xunzhangName.setText(chengjiu.getName() + "勋章");
             xunzhangNum.setText("累积跳绳总数高达" + chengjiu.getSkipTotalNum() + "个");
+            leijiShuliang.setText("累计完成任务总数高达" + chengjiu.getCompleteTotalNum() + "次");
             xunzhang_miaoshu.setText("恭喜获得" + chengjiu.getName() + "勋章");
             shareType = 0;
         } else {    //证书
@@ -113,6 +116,7 @@ public class ShapeChengJiuActivity extends BaseActivity {
             xunzhangName.setText(rongyu.getName() + "证书");
             id = rongyu.getId();
             xunzhangNum.setText("pk胜利总数高达" + rongyu.getPkVTotalNum() + "次");
+            leijiShuliang.setText("评级S总数高达" + rongyu.getSkipSTotalNum() + "次");
             xunzhang_miaoshu.setText("恭喜获得" + rongyu.getName() + "证书");
             shareType = 1;
         }
