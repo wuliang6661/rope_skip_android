@@ -26,7 +26,6 @@ import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.ui.XieYiActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
 import com.tohabit.skip.utils.SyncHistoryUtils;
-import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
@@ -250,9 +249,13 @@ public class PKHomeActivity extends BaseActivity {
                     }
                     if (WebSocketUtils.getInstance().getState()) {
                         Bundle bundle = new Bundle();
-                        bundle.putInt("id", pkChangCiBOS.get(position).getId());
-                        bundle.putInt("maxTime", pkChangCiBOS.get(position).getMaxTime());
-                        bundle.putString("title", pkChangCiBOS.get(position).getTitle());
+                        bundle.putSerializable("data", pkChangCiBOS.get(position));
+//                        bundle.putInt("id", pkChangCiBOS.get(position).getId());
+//                        bundle.putInt("maxTime", pkChangCiBOS.get(position).getMaxTime());
+//                        bundle.putString("title", pkChangCiBOS.get(position).getTitle());
+//                        bundle.putInt("mode", pkChangCiBOS.get(position).getMode());
+//                        bundle.putInt("maxNum", pkChangCiBOS.get(position).getMaxNum());
+//                        bundle.putInt("timeOut", pkChangCiBOS.get(position).getTimeOut());
                         gotoActivity(PKStartActivity.class, bundle, false);
                     } else {
                         showToast("游戏服务器正在连接！");

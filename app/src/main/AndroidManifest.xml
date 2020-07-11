@@ -319,6 +319,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <!--PK计数模式-->
+        <activity
+            android:name="com.tohabit.skip.ui.young.fragment.PkPlayNumActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <!--查看大图-->
         <activity
             android:name="com.tohabit.skip.ui.BigPicutreActivity"

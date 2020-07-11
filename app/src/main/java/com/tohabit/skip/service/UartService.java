@@ -18,12 +18,8 @@ import android.os.Message;
 import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.tohabit.skip.api.HttpResultSubscriber;
-import com.tohabit.skip.api.HttpServerImpl;
-import com.tohabit.skip.app.App;
 import com.tohabit.skip.app.Constants;
 import com.tohabit.skip.utils.SyncHistoryUtils;
-import com.tohabit.skip.utils.ToastUtil;
 import com.tohabit.skip.utils.blue.ByteUtils;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
 
@@ -195,7 +191,6 @@ public class UartService extends Service {
     }
 
 
-
     /**
      * 指示连接尝试失败并通知UI活动.
      */
@@ -360,10 +355,9 @@ public class UartService extends Service {
             return false;
         }
         if (SyncHistoryUtils.isSync) {
-            if (!Arrays.equals(data, RequstBleCmd.createGetEQCmd().getCmdByte())) {
-                ToastUtil.shortShow("数据同步中，请稍后");
+            if (Arrays.equals(data, RequstBleCmd.createGetEQCmd().getCmdByte())) {
+                return false;
             }
-            return false;
         }
         mBluetoothGattCharacteristic1 = mBluetoothGattService.getCharacteristic(UUID_CHARA1);//获得特征值1
         mBluetoothGattCharacteristic1.setValue(data);

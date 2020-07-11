@@ -175,6 +175,7 @@ public class SearchActivty extends BaseActivity {
     public void onEvent(BlueEvent event) {
         stopProgress();
         if (event.isConnect == UartService.STATE_CONNECTED) {
+            BlueDeviceUtils.getInstance().cancleScan();
             if (recycleView != null) {
                 setAdapter();
             }

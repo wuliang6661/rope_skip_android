@@ -710,7 +710,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     switch (msg.arg1) {
                         case UartService.STATE_DISCONNECTED:
                             showToast("蓝牙连接已断开！");
-//                            mPresenter.connectBlue();
+                            if (SyncHistoryUtils.isSync) {
+                                showToast("历史数据同步失败！");
+                                SyncHistoryUtils.isSync = false;
+                            }
+                            //                            mPresenter.connectBlue();
                             break;
                         case UartService.STATE_CONNECTING:
 //                            showToast("蓝牙连接中...");
@@ -731,7 +735,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     };
 
 
-
     /**
      * 保存设备
      */
@@ -748,8 +751,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         });
     }
-
-
 
 
     //记录用户首次点击返回键的时间

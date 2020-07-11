@@ -29,6 +29,7 @@ import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.pojo.BaseResult;
+import com.tohabit.skip.pojo.po.PkChangCiBO;
 import com.tohabit.skip.pojo.po.PkUserBO;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
@@ -111,10 +112,7 @@ public class PKStartActivity extends BaseActivity {
      */
     private String title;
 
-    /**
-     * 对方是否已准备
-     */
-    private boolean isZhunBei;
+    private PkChangCiBO data;
 
     @Override
     protected void initInject() {
@@ -141,9 +139,13 @@ public class PKStartActivity extends BaseActivity {
         Glide.with(this).load(App.xIaoJiangBO.getIcon()).into(duanweiImg);
         Glide.with(this).load(App.xIaoJiangBO.getImage()).into(duanweiText);
 
-        pkChangCiId = getIntent().getExtras().getInt("id");
-        maxTime = getIntent().getExtras().getInt("maxTime");
-        title = getIntent().getExtras().getString("title");
+        data = (PkChangCiBO) getIntent().getExtras().getSerializable("data");
+        pkChangCiId = data.getId();
+        maxTime = data.getMaxTime();
+        title = data.getTitle();
+//        pkChangCiId = getIntent().getExtras().getInt("id");
+//        maxTime = getIntent().getExtras().getInt("maxTime");
+//        title = getIntent().getExtras().getString("title");
 
         RotateAnimation animation;
         int magnify = 10000;
@@ -151,8 +153,8 @@ public class PKStartActivity extends BaseActivity {
         int duration = 1000;
         toDegrees *= magnify;
         duration *= magnify;
-        animation = new RotateAnimation(0,toDegrees,
-                Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+        animation = new RotateAnimation(0, toDegrees,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         animation.setDuration(duration);
         LinearInterpolator lir = new LinearInterpolator();
         animation.setInterpolator(lir);
@@ -236,16 +238,25 @@ public class PKStartActivity extends BaseActivity {
                     break;
                 case 0x33:
                     isGoTiaosheng = true;
-                    Bundle bundle = new Bundle();
-                    bundle.putString("trainLength", maxTime + "");
-                    bundle.putInt("type", 2);
-                    bundle.putString("title", title);
-                    bundle.putInt("pkChangCiId", pkChangCiId);
-                    Intent intent = new Intent();
-                    intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
-                    intent.putExtras(bundle);
-                    intent.setClass(PKStartActivity.this, TainMainActivity.class);
-                    startActivity(intent);
+                    if (data.getMode() == 0) {  //计时
+                        Bundle bundle = new Bundle();
+                        bundle.putString("trainLength", maxTime + "");
+                        bundle.putInt("type", 2);
+                        bundle.putString("title", title);
+                        bundle.putInt("pkChangCiId", pkChangCiId);
+                        Intent intent = new Intent();
+                        intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.ROPE_SKIP_RESULTS);
+                        intent.putExtras(bundle);
+                        intent.setClass(PKStartActivity.this, TainMainActivity.class);
+                        startActivity(intent);
+                    } else {   //计数
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("data", data);
+                        Intent intent = new Intent();
+                        intent.putExtras(bundle);
+                        intent.setClass(PKStartActivity.this, PkPlayNumActivity.class);
+                        startActivity(intent);
+                    }
                     finish();
                     break;
             }

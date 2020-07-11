@@ -1,39 +1,28 @@
-package com.tohabit.skip.ui.train.fragment;
+package com.tohabit.skip.ui.young.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.algorithm.skipevaluation.Evaluator;
-import com.blankj.utilcode.util.TimeUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tohabit.commonlibrary.apt.SingleClick;
-import com.tohabit.commonlibrary.widget.ProgressbarLayout;
 import com.tohabit.skip.R;
-import com.tohabit.skip.api.HttpResultSubscriber;
-import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
-import com.tohabit.skip.app.RouterConstants;
-import com.tohabit.skip.base.BaseFragment;
+import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
 import com.tohabit.skip.pojo.BaseResult;
+import com.tohabit.skip.pojo.po.PkChangCiBO;
 import com.tohabit.skip.pojo.po.PkResultBO;
-import com.tohabit.skip.presenter.CommonPresenter;
-import com.tohabit.skip.presenter.contract.CommonContract;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
-import com.tohabit.skip.ui.train.activity.TainMainActivity;
+import com.tohabit.skip.ui.train.fragment.RopeSkipSettingFragment;
 import com.tohabit.skip.ui.train.music.Player;
-import com.tohabit.skip.ui.young.fragment.PKResultActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
 import com.tohabit.skip.utils.ByteUtils;
-import com.tohabit.skip.utils.Example;
 import com.tohabit.skip.utils.StringUtils;
 import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.ToastUtil;
@@ -51,35 +40,15 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+public class PkPlayNumActivity extends BaseActivity {
 
-/**
- * @version V1.0
- * 训练计划页面
- */
-public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements CommonContract.View {
 
-    @BindView(R.id.progress_fragment_common_view)
-    ProgressbarLayout progress;
-    @BindView(R.id.ll_back_fragment_train_plan)
-    LinearLayout llBack;
-    @BindView(R.id.ll_setting_fragment_train_plan)
-    LinearLayout llSetting;
-    @BindView(R.id.toolbar_layout_toolbar)
-    LinearLayout toolbarLayoutToolbar;
     @BindView(R.id.tv_battery_fragment_train_plan)
     AppCompatTextView tvBattery;
-    @BindView(R.id.ll_battery_fragment_train_plan)
-    LinearLayout llBattery;
     @BindView(R.id.tv_connect_state_fragment_train_plan)
     AppCompatTextView tvConnectState;
-    @BindView(R.id.iv_fresh_fragment_train_main)
-    AppCompatImageView ivFreshFragmentTrainMain;
-    @BindView(R.id.ll_record_model_fragment_train_plan)
-    LinearLayout llRecordModel;
     @BindView(R.id.tv_time_second_fragment_train_plan)
     AppCompatTextView tvTimeSecond;
-    @BindView(R.id.rl_count_fragment_train_main)
-    FrameLayout rlCountFragmentTrainMain;
     @BindView(R.id.tv_time_count_fragment_train_main)
     AppCompatTextView tvTimeCountFragmentTrainMain;
     @BindView(R.id.tv_contral_fragment_train_plan)
@@ -95,13 +64,9 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     @BindView(R.id.title_text)
     AppCompatTextView titleText;
 
-
     private boolean connectState;
     private boolean testState;
     private int timeCount;
-
-    //训练id
-    private String trainPlanId;
 
     /**
      * 跳绳次数
@@ -119,45 +84,36 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     private int trainLength;
 
     /**
-     * 从哪个页面跳转进来的
+     * 倒计数
      */
-    private int type = 0;  //0: 训练计划 1 首页训练  2  PK
-
+    private int maxNum;
 
     private int pkChangCiId;
 
-
-    public static TrainPlanFragment newInstance(Bundle bundle) {
-        TrainPlanFragment fragment = new TrainPlanFragment();
-        if (bundle != null) {
-            fragment.setArguments(bundle);
-        }
-
-        return fragment;
-    }
+    private PkChangCiBO data;
 
     @Override
     protected void initInject() {
-        getFragmentComponent().inject(this);
+
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_train_plan;
+        return R.layout.act_play_num;
     }
 
     @Override
     protected String getLogTag() {
-        return "TrainPlanFragment %s";
+        return null;
     }
 
     @Override
     protected void initEventAndData() {
         tvTimeCountFragmentTrainMain.setTypeface(App.getInstance().tf);
 
-        trainPlanId = getArguments().getString("id", "");
-        trainLength = Integer.parseInt(getArguments().getString("trainLength", "0"));
-        type = getArguments().getInt("type", 0);
+        data = (PkChangCiBO) getIntent().getExtras().getSerializable("data");
+        trainLength = data.getTimeOut();
+        maxNum = data.getMaxNum();
         timeCount = trainLength;  //秒数
         tvTimeSecond.setText(Utils.timeToString(timeCount));
         countdownBar.setTimeMillis(timeCount * 1000);
@@ -175,23 +131,37 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 }
             }
         });
-        switch (type) {
-            case 1:
-                ivFreshFragmentTrainMain.setVisibility(View.VISIBLE);
-                break;
-            case 2:   //pk
-                String title = getArguments().getString("title");
-                titleText.setText(title + "PK");
-                pkChangCiId = getArguments().getInt("pkChangCiId");
-                notifi();
-                onViewClicked(tvContral);
-                break;
-        }
+        String title = data.getTitle();
+        titleText.setText(title + "PK");
+        pkChangCiId = data.getId();
+        notifi();
+        onViewClicked(tvContral);
     }
 
     @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+        ToastUtil.show(msg);
+    }
+
+    @Override
+    public void showError(int errorCode) {
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         freshView();
         getDeviceQc();
         if (App.musicBeatBO != null) {
@@ -210,28 +180,6 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
         }
     }
 
-
-    @Override
-    public void showProgress() {
-
-        progress.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progress.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showError(String msg) {
-        ToastUtil.show(msg);
-    }
-
-    @Override
-    public void showError(int errorCode) {
-
-    }
-
     @SingleClick
     @OnClick({R.id.ll_back_fragment_train_plan,
             R.id.ll_setting_fragment_train_plan,
@@ -242,11 +190,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_back_fragment_train_plan:
-                if (type == 1 && testState) {
-                    updateTest();
-                    return;
-                }
-                _mActivity.onBackPressedSupport();
+                finish();
                 break;
             case R.id.ll_setting_fragment_train_plan:
             case R.id.music_layout:
@@ -266,17 +210,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                     return;
                 }
                 if (testState) {//开始
-                    switch (type) {
-                        case 0:    //训练计划
-                            updateData();
-                            break;
-                        case 1:   //测试
-                            updateTest();
-                            break;
-                        case 2:   //PK
-                            sendPk();
-                            break;
-                    }
+                    sendPk();
                     testState = false;
                     countdownBar.stop();
                     tvContral.setText("开始");
@@ -296,88 +230,9 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                     showToast("正在跳绳中...");
                     return;
                 }
-                getActivity().finish();
+                finish();
                 break;
         }
-    }
-
-
-    /**
-     * 上报训练结果，生成综合得分
-     */
-    private void updateData() {
-        Example example = new Example(getActivity().getAssets(), 0, skipNum, trainLength - timeCount);
-        Evaluator evaluator = example.getData();
-        Map<String, Object> params = new HashMap<>();
-        params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
-        params.put("breakNum", 0);   //断绳数量
-        params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
-        params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
-        params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
-        params.put("skipNum", skipNum);  //跳绳次数
-        params.put("skipTime", trainLength - timeCount);
-        params.put("stableScore", evaluator.getPositionStabilityScore());
-        params.put("backgroundMusicId", App.musicBeatBO == null ? null : App.musicBeatBO.getMusicId());
-        params.put("beat", App.musicBeatBO.getBeatId());
-        params.put("trainPlanId", trainPlanId);   //训练id
-        showProgress(null);
-        HttpServerImpl.addTrain(params).subscribe(new HttpResultSubscriber<String>() {
-            @Override
-            public void onSuccess(String s) {
-                stopProgress();
-                Bundle bundle = new Bundle();
-                bundle.putString("id", s);
-                start(RopeSkipResultFragment.newInstance(bundle));
-            }
-
-            @Override
-            public void onFiled(String message) {
-                stopProgress();
-                showToast(message);
-            }
-        });
-    }
-
-
-    /**
-     * 上报测试
-     */
-    private void updateTest() {
-        Example example = new Example(getActivity().getAssets(), 0, skipNum, trainLength - timeCount);
-        Evaluator evaluator = example.getData();
-        Map<String, Object> params = new HashMap<>();
-        params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
-        params.put("breakNum", 0);   //断绳数量
-        params.put("coordinateScore", evaluator.getCoordinationScore()); //协调分数
-        params.put("enduranceScore", evaluator.getEnduranceScore());  //耐力得分
-        params.put("rhythmScore", evaluator.getSpeedStabilityScore());  //节奏得分
-        params.put("skipNum", skipNum);  //跳绳次数
-        params.put("skipTime", trainLength - timeCount);
-        params.put("stableScore", evaluator.getPositionStabilityScore());
-        params.put("deviceId", null);  //todo 设备id，暂时缺失
-        params.put("skipDate", TimeUtils.getNowString());
-        showProgress(null);
-        HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
-            @Override
-            public void onSuccess(String s) {
-                stopProgress();
-//                showToast("已生成测试记录！");
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString(RouterConstants.KEY_STRING, s);
-                intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
-                intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
-                intent.setClass(_mActivity, TainMainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-
-            @Override
-            public void onFiled(String message) {
-                stopProgress();
-                showToast(message);
-            }
-        });
     }
 
 
@@ -460,24 +315,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     }
 
     @Override
-    public void onSupportInvisible() {
-        super.onSupportInvisible();
-//        if (player != null) {
-//            player.pause();
-//        }
-//        testState = false;
-//        timeCount = trainLength;
-//        String time = Utils.timeToString(timeCount);
-//        tvTimeSecond.setText(time);
-//        if (countdownBar != null) {
-//            countdownBar.setProgress(100);
-//            countdownBar.stop();
-//        }
-//        tvContral.setText("开始");
-    }
-
-    @Override
-    public void onDestroyView() {
+    protected void onDestroy() {
         if (player != null) {
             player.stop();
         }
@@ -485,11 +323,10 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             countdownBar.setCountdownProgressListener(0, null);
             countdownBar.stop();
         }
-        if (type == 2) {   //pk
-            WebSocketUtils.getInstance().setOnNotifiListener(null);
-        }
-        super.onDestroyView();
+        WebSocketUtils.getInstance().setOnNotifiListener(null);
+        super.onDestroy();
     }
+
 
     /**
      * 连接蓝牙
@@ -515,7 +352,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      */
     private void Cishu() {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
-            UartService.COUNT_OPENTION = 0x17;
+            UartService.COUNT_OPENTION = 0x18;
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createTodayFrequencyCmd().getCmdByte());
         }
     }
@@ -545,13 +382,20 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             String dianliang = String.valueOf(builder.getDataBody()[0]);
             tvBattery.setText(dianliang + "%");
         }
-        if (UartService.COUNT_OPENTION == 0x17) { //跳绳次数
+        if (UartService.COUNT_OPENTION == 0x18) { //跳绳次数
             int cishu = Math.abs(ByteUtils.bytesToInt2(builder.getDataBody(), 0));
             if (firstTiaoShengNum == Integer.MAX_VALUE) {
                 firstTiaoShengNum = cishu;
             }
             skipNum = cishu - firstTiaoShengNum;
-            tvTimeCountFragmentTrainMain.setText(Math.abs(skipNum) + "");
+            tvTimeCountFragmentTrainMain.setText(Math.abs(maxNum - skipNum) + "");
+            if (maxNum - skipNum <= 0) {   //倒计数结束
+                if (countdownBar != null) {
+                    countdownBar.setCountdownProgressListener(0, null);
+                    countdownBar.stop();
+                }
+                onViewClicked(tvContral);
+            }
         }
     }
 

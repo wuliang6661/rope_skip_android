@@ -1,6 +1,8 @@
 package com.tohabit.skip.pojo.po;
 
-public class PkChangCiBO {
+import java.io.Serializable;
+
+public class PkChangCiBO implements Serializable {
 
 
     /**
@@ -27,7 +29,15 @@ public class PkChangCiBO {
     private int maxNum;
     private int id;
     private String icon;
+    private int timeOut;
 
+    public int getTimeOut() {
+        return timeOut;
+    }
+
+    public void setTimeOut(int timeOut) {
+        this.timeOut = timeOut;
+    }
 
     public String getIcon() {
         return icon;
