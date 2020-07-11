@@ -106,7 +106,7 @@ public class ShapeChengJiuActivity extends BaseActivity {
             Glide.with(this).load(chengjiu.getImage()).into(xunzhangImg);
             id = chengjiu.getId();
             xunzhangName.setText(chengjiu.getName() + "勋章");
-            xunzhangNum.setText("累积跳绳总数高达" + chengjiu.getSkipTotalNum() + "个");
+            xunzhangNum.setText("累计跳绳总数高达" + chengjiu.getSkipTotalNum() + "个");
             leijiShuliang.setText("累计完成任务总数高达" + chengjiu.getCompleteTotalNum() + "次");
             xunzhang_miaoshu.setText("恭喜获得" + chengjiu.getName() + "勋章");
             shareType = 0;

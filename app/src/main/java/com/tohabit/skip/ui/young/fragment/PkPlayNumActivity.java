@@ -1,6 +1,7 @@
 package com.tohabit.skip.ui.young.fragment;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
@@ -66,7 +67,7 @@ public class PkPlayNumActivity extends BaseActivity {
 
     private boolean connectState;
     private boolean testState;
-    private int timeCount;
+    private int timeCount = 0;
 
     /**
      * 跳绳次数
@@ -79,11 +80,6 @@ public class PkPlayNumActivity extends BaseActivity {
     private int firstTiaoShengNum = Integer.MAX_VALUE;
 
     /**
-     * 倒计时时长  (秒)
-     */
-    private int trainLength;
-
-    /**
      * 倒计数
      */
     private int maxNum;
@@ -91,6 +87,8 @@ public class PkPlayNumActivity extends BaseActivity {
     private int pkChangCiId;
 
     private PkChangCiBO data;
+
+    private CountDownTimer timer;
 
     @Override
     protected void initInject() {
@@ -112,25 +110,12 @@ public class PkPlayNumActivity extends BaseActivity {
         tvTimeCountFragmentTrainMain.setTypeface(App.getInstance().tf);
 
         data = (PkChangCiBO) getIntent().getExtras().getSerializable("data");
-        trainLength = data.getTimeOut();
+        setTimer();
         maxNum = data.getMaxNum();
-        timeCount = trainLength;  //秒数
+        tvBattery.setText(PKHomeActivity.dianliang + "%");
         tvTimeSecond.setText(Utils.timeToString(timeCount));
-        countdownBar.setTimeMillis(timeCount * 1000);
-        countdownBar.setCountdownProgressListener(0, new CircleProgressbar.OnCountdownProgressListener() {
-            @Override
-            public void onProgress(int what, float progress) {
-                if (progress == 100) {   //倒计时完
-                    timeCount--;
-                    onViewClicked(tvContral);
-                } else {
-                    timeCount--;
-                    String time = Utils.timeToString(timeCount);
-                    tvTimeSecond.setText(time);
-                    Cishu();
-                }
-            }
-        });
+        tvTimeCountFragmentTrainMain.setText(maxNum + "");
+        countdownBar.setTimeMillis(100);
         String title = data.getTitle();
         titleText.setText(title + "PK");
         pkChangCiId = data.getId();
@@ -163,7 +148,6 @@ public class PkPlayNumActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         freshView();
-        getDeviceQc();
         if (App.musicBeatBO != null) {
             musicLayout.setVisibility(View.VISIBLE);
             musicText.setText(App.musicBeatBO.getMusicName());
@@ -209,20 +193,21 @@ public class PkPlayNumActivity extends BaseActivity {
                     ToastUtil.shortShow("数据同步中，请稍后");
                     return;
                 }
-                if (testState) {//开始
+                if (testState) {//结束
                     sendPk();
                     testState = false;
-                    countdownBar.stop();
+                    timer.cancel();
                     tvContral.setText("开始");
                 } else {//未开始
                     startMusic();
                     testState = true;
-                    timeCount = trainLength;
+                    timeCount = 0;
                     String time = Utils.timeToString(timeCount);
                     tvTimeSecond.setText(time);
                     tvContral.setText("结束");
                     firstTiaoShengNum = Integer.MAX_VALUE;
-                    countdownBar.reStart();
+                    countdownBar.setProgress(0);
+                    timer.start();
                 }
                 break;
             case R.id.iv_fresh_fragment_train_main:
@@ -236,6 +221,25 @@ public class PkPlayNumActivity extends BaseActivity {
     }
 
 
+    private void setTimer() {
+        timer = new CountDownTimer(data.getTimeOut() * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeCount++;
+                String time = Utils.timeToString(timeCount);
+                tvTimeSecond.setText(time);
+                Cishu();
+            }
+
+            @Override
+            public void onFinish() {
+                timeCount++;
+                onViewClicked(tvContral);
+            }
+        };
+    }
+
+
     /**
      * 开始PK
      */
@@ -243,7 +247,7 @@ public class PkPlayNumActivity extends BaseActivity {
         tvContral.setEnabled(false);
         Map<String, String> params = new HashMap<>();
         params.put("skipNum", skipNum + "");
-        params.put("skipTime", trainLength - timeCount + "");
+        params.put("skipTime", timeCount + "");
         params.put("breakNum", 0 + "");
         params.put("finishStatus", 1 + "");
         WebSocketUtils utils = WebSocketUtils.getInstance();
@@ -319,9 +323,8 @@ public class PkPlayNumActivity extends BaseActivity {
         if (player != null) {
             player.stop();
         }
-        if (countdownBar != null) {
-            countdownBar.setCountdownProgressListener(0, null);
-            countdownBar.stop();
+        if (timer != null) {
+            timer.cancel();
         }
         WebSocketUtils.getInstance().setOnNotifiListener(null);
         super.onDestroy();
@@ -336,16 +339,6 @@ public class PkPlayNumActivity extends BaseActivity {
         gotoActivity(SearchActivty.class, false);
     }
 
-
-    /**
-     * 获取电量
-     */
-    private void getDeviceQc() {
-        if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
-            UartService.COUNT_OPENTION = 0x11;
-            App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetEQCmd().getCmdByte());
-        }
-    }
 
     /**
      * 获取跳绳次数
@@ -367,7 +360,6 @@ public class PkPlayNumActivity extends BaseActivity {
             tvConnectState.setText("设备连接中...");
             ivConnnetState.setBackgroundResource(R.mipmap.ic_connect_state_disconnect);
         } else if (event.isConnect == UartService.NITIFI_SOURESS) {  //监听已经开始建立
-            getDeviceQc();
         } else {
             tvConnectState.setText("已断开");
         }
@@ -377,11 +369,6 @@ public class PkPlayNumActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BlueDataEvent event) {
         BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
-        if (UartService.COUNT_OPENTION == 0x11) {  //电量
-            //String.valueOf(builder.getDataBody()[1]
-            String dianliang = String.valueOf(builder.getDataBody()[0]);
-            tvBattery.setText(dianliang + "%");
-        }
         if (UartService.COUNT_OPENTION == 0x18) { //跳绳次数
             int cishu = Math.abs(ByteUtils.bytesToInt2(builder.getDataBody(), 0));
             if (firstTiaoShengNum == Integer.MAX_VALUE) {
@@ -389,11 +376,8 @@ public class PkPlayNumActivity extends BaseActivity {
             }
             skipNum = cishu - firstTiaoShengNum;
             tvTimeCountFragmentTrainMain.setText(Math.abs(maxNum - skipNum) + "");
+            countdownBar.setProgress(skipNum / (float) maxNum * 100);
             if (maxNum - skipNum <= 0) {   //倒计数结束
-                if (countdownBar != null) {
-                    countdownBar.setCountdownProgressListener(0, null);
-                    countdownBar.stop();
-                }
                 onViewClicked(tvContral);
             }
         }

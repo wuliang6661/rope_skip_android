@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -22,7 +23,6 @@ import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.common.adapter.BaseRvAdapter;
 import com.tohabit.skip.pojo.po.QuestionsBO;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,14 +72,19 @@ public class SearchQuestionsActivity extends BaseActivity {
     }
 
     private void initAdapter() {
-        adapter = new BaseRvAdapter<QuestionsBO, BaseViewHolder>(R.layout.item_search_question, new ArrayList<>()) {
+        adapter = new BaseRvAdapter<QuestionsBO, BaseViewHolder>(R.layout.item_baiwenbaida, new ArrayList<>()) {
             @Override
             protected void convert(BaseViewHolder helper, QuestionsBO item) {
                 helper.addOnClickListener(R.id.item_layout);
                 RoundedImageView imageView = helper.getView(R.id.wenti_img);
                 Glide.with(SearchQuestionsActivity.this).load(item.getImage()).into(imageView);
+                RoundedImageView userImg = helper.getView(R.id.user_img);
+                Glide.with(SearchQuestionsActivity.this).load(item.getHeadImage()).into(userImg);
+                helper.setText(R.id.user_name, item.getUserName());
+                helper.setText(R.id.user_time, item.getFriendDate());
                 helper.setText(R.id.wenti_name, item.getTitle());
-                helper.setText(R.id.wenti_message, item.getContent());
+//                helper.setText(R.id.wenti_message,item.getContent());
+                helper.setText(R.id.huifu_num, item.getCommentNum() + "回复");
             }
         };
         recycleView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE)
@@ -98,7 +103,7 @@ public class SearchQuestionsActivity extends BaseActivity {
                 LogUtils.e("ddddddddd");
                 Bundle bundle = new Bundle();
                 bundle.putInt("Id", adapter.getData().get(position).getId());
-                gotoActivity(ZhiShiDetailsActivity.class, bundle, false);
+                gotoActivity(QuestionDetailsActivity.class, bundle, false);
             }
         });
         recycleView.setAdapter(adapter);
