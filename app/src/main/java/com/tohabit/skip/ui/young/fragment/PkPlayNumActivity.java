@@ -375,8 +375,13 @@ public class PkPlayNumActivity extends BaseActivity {
                 firstTiaoShengNum = cishu;
             }
             skipNum = cishu - firstTiaoShengNum;
-            tvTimeCountFragmentTrainMain.setText(Math.abs(maxNum - skipNum) + "");
-            countdownBar.setProgress(skipNum / (float) maxNum * 100);
+            if (skipNum == maxNum) {
+                tvTimeCountFragmentTrainMain.setText("0");
+                countdownBar.setProgress(100);
+            } else {
+                tvTimeCountFragmentTrainMain.setText(Math.abs(maxNum - skipNum) + "");
+                countdownBar.setProgress(skipNum / (float) maxNum * 100);
+            }
             if (maxNum - skipNum <= 0) {   //倒计数结束
                 onViewClicked(tvContral);
             }
