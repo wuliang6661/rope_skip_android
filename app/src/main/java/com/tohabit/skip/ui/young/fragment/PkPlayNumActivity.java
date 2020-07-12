@@ -234,6 +234,8 @@ public class PkPlayNumActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 timeCount++;
+                String time = Utils.timeToString(timeCount);
+                tvTimeSecond.setText(time);
                 onViewClicked(tvContral);
             }
         };
@@ -372,7 +374,7 @@ public class PkPlayNumActivity extends BaseActivity {
         if (UartService.COUNT_OPENTION == 0x18) { //跳绳次数
             int cishu = Math.abs(ByteUtils.bytesToInt2(builder.getDataBody(), 0));
             if (firstTiaoShengNum == Integer.MAX_VALUE) {
-                firstTiaoShengNum = cishu;
+                firstTiaoShengNum = cishu - 1;
             }
             skipNum = cishu - firstTiaoShengNum;
             if (skipNum == maxNum) {
