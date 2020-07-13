@@ -251,17 +251,18 @@ public class SyncHistoryUtils {
      * 添加测试结果
      */
     private void addTest() {
-        isSync = false;
         HttpServerImpl.addTestBatch(list).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
                 ToastUtil.show("数据同步完成！");
                 deleteAll();
+                isSync = false;
             }
 
             @Override
             public void onFiled(String message) {
                 ToastUtil.show(message);
+                isSync = false;
             }
         });
     }
