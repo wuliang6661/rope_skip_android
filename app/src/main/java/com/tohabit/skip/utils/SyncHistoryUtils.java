@@ -115,6 +115,7 @@ public class SyncHistoryUtils {
         TimerUtil.stopTimerTask("sync");
         try {
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
+            MyLog.e("lanya", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
             if (UartService.COUNT_OPENTION == 0x33) {  //目录数
                 byte[] changdu = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1]};
                 muluCount = ByteUtils.bytesToInt(changdu);
@@ -168,7 +169,7 @@ public class SyncHistoryUtils {
                     } else {
                         addTest();
                     }
-                }else{
+                } else {
                     startTime();
                 }
             }
