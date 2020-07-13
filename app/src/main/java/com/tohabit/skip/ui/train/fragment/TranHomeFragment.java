@@ -28,6 +28,7 @@ import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
+import com.tohabit.skip.event.model.SyncSuressEvent;
 import com.tohabit.skip.pojo.po.TestBO;
 import com.tohabit.skip.pojo.po.TestDataBO;
 import com.tohabit.skip.service.UartService;
@@ -457,6 +458,13 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         if (isEditMsg) {
             ivStartTest.setBackgroundResource(R.mipmap.start_img);
         }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refresh(SyncSuressEvent event){
+        mPresenter.getTestTotal();
+        mPresenter.getTestList();
     }
 
 }

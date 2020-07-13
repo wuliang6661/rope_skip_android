@@ -197,6 +197,7 @@ public class PkPlayNumActivity extends BaseActivity {
                     sendPk();
                     testState = false;
                     timer.cancel();
+                    firstTiaoShengNum = Integer.MAX_VALUE;
                     tvContral.setText("开始");
                 } else {//未开始
                     startMusic();
@@ -205,7 +206,6 @@ public class PkPlayNumActivity extends BaseActivity {
                     String time = Utils.timeToString(timeCount);
                     tvTimeSecond.setText(time);
                     tvContral.setText("结束");
-                    firstTiaoShengNum = Integer.MAX_VALUE;
                     countdownBar.setProgress(0);
                     timer.start();
                 }
@@ -233,9 +233,9 @@ public class PkPlayNumActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
-                timeCount++;
-                String time = Utils.timeToString(timeCount);
-                tvTimeSecond.setText(time);
+//                timeCount++;
+//                String time = Utils.timeToString(timeCount);
+//                tvTimeSecond.setText(time);
                 onViewClicked(tvContral);
             }
         };
@@ -383,7 +383,7 @@ public class PkPlayNumActivity extends BaseActivity {
                 tvTimeCountFragmentTrainMain.setText("0");
                 countdownBar.setProgress(100);
             } else {
-                tvTimeCountFragmentTrainMain.setText(Math.abs(maxNum - skipNum) + "");
+                tvTimeCountFragmentTrainMain.setText((maxNum - skipNum) + "");
                 countdownBar.setProgress(skipNum / (float) maxNum * 100);
             }
             if (maxNum - skipNum <= 0) {   //倒计数结束

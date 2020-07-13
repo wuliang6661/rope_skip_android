@@ -10,6 +10,7 @@ import com.tohabit.skip.api.HttpResultSubscriber;
 import com.tohabit.skip.api.HttpServerImpl;
 import com.tohabit.skip.app.App;
 import com.tohabit.skip.event.model.BlueDataEvent;
+import com.tohabit.skip.event.model.SyncSuressEvent;
 import com.tohabit.skip.pojo.vo.BleYundongMsg;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
@@ -95,6 +96,7 @@ public class SyncHistoryUtils {
     public void start() {
         isSync = true;
         getAllMuLu();
+        MyLog.delFile();
     }
 
 
@@ -115,12 +117,12 @@ public class SyncHistoryUtils {
         TimerUtil.stopTimerTask("sync");
         try {
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
-            MyLog.e("lanya", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
             if (UartService.COUNT_OPENTION == 0x33) {  //目录数
+                MyLog.e("获取目录条数", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                 byte[] changdu = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1]};
                 muluCount = ByteUtils.bytesToInt(changdu);
                 LogUtils.e("获取的目录条数：" + muluCount);
-//            showToast("获取的历史目录条数：" + muluCount);
+                MyLog.e("目录条数", muluCount);
                 if (muluCount > 0) {
                     selectPosition = 0;
                     new Handler().postDelayed(new Runnable() {
@@ -132,9 +134,11 @@ public class SyncHistoryUtils {
                 } else {
                     isSync = false;
                     ToastUtil.show("数据同步完成！");
+                    onDestory();
                 }
             }
             if (UartService.COUNT_OPENTION == 0x44) {  //目录内容
+                MyLog.e("第" + selectPosition + "目录结果", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                 BleSport bleSport = new BleSport(builder.getDataBody());
                 long dateTime = bleSport.getStart_time();
                 long dateEndTime = bleSport.getEnd_time();
@@ -151,11 +155,12 @@ public class SyncHistoryUtils {
                 byte[] breakNumByte = new byte[]{builder.getDataBody()[15], builder.getDataBody()[16]};
                 int skipNum = ByteUtils.bytesToInt(skipNumByte);
                 int breakNum = ByteUtils.bytesToInt(breakNumByte);
-                LogUtils.e("获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
+                MyLog.e("获取第" + selectPosition + "目录结果", "获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
                 yundongMsg = new BleYundongMsg(duration, skipNum, breakNum, dateTime);
                 getYundongMsg(dateTime, selectPosition);
             }
             if (UartService.COUNT_OPENTION == 0x77) {  //跳绳轨迹分包数据
+                MyLog.e("第" + selectPosition + "目录的采样数据", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                 BleData bleData = new BleData(event.getData(), pointDataLength);
                 blePoints.addAll(bleData.getBlePointList());//把所有解析出来的坐标点保存起来
                 if (bleData.isLastPage() && blePoints.size() > 0) {//如果是最后一包，说明此次运动数据已经取完，删除
@@ -176,7 +181,9 @@ public class SyncHistoryUtils {
         } catch (Exception ex) {
             ex.printStackTrace();
             isSync = false;
+            onDestory();
             ToastUtil.shortShow("同步失败！" + ex.getMessage());
+            MyLog.e("获取第" + selectPosition + "目录时报错，错误包=", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
         }
     }
 
@@ -257,12 +264,15 @@ public class SyncHistoryUtils {
                 ToastUtil.show("数据同步完成！");
                 deleteAll();
                 isSync = false;
+                EventBus.getDefault().post(new SyncSuressEvent());
+                onDestory();
             }
 
             @Override
             public void onFiled(String message) {
                 ToastUtil.show(message);
                 isSync = false;
+                onDestory();
             }
         });
     }
@@ -279,6 +289,7 @@ public class SyncHistoryUtils {
             public void taskDo() {
                 ToastUtil.show("数据同步超时！");
                 isSync = false;
+                onDestory();
             }
         });
     }

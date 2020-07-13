@@ -6,8 +6,9 @@ import android.util.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -73,6 +74,7 @@ public class MyLog {
 
     /**
      * 根据tag, msg和等级，输出日志
+     *
      * @param tag
      * @param msg
      * @param level
@@ -97,6 +99,7 @@ public class MyLog {
 
     /**
      * 打开日志文件并写入日志
+     *
      * @param mylogtype
      * @param tag
      * @param text
@@ -108,7 +111,7 @@ public class MyLog {
         File dirPath = Environment.getExternalStorageDirectory();
 
         File dirsFile = new File(MYLOG_PATH_SDCARD_DIR);
-        if (!dirsFile.exists()){
+        if (!dirsFile.exists()) {
             dirsFile.mkdirs();
         }
         //Log.i("创建文件","创建文件");
@@ -122,12 +125,13 @@ public class MyLog {
         }
 
         try {
-            FileWriter filerWriter = new FileWriter(file, true);// 后面这个参数代表是不是要接上文件中原来的数据，不进行覆盖
-            BufferedWriter bufWriter = new BufferedWriter(filerWriter);
+//            FileWriter filerWriter = new FileWriter(file, true);// 后面这个参数代表是不是要接上文件中原来的数据，不进行覆盖
+            BufferedWriter bufWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true),
+                    "UTF-8"));
             bufWriter.write(needWriteMessage);
             bufWriter.newLine();
             bufWriter.close();
-            filerWriter.close();
+//            filerWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,9 +144,7 @@ public class MyLog {
         String needDelFiel = logfile.format(getDateBefore());
         File dirPath = Environment.getExternalStorageDirectory();
         File file = new File(dirPath, needDelFiel + MYLOGFILEName);// MYLOG_PATH_SDCARD_DIR
-        if (file.exists()) {
-            file.delete();
-        }
+        FileUtils.delete(file);
     }
 
     /**

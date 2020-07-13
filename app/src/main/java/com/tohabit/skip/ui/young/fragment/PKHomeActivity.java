@@ -1,5 +1,6 @@
 package com.tohabit.skip.ui.young.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
@@ -247,27 +248,27 @@ public class PKHomeActivity extends BaseActivity {
                     showToast("您的PK值不足!");
                     return;
                 }
-                if (App.isConnect()) {
+//                if (App.isConnect()) {
                     if (SyncHistoryUtils.isSync) {
                         showToast("数据同步中，请稍后");
                         return;
                     }
                     if (WebSocketUtils.getInstance().getState()) {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("data", pkChangCiBOS.get(position));
-                        gotoActivity(PKStartActivity.class, bundle, false);
 //                        Bundle bundle = new Bundle();
 //                        bundle.putSerializable("data", pkChangCiBOS.get(position));
-//                        Intent intent = new Intent();
-//                        intent.putExtras(bundle);
-//                        intent.setClass(PKHomeActivity.this, PkPlayNumActivity.class);
-//                        startActivity(intent);
+//                        gotoActivity(PKStartActivity.class, bundle, false);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("data", pkChangCiBOS.get(position));
+                        Intent intent = new Intent();
+                        intent.putExtras(bundle);
+                        intent.setClass(PKHomeActivity.this, PkPlayNumActivity.class);
+                        startActivity(intent);
                     } else {
                         showToast("游戏服务器正在连接！");
                     }
-                } else {
-                    showToast("请先连接跳绳设备！");
-                }
+//                } else {
+//                    showToast("请先连接跳绳设备！");
+//                }
             }
         });
         pkRecycle.setAdapter(adapter);
