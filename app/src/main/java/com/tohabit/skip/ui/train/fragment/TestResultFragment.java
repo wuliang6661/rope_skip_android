@@ -15,7 +15,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.Gravity;
 import android.view.View;
@@ -473,10 +472,10 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
      */
     private void setBarData(TestDetailsBO detailsBO, BarChart chart) {
         List<BarEntry> barData = new ArrayList<>();
-        barData.add(new BarEntry(0, (float) detailsBO.getAverageVelocity()));   //平均速度
-        barData.add(new BarEntry(1, (float) detailsBO.getAccelerateVelocity()));  //加速度
-        double maxNum = detailsBO.getAverageVelocity() > detailsBO.getAccelerateVelocity() ?
-                detailsBO.getAverageVelocity() : detailsBO.getAccelerateVelocity();
+        barData.add(new BarEntry(0, Float.parseFloat(detailsBO.getAverageVelocity())));   //平均速度
+        barData.add(new BarEntry(1, Float.parseFloat(detailsBO.getAccelerateVelocity())));  //加速度
+        double maxNum = Float.parseFloat(detailsBO.getAverageVelocity()) > Float.parseFloat(detailsBO.getAccelerateVelocity()) ?
+                Float.parseFloat(detailsBO.getAverageVelocity()) : Float.parseFloat(detailsBO.getAccelerateVelocity());
         chart.getAxisLeft().setAxisMaximum((float) (maxNum + 10));
         chart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
@@ -490,18 +489,18 @@ public class TestResultFragment extends BaseFragment<TestResultPresenter> implem
                 return value + "";
             }
         });
-        if (detailsBO.getAverageVelocity() > 0) {
+        if (detailsBO.getAverageVelocityArrow() == 1) {
             pingjunsuduImg.setImageResource(R.mipmap.xiangshang);
         } else {
             pingjunsuduImg.setImageResource(R.mipmap.xiangxia);
         }
-        if (detailsBO.getAccelerateVelocity() > 0) {
+        if (detailsBO.getAccelerateVelocityArrow() == 1) {
             jiasuduImg.setImageResource(R.mipmap.xiangshang);
         } else {
             jiasuduImg.setImageResource(R.mipmap.xiangxia);
         }
-        pingjunsudu.setText(detailsBO.getAverageVelocity() + "");
-        jiasudu.setText(detailsBO.getAccelerateVelocity() + "");
+        pingjunsudu.setText(detailsBO.getAverageVelocity());
+        jiasudu.setText(detailsBO.getAccelerateVelocity());
         BarDataSet set1;
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {

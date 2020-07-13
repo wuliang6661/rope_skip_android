@@ -29,8 +29,8 @@ public class TestDetailsBO {
     private int skipTime;
     private int skipNum;
     private int breakNum;
-    private double averageVelocity;
-    private double accelerateVelocity;
+    private String averageVelocity;
+    private String accelerateVelocity;
     private int actionScore;
     private int enduranceScore;
     private int stableScore;
@@ -38,6 +38,24 @@ public class TestDetailsBO {
     private int coordinateScore;
     private List<AnalysisListBean> analysisList;
     private List<PlanListBean> planList;
+    private int averageVelocityArrow;
+    private int accelerateVelocityArrow;
+
+    public int getAccelerateVelocityArrow() {
+        return accelerateVelocityArrow;
+    }
+
+    public void setAccelerateVelocityArrow(int accelerateVelocityArrow) {
+        this.accelerateVelocityArrow = accelerateVelocityArrow;
+    }
+
+    public int getAverageVelocityArrow() {
+        return averageVelocityArrow;
+    }
+
+    public void setAverageVelocityArrow(int averageVelocityArrow) {
+        this.averageVelocityArrow = averageVelocityArrow;
+    }
 
     public int getId() {
         return id;
@@ -87,19 +105,19 @@ public class TestDetailsBO {
         this.breakNum = breakNum;
     }
 
-    public double getAverageVelocity() {
+    public String getAverageVelocity() {
         return averageVelocity;
     }
 
-    public void setAverageVelocity(double averageVelocity) {
+    public void setAverageVelocity(String averageVelocity) {
         this.averageVelocity = averageVelocity;
     }
 
-    public double getAccelerateVelocity() {
+    public String getAccelerateVelocity() {
         return accelerateVelocity;
     }
 
-    public void setAccelerateVelocity(double accelerateVelocity) {
+    public void setAccelerateVelocity(String accelerateVelocity) {
         this.accelerateVelocity = accelerateVelocity;
     }
 
