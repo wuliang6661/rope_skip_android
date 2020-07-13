@@ -233,9 +233,11 @@ public class PkPlayNumActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
-//                timeCount++;
-//                String time = Utils.timeToString(timeCount);
-//                tvTimeSecond.setText(time);
+                if(timeCount < data.getTimeOut()){
+                    timeCount++;
+                    String time = Utils.timeToString(timeCount);
+                    tvTimeSecond.setText(time);
+                }
                 onViewClicked(tvContral);
             }
         };

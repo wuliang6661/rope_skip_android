@@ -114,7 +114,7 @@ public class SyncHistoryUtils {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BlueDataEvent event) {
-        TimerUtil.stopTimerTask("sync");
+//        TimerUtil.stopTimerTask("sync");
         try {
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
             if (UartService.COUNT_OPENTION == 0x33) {  //目录数
@@ -160,6 +160,15 @@ public class SyncHistoryUtils {
                 getYundongMsg(dateTime, selectPosition);
             }
             if (UartService.COUNT_OPENTION == 0x77) {  //跳绳轨迹分包数据
+                if (event.getData().length == 6) {   //查询结果
+                    if(builder.getDataBody()[0] != 0x00 ){
+                        ToastUtil.shortShow("同步失败！");
+                        isSync = false;
+                        onDestory();
+                        MyLog.e("获取第" + selectPosition + "目录时报错，错误包=", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
+                    }
+                    return;
+                }
                 MyLog.e("第" + selectPosition + "目录的采样数据", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                 BleData bleData = new BleData(event.getData(), pointDataLength);
                 blePoints.addAll(bleData.getBlePointList());//把所有解析出来的坐标点保存起来
@@ -284,14 +293,14 @@ public class SyncHistoryUtils {
 
 
     private void startTime() {
-        TimerUtil.startTimerTask("sync", 5000, new TimerTaskDoCallBack() {
-            @Override
-            public void taskDo() {
-                ToastUtil.show("数据同步超时！");
-                isSync = false;
-                onDestory();
-            }
-        });
+//        TimerUtil.startTimerTask("sync", 5000, new TimerTaskDoCallBack() {
+//            @Override
+//            public void taskDo() {
+//                ToastUtil.show("数据同步超时！");
+//                isSync = false;
+//                onDestory();
+//            }
+//        });
     }
 }
 
