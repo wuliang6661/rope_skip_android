@@ -166,6 +166,8 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             public void onProgress(int what, float progress) {
                 if (progress == 100) {   //倒计时完
                     timeCount--;
+                    String time = Utils.timeToString(timeCount);
+                    tvTimeSecond.setText(time);
                     onViewClicked(tvContral);
                 } else {
                     timeCount--;
@@ -505,6 +507,9 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      */
     private void getDeviceQc() {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            if(SyncHistoryUtils.isSync){
+                return;
+            }
             UartService.COUNT_OPENTION = 0x11;
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetEQCmd().getCmdByte());
         }

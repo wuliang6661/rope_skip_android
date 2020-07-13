@@ -9,6 +9,7 @@ import com.tohabit.skip.pojo.po.TestBO;
 import com.tohabit.skip.pojo.po.TestDataBO;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.train.contract.TranHomeContract;
+import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
 
 import java.util.List;
@@ -43,6 +44,9 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
      */
     public void getDeviceQC() {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            if(SyncHistoryUtils.isSync){
+                return;
+            }
             UartService.COUNT_OPENTION = 0x11;
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetEQCmd().getCmdByte());
         }

@@ -134,6 +134,9 @@ public class PKHomeActivity extends BaseActivity {
      */
     private void getDeviceQc() {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            if(SyncHistoryUtils.isSync){
+                return;
+            }
             UartService.COUNT_OPENTION = 0x11;
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetEQCmd().getCmdByte());
         }

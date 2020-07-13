@@ -120,7 +120,7 @@ public class PkPlayNumActivity extends BaseActivity {
         titleText.setText(title + "PK");
         pkChangCiId = data.getId();
         notifi();
-        onViewClicked(tvContral);
+        Cishu();
     }
 
     @Override
@@ -374,7 +374,9 @@ public class PkPlayNumActivity extends BaseActivity {
         if (UartService.COUNT_OPENTION == 0x18) { //跳绳次数
             int cishu = Math.abs(ByteUtils.bytesToInt2(builder.getDataBody(), 0));
             if (firstTiaoShengNum == Integer.MAX_VALUE) {
-                firstTiaoShengNum = cishu - 1;
+                firstTiaoShengNum = cishu;
+                onViewClicked(tvContral);
+                return;
             }
             skipNum = cishu - firstTiaoShengNum;
             if (skipNum == maxNum) {

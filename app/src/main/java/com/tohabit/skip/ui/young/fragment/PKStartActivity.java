@@ -34,6 +34,7 @@ import com.tohabit.skip.pojo.po.PkUserBO;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
+import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
 
@@ -389,6 +390,9 @@ public class PKStartActivity extends BaseActivity {
      */
     private void getDeviceQc() {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
+            if(SyncHistoryUtils.isSync){
+                return;
+            }
             UartService.COUNT_OPENTION = 0x11;
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetEQCmd().getCmdByte());
         }
