@@ -158,8 +158,8 @@ public class SyncHistoryUtils {
                 LogUtils.e("获取的跳绳时长=" + duration + "跳绳轨迹的数据长度 = " + pointDataLength);
                 byte[] skipNumByte = new byte[]{builder.getDataBody()[13], builder.getDataBody()[14]};
                 byte[] breakNumByte = new byte[]{builder.getDataBody()[15], builder.getDataBody()[16]};
-                int skipNum = ByteUtils.byte2Int(skipNumByte);
-                int breakNum = ByteUtils.byte2Int(breakNumByte);
+                int skipNum = skipNumByte[0] << 8 | skipNumByte[1];
+                int breakNum = breakNumByte[0] << 8 | breakNumByte[1];
                 MyLog.e("获取第" + selectPosition + "目录结果", "获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
                 yundongMsg = new BleYundongMsg(duration, skipNum, breakNum, dateTime);
                 getYundongMsg(dateTime, selectPosition);
