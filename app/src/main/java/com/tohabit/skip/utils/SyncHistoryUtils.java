@@ -259,10 +259,19 @@ public class SyncHistoryUtils {
      * 保存一个目录的结果
      */
     private void save() {
-        Example example = new Example(AppManager.getAppManager().curremtActivity().getAssets(),
-                yundongMsg.getBreakNum(), yundongMsg.getSkipNum(),
-                yundongMsg.getTimeCount(), blePoints);
-        Evaluator evaluator = example.getData();
+        Evaluator evaluator;
+        try {
+            Example example = new Example(AppManager.getAppManager().curremtActivity().getAssets(),
+                    yundongMsg.getBreakNum(), yundongMsg.getSkipNum(),
+                    yundongMsg.getTimeCount(), blePoints);
+            evaluator = example.getData();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Example example = new Example(AppManager.getAppManager().curremtActivity().getAssets(),
+                    yundongMsg.getBreakNum(), yundongMsg.getSkipNum(),
+                    yundongMsg.getTimeCount());
+            evaluator = example.getData();
+        }
         Map<String, Object> params = new HashMap<>();
         params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
         params.put("breakNum", yundongMsg.getBreakNum());   //断绳数量
@@ -294,7 +303,7 @@ public class SyncHistoryUtils {
 
             @Override
             public void onFiled(String message) {
-                ToastUtil.show(message);
+                ToastUtil.show("数据同步失败！接口报错！");
                 isSync = false;
                 onDestory();
             }
@@ -304,6 +313,7 @@ public class SyncHistoryUtils {
 
     public void onDestory() {
         EventBus.getDefault().unregister(this);
+        utils = null;
     }
 
 
