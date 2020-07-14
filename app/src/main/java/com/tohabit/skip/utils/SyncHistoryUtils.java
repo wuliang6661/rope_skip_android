@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,9 @@ public class SyncHistoryUtils {
     private List<BlePoint> blePoints = new ArrayList<BlePoint>();   //存储ble获取的坐标点
 
     private static SyncHistoryUtils utils;
+
+    //上一次的目录内容
+    private byte[] muluMsg;
 
     public static SyncHistoryUtils getInstance(String deviceId) {
         if (utils == null) {
@@ -139,6 +143,7 @@ public class SyncHistoryUtils {
             }
             if (UartService.COUNT_OPENTION == 0x44) {  //目录内容
                 MyLog.e("第" + selectPosition + "目录结果", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
+                muluMsg = event.getData();
                 BleSport bleSport = new BleSport(builder.getDataBody());
                 long dateTime = bleSport.getStart_time();
                 long dateEndTime = bleSport.getEnd_time();
@@ -167,6 +172,10 @@ public class SyncHistoryUtils {
                         onDestory();
                         MyLog.e("获取第" + selectPosition + "目录时报错，错误包=", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                     }
+                    return;
+                }
+                if (Arrays.equals(muluMsg, event.getData())) {
+                    MyLog.e("获取第" + selectPosition + "目录时返回的重复目录详情", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                     return;
                 }
                 MyLog.e("第" + selectPosition + "目录的采样数据", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));

@@ -688,8 +688,8 @@ public class HttpServerImpl {
     /**
      * 查询测试记录
      */
-    public static Observable<List<TestBO>> getTestList() {
-        return getService().getTestList("1", "100").compose(RxResultHelper.httpRusult());
+    public static Observable<List<TestBO>> getTestList(int pageNum) {
+        return getService().getTestList(pageNum + "", "10").compose(RxResultHelper.httpRusult());
     }
 
 
