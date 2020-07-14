@@ -19,6 +19,7 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.tohabit.skip.app.Constants;
+import com.tohabit.skip.utils.MyLog;
 import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.blue.ByteUtils;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
@@ -361,6 +362,7 @@ public class UartService extends Service {
         }
         mBluetoothGattCharacteristic1 = mBluetoothGattService.getCharacteristic(UUID_CHARA1);//获得特征值1
         mBluetoothGattCharacteristic1.setValue(data);
+        MyLog.e("发送命令", ByteUtils.byte2HexStr(data, data.length));
         writeCharacteristic(mBluetoothGattCharacteristic1);
         return true;
     }
