@@ -237,7 +237,7 @@ public class KeChengDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(List<VideoBO> s) {
                 videos = s;
-                if (!s.isEmpty()) {
+                if (!s.isEmpty() && currnVideo == null) {
                     video(s.get(0));
                     addDataLearn(s.get(0).getId() + "");
                 }
@@ -310,7 +310,7 @@ public class KeChengDetailsActivity extends BaseActivity {
         HttpServerImpl.addDataLearn(objectId).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
-
+                getVideoList();
             }
 
             @Override
@@ -333,6 +333,7 @@ public class KeChengDetailsActivity extends BaseActivity {
                 public void onSuccess(String s) {
                     stopProgress();
                     shoucangImg.setImageResource(R.mipmap.shoucang);
+                    kechengBO.setIsCollect("0");
                 }
 
                 @Override
@@ -347,6 +348,7 @@ public class KeChengDetailsActivity extends BaseActivity {
                 public void onSuccess(String s) {
                     stopProgress();
                     shoucangImg.setImageResource(R.mipmap.yishoucang);
+                    kechengBO.setIsCollect("1");
                 }
 
                 @Override

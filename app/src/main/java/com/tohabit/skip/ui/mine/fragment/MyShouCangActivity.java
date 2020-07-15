@@ -117,6 +117,7 @@ public class MyShouCangActivity extends BaseActivity {
             }
         });
         setZhishiAdapter();
+        recycleView.addOnItemTouchListener(listener);
         getData();
     }
 
@@ -230,18 +231,25 @@ public class MyShouCangActivity extends BaseActivity {
         };
         recycleView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE).build());
         zhishiAdapter.setEmptyView(getLayoutInflater().inflate(R.layout.layout_no_datas, (ViewGroup) recycleView.getParent(), false));
-        recycleView.addOnItemTouchListener(new OnItemChildClickListener() {
-            @Override
-            public void onSimpleItemChildClick(BaseQuickAdapter a, View view, int position) {
-                LogUtils.e("ddddddddd");
-                Bundle bundle = new Bundle();
-                bundle.putInt("Id", zhishiAdapter.getData().get(position).getId());
-                gotoActivity(ZhiShiDetailsActivity.class, bundle, false);
-            }
-        });
         recycleView.setAdapter(zhishiAdapter);
     }
 
+
+    OnItemChildClickListener listener = new OnItemChildClickListener() {
+        @Override
+        public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            LogUtils.e("ddddddddd");
+            if(selectType == 1){
+                Bundle bundle = new Bundle();
+                bundle.putInt("Id", shouCangBOS.get(position).getId());
+                gotoActivity(ZhiShiDetailsActivity.class, bundle, false);
+            }else{
+                Bundle bundle = new Bundle();
+                bundle.putInt("kechengId", shouCangBOS.get(position).getId());
+                gotoActivity(KeChengDetailsActivity.class, bundle, false);
+            }
+        }
+    };
 
     private void setKechengAdapter() {
         kechengAdapter = new BaseRvAdapter<ShouCangBO, BaseViewHolder>(R.layout.item_kecheng, new ArrayList<>()) {
@@ -256,14 +264,6 @@ public class MyShouCangActivity extends BaseActivity {
         };
         recycleView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).sizeResId(R.dimen.size_list_item_divider).colorResId(R.color.color_EEEEEE).build());
         kechengAdapter.setEmptyView(getLayoutInflater().inflate(R.layout.layout_no_datas, (ViewGroup) recycleView.getParent(), false));
-        recycleView.addOnItemTouchListener(new OnItemChildClickListener() {
-            @Override
-            public void onSimpleItemChildClick(BaseQuickAdapter a, View view, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("kechengId", kechengAdapter.getData().get(position).getId());
-                gotoActivity(KeChengDetailsActivity.class, bundle, false);
-            }
-        });
         recycleView.setAdapter(kechengAdapter);
     }
 

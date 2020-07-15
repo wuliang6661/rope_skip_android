@@ -104,6 +104,7 @@ public class AddAddressFragment extends BaseActivity<AddAddressPresenter> implem
             etTelFragmentAddAddress.setText(mAddressModel.getPhone());
             etAddressFragmentAddAddress.setText(mAddressModel.getAddress());
             etRegionFragmentAddAddress.setText(mAddressModel.getArea());
+            cbMrFragmentAddAddress.setChecked(mAddressModel.getIsDefault() == 1);
         }
         //预先加载仿iOS滚轮实现的全部数据
         mPicker.init(this);

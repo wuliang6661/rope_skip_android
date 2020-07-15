@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.tohabit.commonlibrary.apt.SingleClick;
 import com.tohabit.commonlibrary.widget.ProgressbarLayout;
@@ -135,12 +136,12 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
             case R.id.ll_taggle_close_fragment_register:
                 mLlTaggleCloseFragmentRegister.setVisibility(View.GONE);
                 mLlTaggleOpenFragmentRegister.setVisibility(View.VISIBLE);
-                isBuy = 1;
+                isBuy = 0;
                 break;
             case R.id.ll_taggle_open_fragment_register:
                 mLlTaggleOpenFragmentRegister.setVisibility(View.GONE);
                 mLlTaggleCloseFragmentRegister.setVisibility(View.VISIBLE);
-                isBuy = 0;
+                isBuy = 1;
                 break;
             case R.id.tv_has_account_fragment_register:
                 _mActivity.onBackPressedSupport();
@@ -158,6 +159,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
 
 
     private void register() {
+        LogUtils.e(isBuy);
         String phone = mEtTelFragmentRegister.getText().toString().trim();
         String password = mEtPasswordFragmentRegister.getText().toString().trim();
         String msgCode = mEtPleaseInputMsgCodeFragmentRegister.getText().toString().trim();
@@ -211,10 +213,10 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (timer != null) {
             timer.cancel();
         }
+        super.onDestroy();
     }
 
 

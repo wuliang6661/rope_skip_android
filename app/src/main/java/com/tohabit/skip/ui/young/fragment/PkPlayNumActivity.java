@@ -388,7 +388,7 @@ public class PkPlayNumActivity extends BaseActivity {
                 return;
             }
             skipNum = cishu - firstTiaoShengNum;
-            if (skipNum == maxNum) {
+            if (skipNum >= maxNum) {
                 tvTimeCountFragmentTrainMain.setText("0");
                 countdownBar.setProgress(100);
             } else {
@@ -396,6 +396,7 @@ public class PkPlayNumActivity extends BaseActivity {
                 countdownBar.setProgress(skipNum / (float) maxNum * 100);
             }
             if (maxNum - skipNum <= 0) {   //倒计数结束
+                skipNum = maxNum;
                 onViewClicked(tvContral);
             }
         }

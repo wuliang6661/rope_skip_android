@@ -75,6 +75,7 @@
 
 
             <ImageView
+                android:id="@+id/pinglun"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginTop="7dp"

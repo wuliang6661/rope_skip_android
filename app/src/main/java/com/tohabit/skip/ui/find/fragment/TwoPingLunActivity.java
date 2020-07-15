@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -163,7 +164,7 @@ public class TwoPingLunActivity extends BaseActivity {
                 if (!StringUtils.isEmpty(twoPingLunBO.getToUserName())) {
                     String message = "回复" + twoPingLunBO.getToUserName() + "：" + twoPingLunBO.getContent();
                     SpannableString spannableString = new SpannableString(message);
-                    spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#7EC7F5")), 2, twoPingLunBO.getToUserName().length(),
+                    spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#7EC7F5")), 2, twoPingLunBO.getToUserName().length() + 2,
                             Spanned.SPAN_INCLUSIVE_INCLUSIVE);
                     txContent.setText(spannableString);
                 } else {
@@ -171,6 +172,16 @@ public class TwoPingLunActivity extends BaseActivity {
                 }
             }
         };
+        adapter.setOnItemClickListener(R.id.pinglun, new LGRecycleViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Intent intent = new Intent(TwoPingLunActivity.this, AddPingLunActivity.class);
+                intent.putExtra("isFirst", false);
+                intent.putExtra("objectId", classId);
+                intent.putExtra("parentId", adapter.getItem(position).getUserId());
+                startActivity(intent);
+            }
+        });
         recycleView.setAdapter(adapter);
     }
 
