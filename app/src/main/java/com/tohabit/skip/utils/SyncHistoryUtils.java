@@ -166,6 +166,7 @@ public class SyncHistoryUtils {
             }
             if (UartService.COUNT_OPENTION == 0x77) {  //跳绳轨迹分包数据
                 if (event.getData().length == 6) {   //查询结果
+                    MyLog.e("获取第" + selectPosition + "目录时返回的运动轨迹应答帧", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                     if (builder.getDataBody()[0] != 0x00) {
                         ToastUtil.shortShow("同步失败！");
                         isSync = false;
