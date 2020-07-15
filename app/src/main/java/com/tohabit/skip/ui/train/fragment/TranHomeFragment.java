@@ -2,9 +2,12 @@ package com.tohabit.skip.ui.train.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -106,7 +109,8 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
     AppCompatTextView tiaoshengzongshu;
     @BindView(R.id.xunlian_zongshu)
     AppCompatTextView xunlianZongshu;
-    Unbinder unbinder1;
+    @BindView(R.id.scroll_view)
+    NestedScrollView scrollView;
 
     private TranRecordListAdapter mRecordListAdapter;
 
@@ -130,6 +134,11 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
      */
     private int skipNum = 0;
 
+    private boolean isLoading = false;
+
+    private int pageNum = 1;
+
+    private List<TestBO> list;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -173,6 +182,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         return "TranHomeFragment %s";
     }
 
+    @SuppressLint("NewApi")
     @Override
     protected void initEventAndData() {
         tvTimeCount.setTypeface(App.getInstance().tf);
@@ -191,6 +201,10 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 mPresenter.getDeviceQC();
             }
         }
+        pageNum = 1;
+        isLoading = true;
+        mPresenter.getTestList(pageNum);
+        setListener();
     }
 
 
@@ -238,7 +252,17 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
 
     @Override
     public void setRecordList(List<TestBO> data) {
-        mRecordListAdapter.setNewData(data);
+        isLoading = false;
+        if (pageNum == 1) {
+            list = data;
+            mRecordListAdapter.setNewData(data);
+        } else {
+            if (data.isEmpty()) {
+                pageNum--;
+            }
+            list.addAll(data);
+            mRecordListAdapter.addData(data);
+        }
     }
 
     @Override
@@ -288,6 +312,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
 
     @Override
     public void showError(String msg) {
+        isLoading = false;
         ToastUtil.show(msg);
     }
 
@@ -454,7 +479,6 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
         super.onSupportVisible();
         mPresenter.getDeviceQC();
         mPresenter.getTestTotal();
-        mPresenter.getTestList();
         if (isEditMsg) {
             ivStartTest.setBackgroundResource(R.mipmap.start_img);
         }
@@ -462,9 +486,28 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refresh(SyncSuressEvent event){
+    public void refresh(SyncSuressEvent event) {
         mPresenter.getTestTotal();
-        mPresenter.getTestList();
+        pageNum = 1;
+        isLoading = true;
+        mPresenter.getTestList(pageNum);
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void setListener() {
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                View view = scrollView.getChildAt(0);
+                int height = view.getMeasuredHeight();
+                height -= (scrollView.getMeasuredHeight() + scrollView.getScrollY());
+                if (height <= 10 && !isLoading) {
+                    //height的大小可以自己控制，在到0时是临界点，这时候可以选择跳转或是加载下一页，也可以将height的高度设定的大一些来实现提前加载下一页的效果
+                    isLoading = true;
+                    mPresenter.getTestList(++pageNum);
+                }
+            }
+        });
+    }
 }

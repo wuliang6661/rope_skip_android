@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,9 @@ public class SyncHistoryUtils {
     private List<BlePoint> blePoints = new ArrayList<BlePoint>();   //存储ble获取的坐标点
 
     private static SyncHistoryUtils utils;
+
+    //上一次的目录内容
+    private byte[] muluMsg;
 
     public static SyncHistoryUtils getInstance(String deviceId) {
         if (utils == null) {
@@ -139,6 +143,7 @@ public class SyncHistoryUtils {
             }
             if (UartService.COUNT_OPENTION == 0x44) {  //目录内容
                 MyLog.e("第" + selectPosition + "目录结果", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
+                muluMsg = event.getData();
                 BleSport bleSport = new BleSport(builder.getDataBody());
                 long dateTime = bleSport.getStart_time();
                 long dateEndTime = bleSport.getEnd_time();
@@ -153,8 +158,8 @@ public class SyncHistoryUtils {
                 LogUtils.e("获取的跳绳时长=" + duration + "跳绳轨迹的数据长度 = " + pointDataLength);
                 byte[] skipNumByte = new byte[]{builder.getDataBody()[13], builder.getDataBody()[14]};
                 byte[] breakNumByte = new byte[]{builder.getDataBody()[15], builder.getDataBody()[16]};
-                int skipNum = ByteUtils.bytesToInt(skipNumByte);
-                int breakNum = ByteUtils.bytesToInt(breakNumByte);
+                int skipNum = skipNumByte[0] << 8 | skipNumByte[1];
+                int breakNum = breakNumByte[0] << 8 | breakNumByte[1];
                 MyLog.e("获取第" + selectPosition + "目录结果", "获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
                 yundongMsg = new BleYundongMsg(duration, skipNum, breakNum, dateTime);
                 getYundongMsg(dateTime, selectPosition);
@@ -169,10 +174,20 @@ public class SyncHistoryUtils {
                     }
                     return;
                 }
+                if (Arrays.equals(muluMsg, event.getData())) {
+                    MyLog.e("获取第" + selectPosition + "目录时返回的重复目录详情", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
+                    return;
+                }
                 MyLog.e("第" + selectPosition + "目录的采样数据", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
-                BleData bleData = new BleData(event.getData(), pointDataLength);
-                blePoints.addAll(bleData.getBlePointList());//把所有解析出来的坐标点保存起来
-                if (bleData.isLastPage() && blePoints.size() > 0) {//如果是最后一包，说明此次运动数据已经取完，删除
+                try {
+                    BleData bleData = new BleData(event.getData(), pointDataLength);
+                    blePoints.addAll(bleData.getBlePointList());//把所有解析出来的坐标点保存起来
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                byte[] head = new byte[]{event.getData()[0], event.getData()[1]};
+                byte[] last = new byte[]{(byte) 0xFF, (byte) 0xFF};
+                if (Arrays.equals(head, last) && blePoints.size() > 0) {//如果是最后一包，说明此次运动数据已经取完，删除
                     Log.d("chen", "接收到跳绳数据。");
                     Log.d("chen", "圈序号：" + blePoints.get(0).getNumber() + "-" + blePoints.get(blePoints.size() - 1).getNumber());
                     Log.d("chen", "共 " + blePoints.size() + " 个采样点");
@@ -245,10 +260,19 @@ public class SyncHistoryUtils {
      * 保存一个目录的结果
      */
     private void save() {
-        Example example = new Example(AppManager.getAppManager().curremtActivity().getAssets(),
-                yundongMsg.getBreakNum(), yundongMsg.getSkipNum(),
-                yundongMsg.getTimeCount(), blePoints);
-        Evaluator evaluator = example.getData();
+        Evaluator evaluator;
+        try {
+            Example example = new Example(AppManager.getAppManager().curremtActivity().getAssets(),
+                    yundongMsg.getBreakNum(), yundongMsg.getSkipNum(),
+                    yundongMsg.getTimeCount(), blePoints);
+            evaluator = example.getData();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Example example = new Example(AppManager.getAppManager().curremtActivity().getAssets(),
+                    yundongMsg.getBreakNum(), yundongMsg.getSkipNum(),
+                    yundongMsg.getTimeCount());
+            evaluator = example.getData();
+        }
         Map<String, Object> params = new HashMap<>();
         params.put("actionScore", evaluator.getRopeSwingingScore());//动作分数
         params.put("breakNum", yundongMsg.getBreakNum());   //断绳数量
@@ -280,7 +304,7 @@ public class SyncHistoryUtils {
 
             @Override
             public void onFiled(String message) {
-                ToastUtil.show(message);
+                ToastUtil.show("数据同步失败！接口报错！");
                 isSync = false;
                 onDestory();
             }
@@ -290,6 +314,7 @@ public class SyncHistoryUtils {
 
     public void onDestory() {
         EventBus.getDefault().unregister(this);
+        utils = null;
     }
 
 

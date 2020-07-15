@@ -89,8 +89,8 @@ public class TranHomePresenter extends RxPresenter<TranHomeContract.View> implem
     /**
      * 获取测试记录
      */
-    public void getTestList() {
-        HttpServerImpl.getTestList().subscribe(new HttpResultSubscriber<List<TestBO>>() {
+    public void getTestList(int pageNum) {
+        HttpServerImpl.getTestList(pageNum).subscribe(new HttpResultSubscriber<List<TestBO>>() {
             @Override
             public void onSuccess(List<TestBO> s) {
                 if (mView != null) {

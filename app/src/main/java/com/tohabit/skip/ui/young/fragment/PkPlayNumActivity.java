@@ -110,7 +110,6 @@ public class PkPlayNumActivity extends BaseActivity {
         tvTimeCountFragmentTrainMain.setTypeface(App.getInstance().tf);
 
         data = (PkChangCiBO) getIntent().getExtras().getSerializable("data");
-        setTimer();
         maxNum = data.getMaxNum();
         tvBattery.setText(PKHomeActivity.dianliang + "%");
         tvTimeSecond.setText(Utils.timeToString(timeCount));
@@ -120,8 +119,9 @@ public class PkPlayNumActivity extends BaseActivity {
         titleText.setText(title + "PK");
         pkChangCiId = data.getId();
         notifi();
-        Cishu();
     }
+
+
 
     @Override
     public void showProgress() {
@@ -152,6 +152,8 @@ public class PkPlayNumActivity extends BaseActivity {
             musicLayout.setVisibility(View.VISIBLE);
             musicText.setText(App.musicBeatBO.getMusicName());
         }
+        setTimer();
+        Cishu();
     }
 
     private void freshView() {

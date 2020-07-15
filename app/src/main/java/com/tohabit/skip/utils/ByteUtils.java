@@ -41,7 +41,8 @@ public class ByteUtils {
 
     /**
      * 将整数转换为byte数组并指定长度
-     * @param a 整数
+     *
+     * @param a      整数
      * @param length 指定长度
      * @return
      */
@@ -56,6 +57,7 @@ public class ByteUtils {
 
     /**
      * 将byte数组转换为整数
+     *
      * @param bs
      * @return
      */
@@ -65,5 +67,19 @@ public class ByteUtils {
             a += bs[i] * Math.pow(255, bs.length - i - 1);
         }
         return a;
+    }
+
+    /**
+     *      * 4位字节数组转换为整型
+     *      * @param b
+     *      * @return
+     *      
+     */
+    public static int byte2Int(byte[] b) {
+        int intValue = 0;
+        for (int i = 0; i < b.length; i++) {
+            intValue += (b[i] & 0xFF) << (8 * (3 - i));
+        }
+        return intValue;
     }
 }
