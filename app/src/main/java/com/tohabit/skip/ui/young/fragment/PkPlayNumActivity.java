@@ -90,6 +90,8 @@ public class PkPlayNumActivity extends BaseActivity {
 
     private CountDownTimer timer;
 
+    private boolean isStart = false;
+
     @Override
     protected void initInject() {
 
@@ -119,8 +121,8 @@ public class PkPlayNumActivity extends BaseActivity {
         titleText.setText(title + "PK");
         pkChangCiId = data.getId();
         notifi();
-    }
 
+    }
 
 
     @Override
@@ -152,8 +154,11 @@ public class PkPlayNumActivity extends BaseActivity {
             musicLayout.setVisibility(View.VISIBLE);
             musicText.setText(App.musicBeatBO.getMusicName());
         }
-        setTimer();
-        Cishu();
+        if (!isStart) {
+            setTimer();
+            Cishu();
+            isStart = true;
+        }
     }
 
     private void freshView() {
@@ -235,7 +240,7 @@ public class PkPlayNumActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
-                if(timeCount < data.getTimeOut()){
+                if (timeCount < data.getTimeOut()) {
                     timeCount++;
                     String time = Utils.timeToString(timeCount);
                     tvTimeSecond.setText(time);
