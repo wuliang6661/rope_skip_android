@@ -120,13 +120,12 @@ public class SyncHistoryUtils {
     public void onEvent(BlueDataEvent event) {
 //        TimerUtil.stopTimerTask("sync");
         try {
+            MyLog.e("应答帧", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
             if (UartService.COUNT_OPENTION == 0x33) {  //目录数
-                MyLog.e("获取目录条数", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                 byte[] changdu = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1]};
                 muluCount = ByteUtils.bytesToInt(changdu);
                 LogUtils.e("获取的目录条数：" + muluCount);
-                MyLog.e("目录条数", muluCount);
                 if (muluCount > 0) {
                     selectPosition = 0;
                     new Handler().postDelayed(new Runnable() {
@@ -142,7 +141,6 @@ public class SyncHistoryUtils {
                 }
             }
             if (UartService.COUNT_OPENTION == 0x44) {  //目录内容
-                MyLog.e("第" + selectPosition + "目录结果", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                 muluMsg = event.getData();
                 BleSport bleSport = new BleSport(builder.getDataBody());
                 long dateTime = bleSport.getStart_time();
@@ -160,26 +158,21 @@ public class SyncHistoryUtils {
                 byte[] breakNumByte = new byte[]{builder.getDataBody()[15], builder.getDataBody()[16]};
                 int skipNum = skipNumByte[0] << 8 | skipNumByte[1];
                 int breakNum = breakNumByte[0] << 8 | breakNumByte[1];
-                MyLog.e("获取第" + selectPosition + "目录结果", "获取的跳绳次数：" + skipNum + "获取的断绳次数：" + breakNum);
                 yundongMsg = new BleYundongMsg(duration, skipNum, breakNum, dateTime);
                 getYundongMsg(dateTime, selectPosition);
             }
             if (UartService.COUNT_OPENTION == 0x77) {  //跳绳轨迹分包数据
                 if (event.getData().length == 6) {   //查询结果
-                    MyLog.e("获取第" + selectPosition + "目录时返回的运动轨迹应答帧", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                     if (builder.getDataBody()[0] != 0x00) {
                         ToastUtil.shortShow("同步失败！");
                         isSync = false;
                         onDestory();
-                        MyLog.e("获取第" + selectPosition + "目录时报错，错误包=", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                     }
                     return;
                 }
                 if (Arrays.equals(muluMsg, event.getData())) {
-                    MyLog.e("获取第" + selectPosition + "目录时返回的重复目录详情", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                     return;
                 }
-                MyLog.e("第" + selectPosition + "目录的采样数据", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
                 try {
                     BleData bleData = new BleData(event.getData(), pointDataLength);
                     blePoints.addAll(bleData.getBlePointList());//把所有解析出来的坐标点保存起来
