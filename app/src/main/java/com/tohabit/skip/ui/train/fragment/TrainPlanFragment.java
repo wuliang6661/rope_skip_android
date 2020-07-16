@@ -30,6 +30,7 @@ import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
 import com.tohabit.skip.ui.train.music.Player;
+import com.tohabit.skip.ui.young.fragment.PKHomeActivity;
 import com.tohabit.skip.ui.young.fragment.PKResultActivity;
 import com.tohabit.skip.ui.young.websocket.WebSocketUtils;
 import com.tohabit.skip.utils.ByteUtils;
@@ -184,6 +185,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             case 2:   //pk
                 String title = getArguments().getString("title");
                 titleText.setText(title + "PK");
+                tvBattery.setText(PKHomeActivity.dianliang + "%");
                 pkChangCiId = getArguments().getInt("pkChangCiId");
                 notifi();
                 onViewClicked(tvContral);
@@ -195,7 +197,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     public void onSupportVisible() {
         super.onSupportVisible();
         freshView();
-        getDeviceQc();
+//        getDeviceQc();
         if (App.musicBeatBO != null) {
             musicLayout.setVisibility(View.VISIBLE);
             musicText.setText(App.musicBeatBO.getMusicName());

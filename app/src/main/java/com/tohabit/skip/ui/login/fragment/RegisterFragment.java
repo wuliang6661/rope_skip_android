@@ -159,7 +159,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
 
 
     private void register() {
-        LogUtils.e(isBuy);
+        showToast("isBuy == " + isBuy);
         String phone = mEtTelFragmentRegister.getText().toString().trim();
         String password = mEtPasswordFragmentRegister.getText().toString().trim();
         String msgCode = mEtPleaseInputMsgCodeFragmentRegister.getText().toString().trim();
