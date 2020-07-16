@@ -60,7 +60,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
     @BindView(R.id.progress_fragment_register)
     ProgressbarLayout progressbarLayout;
 
-    private int isBuy = 0; // 0未购买， 1 为购买
+    private int isBuy = 1; // 0未购买， 1 为购买
 
     public static RegisterFragment newInstance(Bundle args) {
         RegisterFragment fragment = new RegisterFragment();
@@ -136,12 +136,12 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
             case R.id.ll_taggle_close_fragment_register:
                 mLlTaggleCloseFragmentRegister.setVisibility(View.GONE);
                 mLlTaggleOpenFragmentRegister.setVisibility(View.VISIBLE);
-                isBuy = 0;
+                isBuy = 1;
                 break;
             case R.id.ll_taggle_open_fragment_register:
                 mLlTaggleOpenFragmentRegister.setVisibility(View.GONE);
                 mLlTaggleCloseFragmentRegister.setVisibility(View.VISIBLE);
-                isBuy = 1;
+                isBuy = 0;
                 break;
             case R.id.tv_has_account_fragment_register:
                 _mActivity.onBackPressedSupport();
@@ -159,7 +159,6 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
 
 
     private void register() {
-        showToast("isBuy == " + isBuy);
         String phone = mEtTelFragmentRegister.getText().toString().trim();
         String password = mEtPasswordFragmentRegister.getText().toString().trim();
         String msgCode = mEtPleaseInputMsgCodeFragmentRegister.getText().toString().trim();
