@@ -198,10 +198,26 @@ public class SyncHistoryUtils {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            isSync = false;
-            onDestory();
-            ToastUtil.shortShow("同步失败！" + ex.getMessage());
-            MyLog.e("获取第" + selectPosition + "目录时报错，错误包=", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
+            byte[] head = new byte[]{event.getData()[0], event.getData()[1]};
+            byte[] last = new byte[]{(byte) 0xFF, (byte) 0xFF};
+            if (Arrays.equals(head, last) && blePoints.size() > 0) {//如果是最后一包，说明此次运动数据已经取完，删除
+                Log.d("chen", "接收到跳绳数据。");
+                Log.d("chen", "圈序号：" + blePoints.get(0).getNumber() + "-" + blePoints.get(blePoints.size() - 1).getNumber());
+                Log.d("chen", "共 " + blePoints.size() + " 个采样点");
+                save();
+                if (selectPosition < muluCount - 1) {
+                    selectPosition++;
+                    getMuLuMessage(selectPosition);
+                } else {
+                    addTest();
+                }
+            } else {
+                startTime();
+            }
+//            isSync = false;
+//            onDestory();
+//            ToastUtil.shortShow("同步失败！" + ex.getMessage());
+//            MyLog.e("获取第" + selectPosition + "目录时报错，错误包=", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
         }
     }
 
