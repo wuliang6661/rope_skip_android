@@ -178,7 +178,7 @@ public class TwoPingLunActivity extends BaseActivity {
                 Intent intent = new Intent(TwoPingLunActivity.this, AddPingLunActivity.class);
                 intent.putExtra("isFirst", false);
                 intent.putExtra("objectId", classId);
-                intent.putExtra("parentId", adapter.getItem(position).getUserId());
+                intent.putExtra("parentId", adapter.getItem(position).getId());
                 startActivity(intent);
             }
         });
