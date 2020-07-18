@@ -709,7 +709,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     App.connectDevice = null;
                     switch (msg.arg1) {
                         case UartService.STATE_DISCONNECTED:
-                            showToast("蓝牙连接已断开！");
+//                            showToast("蓝牙连接已断开！");
                             if (SyncHistoryUtils.isSync) {
                                 showToast("历史数据同步失败！");
                                 SyncHistoryUtils.isSync = false;
