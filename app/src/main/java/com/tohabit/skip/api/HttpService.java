@@ -748,4 +748,10 @@ public interface HttpService {
     @POST("app/user/updateIsBuy")
     Observable<BaseResult<String>> updateIsBuy();
 
+    /**
+     * 获取我的未读消息数
+     */
+    @GET("app/my/message/getNoReadMessageCount")
+    Observable<BaseResult<Integer>> getNoReadMessageCount();
+
 }

@@ -169,6 +169,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         mPresenter.getUserInfo();
         mPresenter.getDeviceData();
         mPresenter.getData();
+        getNoReadMessageCount();
     }
 
     private void initDialog() {
@@ -412,5 +413,26 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineCon
         });
     }
 
+
+    /**
+     * 获取未读消息数
+     */
+    private void getNoReadMessageCount() {
+        HttpServerImpl.getNoReadMessageCount().subscribe(new HttpResultSubscriber<Integer>() {
+            @Override
+            public void onSuccess(Integer s) {
+                if (s > 0) {
+                    toolbar.setRightBtnBackgroudResouce(R.mipmap.notifi_point);
+                } else {
+                    toolbar.setRightBtnBackgroudResouce(R.mipmap.ic_tixing);
+                }
+            }
+
+            @Override
+            public void onFiled(String message) {
+                showToast(message);
+            }
+        });
+    }
 
 }
