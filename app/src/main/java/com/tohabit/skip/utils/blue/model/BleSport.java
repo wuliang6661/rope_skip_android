@@ -20,10 +20,11 @@ public class BleSport {
     private int frameLength;
     private short frequency;
     private short breakCount;
+    byte[] stime;
 
     public BleSport(byte[] data) {
         if (data.length == DATA_LENGTH) {
-            byte[] stime = new byte[4];
+            stime = new byte[4];
             System.arraycopy(data, 0, stime, 0, stime.length);
             //先截取开始时间，将开始时间转为字符串，将16进制字符串转化为10进制的long
             start_time = Long.parseLong(HexDump.dumpHexString(stime), 16);
@@ -51,6 +52,10 @@ public class BleSport {
 
     public long getStart_time() {
         return start_time;
+    }
+
+    public byte[] getStime() {
+        return stime;
     }
 
     public long getEnd_time() {
