@@ -232,6 +232,7 @@ public class QuestionDetailsActivity extends BaseActivity {
             intent.putExtra("parentId", adapter.getItem(position).getId());
             startActivity(intent);
         });
+
         adapter.setOnItemClickListener(R.id.pinglun, (view, position) -> {
             Intent intent = new Intent(QuestionDetailsActivity.this, AddPingLunActivity.class);
             intent.putExtra("isFirst", false);
