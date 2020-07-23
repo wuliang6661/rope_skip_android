@@ -124,6 +124,7 @@ public class SyncHistoryUtils {
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
             if (UartService.COUNT_OPENTION == 0x55) {
                 getAllMuLu();
+                return;
             }
             if (UartService.COUNT_OPENTION == 0x33) {  //目录数
                 byte[] changdu = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1]};
@@ -142,6 +143,7 @@ public class SyncHistoryUtils {
                     ToastUtil.show("数据同步完成！");
                     onDestory();
                 }
+                return;
             }
             if (UartService.COUNT_OPENTION == 0x44) {  //目录内容
                 muluMsg = event.getData();
@@ -163,6 +165,7 @@ public class SyncHistoryUtils {
                 int breakNum = breakNumByte[0] << 8 | breakNumByte[1];
                 yundongMsg = new BleYundongMsg(duration, skipNum, breakNum, dateTime);
                 getYundongMsg(bleSport.getStime(), selectPosition);
+                return;
             }
             if (UartService.COUNT_OPENTION == 0x77) {  //跳绳轨迹分包数据
                 if (event.getData().length == 6) {   //查询结果
