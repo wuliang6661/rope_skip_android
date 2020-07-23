@@ -85,12 +85,12 @@ public class RequstBleCmd {
      * @param date 单位为秒
      * @return
      */
-    public static BleCmd createGetPointCmd(long date, int baoxuhao) {
+    public static BleCmd createGetPointCmd(byte[] date, int baoxuhao) {
         byte[] typeCmd = new BleCmd.CmdTypeBuilder().setType(BleCmd.CmdConstans.GET_CMD, BleCmd.CmdConstans.SPORT_POINT_CMD).build();
-        byte[] dateData = HexDump.intToBytes2((int) date);
+//        byte[] dateData = HexDump.intToBytes2((int) date);
         byte[] noData = ByteUtils.intToBytes(baoxuhao, 2);
-        ByteBuffer byteBuffer = ByteBuffer.allocate(dateData.length + noData.length);
-        byteBuffer.put(dateData);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(date.length + noData.length);
+        byteBuffer.put(date);
         byteBuffer.put(noData);
         BleCmd cmd = new BleCmd.Builder().setTypeCmd(typeCmd).setDataBody(byteBuffer.array()).build();
         return cmd;

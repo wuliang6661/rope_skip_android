@@ -914,6 +914,13 @@ public class HttpServerImpl {
         return getService().updateIsBuy().compose(RxResultHelper.httpRusult());
     }
 
+    /**
+     * 获取未读消息数
+     */
+    public static Observable<Integer> getNoReadMessageCount() {
+        return getService().getNoReadMessageCount().compose(RxResultHelper.httpRusult());
+    }
+
 
     /**
      * 提交图片

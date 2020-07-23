@@ -99,7 +99,7 @@ public class SyncHistoryUtils {
 
     public void start() {
         isSync = true;
-        getAllMuLu();
+        tongbuTime();
         MyLog.delFile();
     }
 
@@ -122,6 +122,9 @@ public class SyncHistoryUtils {
         try {
             MyLog.e("应答帧", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
+            if (UartService.COUNT_OPENTION == 0x55) {
+                getAllMuLu();
+            }
             if (UartService.COUNT_OPENTION == 0x33) {  //目录数
                 byte[] changdu = new byte[]{builder.getDataBody()[0], builder.getDataBody()[1]};
                 muluCount = ByteUtils.bytesToInt(changdu);
@@ -159,7 +162,7 @@ public class SyncHistoryUtils {
                 int skipNum = skipNumByte[0] << 8 | skipNumByte[1];
                 int breakNum = breakNumByte[0] << 8 | breakNumByte[1];
                 yundongMsg = new BleYundongMsg(duration, skipNum, breakNum, dateTime);
-                getYundongMsg(dateTime, selectPosition);
+                getYundongMsg(bleSport.getStime(), selectPosition);
             }
             if (UartService.COUNT_OPENTION == 0x77) {  //跳绳轨迹分包数据
                 if (event.getData().length == 6) {   //查询结果
@@ -222,7 +225,6 @@ public class SyncHistoryUtils {
     }
 
 
-
     /**
      * 获取目录内容
      */
@@ -257,7 +259,7 @@ public class SyncHistoryUtils {
     /**
      * 获取运动分包数据
      */
-    private void getYundongMsg(long date, int baoxuhao) {
+    private void getYundongMsg(byte[] date, int baoxuhao) {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
             UartService.COUNT_OPENTION = 0x77;
             startTime();
