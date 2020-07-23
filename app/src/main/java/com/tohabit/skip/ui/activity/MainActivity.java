@@ -70,6 +70,7 @@ import java.util.TreeSet;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 /*
  * 创建日期：2020-01-21 17:04
@@ -189,6 +190,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         getMusic();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ShortcutBadger.removeCount(this);
+    }
 
     /**
      * 获取保存的音乐节拍
