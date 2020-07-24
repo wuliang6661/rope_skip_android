@@ -120,7 +120,8 @@ public class SyncHistoryUtils {
     public void onEvent(BlueDataEvent event) {
 //        TimerUtil.stopTimerTask("sync");
         try {
-            MyLog.e("应答帧", com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
+            MyLog.e("应答帧" + UartService.COUNT_OPENTION,
+                    com.tohabit.skip.utils.blue.ByteUtils.byte2HexStr(event.getData(), event.getData().length));
             BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
             if (UartService.COUNT_OPENTION == 0x55) {
                 getAllMuLu();
