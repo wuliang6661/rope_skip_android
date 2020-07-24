@@ -30,12 +30,16 @@ public class BleData {
 
         this.frameLength = frameLength;
 
-        byte[] temp = new byte[frameLength];
-        for (int i = 0; i < mData.length / frameLength; i++) {
-            System.arraycopy(mData, index, temp, 0, temp.length);
-            BlePoint blePoint = new BlePoint(temp);
-            blePointList.add(blePoint);
-            index += frameLength;
+        try {
+            byte[] temp = new byte[frameLength];
+            for (int i = 0; i < mData.length / frameLength; i++) {
+                System.arraycopy(mData, index, temp, 0, temp.length);
+                BlePoint blePoint = new BlePoint(temp);
+                blePointList.add(blePoint);
+                index += frameLength;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
