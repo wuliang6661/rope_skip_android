@@ -151,6 +151,7 @@ public class InputActivity extends BaseActivity {
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
                 intent.setClass(InputActivity.this, TainMainActivity.class);
                 startActivity(intent);
+                finish();
             }
 
             @Override

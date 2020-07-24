@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.Utils;
 import com.tohabit.skip.app.Constants;
 import com.tohabit.skip.utils.AppManager;
 import com.tohabit.skip.utils.StringUtils;
@@ -91,7 +92,7 @@ public class BlueDeviceUtils {
 
     private BlueDeviceUtils() {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        mContext = AppManager.getAppManager().curremtActivity();
+        mContext = Utils.getApp().getApplicationContext();
         initBluetooth();
     }
 
@@ -139,8 +140,10 @@ public class BlueDeviceUtils {
     }
 
 
-    public void cancleScan(){
-        mBluetoothAdapter.cancelDiscovery();
+    public void cancleScan() {
+        if (mBluetoothAdapter != null) {
+            mBluetoothAdapter.cancelDiscovery();
+        }
     }
 
     /**
@@ -150,7 +153,7 @@ public class BlueDeviceUtils {
         Set<BluetoothDevice> bondedDevices = mBluetoothAdapter.getBondedDevices();
         for (BluetoothDevice device : bondedDevices) {
             if (!StringUtils.isEmpty(device.getName())) {
-                if(device.getName().startsWith("TH")){
+                if (device.getName().startsWith("TH")) {
                     return device;
                 }
             }

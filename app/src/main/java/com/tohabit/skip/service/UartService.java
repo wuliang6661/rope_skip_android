@@ -96,7 +96,7 @@ public class UartService extends Service {
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 mConnectionState = STATE_DISCONNECTED;
                 Log.i(TAG, "Disconnected from GATT server.");
-                connectionLost();
+//                connectionLost();
                 mHandler.obtainMessage(MESSAGE_STATE_CHANGE, mConnectionState, -1).sendToTarget();
             } else if (newState == BluetoothProfile.STATE_CONNECTING) {
                 mHandler.obtainMessage(MESSAGE_STATE_CHANGE, mConnectionState, -1).sendToTarget();

@@ -238,10 +238,9 @@ public class SearchActivty extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         BlueDeviceUtils deviceUtils = BlueDeviceUtils.getInstance();
         deviceUtils.onDestory();
-//        EventBus.getDefault().register(this);
+        super.onDestroy();
     }
 
     private void getData() {
