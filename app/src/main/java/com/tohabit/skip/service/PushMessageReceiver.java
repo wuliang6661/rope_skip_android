@@ -11,8 +11,6 @@ import com.tohabit.skip.ui.login.activity.LoginActivity;
 import com.tohabit.skip.utils.AppManager;
 import com.tohabit.skip.utils.SystemHelper;
 
-import org.greenrobot.eventbus.EventBus;
-
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
 import cn.jpush.android.api.JPushInterface;
