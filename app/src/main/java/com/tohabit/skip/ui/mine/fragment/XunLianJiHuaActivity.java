@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.TimeUtils;
 import com.tohabit.commonlibrary.decoration.HorizontalDividerItemDecoration;
 import com.tohabit.skip.R;
 import com.tohabit.skip.api.HttpResultSubscriber;
@@ -19,7 +18,6 @@ import com.tohabit.skip.ui.young.fragment.VideoExplainActivity;
 import com.tohabit.skip.widget.lgrecycleadapter.LGRecycleViewAdapter;
 import com.tohabit.skip.widget.lgrecycleadapter.LGViewHolder;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -164,7 +162,7 @@ public class XunLianJiHuaActivity extends BaseActivity {
                     holder.setTextColor(R.id.item_num, "#333333");
                     setText(holder, "#7EC7F5");
                     holder.getView(R.id.common_layout).setVisibility(View.GONE);
-                    holder.setText(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "去完成");
+                    holder.setText(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "未完成");
                     holder.setTextColor(R.id.tv_state_name_layout_fragment_improve_plan_list_item, "#F97B61");
                 } else {    //已完成
                     holder.setTextColor(R.id.title, "#AAAAAA");
@@ -207,7 +205,7 @@ public class XunLianJiHuaActivity extends BaseActivity {
 //                }
 //            }
 //        });
-        adapter.setOnItemClickListener(R.id.tv_look_layout_fragment_improve_plan_list_item, new LGRecycleViewAdapter.ItemClickListener() {
+        adapter.setOnItemClickListener(R.id.ll_content_layout_fragment_improve_plan_list_item, new LGRecycleViewAdapter.ItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {
                 Bundle bundle = new Bundle();

@@ -17,6 +17,7 @@ import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseActivity;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
+import com.tohabit.skip.event.model.SyncSuressEvent;
 import com.tohabit.skip.service.UartService;
 import com.tohabit.skip.ui.SearchActivty;
 import com.tohabit.skip.ui.train.activity.TainMainActivity;
@@ -25,6 +26,7 @@ import com.tohabit.skip.utils.SyncHistoryUtils;
 import com.tohabit.skip.utils.blue.cmd.BleCmd;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -136,7 +138,7 @@ public class InputActivity extends BaseActivity {
         params.put("skipTime", shichang);
         params.put("stableScore", 0);
         params.put("deviceId", null);  //todo 设备id，暂时缺失
-        params.put("skipDate",TimeUtils.getNowString());
+        params.put("skipDate", TimeUtils.getNowString());
         HttpServerImpl.addTest(params).subscribe(new HttpResultSubscriber<String>() {
             @Override
             public void onSuccess(String s) {
@@ -144,6 +146,7 @@ public class InputActivity extends BaseActivity {
                     showToast("提交成功！");
                     return;
                 }
+                EventBus.getDefault().post(new SyncSuressEvent());
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putString(RouterConstants.KEY_STRING, s);
@@ -194,7 +197,7 @@ public class InputActivity extends BaseActivity {
      */
     private void getDeviceQc() {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
-            if(SyncHistoryUtils.isSync){
+            if (SyncHistoryUtils.isSync) {
                 return;
             }
             UartService.COUNT_OPENTION = 0x11;
