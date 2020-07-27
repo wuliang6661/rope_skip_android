@@ -22,6 +22,7 @@ import com.tohabit.skip.app.RouterConstants;
 import com.tohabit.skip.base.BaseFragment;
 import com.tohabit.skip.event.model.BlueDataEvent;
 import com.tohabit.skip.event.model.BlueEvent;
+import com.tohabit.skip.event.model.SyncSuressEvent;
 import com.tohabit.skip.pojo.BaseResult;
 import com.tohabit.skip.pojo.po.PkResultBO;
 import com.tohabit.skip.presenter.CommonPresenter;
@@ -43,6 +44,7 @@ import com.tohabit.skip.utils.blue.cmd.BleCmd;
 import com.tohabit.skip.utils.blue.cmd.RequstBleCmd;
 import com.tohabit.skip.widget.CircleProgressbar;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -373,6 +375,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
                 intent.setClass(_mActivity, TainMainActivity.class);
                 startActivity(intent);
+                EventBus.getDefault().post(new SyncSuressEvent());
                 getActivity().finish();
             }
 
@@ -509,7 +512,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
      */
     private void getDeviceQc() {
         if (App.blueService != null && App.blueService.getConnectionState() == UartService.STATE_CONNECTED) {
-            if(SyncHistoryUtils.isSync){
+            if (SyncHistoryUtils.isSync) {
                 return;
             }
             UartService.COUNT_OPENTION = 0x58;

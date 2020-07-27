@@ -453,6 +453,7 @@ public class TranHomeFragment extends BaseFragment<TranHomePresenter> implements
                 intent.putExtra(RouterConstants.ARG_BUNDLE, bundle);
                 intent.putExtra(RouterConstants.ARG_MODE, RouterConstants.TEST_RESULT);
                 intent.setClass(_mActivity, TainMainActivity.class);
+                refresh(null);
                 startActivity(intent);
             }
 
