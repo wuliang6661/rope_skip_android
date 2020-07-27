@@ -197,7 +197,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     public void onSupportVisible() {
         super.onSupportVisible();
         freshView();
-//        getDeviceQc();
+        getDeviceQc();
         if (App.musicBeatBO != null) {
             musicLayout.setVisibility(View.VISIBLE);
             musicText.setText(App.musicBeatBO.getMusicName());
@@ -512,7 +512,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
             if(SyncHistoryUtils.isSync){
                 return;
             }
-            UartService.COUNT_OPENTION = 0x11;
+            UartService.COUNT_OPENTION = 0x58;
             App.blueService.writeCharacteristic1Info(RequstBleCmd.createGetEQCmd().getCmdByte());
         }
     }
@@ -547,7 +547,7 @@ public class TrainPlanFragment extends BaseFragment<CommonPresenter> implements 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(BlueDataEvent event) {
         BleCmd.Builder builder = new BleCmd.Builder().setBuilder(event.getData());
-        if (UartService.COUNT_OPENTION == 0x11) {  //电量
+        if (UartService.COUNT_OPENTION == 0x58) {  //电量
             //String.valueOf(builder.getDataBody()[1]
             String dianliang = String.valueOf(builder.getDataBody()[0]);
             tvBattery.setText(dianliang + "%");
