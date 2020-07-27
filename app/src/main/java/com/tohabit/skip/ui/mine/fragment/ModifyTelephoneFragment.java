@@ -191,6 +191,9 @@ public class ModifyTelephoneFragment extends BaseFragment<ModifyTelephonePresent
         llType2.setVisibility(View.VISIBLE);
         tvType1Lable.setTextColor(getResources().getColor(R.color.color_C3C3C3));
         tvType2Lable.setTextColor(getResources().getColor(R.color.color_7EC7F5));
+        if(timer != null){
+            timer.cancel();
+        }
     }
 
     @Override
